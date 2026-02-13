@@ -13,7 +13,7 @@ export const Dashboard = () => {
                 <SmallSidebar></SmallSidebar>
             </div>
             <div className='dashboard__navbar'>
-                <Navbar ></Navbar>
+                <Navbar  ></Navbar>
                 <div className='dashboard__children'>
                     <Outlet></Outlet>
                 </div>
