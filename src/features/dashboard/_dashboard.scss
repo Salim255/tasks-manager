@@ -1,0 +1,21 @@
+.dashboard {
+    background-color: red;
+    width: 100dvw;
+    height: 100dvh;
+
+    display: grid;
+    grid-template-columns: 20% 80%;
+    &__children {
+        background-color: black;
+    }
+    &__sidebar {
+        background-color: white;
+    }
+    &__navbar {
+         background-color: white;
+    }
+
+    .navbar {
+
+    }
+}

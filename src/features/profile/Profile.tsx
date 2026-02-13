@@ -1,5 +1,9 @@
+import './_profile.scss';
+
 export const Profile = () => {
     return (
-        <h1>Hello from profile</h1>
+        <section className="profile">
+            <h1>Hello from profile</h1>
+        </section>
     )
 }
