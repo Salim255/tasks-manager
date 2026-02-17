@@ -1,22 +1,27 @@
 import './_smallSideBar.scss';
 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { FaTimes } from "react-icons/fa";
-import { useState } from "react";
+import { useEffect } from "react";
 import { NavLinks } from './NavLinks';
+import { updateSidebarOpenState } from './dashboardSlice';
+import type { RootState } from '../../../redux/store';
 
 export const SmallSidebar = () => {
-    const [isSideBarOpen, setSideBarIsOpen] = useState<boolean>(false);
-    const { dashoboar } = useSelector((store) => store);
-
+    const { isSideBarIsOpen } = useSelector((store: RootState) => store.dashboard);
+    const dispatch = useDispatch();
     function toggle() {
-        setSideBarIsOpen(!isSideBarOpen);
+        //setSideBarIsOpen(isSideBarOpen);
+         dispatch(updateSidebarOpenState())
         console.log()
     }
 
-    console.log(dashoboar)
+    useEffect(() => {
+        console.log(isSideBarIsOpen);
+    }, [])
+
     return (
-      <section className={!isSideBarOpen ? 'sidebar-container sidebar-container--show ': 'sidebar-container'}>
+      <section className={isSideBarIsOpen ? 'sidebar-container sidebar-container--show ': 'sidebar-container'}>
         <div className="content">
             <button className="close-btn" onClick={toggle}>
                 <FaTimes></FaTimes>

@@ -9,12 +9,12 @@ export const Dashboard = () => {
     return(
        <main className="dashboard">
             <div className='dashboard__sidebar'>
-                <BigSidebar></BigSidebar>
-                <SmallSidebar></SmallSidebar>
+                <BigSidebar />
+                <SmallSidebar />
             </div>
             <div className='dashboard__navbar'>
                <div className='nav'>
-                 <Navbar  ></Navbar>
+                 <Navbar />
                </div>
                 <div className='dashboard__children'>
                     <Outlet></Outlet>
