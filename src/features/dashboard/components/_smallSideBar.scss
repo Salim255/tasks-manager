@@ -1,0 +1,8 @@
+.sidebar-container {
+    background-color: red;
+    display: none;
+   
+    &--show {
+        display: contents;
+    }
+}

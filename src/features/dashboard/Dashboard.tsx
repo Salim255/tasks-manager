@@ -13,7 +13,9 @@ export const Dashboard = () => {
                 <SmallSidebar></SmallSidebar>
             </div>
             <div className='dashboard__navbar'>
-                <Navbar  ></Navbar>
+               <div className='nav'>
+                 <Navbar  ></Navbar>
+               </div>
                 <div className='dashboard__children'>
                     <Outlet></Outlet>
                 </div>

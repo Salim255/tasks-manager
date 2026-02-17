@@ -1,21 +1,20 @@
 .dashboard {
-      background-color: white;
     width: 100dvw;
     height: 100dvh;
-
     display: grid;
     grid-template-columns: 20% 80%;
     &__children {
-        background-color: black;
+        
     }
     &__sidebar {
-      
+       background-color: rgb(239, 239, 239);
     }
     &__navbar {
     
     }
 
-    .navbar {
-
+    .nav {
+        background-color:  rgb(239, 239, 239);
     }
 }
+

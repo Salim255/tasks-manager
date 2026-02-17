@@ -1,5 +1,22 @@
 export const BigSidebar = () => {
     return (
-        <h1>Hello from big side bar</h1>
+        <section>
+            <div>
+                <button>
+                     All tasks
+                </button>
+            </div>
+            <div>
+                <button>
+                    add tasks
+                </button>
+            </div>
+            <div>
+                <button>
+                    Profile
+                </button>
+            </div>
+          
+        </section>
     )
 }
