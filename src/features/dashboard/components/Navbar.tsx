@@ -19,7 +19,7 @@ export const Navbar = () => {
                 <FaAlignLeft/>
             </button>
             <div>
-               <h1> dashboard </h1>
+               <h1> tasker </h1>
             </div>
             <div className='btn-container'>
                 <button>
