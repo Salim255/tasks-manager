@@ -1,22 +1,17 @@
+import { useDispatch } from "react-redux";
+import { NavLinks } from "./NavLinks";
+import { updateSidebarOpenState } from "./dashboardSlice";
+
 export const BigSidebar = () => {
+    const dispatch = useDispatch();
+    function toggle() {
+        //setSideBarIsOpen(isSideBarOpen);
+        dispatch(updateSidebarOpenState())
+        console.log()
+    }
     return (
         <section>
-            <div>
-                <button>
-                     All tasks
-                </button>
-            </div>
-            <div>
-                <button>
-                    add tasks
-                </button>
-            </div>
-            <div>
-                <button>
-                    Profile
-                </button>
-            </div>
-          
+          <NavLinks toggleSidebar={toggle}></NavLinks>
         </section>
     )
 }
