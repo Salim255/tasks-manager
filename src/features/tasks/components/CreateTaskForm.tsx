@@ -59,6 +59,7 @@ export const CreateTaskForm = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!state.title.trim()) return;
+    console.log(state);
   };
 
   useEffect(() => {
