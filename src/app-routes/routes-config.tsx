@@ -4,6 +4,7 @@ import { Dashboard } from "../features/dashboard/Dashboard";
 import { Profile } from "../features/profile/Profile";
 import { AllTasks } from "../features/tasks/AllTasks";
 import { CreateTask } from "../features/tasks/CreateTask";
+import { TaskDetails } from "../features/tasks/TaskDetails";
 
 const routes: RouteObject[] = [
     {
@@ -11,12 +12,18 @@ const routes: RouteObject[] = [
         Component:  Dashboard,
         children: [
             {   
-              path: 'profile',
+              index: true,
               Component: Profile
             },
             {   
-                index: true,
-                Component: AllTasks
+                path: 'all-tasks',
+                Component: AllTasks,
+                children: [
+                    {
+                        path: 'task-details',
+                        Component: TaskDetails
+                    }
+                ]
             },
             {
                 path: 'add-task',
