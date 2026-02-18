@@ -15,17 +15,17 @@ export const SmallSidebar = () => {
     console.log(isSideBarIsOpen);
     return (
       <aside className='sm-aside'>
-        <div className={isSideBarIsOpen ? 'sm-aside__sidebar-container sm-aside__sidebar-container--show-sidebar' : 'sm-aside__sidebar-container'}>
-            <div className="sm-aside__content">
-            <button type="button" className="close-btn" onClick={toggle}>
-                <FaTimes />
-            </button>
+            <div className='sm-aside__sidebar-container  sm-aside--show-sidebar' >
+                <div className="sm-aside__content">
+                    <button type="button" className="close-btn" onClick={toggle}>
+                        <FaTimes />
+                    </button>
 
-            <header>logo</header>
+                    <header>logo from samll sidebar</header>
 
-            <NavLinks toggleSidebar={toggle} />
+                    <NavLinks toggleSidebar={toggle} />
+                </div>
             </div>
-        </div>
-</aside>
+        </aside>
     )
 }

@@ -1,20 +1,19 @@
-section .dashboard {
-  display: grid;
-  grid-template-columns: 1fr;
-}
-
-section .dashboard-page {
-  width: 90vw;
-  margin: 0 auto;
-  padding: 2rem 0;
-}
-
-@media (min-width: 992px) {
-  section .dashboard {
-    grid-template-columns: auto 1fr;
+.shared-layout {
+  &__dashboard {
+    display: grid;
+    grid-template-columns: 1fr;
+    background: var(--white);
+    @media (min-width: 992px) {
+      grid-template-columns: auto 1fr;
+    }
   }
-
-  section .dashboard-page {
-    width: 90%;
+  &__dashboard-page {
+    width: 90vw;
+    margin: 0 auto;
+    padding: 2rem 0;
+    @media (min-width: 992px) {
+      width: 90%;
+    }
   }
 }
+ 

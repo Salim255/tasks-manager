@@ -1,3 +1,4 @@
+
 import "./_big-sidebar.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLinks } from "./NavLinks";
@@ -17,12 +18,12 @@ export const BigSidebar = () => {
         console.log(isSideBarIsOpen)
     }, [isSideBarIsOpen])
     return (
-        <aside className="bg-aside">
+        <aside className={ isSideBarIsOpen ? "bg-aside": "bg-aside show-sidebar" }>
              <div
                 className={
-                isSideBarIsOpen 
-                    ? 'bg-aside__sidebar-container '
-                    : 'bg-aside__sidebar-container bg-aside__sidebar-container--show-sidebar'
+                !isSideBarIsOpen 
+                    ? 'bg-aside__sidebar-container'
+                    : 'bg-aside__sidebar-container show-sidebar'
                 }
             >
                 <div className='bg-aside__content'>
