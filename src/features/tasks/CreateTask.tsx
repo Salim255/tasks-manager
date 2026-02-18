@@ -1,7 +1,7 @@
+import { CreateTaskForm } from "./components/CreateTaskForm";
+
 export const CreateTask = () => {
     return (
-        <>
-            <h1>Hello from create task</h1>
-        </>
+        <CreateTaskForm  onCreateTask={(task) => console.log(task)} />
     )
 }

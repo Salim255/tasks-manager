@@ -1,11 +1,9 @@
-import SearchContainer from './components/SearchContainer';
-import TasksContainer from './components/TasksContainer';
+import { CreateTask } from "./CreateTask";
 
 export const AllTasks = () => {
     return (
         <>
-            <SearchContainer />
-         {/*    <TasksContainer /> */}
+            <CreateTask/>
         </>
     )
 }
