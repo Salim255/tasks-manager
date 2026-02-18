@@ -1,11 +1,11 @@
-import { IoBarChartSharp } from "react-icons/io5";
+//import { IoBarChartSharp } from "react-icons/io5";
 import { ImProfile } from "react-icons/im";
 import { MdQueryStats } from "react-icons/md";
 import { FaWpforms } from "react-icons/fa";
 
 export const links  = [
-      {  id: 2, text: 'stats', path: '/', icon: <IoBarChartSharp /> },
-      {  id: 3, text: 'all tasks', path: '/all-tasks', icon: <MdQueryStats />},
+      {  id: 2, text: 'all tasks', path: '/', icon:  <MdQueryStats /> },
+    /*   {  id: 3, text: 'all tasks', path: '/all-tasks', icon: <MdQueryStats />}, */
       {  id: 4, text: 'add task', path: '/add-task', icon: <FaWpforms />},
       {  id: 5, text: 'profile', path: '/profile', icon: <ImProfile />}
 ]
