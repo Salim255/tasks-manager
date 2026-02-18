@@ -14,26 +14,30 @@ export const Navbar = () => {
         console.log(dashboard);
     }, [dashboard])
     return (
-        <section className="nav-container">
+      <nav>
+        <section className="nav-center">
             <button onClick={onShowNavLinks}>
                 <FaAlignLeft/>
             </button>
             <div>
-               <h1> tasker </h1>
+               <h3 className='logo-text'> tasker </h3>
             </div>
             <div className='btn-container'>
-                <button>
+                <button
+                className='btn'>
                     <FaUserCircle />
-                    salim
-                    <FaCaretDown  />
+                      salim
+                    <FaCaretDown />
                 </button>
                 <div className="bto">
-                    <button>
-                        logout
+                    <button
+                    className='dropdown-btn'
+                    >
+                      logout
                     </button>
                 </div>
             </div>
-            
         </section>
+      </nav>
     )
 }

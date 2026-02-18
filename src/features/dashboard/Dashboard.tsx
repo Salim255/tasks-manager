@@ -3,23 +3,24 @@ import { Outlet } from "react-router-dom";
 import { BigSidebar } from "./components/BigSidebar";
 import { Navbar } from "./components/Navbar";
 import { SmallSidebar } from "./components/SmallSidebar";
+import { useSelector } from 'react-redux';
+import type { RootState } from '../../redux/store';
 
 
 export const Dashboard = () => {
+    const { isSideBarIsOpen } = useSelector((store: RootState) => store.dashboard);
     return(
-       <main className="dashboard">
-            <div className='dashboard__sidebar'>
-                <BigSidebar />
+       <section>
+            <main className='dashboard'>
                 <SmallSidebar />
-            </div>
-            <div className='dashboard__navbar'>
-               <div className='nav'>
-                 <Navbar />
-               </div>
-                <div className='dashboard__children'>
-                    <Outlet></Outlet>
+                <BigSidebar />
+                <div>
+                <Navbar />
+                <div className='dashboard-page'>
+                    <Outlet />
                 </div>
-            </div>
-       </main>
+                </div>
+            </main>
+       </section>
     )
 }
