@@ -1,9 +1,10 @@
 import './_profile.scss';
+import { ProfileForm } from './components/ProfileForm';
 
 export const Profile = () => {
     return (
         <section className="profile">
-            <p>Hello from profile</p>
+            <ProfileForm />
         </section>
     )
 }
