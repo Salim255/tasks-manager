@@ -2,7 +2,6 @@ import './_smallSideBar.scss';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { FaTimes } from "react-icons/fa";
-import { useEffect } from "react";
 import { NavLinks } from './NavLinks';
 import { updateSidebarOpenState } from './dashboardSlice';
 import type { RootState } from '../../../redux/store';
@@ -11,26 +10,22 @@ export const SmallSidebar = () => {
     const { isSideBarIsOpen } = useSelector((store: RootState) => store.dashboard);
     const dispatch = useDispatch();
     function toggle() {
-        //setSideBarIsOpen(isSideBarOpen);
-         dispatch(updateSidebarOpenState())
-        console.log()
+        dispatch(updateSidebarOpenState())
     }
-
-    useEffect(() => {
-        console.log(isSideBarIsOpen);
-    }, [])
-
+    console.log(isSideBarIsOpen);
     return (
-      <section className={isSideBarIsOpen ? 'sidebar-container sidebar-container--show ': 'sidebar-container'}>
-        <div className="content">
-            <button className="close-btn" onClick={toggle}>
-                <FaTimes></FaTimes>
+      <aside className='sm-aside'>
+        <div className={isSideBarIsOpen ? 'sm-aside__sidebar-container sm-aside__sidebar-container--show-sidebar' : 'sm-aside__sidebar-container'}>
+            <div className="sm-aside__content">
+            <button type="button" className="close-btn" onClick={toggle}>
+                <FaTimes />
             </button>
-            <header>
-                logo
-            </header>
-            <NavLinks toggleSidebar={toggle}/>
+
+            <header>logo</header>
+
+            <NavLinks toggleSidebar={toggle} />
+            </div>
         </div>
-      </section>
+</aside>
     )
 }

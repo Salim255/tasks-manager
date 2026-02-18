@@ -2,9 +2,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import './_navbar.scss';
 import { FaAlignLeft, FaUserCircle, FaCaretDown } from 'react-icons/fa';
 import { updateSidebarOpenState } from './dashboardSlice';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export const Navbar = () => {
+    const [showLogout, setShowLogout] = useState(false);
     const { dashboard } = useSelector((store) => store);
     const dispatch = useDispatch();
     function onShowNavLinks () {
@@ -15,29 +16,33 @@ export const Navbar = () => {
     }, [dashboard])
     return (
       <nav>
-        <section className="nav-center">
-            <button onClick={onShowNavLinks}>
-                <FaAlignLeft/>
+        <div className='nav-center'>
+        <button type='button' className='toggle-btn' onClick={onShowNavLinks}>
+          <FaAlignLeft />
+        </button>
+        <div>
+          <h3 className='logo-text'>dashboard</h3>
+        </div>
+        <div className='btn-container'>
+          <button
+            type='button'
+            className='btn'
+             onClick={() => setShowLogout(!showLogout)}
+          >
+            <FaUserCircle />
+            salim
+            <FaCaretDown />
+          </button>
+          <div className={showLogout ? 'dropdown show-dropdown' : 'dropdown'}>
+            <button
+              type='button'
+              className='dropdown-btn'
+            >
+              logout
             </button>
-            <div>
-               <h3 className='logo-text'> tasker </h3>
-            </div>
-            <div className='btn-container'>
-                <button
-                className='btn'>
-                    <FaUserCircle />
-                      salim
-                    <FaCaretDown />
-                </button>
-                <div className="bto">
-                    <button
-                    className='dropdown-btn'
-                    >
-                      logout
-                    </button>
-                </div>
-            </div>
-        </section>
+          </div>
+        </div>
+      </div>
       </nav>
     )
 }

@@ -12,13 +12,15 @@ export const Dashboard = () => {
     return(
        <section>
             <main className='dashboard'>
-                <SmallSidebar />
-                <BigSidebar />
                 <div>
-                <Navbar />
-                <div className='dashboard-page'>
-                    <Outlet />
+                    <BigSidebar />
+                    <SmallSidebar />
                 </div>
+                <div>
+                    <Navbar />
+                    <div className='dashboard-page'>
+                        <Outlet />
+                    </div>
                 </div>
             </main>
        </section>
