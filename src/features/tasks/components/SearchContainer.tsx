@@ -1,7 +1,8 @@
-import { FormRow, FormRowSelect } from '.';
 import { useSelector, useDispatch } from 'react-redux';
 import { handleChange, clearFilters } from '../features/allJobs/allJobsSlice';
 import { useState, useMemo } from 'react';
+import FormRowSelect from '../../../shared/components/FormRowSelect';
+import FormRow from '../../../shared/components/FormRow';
 
 const SearchContainer = () => {
   const [localSearch, setLocalSearch] = useState('');
@@ -69,8 +70,7 @@ const SearchContainer = () => {
             name='sort'
             value={sort}
             handleChange={handleSearch}
-            list={sortOptions}
-          />
+            list={sortOptions} labelText={undefined}          />
           <button
             className='btn btn-block btn-danger'
             disabled={isLoading}
