@@ -1,4 +1,4 @@
-//import './_nav-links.scss';
+import './_nav-links.scss';
 
 import { NavLink } from "react-router-dom";
 import { links } from "../../../shared/utils/links";
@@ -15,7 +15,9 @@ export const NavLinks = ({ toggleSidebar }: { toggleSidebar: () => void}) => {
                     key={id}
                     to={path}
                     className={({isActive}) => {
-                        return isActive ? 'nav-link  active': 'nav-link '
+                        return isActive ? 
+                        'nav-links__nav-link  nav-links__nav-link--active'
+                        : 'nav-links__nav-link'
                     }}
                     >
                         <span className='icon'>  { icon } </span>

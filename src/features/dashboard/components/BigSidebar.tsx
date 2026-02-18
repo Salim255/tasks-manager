@@ -18,14 +18,10 @@ export const BigSidebar = () => {
         console.log(isSideBarIsOpen)
     }, [isSideBarIsOpen])
     return (
-        <aside className={ isSideBarIsOpen ? "bg-aside": "bg-aside show-sidebar" }>
-             <div
-                className={
-                !isSideBarIsOpen 
-                    ? 'bg-aside__sidebar-container'
-                    : 'bg-aside__sidebar-container show-sidebar'
-                }
-            >
+        <aside className="bg-aside" >
+             <div className={ isSideBarIsOpen ? 
+                "bg-aside__sidebar-container bg-aside--show-sidebar"
+                : "bg-aside__sidebar-container" }>
                 <div className='bg-aside__content'>
                     <header>
                         logo
@@ -33,7 +29,6 @@ export const BigSidebar = () => {
                     <NavLinks toggleSidebar={toggle} />
                 </div>
             </div> 
-            <h1>Hello world</h1>
         </aside>
     )
 }

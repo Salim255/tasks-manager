@@ -15,7 +15,8 @@ export const SmallSidebar = () => {
     console.log(isSideBarIsOpen);
     return (
       <aside className='sm-aside'>
-            <div className='sm-aside__sidebar-container  sm-aside--show-sidebar' >
+            <div className={isSideBarIsOpen ? 'sm-aside__sidebar-container  sm-aside--show-sidebar'
+                : 'sm-aside__sidebar-container'} >
                 <div className="sm-aside__content">
                     <button type="button" className="close-btn" onClick={toggle}>
                         <FaTimes />
