@@ -1,4 +1,4 @@
-import reducer from "../features/dashboard/components/dashboardSlice";
+import reducer from "../features/dashboard/states/dashboardSlice";
 
 const reducers = {  dashboard: reducer }
   

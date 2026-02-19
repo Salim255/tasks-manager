@@ -1,8 +1,8 @@
 import './_dashboard.scss';
 import { Outlet } from "react-router-dom";
-import { Navbar } from "./components/Navbar";
-import { SmallSidebar } from './components/SmallSidebar';
-import { BigSidebar } from './components/BigSidebar';
+import { SmallSidebar } from './components/small-sidebar/SmallSidebar';
+import { BigSidebar } from './components/big-sidebar/BigSidebar';
+import { Navbar } from './components/navbar/Navbar';
 
 
 //import { useSelector } from 'react-redux';
