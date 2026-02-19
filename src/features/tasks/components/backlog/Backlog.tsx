@@ -1,6 +1,7 @@
+import './_backlog.scss';
 export const Backlog = () => {
     return(
-        <section>
+        <section className="backlog">
             <div>
                 tod
             </div>

@@ -1,6 +1,6 @@
-import { NavLink, Outlet } from "react-router-dom";
-import { tasks } from "../../shared/utils/tasks";
-import type { Task } from "./model/task.model";
+import { NavLink } from "react-router-dom";
+import { tasks } from "../../../../shared/utils/tasks";
+import type { Task } from "../../model/task.model";
 import { useState } from "react";
 
 export const AllTasks = () => {

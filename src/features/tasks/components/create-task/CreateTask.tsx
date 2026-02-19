@@ -1,4 +1,4 @@
-import { CreateTaskForm } from "./components/CreateTaskForm";
+import { CreateTaskForm } from "../forms/CreateTaskForm";
 
 export const CreateTask = () => {
     return (

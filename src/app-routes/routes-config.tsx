@@ -2,12 +2,12 @@ import { createBrowserRouter } from "react-router-dom";
 import type { RouteObject } from "react-router-dom";
 import { Dashboard } from "../features/dashboard/Dashboard";
 import { Profile } from "../features/profile/Profile";
-import { AllTasks } from "../features/tasks/AllTasks";
-import { CreateTask } from "../features/tasks/CreateTask";
-import { TaskDetails } from "../features/tasks/TaskDetails";
+import { AllTasks } from "../features/tasks/components/tasks-list/AllTasks";
+import { CreateTask } from "../features/tasks/components/create-task/CreateTask";
+import { TaskDetails } from "../features/tasks/components/task-details/TaskDetails";
 import { Tasks } from "../features/tasks/Tasks";
-import { Backlog } from "../features/tasks/components/Backlog";
-import { Board } from "../features/tasks/components/Board";
+import { Backlog } from "../features/tasks/components/backlog/Backlog";
+import { Board } from "../features/tasks/components/board/Board";
 
 const routes: RouteObject[] = [
     {
