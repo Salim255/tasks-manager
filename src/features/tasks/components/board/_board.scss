@@ -1,3 +1,13 @@
 .board {
-    background-color: gold;
+    display: flex;
+    gap: 1rem;
+    &__todo,
+    &__progress,
+    &__done {
+        padding: 1rem;
+        flex: 1;
+        background-color: rgb(124, 25, 25);
+        min-height: 30rem;
+        border-radius: 4px;
+    }
 }

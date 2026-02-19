@@ -1,3 +1,19 @@
-.backlog {
-    background-color: blue;
+.backlog-container {
+    background-color: green;
+    border-radius: 2px;
+    .backlog {
+        padding: 1rem;
+        &__header{
+            display: flex;
+            justify-content: space-between;
+            background-color: red;
+            padding: 1rem;
+        }
+        &__content {
+            background-color: blue;
+        }
+        &__footer {
+            background-color: yellow;
+        }
+    }
 }
