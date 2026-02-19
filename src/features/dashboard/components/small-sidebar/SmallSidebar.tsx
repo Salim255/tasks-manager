@@ -2,9 +2,10 @@ import './_smallSideBar.scss';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { FaTimes } from "react-icons/fa";
-import { NavLinks } from './NavLinks';
-import { updateSidebarOpenState } from './dashboardSlice';
-import type { RootState } from '../../../redux/store';
+import type { RootState } from '../../../../redux/store';
+import { updateSidebarOpenState } from '../../states/dashboardSlice';
+import { NavLinks } from '../nav-links/NavLinks';
+
 
 export const SmallSidebar = () => {
     const { isSideBarIsOpen } = useSelector((store: RootState) => store.dashboard);

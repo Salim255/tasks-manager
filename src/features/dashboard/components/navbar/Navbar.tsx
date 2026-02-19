@@ -1,8 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
 import './_navbar.scss';
 import { FaAlignLeft, FaUserCircle, FaCaretDown } from 'react-icons/fa';
-import { updateSidebarOpenState } from './dashboardSlice';
+
 import { useEffect, useState } from 'react';
+import { updateSidebarOpenState } from '../../states/dashboardSlice';
 
 export const Navbar = () => {
     const [showLogout, setShowLogout] = useState(false);

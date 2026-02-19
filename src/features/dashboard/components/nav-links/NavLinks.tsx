@@ -1,7 +1,8 @@
+import { links } from '../../../../shared/utils/links';
 import './_nav-links.scss';
 
 import { NavLink } from "react-router-dom";
-import { links } from "../../../shared/utils/links";
+
 
 export const NavLinks = ({ toggleSidebar }: { toggleSidebar: () => void}) => {
     

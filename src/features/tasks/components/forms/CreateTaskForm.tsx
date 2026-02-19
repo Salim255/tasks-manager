@@ -1,5 +1,5 @@
 import { useEffect, useReducer } from 'react';
-import '../styles/_task-form.scss';
+import './_forms.scss';
 
 
 type TaskStatus = "todo" | "in_progress" | "done";

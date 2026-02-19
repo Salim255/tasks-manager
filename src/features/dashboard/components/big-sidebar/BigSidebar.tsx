@@ -1,10 +1,10 @@
 
 import "./_big-sidebar.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLinks } from "./NavLinks";
-import { updateSidebarOpenState } from "./dashboardSlice";
-import type { RootState } from "../../../redux/store";
 import { useEffect } from "react";
+import type { RootState } from "../../../../redux/store";
+import { updateSidebarOpenState } from "../../states/dashboardSlice";
+import { NavLinks } from "../nav-links/NavLinks";
 
 export const BigSidebar = () => {
     const { isSideBarIsOpen } = useSelector((store: RootState) => store.dashboard);
