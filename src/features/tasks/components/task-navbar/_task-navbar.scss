@@ -1,0 +1,7 @@
+.tasks-header {
+    background-color: rgb(197, 196, 196);
+    &__nav {
+        display: flex;
+        gap: 2rem;
+    }
+}
