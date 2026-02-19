@@ -1,12 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import './_backlog.scss';
-import { BiPlus } from "react-icons/bi";
-import { CreateTaskForm } from '../forms/CreateTaskForm';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../../../../redux/store';
+import { CreateTask } from '../create-task/CreateTask';
 
 export const Backlog = () => {
-    const [isCreateTask, setIsCreateTask] = useState<boolean>(false);
     const [message, setMessage] = useState("Drag the item and drop it in the box.");
     const  { isCreating } = useSelector((store: RootState) => store.taskSlice)
 
@@ -26,15 +24,6 @@ export const Backlog = () => {
         console.log("DROP fired ✅ payload:", data);
     };
 
-    const handleOnCreateTask =() => {
-        setIsCreateTask(false);
-    }
-
-    useEffect(() => {
-        if(isCreating) {
-          setIsCreateTask(false)
-        };
-    }, [isCreating])
     return(
         <section className="backlog-container">
             <div className='backlog'>
@@ -57,13 +46,7 @@ export const Backlog = () => {
                     onDrop={onDrop}
                     className='backlog__footer'>
                    
-                    {
-                        isCreateTask  ? <CreateTaskForm></CreateTaskForm>  : 
-                       <div onClick={handleOnCreateTask}>
-                            <span><BiPlus /></span>
-                            create work Item
-                       </div>
-                    }
+                    <CreateTask/>
                     
                 </section>
             </div>

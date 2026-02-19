@@ -1,72 +1,30 @@
-import { useEffect, useReducer } from 'react';
-import './_forms.scss';
-
-
-type TaskStatus = "todo" | "in_progress" | "done";
-type TaskPriority = "low" | "medium" | "high";
-
-type TaskFormState = {
-    title: string;
-    description?: string;
-    status: TaskStatus;
-    priority: TaskPriority;
-    dueAt?: string;
-    errors: Record<string, string>;
-};
-
-type Action = { type: "SET_FIELD"; field: string; value: string } | 
-{ type: "SET_ERROR"; field: string; message: string } | 
-{ type: "CLEAR_ERRORS" };
-
-const initialState: TaskFormState = { title: "", description: "", status: 'todo', priority: "low", errors: {}  };
-
-function reducer(state: TaskFormState, action: Action) { 
-    switch (action.type) { 
-       
-        case "SET_FIELD": 
-            return { 
-                ...state, 
-                [action.field]: action.value,
-            }; 
-        case "SET_ERROR": 
-            return { 
-                ...state, 
-                errors: { 
-                    ...state.errors, 
-                    [action.field]: action.message,
-                 } 
-            }; 
-        case "CLEAR_ERRORS": 
-            return { 
-                ...state, 
-                errors: {},
-             }; 
-        default: 
-            return state; 
-    } 
-}
-
+import "./_forms.scss";
+import { useTaskForm } from "./taskFormBuilder";
 
 export const CreateTaskForm = () => {
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    dispatch({
-        type: 'SET_FIELD',
-        field: event.target.name,
-        value: event.target.value
-    })
-  }
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!state.title.trim()) return;
-    console.log(state);
+  const { state, setField, setError, clearErrors, reset } = useTaskForm();
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  ) => {
+    setField(e.target.name as "title" | "description" | "status" | "priority" | "dueAt", e.target.value);
   };
 
-  useEffect(() => {
-    //console.log(state);
-  }, [state])
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    clearErrors();
+
+    if (!state.title.trim()) {
+      setError("title", "Title is required");
+      return;
+    }
+
+    console.log(state);
+    reset();
+  };
+
   return (
-    <form onSubmit={handleSubmit} className='form'>
+      <form onSubmit={handleSubmit} className='form'>
         <h3>Create Task</h3>
 
         {/* Title */}

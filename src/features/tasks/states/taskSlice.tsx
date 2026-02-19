@@ -1,7 +1,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import type { Task } from "../model/task.model";
+import type { Task, TaskPriority, TaskStatus } from "../model/task.model";
 
+  
+export interface CreateTaskPayload  {
+    title: string;
+    status: TaskStatus;
+    priority: TaskPriority;
+    dueAt: string;
+}
 
 type  InitiateState = {
     user?: Task;
@@ -12,7 +19,7 @@ const url = "http://localhost:8000/api/v1/users/login";
 
 export const createTaskHttp = createAsyncThunk(
     'post/create-task',
-    async (data, thunkAPI) => {
+    async (data: CreateTaskPayload, thunkAPI) => {
         try {
             const response = await axios.post(url, data);
             console.log(response);
