@@ -13,6 +13,7 @@ type  InitiateState = {
 }
 export type LoginPayload = { password: string; email: string};
 const url = "http://localhost:8000/api/v1/users/login";
+
 export const loginUser = createAsyncThunk(
     'post/loginUser',
     async (data: LoginPayload, thunkAPI) => {

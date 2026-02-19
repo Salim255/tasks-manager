@@ -11,6 +11,11 @@ export interface Task {
   status: TaskStatus;
   priority: TaskPriority;
 
+  ownerId?: string;    
+  assigneeId?: string;
+
+  sprintId?: string;
+
   dueAt?: string;        // ISO date (optional)
 
   createdAt: string;
