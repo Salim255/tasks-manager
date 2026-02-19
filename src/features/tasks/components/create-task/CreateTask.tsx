@@ -2,10 +2,13 @@ import { useState } from "react";
 import { useTaskForm } from "../forms/taskFormBuilder";
 import { BiPlus } from "react-icons/bi";
 import { createTaskHttp, type CreateTaskPayload } from "../../states/taskSlice";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "../../../../redux/store";
 
 export const CreateTask = () => {
   const [isCreateBtn, setCreateBtn] = useState<boolean>(true);
   const { state, setField, setError, clearErrors, reset } = useTaskForm();
+  const dispatch = useDispatch<AppDispatch>();
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
@@ -25,9 +28,14 @@ export const CreateTask = () => {
       return;
     }
     //
-    createTaskHttp({title: state.title, status: state.status, dueAt: state.dueAt } as CreateTaskPayload );
-    
-    console.log(state);
+    const createPayload: CreateTaskPayload  = {
+        title: state.title, 
+        status: state.status, 
+        priority: state.priority,
+        dueAt: state.dueAt,
+    }
+   
+     dispatch(createTaskHttp(createPayload));
     reset();
   };
 
