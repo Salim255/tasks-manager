@@ -11,5 +11,5 @@ export const links  = [
 export const tasksLinks = [
       {  id: 2, text: 'board', path: '/tasks/board', icon:  <MdQueryStats /> },
       {  id: 4, text: 'backlog', path: '/tasks/backlog', icon: <FaWpforms />},
-      {  id: 5, text: 'tasks', path: '/tasks', icon: <ImProfile />}
+      {  id: 5, text: 'all tasks', path: '/tasks/all-tasks', icon: <ImProfile />}
 ]

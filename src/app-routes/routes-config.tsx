@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import type { RouteObject } from "react-router-dom";
 import { Dashboard } from "../features/dashboard/Dashboard";
 import { Profile } from "../features/profile/Profile";
@@ -22,8 +22,9 @@ const routes: RouteObject[] = [
                 path: 'tasks',
                 Component: Tasks,
                 children: [
+                    { index: true, element: <Navigate to="all-tasks" replace /> },
                     {
-                        index: true,
+                        path: 'all-tasks',
                         Component: AllTasks
                     },
                     {
