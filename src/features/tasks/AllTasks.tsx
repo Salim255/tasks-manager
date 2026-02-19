@@ -15,7 +15,7 @@ export const AllTasks = () => {
                 tasks.map((task: Task) => {
                     return (
                         <NavLink
-                            to='/all-tasks/task-details'
+                            to='/tasks/task-details'
                             onClick={() =>onViewTask(task)}>
                             <h3>{task.title}</h3>
                             <div>{task.description}</div>
@@ -24,7 +24,6 @@ export const AllTasks = () => {
                     )
                 })
             }
-            <Outlet></Outlet>
         </section>
         
     )
