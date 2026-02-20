@@ -39,8 +39,11 @@ const createTaskSlice = createSlice({
     initialState,
     reducers: {
         addTask: (state, action: PayloadAction<Task>) => {
-           console.log(action);
            state.tasks = [...state.tasks, action.payload]
+        },
+        removeTask: (state, action: PayloadAction<Task>)  => {
+            const tasks = state.tasks.filter((task) => task.id !== action.payload.id);
+            state.tasks = [...tasks];
         }
     },
     extraReducers: (builder) => {
@@ -61,4 +64,5 @@ const createTaskSlice = createSlice({
 })
 
 export const { addTask } = createTaskSlice.actions;
+export const { removeTask } = createTaskSlice.actions;
 export default createTaskSlice.reducer;

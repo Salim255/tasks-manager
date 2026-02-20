@@ -1,5 +1,4 @@
 // 1 http
-
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { Sprint } from "../model/sprint.model";
 import type { Task } from "../model/task.model";

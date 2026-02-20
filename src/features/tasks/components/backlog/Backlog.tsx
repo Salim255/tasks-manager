@@ -8,6 +8,7 @@ import { sprintsList } from '../../../../shared/utils/sprints';
 import { addSprint, addTaskToSprint } from '../../states/sprintSlice';
 import { SprintItem } from '../sprint-item/SprintItem';
 import type { Task } from '../../model/task.model';
+import { removeTask } from '../../states/taskSlice';
 
 export const Backlog = () => {
     const dispatch = useDispatch();
@@ -34,7 +35,8 @@ export const Backlog = () => {
         setMessage(`Dropped! payload="${data}"`);
         console.log("DROP fired ✅ payload:", task);
 
-            dispatch(addTaskToSprint({task, sprintId}));
+        dispatch(addTaskToSprint({task, sprintId}));
+        dispatch(removeTask(task))
     };
 
     const createSprintHandler = () => {
@@ -95,3 +97,5 @@ export const Backlog = () => {
        </>
     )
 }
+
+
