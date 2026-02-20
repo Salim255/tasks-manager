@@ -1,13 +1,19 @@
 import { useEffect, useState } from 'react';
 import './_backlog.scss';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../../../../redux/store';
 import { CreateTask } from '../create-task/CreateTask';
 import { TaskItem } from '../task-item/TaskItem';
+import { sprintsList } from '../../../../shared/utils/sprints';
+import { addSprint } from '../../states/sprintSlice';
+import { SprintsContainer } from '../sprints/SprintsContainer';
 
 export const Backlog = () => {
+    const dispatch = useDispatch();
     const [message, setMessage] = useState("Drag the item and drop it in the box.");
-    const  { isCreating, tasks } = useSelector((store: RootState) => store.taskSlice)
+    const { isCreating, tasks } = useSelector((store: RootState) => store.taskSlice);
+    const { sprints } = useSelector((store: RootState) => store.sprintReducer);
+
     
     const onDragStart = (e: React.DragEvent<HTMLDivElement>) => {
         setMessage("Dragging...");
@@ -25,11 +31,18 @@ export const Backlog = () => {
         console.log("DROP fired ✅ payload:", data);
     };
 
+    const createSprintHandler = () => {
+        console.log("hello from create sprint");
+        dispatch(addSprint(sprintsList[0]))
+    }
+
     useEffect(() => {
-        console.log(tasks);
-    }, [tasks, isCreating])
+        console.log(tasks, sprints);
+    }, [tasks, isCreating, sprints])
     return(
+       <>
         <section className="backlog-container">
+            { sprints.length ? <SprintsContainer sprints={sprints} /> : null}
             <div className='backlog'>
                <section 
                 draggable
@@ -38,9 +51,9 @@ export const Backlog = () => {
                     <div>
                         backlog (0 item)
                     </div>
-                    <div>
-                        create sprint
-                    </div>
+
+                    <button onClick={createSprintHandler}>create sprint</button>
+                 
                </section>
                 <section className='backlog__content' >
                     { tasks.length ? 
@@ -63,5 +76,6 @@ export const Backlog = () => {
                 </section>
             </div>
         </section>
+       </>
     )
 }

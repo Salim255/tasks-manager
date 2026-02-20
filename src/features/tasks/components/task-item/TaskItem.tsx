@@ -1,7 +1,7 @@
 import './_task-item.scss';
 import type { Task } from "../../model/task.model";
 
-export const TaskItem =  ({task}: {task: Task}) => {
+export const TaskItem =  ({ task }: {task: Task}) => {
     return (
         <section className="task-item" draggable >
             <div>

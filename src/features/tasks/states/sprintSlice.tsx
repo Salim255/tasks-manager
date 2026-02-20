@@ -25,6 +25,6 @@ const createSprintSlice = createSlice({
 })
 
 // Export other reducers
-export const { addSprint} = createSprintSlice.actions;
+export const { addSprint } = createSprintSlice.actions;
 //  Export reducer
 export default createSprintSlice.reducer;

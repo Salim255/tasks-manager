@@ -44,10 +44,12 @@ export const CreateTask = () => {
   return (
     <>  
     {
-        isCreateBtn ?  <div onClick={() =>setCreateBtn(false)}>
-            <span><BiPlus></BiPlus></span>
-            create task
-        </div> :
+        isCreateBtn ? 
+            <button onClick={() =>setCreateBtn(false)}>
+                <span><BiPlus></BiPlus></span>
+                create task
+            </button>
+        :
 
         <form onSubmit={handleSubmit} className='form'>
         <h3>Create Task</h3>
