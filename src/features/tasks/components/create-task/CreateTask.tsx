@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useTaskForm } from "../forms/taskFormBuilder";
 import { BiPlus } from "react-icons/bi";
-import { createTaskHttp, type CreateTaskPayload } from "../../states/taskSlice";
+import { addTask, createTaskHttp, type CreateTaskPayload } from "../../states/taskSlice";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../../../redux/store";
+import { tasks } from "../../../../shared/utils/tasks";
 
 export const CreateTask = () => {
   const [isCreateBtn, setCreateBtn] = useState<boolean>(true);
@@ -36,6 +37,7 @@ export const CreateTask = () => {
     }
    
      dispatch(createTaskHttp(createPayload));
+     dispatch(addTask(tasks[0]));
     reset();
   };
 

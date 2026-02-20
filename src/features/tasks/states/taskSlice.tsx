@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import type { Task, TaskPriority, TaskStatus } from "../model/task.model";
 
@@ -10,8 +10,8 @@ export interface CreateTaskPayload  {
     dueAt: string;
 }
 
-type  InitiateState = {
-    user?: Task;
+type InitiateState = {
+    tasks: Task [];
     isCreating: boolean;
 }
 
@@ -30,25 +30,35 @@ export const createTaskHttp = createAsyncThunk(
     }
 )
  const initialState: InitiateState = {
+    tasks: [],
     isCreating: false,
 }
 
 const createTaskSlice = createSlice({
     name: 'taskSlice',
     initialState,
-    reducers: {},
+    reducers: {
+        addTask: (state, action: PayloadAction<Task>) => {
+           console.log(action);
+           state.tasks = [...state.tasks, action.payload]
+        }
+    },
     extraReducers: (builder) => {
         builder
         .addCase(createTaskHttp.pending, (state, action) => {
-            console.log(action.type, state)
+            console.log(action.type, state);
+            state.isCreating = true;
         })
         .addCase(createTaskHttp.fulfilled, (state, action) => {
             console.log(action)
+            state.isCreating = false;
         })
         .addCase(createTaskHttp.rejected, (state, action) => {
-            console.log(action)
+            console.log(action);
+            state.isCreating = false;
         })
     },
 })
 
+export const { addTask } = createTaskSlice.actions;
 export default createTaskSlice.reducer;

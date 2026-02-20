@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './_backlog.scss';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../../../../redux/store';
@@ -6,8 +6,8 @@ import { CreateTask } from '../create-task/CreateTask';
 
 export const Backlog = () => {
     const [message, setMessage] = useState("Drag the item and drop it in the box.");
-    const  { isCreating } = useSelector((store: RootState) => store.taskSlice)
-
+    const  { isCreating, tasks } = useSelector((store: RootState) => store.taskSlice)
+    
     const onDragStart = (e: React.DragEvent<HTMLDivElement>) => {
         setMessage("Dragging...");
         e.dataTransfer.setData("text/plain", "hello"); // any payload
@@ -24,6 +24,9 @@ export const Backlog = () => {
         console.log("DROP fired ✅ payload:", data);
     };
 
+    useEffect(() => {
+        console.log(tasks);
+    }, [tasks, isCreating])
     return(
         <section className="backlog-container">
             <div className='backlog'>
