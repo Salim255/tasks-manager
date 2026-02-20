@@ -5,10 +5,10 @@ import type { RootState } from '../../../../redux/store';
 import { CreateTask } from '../create-task/CreateTask';
 import { TaskItem } from '../task-item/TaskItem';
 import { sprintsList } from '../../../../shared/utils/sprints';
-import { addSprint, addTaskToSprint } from '../../states/sprintSlice';
+import { addSprint, addTaskToSprint, removeTaskFromSprint } from '../../states/sprintSlice';
 import { SprintItem } from '../sprint-item/SprintItem';
 import type { Task } from '../../model/task.model';
-import { removeTask } from '../../states/taskSlice';
+import { removeTask, setBackTaskToBacklog } from '../../states/taskSlice';
 
 export const Backlog = () => {
     const dispatch = useDispatch();
@@ -33,10 +33,20 @@ export const Backlog = () => {
         const data = e.dataTransfer.getData("text/plain");
         const task = JSON.parse(data);
         setMessage(`Dropped! payload="${data}"`);
-        console.log("DROP fired ✅ payload:", task);
-
+    
         dispatch(addTaskToSprint({task, sprintId}));
         dispatch(removeTask(task))
+    };
+
+    const onReverseDrop =  (e: React.DragEvent<HTMLDivElement>) => {
+        e.preventDefault();
+        const data = e.dataTransfer.getData("text/plain");
+        const task = JSON.parse(data);
+        setMessage(`Dropped! payload="${data}"`);
+        console.log("DROP fired ✅ payload from reverse:", task);
+
+       dispatch(removeTaskFromSprint({ taskId: task.id,  sprintId: task.sprintId }));
+       dispatch(setBackTaskToBacklog({ task }))
     };
 
     const createSprintHandler = () => {
@@ -56,7 +66,23 @@ export const Backlog = () => {
                         key={sprint.id}
                         onDragOver={onDragOver}
                         onDrop={(e) => onDrop(sprint.id, e)}>
-                    <SprintItem sprint={sprint} /> 
+                    {/* <SprintItem sprint={sprint} />  */}
+                    <div className="sprint-item" >
+                        <div>header {sprint.name}</div>
+                        <div> 
+                            {
+                               sprint.tasks.map((task) => {
+                                    return <div  
+                                    draggable
+                                    onDragStart={(e) => onDragStart(task, e)}> 
+                                    {task.title}
+                                </div>
+                                })
+                            }
+                        </div>
+
+                        <div>footer</div>
+                    </div>
                 </div>
               }) 
               : null
@@ -73,6 +99,8 @@ export const Backlog = () => {
                </section>
                 {/* Content */}
                 <section 
+                    onDragOver={onDragOver}
+                    onDrop={onReverseDrop}
                     className='backlog__content' >
                     { tasks.length ? 
                         tasks.map((task) => {

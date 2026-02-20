@@ -38,6 +38,9 @@ const createTaskSlice = createSlice({
     name: 'taskSlice',
     initialState,
     reducers: {
+        setBackTaskToBacklog: (state, action: PayloadAction<{task: Task}>) => {
+            state.tasks = [...state.tasks, {...action.payload.task, sprintId: undefined }]
+        },
         addTask: (state, action: PayloadAction<Task>) => {
            state.tasks = [...state.tasks, action.payload]
         },
@@ -63,6 +66,7 @@ const createTaskSlice = createSlice({
     },
 })
 
+export const { setBackTaskToBacklog } = createTaskSlice.actions;
 export const { addTask } = createTaskSlice.actions;
 export const { removeTask } = createTaskSlice.actions;
 export default createTaskSlice.reducer;
