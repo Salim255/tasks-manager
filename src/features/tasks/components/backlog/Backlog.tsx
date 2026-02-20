@@ -6,7 +6,7 @@ import { CreateTask } from '../create-task/CreateTask';
 import { TaskItem } from '../task-item/TaskItem';
 import { sprintsList } from '../../../../shared/utils/sprints';
 import { addSprint } from '../../states/sprintSlice';
-import { SprintsContainer } from '../sprints/SprintsContainer';
+import { SprintsContainer } from '../sprints-container/SprintsContainer';
 
 export const Backlog = () => {
     const dispatch = useDispatch();
