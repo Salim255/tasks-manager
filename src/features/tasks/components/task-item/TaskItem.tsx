@@ -1,9 +1,11 @@
 import './_task-item.scss';
 import type { Task } from "../../model/task.model";
 
-export const TaskItem =  ({ task }: {task: Task}) => {
+type TaskItemProps = { task: Task; } & React.HTMLAttributes<HTMLDivElement>; // <-- this is the magic
+
+export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
     return (
-        <section className="task-item" draggable >
+        <section className="task-item" {...props} >
             <div>
                 {task.title}
             </div>

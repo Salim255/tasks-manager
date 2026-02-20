@@ -6,7 +6,8 @@ import { CreateTask } from '../create-task/CreateTask';
 import { TaskItem } from '../task-item/TaskItem';
 import { sprintsList } from '../../../../shared/utils/sprints';
 import { addSprint } from '../../states/sprintSlice';
-import { SprintsContainer } from '../sprints-container/SprintsContainer';
+import { SprintItem } from '../sprint-item/SprintItem';
+import type { Task } from '../../model/task.model';
 
 export const Backlog = () => {
     const dispatch = useDispatch();
@@ -15,20 +16,23 @@ export const Backlog = () => {
     const { sprints } = useSelector((store: RootState) => store.sprintReducer);
 
     
-    const onDragStart = (e: React.DragEvent<HTMLDivElement>) => {
+    const onDragStart = (task: Task, e: React.DragEvent<HTMLDivElement>) => {
         setMessage("Dragging...");
-        e.dataTransfer.setData("text/plain", "hello"); // any payload
+        //console.log("draging start", e, taskId);
+        e.dataTransfer.setData("text/plain", JSON.stringify(task)); // any payload
     };
 
     const onDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+        //console.log(e);
         e.preventDefault(); // ✅ REQUIRED so onDrop can fire
     };
 
-    const onDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    const onDrop = (sprintId: string, e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault();
         const data = e.dataTransfer.getData("text/plain");
+         const task = JSON.parse(data);
         setMessage(`Dropped! payload="${data}"`);
-        console.log("DROP fired ✅ payload:", data);
+        console.log("DROP fired ✅ payload:", task);
     };
 
     const createSprintHandler = () => {
@@ -42,37 +46,47 @@ export const Backlog = () => {
     return(
        <>
         <section className="backlog-container">
-            { sprints.length ? <SprintsContainer sprints={sprints} /> : null}
+            { sprints.length 
+              ? sprints.map((sprint) => {
+                return <div 
+                        key={sprint.id}
+                        onDragOver={onDragOver}
+                        onDrop={(e) => onDrop(sprint.id, e)}>
+                    <SprintItem sprint={sprint} /> 
+                </div>
+              }) 
+              : null
+            }
             <div className='backlog'>
+                {/* Header */}
                <section 
-                draggable
-                onDragStart={onDragStart}
                 className='backlog__header'>
                     <div>
                         backlog (0 item)
                     </div>
 
                     <button onClick={createSprintHandler}>create sprint</button>
-                 
                </section>
-                <section className='backlog__content' >
+                {/* Content */}
+                <section 
+                    className='backlog__content' >
                     { tasks.length ? 
                         tasks.map((task) => {
-                           return  <TaskItem task={task} />
+                           return   <TaskItem
+                                draggable
+                                onDragStart={(e) => onDragStart(task, e)}
+                                key={task.id} task={task} 
+                            />
                         }): 
                         <h1>
                              your backlog is empty
                         </h1>
                     }
-                   
                 </section>
+                {/* Footer  */}
                 <section
-                    onDragOver={onDragOver}
-                    onDrop={onDrop}
                     className='backlog__footer'>
-                   
                     <CreateTask/>
-                    
                 </section>
             </div>
         </section>
