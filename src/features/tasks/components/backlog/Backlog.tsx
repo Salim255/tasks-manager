@@ -3,6 +3,7 @@ import './_backlog.scss';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../../../../redux/store';
 import { CreateTask } from '../create-task/CreateTask';
+import { TaskItem } from '../task-item/TaskItem';
 
 export const Backlog = () => {
     const [message, setMessage] = useState("Drag the item and drop it in the box.");
@@ -42,7 +43,15 @@ export const Backlog = () => {
                     </div>
                </section>
                 <section className='backlog__content' >
-                    your backlog is empty
+                    { tasks.length ? 
+                        tasks.map((task) => {
+                           return  <TaskItem task={task} />
+                        }): 
+                        <h1>
+                             your backlog is empty
+                        </h1>
+                    }
+                   
                 </section>
                 <section
                     onDragOver={onDragOver}

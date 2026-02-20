@@ -1,5 +1,18 @@
-export const TaskItem =  () => {
+import './_task-item.scss';
+import type { Task } from "../../model/task.model";
+
+export const TaskItem =  ({task}: {task: Task}) => {
     return (
-        <h1>Hello from task Item</h1>
+        <section className="task-item" draggable >
+            <div>
+                {task.title}
+            </div>
+            <div>
+                {task.status}
+            </div>
+            <div>
+                {task.assigneeId}
+            </div>
+        </section>
     )
 } 
