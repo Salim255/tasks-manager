@@ -5,7 +5,7 @@ import type { RootState } from '../../../../redux/store';
 import { CreateTask } from '../create-task/CreateTask';
 import { TaskItem } from '../task-item/TaskItem';
 import { sprintsList } from '../../../../shared/utils/sprints';
-import { addSprint } from '../../states/sprintSlice';
+import { addSprint, addTaskToSprint } from '../../states/sprintSlice';
 import { SprintItem } from '../sprint-item/SprintItem';
 import type { Task } from '../../model/task.model';
 
@@ -30,9 +30,11 @@ export const Backlog = () => {
     const onDrop = (sprintId: string, e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault();
         const data = e.dataTransfer.getData("text/plain");
-         const task = JSON.parse(data);
+        const task = JSON.parse(data);
         setMessage(`Dropped! payload="${data}"`);
         console.log("DROP fired ✅ payload:", task);
+
+            dispatch(addTaskToSprint({task, sprintId}));
     };
 
     const createSprintHandler = () => {
