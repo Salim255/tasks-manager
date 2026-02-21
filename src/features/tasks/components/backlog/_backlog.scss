@@ -1,18 +1,28 @@
 .backlog-container {
     border-radius: 2px;
+  
     .backlog {
         padding: 1rem;
+        background-color: var(--primary-50);
+        border-radius: .5rem;
         &__header{
             display: flex;
             justify-content: space-between;
-            background-color: red;
-            padding: 1rem;
+            //padding: 1rem;
         }
         &__content {
-            background-color: blue;
+            margin: 1rem 0;
+            .empty {
+                border-style: dashed;
+                border-color: var(--primary-300);
+                text-align: center;
+                padding: 1rem;
+                border-radius: 4px;
+            }
         }
+       
         &__footer {
-            background-color: yellow;
+
         }
     }
 }

@@ -5,7 +5,6 @@ import { addToBacklogTask, createTaskHttp, type CreateTaskPayload } from "../../
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../../../redux/store";
 import { tasks } from "../../../../shared/utils/tasks";
-import type { Task } from "../../model/task.model";
 
 export const CreateTask = () => {
   const [isCreateBtn, setCreateBtn] = useState<boolean>(true);

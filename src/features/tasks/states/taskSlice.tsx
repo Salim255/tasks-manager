@@ -38,39 +38,49 @@ const createTaskSlice = createSlice({
     name: 'taskSlice',
     initialState,
     reducers: {
-        setBackTaskToBacklog: (state, action: PayloadAction<{task: Task}>) => {
-            const taskExist = state.tasks.some((task) => task.id === action.payload.task.id );
-            console.log(taskExist);
+        setBackTaskToBacklog: (state, action: PayloadAction<{ task: Task }>) => {
+            const { task } = action.payload;
+
+            const taskExist = state.tasks.some((t) => t.id === task.id );
+
             if(taskExist) return;
 
             state.tasks = [
                 ...state.tasks, 
-                {...action.payload.task, sprintId: undefined },
+                {...task, sprintId: undefined },
             ]
         },
-        addToBacklogTask: (state, action: PayloadAction<{task:Task}>) => {
+
+        addToBacklogTask: (state, action: PayloadAction<{ task: Task }>) => {
+            const { task } = action.payload;
+
             const taskExist =  state?.tasks
-                ?.some((task) => task?.id === action.payload.task.id);
+                ?.some((t) => t?.id === task.id);
             
             if(taskExist) return;
 
-           state.tasks = [...state.tasks, action.payload.task]
+           state.tasks = [...state.tasks, task]
         },
-        removeTask: (state, action: PayloadAction<Task>)  => {
-            const tasks = state?.tasks
-                ?.filter((task) => task.id !== action.payload.id);
+        removeTask: (state, action: PayloadAction<{ task: Task }>)  => {
+            const { task } = action.payload;
+
+            const tasks = state?.tasks?.filter((t) => t.id !== task.id);
+
             state.tasks = [...tasks];
         }
     },
     extraReducers: (builder) => {
         builder
         .addCase(createTaskHttp.pending, (state, action) => {
+            console.log(action);
             state.isCreating = true;
         })
         .addCase(createTaskHttp.fulfilled, (state, action) => {
+            console.log(action);
             state.isCreating = false;
         })
         .addCase(createTaskHttp.rejected, (state, action) => {
+            console.log(action);
             state.isCreating = false;
         })
     },
@@ -79,4 +89,5 @@ const createTaskSlice = createSlice({
 export const { setBackTaskToBacklog } = createTaskSlice.actions;
 export const { addToBacklogTask } = createTaskSlice.actions;
 export const { removeTask } = createTaskSlice.actions;
+
 export default createTaskSlice.reducer;

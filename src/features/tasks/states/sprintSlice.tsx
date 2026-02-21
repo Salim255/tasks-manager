@@ -2,10 +2,9 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { Sprint } from "../model/sprint.model";
 import type { Task } from "../model/task.model";
-import { tasks } from "../../../shared/utils/tasks";
 
 
-// 2 intial state
+// 2 initial state
 type StateType  = {
     sprints: Sprint[];
     isLoading: false 
@@ -66,7 +65,7 @@ const createSprintSlice = createSlice({
             // Else add task
             // 3. Add task to the correct sprint 
             state.sprints[sprintIndex].tasks.push({ ...task, sprintId });
-            //console.log(updatedSprints, "🛑2", JSON.parse(JSON.stringify(state.sprints)))
+
         }
     },
 

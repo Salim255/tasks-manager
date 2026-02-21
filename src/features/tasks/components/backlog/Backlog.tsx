@@ -29,11 +29,10 @@ export const Backlog = () => {
         const data = e.dataTransfer.getData("text/plain");
         const task = JSON.parse(data);
 
-        if( task.sprintId === sprintId ) return;
+        if(task.sprintId === sprintId ) return;
 
         dispatch(addTaskToSprint({task, sprintId}));
-        dispatch(removeTask(task));
-        console.log("hello")
+        dispatch(removeTask({ task }));
     };
 
     const onReverseDrop =  (e: React.DragEvent<HTMLDivElement>) => {
@@ -46,12 +45,10 @@ export const Backlog = () => {
     };
 
     const createSprintHandler = () => {
-        //const sprintIndex = sprintsList?.length;
-        console.log( sprintsList.length, "heelo", count);
-        if(count>3) return;
-        //const sprintIndex = sprintsList?.length;
+        if (count > 3) return;
+       
        dispatch(addSprint(sprintsList[count]));
-       setCount((prev)=> prev+1);
+       setCount((prev) => prev+1);
     }
 
     useEffect(() => {
@@ -86,12 +83,12 @@ export const Backlog = () => {
               }) 
               : null
             }
-            <div className='backlog'>
+            <section className='backlog'>
                 {/* Header */}
                <section 
                 className='backlog__header'>
                     <div>
-                        backlog (0 item)
+                        Backlog (0 works item)
                     </div>
 
                     <button onClick={createSprintHandler}>create sprint</button>
@@ -110,9 +107,9 @@ export const Backlog = () => {
                                 task={task} 
                             />
                         }): 
-                        <h1>
-                             your backlog is empty
-                        </h1>
+                        <div className='empty'>
+                            Your backlog is empty
+                        </div>
                     }
                 </section>
                 {/* Footer  */}
@@ -120,7 +117,7 @@ export const Backlog = () => {
                     className='backlog__footer'>
                     <CreateTask/>
                 </section>
-            </div>
+            </section>
         </section>
        </>
     )
