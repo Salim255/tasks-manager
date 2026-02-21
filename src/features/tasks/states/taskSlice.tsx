@@ -39,13 +39,22 @@ const createTaskSlice = createSlice({
     initialState,
     reducers: {
         setBackTaskToBacklog: (state, action: PayloadAction<{task: Task}>) => {
-            state.tasks = [...state.tasks, {...action.payload.task, sprintId: undefined }]
+            state.tasks = [
+                ...state.tasks, 
+                {...action.payload.task, sprintId: undefined },
+            ]
         },
         addTask: (state, action: PayloadAction<Task>) => {
+            const taskExist =  state?.tasks
+                ?.filter((task) => task?.id === task?.id).length !== 0;
+            
+            if(taskExist) return;
+
            state.tasks = [...state.tasks, action.payload]
         },
         removeTask: (state, action: PayloadAction<Task>)  => {
-            const tasks = state.tasks.filter((task) => task.id !== action.payload.id);
+            const tasks = state?.tasks
+                ?.filter((task) => task.id !== action.payload.id);
             state.tasks = [...tasks];
         }
     },

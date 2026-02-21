@@ -2,7 +2,7 @@ import type { Sprint } from "../../features/tasks/model/sprint.model";
 
 export const sprintsList: Sprint[] = [
   {
-    id: "sprint-1",
+    id: "1",
     name: "Sprint 1",
 
     startDate: undefined,
@@ -15,7 +15,7 @@ export const sprintsList: Sprint[] = [
     updatedAt: new Date().toISOString(),
   },
   {
-    id: "sprint-2",
+    id: "2",
     name: "Sprint 2",
     startDate: undefined,
     endDate: undefined,
@@ -27,7 +27,7 @@ export const sprintsList: Sprint[] = [
     updatedAt: new Date().toISOString(),
   },
   {
-    id: "sprint-3",
+    id: "3",
     name: "Sprint 3",
 
     startDate: undefined,
@@ -40,7 +40,7 @@ export const sprintsList: Sprint[] = [
     updatedAt: new Date().toISOString(),
   },
   {
-    id: "sprint-4",
+    id: "4",
     name: "Sprint 4",
 
     startDate: undefined,

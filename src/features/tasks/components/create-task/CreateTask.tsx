@@ -9,6 +9,7 @@ import { tasks } from "../../../../shared/utils/tasks";
 export const CreateTask = () => {
   const [isCreateBtn, setCreateBtn] = useState<boolean>(true);
   const { state, setField, setError, clearErrors, reset } = useTaskForm();
+  const [count, restCounter] = useState<number>(0);
   const dispatch = useDispatch<AppDispatch>();
 
   const handleChange = (
@@ -37,7 +38,8 @@ export const CreateTask = () => {
     }
    
      dispatch(createTaskHttp(createPayload));
-     dispatch(addTask(tasks[0]));
+     dispatch(addTask(tasks[count]));
+     restCounter((prev) => prev+1)
     reset();
   };
 

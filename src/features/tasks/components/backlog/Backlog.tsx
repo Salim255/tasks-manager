@@ -6,25 +6,21 @@ import { CreateTask } from '../create-task/CreateTask';
 import { TaskItem } from '../task-item/TaskItem';
 import { sprintsList } from '../../../../shared/utils/sprints';
 import { addSprint, addTaskToSprint, removeTaskFromSprint } from '../../states/sprintSlice';
-import { SprintItem } from '../sprint-item/SprintItem';
 import type { Task } from '../../model/task.model';
 import { removeTask, setBackTaskToBacklog } from '../../states/taskSlice';
 
 export const Backlog = () => {
     const dispatch = useDispatch();
-    const [message, setMessage] = useState("Drag the item and drop it in the box.");
     const { isCreating, tasks } = useSelector((store: RootState) => store.taskSlice);
     const { sprints } = useSelector((store: RootState) => store.sprintReducer);
 
+    const [count, setCount] = useState<number>(0);
     
     const onDragStart = (task: Task, e: React.DragEvent<HTMLDivElement>) => {
-        setMessage("Dragging...");
-        //console.log("draging start", e, taskId);
         e.dataTransfer.setData("text/plain", JSON.stringify(task)); // any payload
     };
 
     const onDragOver = (e: React.DragEvent<HTMLDivElement>) => {
-        //console.log(e);
         e.preventDefault(); // ✅ REQUIRED so onDrop can fire
     };
 
@@ -32,30 +28,33 @@ export const Backlog = () => {
         e.preventDefault();
         const data = e.dataTransfer.getData("text/plain");
         const task = JSON.parse(data);
-        setMessage(`Dropped! payload="${data}"`);
-    
+
+        if( task.sprintId === sprintId ) return;
+
         dispatch(addTaskToSprint({task, sprintId}));
-        dispatch(removeTask(task))
+        dispatch(removeTask(task));
+        console.log("hello")
     };
 
     const onReverseDrop =  (e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault();
         const data = e.dataTransfer.getData("text/plain");
         const task = JSON.parse(data);
-        setMessage(`Dropped! payload="${data}"`);
-        console.log("DROP fired ✅ payload from reverse:", task);
 
        dispatch(removeTaskFromSprint({ taskId: task.id,  sprintId: task.sprintId }));
        dispatch(setBackTaskToBacklog({ task }))
     };
 
     const createSprintHandler = () => {
-        console.log("hello from create sprint");
-        dispatch(addSprint(sprintsList[0]))
+        //const sprintIndex = sprintsList?.length;
+        console.log( sprintsList.length, "heelo", count);
+        if(count>3) return;
+        //const sprintIndex = sprintsList?.length;
+       dispatch(addSprint(sprintsList[count]));
+       setCount((prev)=> prev+1);
     }
 
     useEffect(() => {
-        console.log(tasks, sprints);
     }, [tasks, isCreating, sprints])
     return(
        <>
@@ -107,7 +106,8 @@ export const Backlog = () => {
                            return   <TaskItem
                                 draggable
                                 onDragStart={(e) => onDragStart(task, e)}
-                                key={task.id} task={task} 
+                                key={task.id} 
+                                task={task} 
                             />
                         }): 
                         <h1>
