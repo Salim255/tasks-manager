@@ -39,18 +39,22 @@ const createTaskSlice = createSlice({
     initialState,
     reducers: {
         setBackTaskToBacklog: (state, action: PayloadAction<{task: Task}>) => {
+            const taskExist = state.tasks.some((task) => task.id === action.payload.task.id );
+            console.log(taskExist);
+            if(taskExist) return;
+
             state.tasks = [
                 ...state.tasks, 
                 {...action.payload.task, sprintId: undefined },
             ]
         },
-        addTask: (state, action: PayloadAction<Task>) => {
+        addToBacklogTask: (state, action: PayloadAction<{task:Task}>) => {
             const taskExist =  state?.tasks
-                ?.filter((task) => task?.id === task?.id).length !== 0;
+                ?.some((task) => task?.id === action.payload.task.id);
             
             if(taskExist) return;
 
-           state.tasks = [...state.tasks, action.payload]
+           state.tasks = [...state.tasks, action.payload.task]
         },
         removeTask: (state, action: PayloadAction<Task>)  => {
             const tasks = state?.tasks
@@ -61,21 +65,18 @@ const createTaskSlice = createSlice({
     extraReducers: (builder) => {
         builder
         .addCase(createTaskHttp.pending, (state, action) => {
-            console.log(action.type, state);
             state.isCreating = true;
         })
         .addCase(createTaskHttp.fulfilled, (state, action) => {
-            console.log(action)
             state.isCreating = false;
         })
         .addCase(createTaskHttp.rejected, (state, action) => {
-            console.log(action);
             state.isCreating = false;
         })
     },
 })
 
 export const { setBackTaskToBacklog } = createTaskSlice.actions;
-export const { addTask } = createTaskSlice.actions;
+export const { addToBacklogTask } = createTaskSlice.actions;
 export const { removeTask } = createTaskSlice.actions;
 export default createTaskSlice.reducer;
