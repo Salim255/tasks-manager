@@ -9,6 +9,8 @@ import { addSprint, addTaskToSprint, removeTaskFromSprint } from '../../states/s
 import type { Task } from '../../model/task.model';
 import { removeTask, setBackTaskToBacklog } from '../../states/taskSlice';
 import { SlOptions } from 'react-icons/sl';
+import { FaRegEdit } from "react-icons/fa";
+
 
 export const Backlog = () => {
     const dispatch = useDispatch();
@@ -70,10 +72,24 @@ export const Backlog = () => {
                         <section className="sprint" >
                             <div className='sprint__header'>
                                <div className='sprint-title'>
-                                 Scrum {sprint.name} <span> ({sprint.tasks.length} work items)</span>
+                                    Scrum {sprint.name} 
+                                    <span> 
+                                       {
+                                        sprint.startDate && sprint.endDate 
+                                        ? ` (${new Date(sprint.startDate).toLocaleDateString()} - ${new Date(sprint.endDate).toLocaleDateString()})`
+                                        : 
+                                        <>
+                                            <button> 
+                                                <span><FaRegEdit/></span> 
+                                                add date
+                                            </button> 
+                                        </>
+                                       }
+                                    </span> 
+                                    <span> ({sprint.tasks.length} work items) </span>
                                </div>
                                 <div className='sprint-actions'>
-                                    <button onClick={createSprintHandler}>create sprint</button>
+                                    <button disabled={sprint?.tasks?.length === 0}>start sprint</button>
                                 </div>
                                 <div className='sprint-options'>
                                     <SlOptions/>
