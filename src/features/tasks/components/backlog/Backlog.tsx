@@ -10,12 +10,16 @@ import type { Task } from '../../model/task.model';
 import { removeTask, setBackTaskToBacklog } from '../../states/taskSlice';
 import { SlOptions } from 'react-icons/sl';
 import { FaRegEdit } from "react-icons/fa";
+import type { Sprint } from '../../model/sprint.model';
+import { openEditSprint } from '../../states/editSprintSlice';
+import { EditSprintDate } from '../edit-sprint-date/EditSprintDate';
 
 
 export const Backlog = () => {
     const dispatch = useDispatch();
     const { isCreating, tasks } = useSelector((store: RootState) => store.taskSlice);
     const { sprints } = useSelector((store: RootState) => store.sprintReducer);
+    const { isOpen } = useSelector((store: RootState) => store.editSprintReducer);
 
     const [count, setCount] = useState<number>(0);
     
@@ -54,8 +58,13 @@ export const Backlog = () => {
        setCount((prev) => prev+1);
     }
 
+    const editSprintDate = (sprint: Sprint) => {
+        console.log(sprint, "hello from edit sprint date");
+        dispatch(openEditSprint({ sprint }));
+    }
     useEffect(() => {
-    }, [tasks, isCreating, sprints])
+        console.log(isOpen, "hello from sprint 🛑🛑");
+    }, [tasks, isCreating, sprints, isOpen])
     return(
        <>
         <section className="backlog-container">
@@ -79,7 +88,7 @@ export const Backlog = () => {
                                         ? ` (${new Date(sprint.startDate).toLocaleDateString()} - ${new Date(sprint.endDate).toLocaleDateString()})`
                                         : 
                                         <>
-                                            <button> 
+                                            <button onClick={() => editSprintDate(sprint)}> 
                                                 <span><FaRegEdit/></span> 
                                                 add date
                                             </button> 
@@ -155,6 +164,8 @@ export const Backlog = () => {
                 </section>
             </section>
         </section>
+
+        {isOpen && <EditSprintDate/>}
        </>
     )
 }
