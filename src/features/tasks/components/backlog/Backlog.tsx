@@ -8,6 +8,7 @@ import { sprintsList } from '../../../../shared/utils/sprints';
 import { addSprint, addTaskToSprint, removeTaskFromSprint } from '../../states/sprintSlice';
 import type { Task } from '../../model/task.model';
 import { removeTask, setBackTaskToBacklog } from '../../states/taskSlice';
+import { SlOptions } from 'react-icons/sl';
 
 export const Backlog = () => {
     const dispatch = useDispatch();
@@ -58,28 +59,47 @@ export const Backlog = () => {
         <section className="backlog-container">
             { sprints.length 
               ? sprints.map((sprint) => {
-                return <div 
+                return (
+                    <section 
+                        className='backlog-container__sprints'
                         key={sprint.id}
                         onDragOver={onDragOver}
-                        onDrop={(e) => onDrop(sprint.id, e)}>
-                    {/* <SprintItem sprint={sprint} />  */}
-                    <div className="sprint-item" >
-                        <div>header {sprint.name}</div>
-                        <div> 
-                            {
-                               sprint.tasks.map((task) => {
-                                    return <div  
-                                    draggable
-                                    onDragStart={(e) => onDragStart(task, e)}> 
-                                    {task.title}
+                        onDrop={(e) => onDrop(sprint.id, e)}
+                        >
+                        {/* <SprintItem sprint={sprint} />  */}
+                        <section className="sprint" >
+                            <div className='sprint__header'>
+                               <div className='sprint-title'>
+                                 Scrum {sprint.name} <span> ({sprint.tasks.length} work items)</span>
+                               </div>
+                                <div className='sprint-actions'>
+                                    <button onClick={createSprintHandler}>create sprint</button>
                                 </div>
-                                })
-                            }
-                        </div>
-
-                        <div>footer</div>
-                    </div>
-                </div>
+                                <div className='sprint-options'>
+                                    <SlOptions/>
+                                </div>
+                            </div>
+                            <div className='sprint__tasks'> 
+                                { sprint?.tasks?.length ? 
+                                    sprint?.tasks.map((task) => {
+                                    return   <TaskItem
+                                            draggable
+                                            onDragStart={(e) => onDragStart(task, e)}
+                                            key={task.id} 
+                                            task={task} 
+                                        />
+                                    }): <div className='empty'>
+                                        Your backlog is empty
+                                    </div>
+                                }
+                            </div>
+                            <div
+                                className='sprint__footer'>
+                                <CreateTask/>
+                            </div>
+                        </section>
+                    </section>
+                )
               }) 
               : null
             }
