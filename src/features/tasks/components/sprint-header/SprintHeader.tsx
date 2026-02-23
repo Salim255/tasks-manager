@@ -1,6 +1,6 @@
 import './_sprint-header.scss';
 import { OptionsBtn } from "../../../../shared/components/options-btn/OptionsBtn";
-import type { Sprint } from "../../model/sprint.model";
+import type { Sprint, SprintStatus } from "../../model/sprint.model";
 import { EditSprintDate } from "../edit-sprint-date/EditSprintDate";
 import { useState } from 'react';
 
@@ -15,8 +15,8 @@ export const SprintHeader = ({
     }) => {
         const [isEditSprintOpen, setEditSprintOpen] = useState<boolean>(false); 
         
-        const onStartSprint = () => {     
-            
+        const onUpdateSprintStatus = (status: SprintStatus) => {     
+            console.log("update sprint status", sprint.id, status);
         }
         return(
             <div className='sprint-header'>
@@ -29,7 +29,13 @@ export const SprintHeader = ({
                     <span> ({sprint.tasks.length} work items) </span>
                 </div>
                 <div className='sprint-header__actions'>
-                    <button disabled={sprint?.tasks?.length === 0} onClick={onStartSprint}>start sprint</button>
+                    <button 
+                        disabled={sprint?.tasks?.length === 0} 
+                        onClick={() => onUpdateSprintStatus(sprint.status === "upcoming" ? "active" : "completed")}>
+                            {
+                                sprint.status === "upcoming" ?  "start sprint" : "complete sprint"
+                            }
+                    </button>
                 </div>
                 <div 
                     className='sprint-header__options'>

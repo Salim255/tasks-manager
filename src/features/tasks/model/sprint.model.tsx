@@ -1,6 +1,6 @@
 import type { Task } from "./task.model";
 
-export type SprintStatus = "active" | "completed" | "upcoming";
+export type SprintStatus = "active" | "completed" | "planned" | "upcoming";
 
 export interface Sprint {
   id: string;

@@ -49,7 +49,7 @@ export const Backlog = () => {
     };
 
     const createSprintHandler = () => {
-        if (count > 3) return;
+      if (count > 3) return;
        dispatch(addSprint(sprintsList[count]));
        setCount((prev) => prev+1);
     }

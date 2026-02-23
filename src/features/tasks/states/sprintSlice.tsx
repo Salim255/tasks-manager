@@ -1,6 +1,6 @@
 // 1 http
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import type { Sprint } from "../model/sprint.model";
+import type { Sprint, SprintStatus } from "../model/sprint.model";
 import type { Task, TaskStatus } from "../model/task.model";
 
 
@@ -18,6 +18,13 @@ const createSprintSlice = createSlice({
     name: 'sprintSlice',
     initialState,
     reducers: {
+        onUpdateSprintStatus: (state, action: PayloadAction<{ sprintId: string, status: SprintStatus }>) => {
+            const { sprintId, status } = action.payload;
+            const sprintIndex = state.sprints.findIndex(sprint => sprint.id === sprintId);
+            if (sprintIndex !== -1) {
+                state.sprints[sprintIndex].status = status;
+            }
+        },
         updateSprintSingleTaskStatus: (
             state, 
             action: PayloadAction<{ task: Task, status: TaskStatus}>,
