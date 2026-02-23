@@ -8,6 +8,7 @@ export const EditSprintDate = (sprint: Sprint) => {
     const [isEditSprintOpen, setEditSprintOpen] = useState<boolean>(false);   
   
     const onEditSprintDate = (sprint: Sprint) => {
+        console.log(sprint, "hello from edit sprint date");
         setEditSprintOpen((prev) => !prev);
     }
     useEffect(() => {

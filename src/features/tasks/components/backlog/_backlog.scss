@@ -3,32 +3,17 @@
     &__sprints {
         .sprint {
             margin: 2rem 0;
-            //position: relative;
-            .sprint-title {
-                display: flex;
-                gap: 0.5rem;
-            }
             &__tasks {
                //padding: .5rem 0;
                margin: 1rem 0 ;
             }
-            &__header {
-                display: flex;
-                gap: 1rem;
-                .sprint-title {
-                    margin-right: auto;
-                }
-            }
+          
             &__footer {
                 
             }
             &____modal {
 
             }
-        }
-        .sprint-options {
-         
-    
         }
     }
     .backlog,

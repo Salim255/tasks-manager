@@ -1,11 +1,13 @@
 import './_task-item.scss';
 import type { Task } from "../../model/task.model";
 import { IoCheckboxOutline } from 'react-icons/io5';
-import { SlOptions } from "react-icons/sl";
+import { OptionsBtn } from '../../../../shared/components/options-btn/OptionsBtn';
+import { useState } from 'react';
 
 type TaskItemProps = { task: Task; } & React.HTMLAttributes<HTMLDivElement>; // <-- this is the magic
 
 export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
+    const [isOptionsOpen, setOptionsOpen ] = useState<string | null>(null);
     return (
         <div className="task-item" {...props} >
             <section className='task-item__content'>
@@ -23,7 +25,16 @@ export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
                 {task.assigneeId}
             </section>
             <section className='task-item__actions'>
-                <SlOptions/>
+                <OptionsBtn 
+                    item={task} 
+                    isOptionsOpen={isOptionsOpen}
+                    setOptionsOpen={setOptionsOpen}
+                >
+                    <ul className='options-list'>
+                        <li className='options-list__item'>Edit Task</li>
+                        <li className='options-list__item'>Delete Task</li>
+                    </ul>
+                </OptionsBtn>
             </section>
         </div>
     )

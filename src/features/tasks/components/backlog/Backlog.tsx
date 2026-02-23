@@ -8,12 +8,7 @@ import { sprintsList } from '../../../../shared/utils/sprints';
 import { addSprint, addTaskToSprint, removeTaskFromSprint } from '../../states/sprintSlice';
 import type { Task } from '../../model/task.model';
 import { removeTask, setBackTaskToBacklog } from '../../states/taskSlice';
-import { SlOptions } from 'react-icons/sl';
-import { FaRegEdit } from "react-icons/fa";
-import type { Sprint } from '../../model/sprint.model';
-import { openEditSprint } from '../../states/editSprintSlice';
-import { EditSprintDate } from '../edit-sprint-date/EditSprintDate';
-import { OptionsBtn } from '../../../../shared/components/options-btn/OptionsBtn';
+import { SprintHeader } from '../sprint-header/SprintHeader';
 
 
 export const Backlog = () => {
@@ -33,7 +28,7 @@ export const Backlog = () => {
         e.preventDefault(); // ✅ REQUIRED so onDrop can fire
     };
 
-    const onDrop = (sprintId: string, e: React.DragEvent<HTMLDivElement>) => {
+    const onDrop = (sprintId: string, e: React.DragEvent<HTMLElement>) => {
         e.preventDefault();
         const data = e.dataTransfer.getData("text/plain");
         const task = JSON.parse(data);
@@ -55,13 +50,13 @@ export const Backlog = () => {
 
     const createSprintHandler = () => {
         if (count > 3) return;
-       
        dispatch(addSprint(sprintsList[count]));
        setCount((prev) => prev+1);
     }
 
     useEffect(() => {
-    }, [tasks, isCreating, sprints, isOpen])
+    }, [tasks, isCreating, sprints, isOpen]);
+
     return(
        <>
         <section className="backlog-container">
@@ -74,31 +69,12 @@ export const Backlog = () => {
                         onDragOver={onDragOver}
                         onDrop={(e) => onDrop(sprint.id, e)}
                         >
-                        {/* <SprintItem sprint={sprint} />  */}
                         <section className="sprint" >
-                            <div className='sprint__header'>
-                               <div className='sprint-title'>
-                                    Scrum {sprint.name} 
-                                    <EditSprintDate {...sprint}/>
-                                    <span> ({sprint.tasks.length} work items) </span>
-                               </div>
-                                <div className='sprint-actions'>
-                                    <button disabled={sprint?.tasks?.length === 0}>start sprint</button>
-                                </div>
-                                <div 
-                                    className='sprint-options'>
-                                    <OptionsBtn 
-                                        sprint={sprint} 
-                                        isOptionsOpen={isOptionsOpen}
-                                        setOptionsOpen={setOptionsOpen}
-                                    >
-                                        <ul>
-                                            <li>Edit Sprint</li>
-                                            <li>Delete Sprint</li>
-                                        </ul>
-                                    </OptionsBtn>
-                                </div>
-                            </div>
+                            <SprintHeader 
+                                sprint={sprint} 
+                                isOptionsOpen={isOptionsOpen} 
+                                setOptionsOpen={setOptionsOpen}
+                                />
                             <div className='sprint__tasks'> 
                                 { sprint?.tasks?.length ? 
                                     sprint?.tasks.map((task) => {
@@ -123,6 +99,7 @@ export const Backlog = () => {
               }) 
               : null
             }
+
             <section className='backlog'>
                 {/* Header */}
                <section 
@@ -152,7 +129,6 @@ export const Backlog = () => {
                         </div>
                     }
                 </section>
-                {/* Footer  */}
                 <section
                     className='backlog__footer'>
                     <CreateTask/>
