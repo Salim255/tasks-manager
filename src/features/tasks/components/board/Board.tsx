@@ -45,12 +45,12 @@ export const Board = () => {
                         return <div key={sprint.id} className=''> 
                             {
                                 sprint.tasks.map((task) => {
-                                    return <div 
+                                    return task.status === "todo" ? <div 
                                         draggable
                                         onDragStart={(e) => onDragStart(e, task)}
                                         key={task.id} className='todo__task'>
                                         {task.title}
-                                    </div>
+                                    </div> : null
                                 })
                             }
                         </div>
@@ -77,12 +77,47 @@ export const Board = () => {
                 onDragOver={onDragOver}
             >
                 <div className='progress__header'>In Progress</div>
+                {
+                    sprints.length 
+                    ? sprints.map((sprint) => {
+                        return <div key={sprint.id} className=''>
+                            {
+                                sprint.tasks.map((task) => {
+                                    return task.status === "in_progress" ? <div 
+                                        draggable
+                                        onDragStart={(e) => onDragStart(e, task)}
+                                        key={task.id} className='progress__task'>
+                                        {task.title}
+                                    </div> : null
+                                })
+                            }
+                        </div>
+                    })
+                    : null
+                }
             </div>
             <div className="done"
                 onDrop={(e) => onDrop(e, "done")}
                 onDragOver={onDragOver}
             >
                <div className='done__header'> Done </div>
+                {   sprints.length 
+                    ? sprints.map((sprint) => {
+                        return <div key={sprint.id} className=''>
+                            {
+                                sprint.tasks.map((task) => {
+                                    return task.status === "done" ? <div 
+                                        draggable
+                                        onDragStart={(e) => onDragStart(e, task)}
+                                        key={task.id} className='done__task'>
+                                        {task.title}
+                                    </div> : null
+                                })
+                            }
+                        </div>
+                    })
+                    : null
+                }
             </div>
         </section>
     )
