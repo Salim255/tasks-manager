@@ -91,7 +91,12 @@ export const Backlog = () => {
                                         sprint={sprint} 
                                         isOptionsOpen={isOptionsOpen}
                                         setOptionsOpen={setOptionsOpen}
-                                    />
+                                    >
+                                        <ul>
+                                            <li>Edit Sprint</li>
+                                            <li>Delete Sprint</li>
+                                        </ul>
+                                    </OptionsBtn>
                                 </div>
                             </div>
                             <div className='sprint__tasks'> 

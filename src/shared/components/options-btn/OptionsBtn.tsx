@@ -6,10 +6,12 @@ export const OptionsBtn = ({
         sprint, 
         isOptionsOpen, 
         setOptionsOpen ,
+        children
     }: { 
         sprint: Sprint, 
         isOptionsOpen: string | null, 
         setOptionsOpen: (sprintId: string | null) => void,
+        children: React.ReactNode
     }) => {
   
     const isOpen = isOptionsOpen === sprint.id;
@@ -24,7 +26,7 @@ export const OptionsBtn = ({
                 ? `options-btn__modal options-btn__modal--active` 
                 : 'options-btn__modal'
                 }>
-                <h1>hello </h1>
+                { children }
             </div>
         </div>
     )

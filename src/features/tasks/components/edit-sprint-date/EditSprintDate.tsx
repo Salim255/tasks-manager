@@ -11,7 +11,6 @@ export const EditSprintDate = (sprint: Sprint) => {
         setEditSprintOpen((prev) => !prev);
     }
     useEffect(() => {
-        console.log(sprint, "hello rom sprint 🛑🛑");
     }, [sprint])
     return (
        <>

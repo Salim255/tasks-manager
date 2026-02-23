@@ -10,9 +10,13 @@ export const EditSprintForm = ({
     setEditSprintOpen: (open: boolean) => void,
  }) => {
    
+    const clickSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setEditSprintOpen(false)
+    }
     return (
         <section className="edit-sprint">
-            <form className="edit-sprint-form" >
+            <form className="edit-sprint-form"  onSubmit={clickSubmit}>
                 <div className="edit-sprint-form__header">
                     <h1> Edit sprint: {sprint?.name}</h1>
                     <div>
@@ -54,7 +58,7 @@ export const EditSprintForm = ({
                 </div>
                 <div className="edit-sprint-form__actions">
                     <button onClick={() => setEditSprintOpen(false)}> cancel </button>
-                    <button className="edit-sprint-form__submit"> update </button>
+                    <button className="edit-sprint-form__submit" type="submit"> update </button>
                 </div>
             </form>
         </section>
