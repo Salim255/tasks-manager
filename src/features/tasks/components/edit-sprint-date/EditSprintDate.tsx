@@ -13,8 +13,7 @@ export const EditSprintDate = ({
         isEditSprintOpen: boolean, 
         setEditSprintOpen: (open: boolean) => void,
     }) => {
-        //const [isEditSprintOpen, setEditSprintOpen] = useState<boolean>(false);   
-    
+        
         const onEditSprintDate = (sprint: Sprint) => {
             console.log(sprint, "hello from edit sprint date");
             setEditSprintOpen(!isEditSprintOpen);

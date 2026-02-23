@@ -1,13 +1,30 @@
 .board {
     display: flex;
     gap: 1rem;
-    &__todo,
-    &__progress,
-    &__done {
+    .todo,
+    .progress,
+    .done {
         padding: 1rem;
         flex: 1;
-        background-color: rgb(124, 25, 25);
+        background-color: var(--grey-50);
         min-height: 30rem;
         border-radius: 4px;
     }
+    .todo__header,
+    .progress__header,
+    .done__header {
+       text-transform: uppercase;
+    }
+    .todo {
+        &__empty {
+            text-align: center;
+            padding: .5rem;
+            border-radius: 4px;
+        }
+    }
+}
+
+.icon {
+    font-size: 10rem;
+    color: var(--grey-500);    
 }

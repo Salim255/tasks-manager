@@ -3,44 +3,78 @@ import './_board.scss';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../../../../redux/store';
 import { useEffect } from 'react';
+import { DiScrum } from "react-icons/di";
+import type { Task } from '../../model/task.model';
+
 export const Board = () => {
 
     const { sprints } = useSelector((store: RootState) => store.sprintReducer);
+
+    const onDragStart = (task: Task) => {
+        console.log(task);
+    }
+    const onDop = (e: React.DragEvent<HTMLDivElement>) => {
+        e.preventDefault();
+        console.log("dropped");
+    }
+
+    const onDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+        e.preventDefault();
+    }
+
     useEffect(() => {}, [sprints]);
 
     return (
         <section className="board">
-            <div className="board__todo">
-                ToDO
+            <div className="todo">
+                <div className='todo__header'>
+                    To Do
+                </div>
 
                 {
                     sprints.length 
                     ? sprints.map((sprint) => {
-                        return <h1> { sprint.id }</h1>
-                    })
-                    : <div>
-                        <h1>
-                            Get started in backlog
-                        </h1>
-                        <div>
-                            <p>
-                                Plan and star a sprint to see work here
-                            </p>
+                        return <div key={sprint.id} className=''> 
+                            {
+                                sprint.tasks.map((task) => {
+                                    return <div 
+                                        draggable
+                                        onDragStart={ onDragStart.bind(this, task) }
+                                        key={task.id} className='todo__task'>
+                                        {task.title}
+                                    </div>
+                                })
+                            }
                         </div>
-
-
-                        <NavLink to={"/tasks/backlog"}>
+                    })
+                    : <div className='todo__empty'>
+                        <DiScrum className='icon'/>
+                        <h3>
+                            Get started in backlog
+                        </h3>
+                        <p>
+                            Plan and star a sprint to see work here
+                        </p>
+                        <NavLink 
+                            className="btn btn--primary"
+                            to={"/tasks/backlog"}>
                             Go to backlog
                         </NavLink>
                     </div>
                 }
               
             </div>
-            <div className="board__progress">
-                inprogress
+            <div className="progress"
+                onDrop={onDop}
+                onDragOver={onDragOver}
+            >
+                <div className='progress__header'>In Progress</div>
             </div>
-            <div className="board__done">
-                Done
+            <div className="done"
+                onDrop={onDop}
+                onDragOver={onDragOver}
+            >
+               <div className='done__header'> Done </div>
             </div>
         </section>
     )
