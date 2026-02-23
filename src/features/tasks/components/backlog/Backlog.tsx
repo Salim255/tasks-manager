@@ -13,6 +13,7 @@ import { FaRegEdit } from "react-icons/fa";
 import type { Sprint } from '../../model/sprint.model';
 import { openEditSprint } from '../../states/editSprintSlice';
 import { EditSprintDate } from '../edit-sprint-date/EditSprintDate';
+import { OptionsBtn } from '../../../../shared/components/options-btn/OptionsBtn';
 
 
 export const Backlog = () => {
@@ -22,6 +23,7 @@ export const Backlog = () => {
     const { isOpen } = useSelector((store: RootState) => store.editSprintReducer);
 
     const [count, setCount] = useState<number>(0);
+    const [isOptionsOpen, setOptionsOpen ] = useState<string | null>(null);
     
     const onDragStart = (task: Task, e: React.DragEvent<HTMLDivElement>) => {
         e.dataTransfer.setData("text/plain", JSON.stringify(task)); // any payload
@@ -58,12 +60,7 @@ export const Backlog = () => {
        setCount((prev) => prev+1);
     }
 
-    const editSprintDate = (sprint: Sprint) => {
-        console.log(sprint, "hello from edit sprint date");
-        dispatch(openEditSprint({ sprint }));
-    }
     useEffect(() => {
-        console.log(isOpen, "hello from sprint 🛑🛑");
     }, [tasks, isCreating, sprints, isOpen])
     return(
        <>
@@ -82,26 +79,19 @@ export const Backlog = () => {
                             <div className='sprint__header'>
                                <div className='sprint-title'>
                                     Scrum {sprint.name} 
-                                    <span> 
-                                       {
-                                        sprint.startDate && sprint.endDate 
-                                        ? ` (${new Date(sprint.startDate).toLocaleDateString()} - ${new Date(sprint.endDate).toLocaleDateString()})`
-                                        : 
-                                        <>
-                                            <button onClick={() => editSprintDate(sprint)}> 
-                                                <span><FaRegEdit/></span> 
-                                                add date
-                                            </button> 
-                                        </>
-                                       }
-                                    </span> 
+                                    <EditSprintDate {...sprint}/>
                                     <span> ({sprint.tasks.length} work items) </span>
                                </div>
                                 <div className='sprint-actions'>
                                     <button disabled={sprint?.tasks?.length === 0}>start sprint</button>
                                 </div>
-                                <div className='sprint-options'>
-                                    <SlOptions/>
+                                <div 
+                                    className='sprint-options'>
+                                    <OptionsBtn 
+                                        sprint={sprint} 
+                                        isOptionsOpen={isOptionsOpen}
+                                        setOptionsOpen={setOptionsOpen}
+                                    />
                                 </div>
                             </div>
                             <div className='sprint__tasks'> 
@@ -164,8 +154,6 @@ export const Backlog = () => {
                 </section>
             </section>
         </section>
-
-        {isOpen && <EditSprintDate/>}
        </>
     )
 }

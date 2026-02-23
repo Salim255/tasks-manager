@@ -3,6 +3,7 @@
     &__sprints {
         .sprint {
             margin: 2rem 0;
+            //position: relative;
             &__tasks {
                //padding: .5rem 0;
                margin: 1rem 0 ;
@@ -17,6 +18,13 @@
             &__footer {
                 
             }
+            &____modal {
+
+            }
+        }
+        .sprint-options {
+         
+    
         }
     }
     .backlog,
