@@ -1,21 +1,26 @@
 import { NavLink } from 'react-router-dom';
 import './_board.scss';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../../../../redux/store';
 import { useEffect } from 'react';
 import { DiScrum } from "react-icons/di";
-import type { Task } from '../../model/task.model';
+import type { Task, TaskStatus } from '../../model/task.model';
+import { updateSprintSingleTaskStatus } from '../../states/sprintSlice';
 
 export const Board = () => {
-
+    const dispatch = useDispatch();
     const { sprints } = useSelector((store: RootState) => store.sprintReducer);
 
-    const onDragStart = (task: Task) => {
-        console.log(task);
+    const onDragStart = (e: React.DragEvent<HTMLDivElement>, task: Task) => {
+       // console.log(task);
+        e.dataTransfer.setData("text/plain", JSON.stringify(task)); // any payload
     }
-    const onDop = (e: React.DragEvent<HTMLDivElement>) => {
+    const onDrop = (e: React.DragEvent<HTMLDivElement>, type: TaskStatus) => {
         e.preventDefault();
-        console.log("dropped");
+        const data = e.dataTransfer.getData("text/plain");
+        const task = JSON.parse(data);
+        console.log("dropped", type, task);
+        dispatch(updateSprintSingleTaskStatus({task, status: type}));
     }
 
     const onDragOver = (e: React.DragEvent<HTMLDivElement>) => {
@@ -26,7 +31,10 @@ export const Board = () => {
 
     return (
         <section className="board">
-            <div className="todo">
+            <div className="todo"
+                onDrop={(e) => onDrop(e, "todo")}
+                onDragOver={onDragOver}
+            >
                 <div className='todo__header'>
                     To Do
                 </div>
@@ -39,7 +47,7 @@ export const Board = () => {
                                 sprint.tasks.map((task) => {
                                     return <div 
                                         draggable
-                                        onDragStart={ onDragStart.bind(this, task) }
+                                        onDragStart={(e) => onDragStart(e, task)}
                                         key={task.id} className='todo__task'>
                                         {task.title}
                                     </div>
@@ -65,13 +73,13 @@ export const Board = () => {
               
             </div>
             <div className="progress"
-                onDrop={onDop}
+                onDrop={(e) => onDrop(e, "in_progress")}
                 onDragOver={onDragOver}
             >
                 <div className='progress__header'>In Progress</div>
             </div>
             <div className="done"
-                onDrop={onDop}
+                onDrop={(e) => onDrop(e, "done")}
                 onDragOver={onDragOver}
             >
                <div className='done__header'> Done </div>

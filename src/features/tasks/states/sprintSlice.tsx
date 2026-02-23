@@ -1,7 +1,7 @@
 // 1 http
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { Sprint } from "../model/sprint.model";
-import type { Task } from "../model/task.model";
+import type { Task, TaskStatus } from "../model/task.model";
 
 
 // 2 initial state
@@ -18,6 +18,28 @@ const createSprintSlice = createSlice({
     name: 'sprintSlice',
     initialState,
     reducers: {
+        updateSprintSingleTaskStatus: (
+            state, 
+            action: PayloadAction<{ task: Task, status: TaskStatus}>,
+        ) => {
+            const { task, status } = action.payload;
+            // 1 Find the sprint
+            const sprintIndex = state?.sprints
+                ?.findIndex((sprint) => sprint.id === task.sprintId);
+          
+            if (sprintIndex === -1) return;
+
+            // 2 Concerned sprint
+            const concernedSprint = state.sprints[sprintIndex];
+
+            // 3 Update task status in sprint
+            concernedSprint.tasks = concernedSprint?.tasks
+                ?.map((tsk) => tsk.id === task.id ? {...tsk, status: status} : tsk);
+
+            // 4 Update state
+            state.sprints[sprintIndex] = concernedSprint;
+
+        },
         removeTaskFromSprint: (
             state, 
             action: PayloadAction<{sprintId: string, taskId: string}>,
@@ -72,6 +94,7 @@ const createSprintSlice = createSlice({
 })
 
 // Export other reducers
+export const { updateSprintSingleTaskStatus } = createSprintSlice.actions;
 export const { removeTaskFromSprint } = createSprintSlice.actions;
 export const { addTaskToSprint } = createSprintSlice.actions;
 export const { addSprint } = createSprintSlice.actions;

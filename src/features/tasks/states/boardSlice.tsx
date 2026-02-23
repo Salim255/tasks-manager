@@ -12,7 +12,7 @@ const initialState: BoardInitialStateType = {
 }
 
 const boardSlice = createSlice({
-    name: "board",
+    name: "boardSlice",
     initialState: initialState,
     reducers: {
         addSprintToBoard: (state, action: PayloadAction<{sprint: Sprint}>) => {
