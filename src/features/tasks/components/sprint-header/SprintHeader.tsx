@@ -13,7 +13,11 @@ export const SprintHeader = ({
         isOptionsOpen: string | null, 
         setOptionsOpen: (sprintId: string | null) => void ,
     }) => {
-        const [isEditSprintOpen, setEditSprintOpen] = useState<boolean>(false);   
+        const [isEditSprintOpen, setEditSprintOpen] = useState<boolean>(false); 
+        
+        const onStartSprint = () => {     
+            
+        }
         return(
             <div className='sprint-header'>
                 <div className='sprint-header__title'>
@@ -25,7 +29,7 @@ export const SprintHeader = ({
                     <span> ({sprint.tasks.length} work items) </span>
                 </div>
                 <div className='sprint-header__actions'>
-                    <button disabled={sprint?.tasks?.length === 0}>start sprint</button>
+                    <button disabled={sprint?.tasks?.length === 0} onClick={onStartSprint}>start sprint</button>
                 </div>
                 <div 
                     className='sprint-header__options'>

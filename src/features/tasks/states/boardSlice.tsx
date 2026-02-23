@@ -1,26 +1,12 @@
-import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import type { Sprint } from "../model/sprint.model";
+import type { RootState } from "../../../redux/store";
 
-type BoardInitialStateType = {
-    sprints: Sprint[];
-    isLoading: boolean;
+export const selectSprints = (state: RootState) =>
+    state.sprintReducer.sprints;
+
+export const selectActiveSprint = (state: RootState) => {
+   const sprints =  selectSprints(state).find(
+        sprint => sprint.status === "active"
+    );
+    return sprints ? [sprints] : [];
 }
-
-const initialState: BoardInitialStateType = {
-    sprints: [],
-    isLoading: false
-}
-
-const boardSlice = createSlice({
-    name: "boardSlice",
-    initialState: initialState,
-    reducers: {
-        addSprintToBoard: (state, action: PayloadAction<{sprint: Sprint}>) => {
-            const { sprint } = action.payload;
-            state.sprints.push(sprint);
-        }
-    }
-});
-
-export const { addSprintToBoard } = boardSlice.actions;
-export default boardSlice.reducer;
+    

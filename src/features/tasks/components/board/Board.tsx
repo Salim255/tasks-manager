@@ -1,15 +1,15 @@
 import { NavLink } from 'react-router-dom';
 import './_board.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import type { RootState } from '../../../../redux/store';
 import { useEffect } from 'react';
 import { DiScrum } from "react-icons/di";
 import type { Task, TaskStatus } from '../../model/task.model';
 import { updateSprintSingleTaskStatus } from '../../states/sprintSlice';
+import { selectActiveSprint } from '../../states/boardSlice';
 
 export const Board = () => {
-    const dispatch = useDispatch();
-    const { sprints } = useSelector((store: RootState) => store.sprintReducer);
+    const dispatch = useDispatch();    
+    const sprints = useSelector(selectActiveSprint);
 
     const onDragStart = (e: React.DragEvent<HTMLDivElement>, task: Task) => {
        // console.log(task);
@@ -40,8 +40,9 @@ export const Board = () => {
                 </div>
 
                 {
-                    sprints.length 
-                    ? sprints.map((sprint) => {
+                    sprints?.length 
+                    ? sprints?.map((sprint) => {
+                        
                         return <div key={sprint.id} className=''> 
                             {
                                 sprint.tasks.map((task) => {

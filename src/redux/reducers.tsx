@@ -3,7 +3,7 @@ import taskReducer from "../features/tasks/states/taskSlice";
 import sprintReducer from "../features/tasks/states/sprintSlice";
 import editSprintReducer from "../features/tasks/states/editSprintSlice";
 
-const reducers = {  
+const reducers = {
     editSprintReducer: editSprintReducer,
     sprintReducer: sprintReducer,
     taskSlice: taskReducer,
