@@ -6,6 +6,7 @@ import { DiScrum } from "react-icons/di";
 import type { Task, TaskStatus } from '../../model/task.model';
 import { updateSprintSingleTaskStatus } from '../../states/sprintSlice';
 import { selectActiveSprint } from '../../states/boardSlice';
+import { BoardTaskItem } from '../board-task-item/BoardTaskItem';
 
 export const Board = () => {
     const dispatch = useDispatch();    
@@ -53,12 +54,16 @@ export const Board = () => {
                         return <div key={sprint.id} className=''> 
                             {
                                 sprint.tasks.map((task) => {
-                                    return task.status === "todo" ? <div 
+                                   return (
+                                    task.status === "todo" ? 
+                                    <BoardTaskItem 
+                                        key={task.id} 
+                                        task={task} 
                                         draggable
                                         onDragStart={(e) => onDragStart(e, task)}
-                                        key={task.id} className='todo__task'>
-                                        {task.title}
-                                    </div> : null
+                                         /> 
+                                    : null
+                                    )
                                 })
                             }
                         </div>
@@ -91,12 +96,16 @@ export const Board = () => {
                         return <div key={sprint.id} className=''>
                             {
                                 sprint.tasks.map((task) => {
-                                    return task.status === "in_progress" ? <div 
+                                    return(
+                                      task.status === "in_progress" ?
+                                      <BoardTaskItem 
+                                        task={task} 
                                         draggable
                                         onDragStart={(e) => onDragStart(e, task)}
-                                        key={task.id} className='progress__task'>
-                                        {task.title}
-                                    </div> : null
+                                        key={task.id} >
+                                      </BoardTaskItem> 
+                                      : null
+                                    )
                                 })
                             }
                         </div>
@@ -114,12 +123,16 @@ export const Board = () => {
                         return <div key={sprint.id} className=''>
                             {
                                 sprint.tasks.map((task) => {
-                                    return task.status === "done" ? <div 
+                                    return (
+                                        task.status === "done" ?
+                                        <BoardTaskItem 
+                                        task={task}
                                         draggable
                                         onDragStart={(e) => onDragStart(e, task)}
-                                        key={task.id} className='done__task'>
-                                        {task.title}
-                                    </div> : null
+                                        key={task.id}>
+                                        </BoardTaskItem> 
+                                        : null
+                                    )
                                 })
                             }
                         </div>

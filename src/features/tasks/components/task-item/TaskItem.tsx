@@ -4,7 +4,7 @@ import { IoCheckboxOutline } from 'react-icons/io5';
 import { OptionsBtn } from '../../../../shared/components/options-btn/OptionsBtn';
 import { useState } from 'react';
 
-type TaskItemProps = { task: Task; } & React.HTMLAttributes<HTMLDivElement>; // <-- this is the magic
+export type TaskItemProps = { task: Task; } & React.HTMLAttributes<HTMLDivElement>; // <-- this is the magic
 
 export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
     const [isOptionsOpen, setOptionsOpen ] = useState<string | null>(null);
