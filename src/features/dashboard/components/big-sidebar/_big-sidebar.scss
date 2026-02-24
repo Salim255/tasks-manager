@@ -15,16 +15,22 @@
         &__content {
             position: sticky;
             top: 0;
-            //background-color: red;
         }
         &--show-sidebar {
             margin-left: 0;
         }
         header {
-        height: 6rem;
-        display: flex;
-        align-items: center;
-        padding-left: 2.5rem;
+            height: 6rem;
+            display: flex;
+            align-items: center;
+            padding-left: 2.5rem;
+            font-size: 5rem;
+            color: var(--primary-500);
         }
     }
+}
+
+.bg-aside__logo {
+    width: 5rem;
+    height: 5rem;
 }

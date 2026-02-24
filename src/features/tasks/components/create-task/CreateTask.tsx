@@ -6,8 +6,7 @@ import { addToBacklogTask, createTaskHttp, type CreateTaskPayload } from "../../
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../../../redux/store";
 import { tasks } from "../../../../shared/utils/tasks";
-import { IoCheckboxOutline } from "react-icons/io5";
-
+import { TaskTypeDropdown } from '../../../../shared/components/task-type-dropdown/TaskTypeDropdown';
 
 export const CreateTask = () => {
   const [isCreateBtn, setCreateBtn] = useState<boolean>(true);
@@ -45,7 +44,7 @@ export const CreateTask = () => {
     restCounter((prev) => prev+1)
     reset();
   };
-
+   
   return (
     <>  
     {
@@ -62,9 +61,7 @@ export const CreateTask = () => {
             <form onSubmit={handleSubmit} className='create-task-form'>
                 {/* Title */}
                 <div className="create-task-form__form-group-title">
-                    <div >
-                        <IoCheckboxOutline/>
-                    </div>
+                    <TaskTypeDropdown />
                     <input
                         id="title"
                         type="text"

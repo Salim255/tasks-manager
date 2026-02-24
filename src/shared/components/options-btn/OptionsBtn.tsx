@@ -6,7 +6,7 @@ import type { Task } from '../../../features/tasks/model/task.model';
 export const OptionsBtn = ({ 
         item, 
         isOptionsOpen, 
-        setOptionsOpen ,
+        setOptionsOpen,
         children
     }: { 
         item: Sprint | Task, 
