@@ -27,6 +27,13 @@ export const Board = () => {
         e.preventDefault();
     }
 
+    const countTasksByStatus = (status: TaskStatus): number | null => {
+        const count = sprints?.reduce(
+            (acc, sprint) => acc + sprint.tasks.filter(task => task.status === status).length, 0
+        );
+        return count || null;
+    }
+
     useEffect(() => {}, [sprints]);
 
     return (
@@ -36,7 +43,7 @@ export const Board = () => {
                 onDragOver={onDragOver}
             >
                 <div className='todo__header'>
-                    To Do
+                    To Do { countTasksByStatus("todo") }
                 </div>
 
                 {
@@ -77,7 +84,7 @@ export const Board = () => {
                 onDrop={(e) => onDrop(e, "in_progress")}
                 onDragOver={onDragOver}
             >
-                <div className='progress__header'>In Progress</div>
+                <div className='progress__header'>In Progress { countTasksByStatus("in_progress") }</div>
                 {
                     sprints.length 
                     ? sprints.map((sprint) => {
@@ -101,7 +108,7 @@ export const Board = () => {
                 onDrop={(e) => onDrop(e, "done")}
                 onDragOver={onDragOver}
             >
-               <div className='done__header'> Done </div>
+               <div className='done__header'> Done { countTasksByStatus("done") } </div>
                 {   sprints.length 
                     ? sprints.map((sprint) => {
                         return <div key={sprint.id} className=''>

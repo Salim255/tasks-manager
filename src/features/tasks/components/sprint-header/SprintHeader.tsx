@@ -18,15 +18,13 @@ export const SprintHeader = ({
         const [isEditSprintOpen, setEditSprintOpen] = useState<boolean>(false); 
         const dispatch = useDispatch();
 
-        const updateSprintStatus = (status: SprintStatus) => {     
-            console.log("update sprint status", sprint.id, status);
-
+        const updateSprintStatus = (status: SprintStatus) => {  
             if(!sprint?.id || status === 'completed') return;
 
             dispatch(onUpdateSprintStatus({ 
-                    sprintId: sprint?.id, 
-                    status: status,
-                }));
+                sprintId: sprint?.id, 
+                status: status,
+            }));
         }
 
         const getActionText = ( status: SprintStatus ) => {
@@ -38,6 +36,7 @@ export const SprintHeader = ({
                 default: return "";
             }
         }
+        
         return(
             <div className='sprint-header'>
                 <div className='sprint-header__title'>
@@ -50,7 +49,7 @@ export const SprintHeader = ({
                 </div>
                 <div className='sprint-header__actions'>
                     <button 
-                        disabled={sprint.tasks.length === 0} 
+                        disabled={sprint.tasks.length === 0 || sprint.status === "upcoming"} 
                         onClick={() => updateSprintStatus(sprint.status === "planned" ? "active" : "completed")}>
                             {
                                 getActionText(sprint.status)
