@@ -1,5 +1,8 @@
+import "./_task-type-dropdown.scss";
 import { IoBookmarkOutline, IoBugOutline, IoCheckboxOutline } from "react-icons/io5";
 import type { TaskType } from "../../../features/tasks/model/task.model";
+import { RiArrowDropDownLine } from "react-icons/ri";
+
 import { useState } from "react";
 const typeIcon = {
     task: <IoCheckboxOutline />,
@@ -7,34 +10,26 @@ const typeIcon = {
     story: <IoBookmarkOutline />
 };
 
-export const TaskTypeDropdown = () => {
+export const TaskTypeDropdown = ( {children}: {children: React.ReactNode}) => {
   const [type, setType] = useState<TaskType>("task");
   const handleTaskTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setType(e.target.value as TaskType);
     };
   return (
-         <div style={{ position: "relative", display: "inline-block", marginRight: 8 }}  >
-            {/* Visible Icon */}
-            <div style={{ fontSize: 22 }}>
+    <section 
+        className="task-drop-down"  >
+        <div className="task-drop-down__container" >
+            <div className="task-drop-down__icon">
                 {typeIcon[type]}
             </div>
-
-            {/* Hidden Select */}
             <select 
-                name="type" 
-                id="type"
-                style={{
-                    position: "absolute",
-                    inset: 0,
-                    opacity: 0,
-                    cursor: "pointer"
-                }}
+                className="task-drop-down__select"
                 onChange={handleTaskTypeChange}
-                    >
-                <option value="task">Task</option>
-                <option value="bug">Bug</option>
-                <option value="story">Story</option>
+                >
+                {children}
             </select>
+            <RiArrowDropDownLine className="task-drop-down__arrow" />
         </div>
+    </section>
   );
 }

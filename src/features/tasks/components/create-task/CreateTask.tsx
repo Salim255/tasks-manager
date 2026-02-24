@@ -61,7 +61,11 @@ export const CreateTask = () => {
             <form onSubmit={handleSubmit} className='create-task-form'>
                 {/* Title */}
                 <div className="create-task-form__form-group-title">
-                    <TaskTypeDropdown />
+                    <TaskTypeDropdown >
+                        <option value="task">Task</option>
+                        <option value="bug">Bug</option>
+                        <option value="story">Story</option>
+                    </TaskTypeDropdown>
                     <input
                         id="title"
                         type="text"
