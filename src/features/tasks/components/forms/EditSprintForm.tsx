@@ -1,19 +1,29 @@
 import "./_editSprint.scss";
 import { IoMdClose } from "react-icons/io";
 import type { Sprint } from "../../model/sprint.model";
+import { useDispatch } from "react-redux";
+import { onUpdateSprintStatus } from "../../states/sprintSlice";
 
 export const EditSprintForm = ({ 
     sprint, 
     setEditSprintOpen,
  }: { 
-    sprint: Sprint | undefined; 
+    sprint: Sprint; 
     setEditSprintOpen: (open: boolean) => void,
  }) => {
-   
+   const dispatch = useDispatch();
+
     const clickSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setEditSprintOpen(false)
+        setEditSprintOpen(false);
+        if (!sprint) return;
+        dispatch(onUpdateSprintStatus({ 
+            sprintId: sprint?.id, 
+            status: sprint?.status === "upcoming" ? "planned" : sprint?.status,
+        }));
+
     }
+    
     return (
         <section className="edit-sprint">
             <form className="edit-sprint-form"  onSubmit={clickSubmit}>

@@ -101,6 +101,7 @@ const createSprintSlice = createSlice({
 })
 
 // Export other reducers
+export const { onUpdateSprintStatus } = createSprintSlice.actions;
 export const { updateSprintSingleTaskStatus } = createSprintSlice.actions;
 export const { removeTaskFromSprint } = createSprintSlice.actions;
 export const { addTaskToSprint } = createSprintSlice.actions;

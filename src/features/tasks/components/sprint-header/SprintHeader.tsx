@@ -3,6 +3,8 @@ import { OptionsBtn } from "../../../../shared/components/options-btn/OptionsBtn
 import type { Sprint, SprintStatus } from "../../model/sprint.model";
 import { EditSprintDate } from "../edit-sprint-date/EditSprintDate";
 import { useState } from 'react';
+import { onUpdateSprintStatus } from '../../states/sprintSlice';
+import { useDispatch } from 'react-redux';
 
 export const SprintHeader = ({
         sprint,
@@ -14,9 +16,27 @@ export const SprintHeader = ({
         setOptionsOpen: (sprintId: string | null) => void ,
     }) => {
         const [isEditSprintOpen, setEditSprintOpen] = useState<boolean>(false); 
-        
-        const onUpdateSprintStatus = (status: SprintStatus) => {     
+        const dispatch = useDispatch();
+
+        const updateSprintStatus = (status: SprintStatus) => {     
             console.log("update sprint status", sprint.id, status);
+
+            if(!sprint?.id || status === 'completed') return;
+
+            dispatch(onUpdateSprintStatus({ 
+                    sprintId: sprint?.id, 
+                    status: status,
+                }));
+        }
+
+        const getActionText = ( status: SprintStatus ) => {
+            switch (status) {
+                case "planned": return "Start sprint";
+                case "active": return "Complete sprint";
+                case "completed": return "Sprint completed";
+                case "upcoming": return "Start sprint";
+                default: return "";
+            }
         }
         return(
             <div className='sprint-header'>
@@ -30,10 +50,10 @@ export const SprintHeader = ({
                 </div>
                 <div className='sprint-header__actions'>
                     <button 
-                        disabled={sprint?.tasks?.length === 0} 
-                        onClick={() => onUpdateSprintStatus(sprint.status === "upcoming" ? "active" : "completed")}>
+                        disabled={sprint.tasks.length === 0} 
+                        onClick={() => updateSprintStatus(sprint.status === "planned" ? "active" : "completed")}>
                             {
-                                sprint.status === "upcoming" ?  "start sprint" : "complete sprint"
+                                getActionText(sprint.status)
                             }
                     </button>
                 </div>
