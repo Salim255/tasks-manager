@@ -1,12 +1,13 @@
-import './_task-navbar.scss';
+import { tasksLinks } from '../../../../shared/utils/links';
+import './_project-navbar.scss';
 import { NavLink } from "react-router-dom";
-import { tasksLinks } from "../../../../shared/utils/links";
 
-export const TasksNavbar =() => {
+
+export const ProjectNavbar =() => {
     return (
-        <header className="tasks-header">
+        <header className="project-header">
             <div>
-                My Scrum Space
+                Project name
             </div>
             <nav className="tasks-header__links">
                 {

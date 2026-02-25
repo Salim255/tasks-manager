@@ -1,0 +1,47 @@
+.backlog-container {
+    border-radius: 2px;
+    &__sprints {
+        .sprint {
+            margin: 2rem 0;
+            &__tasks {
+               //padding: .5rem 0;
+               margin: 1rem 0 ;
+            }
+          
+            &__footer {
+                
+            }
+            &____modal {
+
+            }
+        }
+    }
+    .backlog,
+    .sprint {
+        padding: 1rem;
+        background-color: var(--grey-50);
+        border-radius: .5rem;
+    }
+    .backlog {
+        &__header{
+            display: flex;
+            justify-content: space-between;
+            //padding: 1rem;
+        }
+        &__content {
+            margin: 1rem 0;
+        }
+       
+        &__footer {
+
+        }
+    }
+
+    .empty {
+        border-style: dashed;
+        border-color: var(--primary-300);
+        text-align: center;
+        padding: .5rem;
+        border-radius: 4px;
+    }
+}

@@ -8,6 +8,7 @@ import { TaskDetails } from "../features/tasks/components/task-details/TaskDetai
 import { Tasks } from "../features/tasks/Tasks";
 import { Backlog } from "../features/tasks/components/backlog/Backlog";
 import { Board } from "../features/tasks/components/board/Board";
+import { Projects } from "../features/projects/Projects";
 
 const routes: RouteObject[] = [
     {
@@ -17,6 +18,10 @@ const routes: RouteObject[] = [
             {   
               index: true,
               Component: Profile
+            },
+            {
+                path: 'projects',
+                Component: Projects
             },
             {   
                 path: 'tasks',
