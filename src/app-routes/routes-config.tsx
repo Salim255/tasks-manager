@@ -9,6 +9,7 @@ import { Tasks } from "../features/tasks/Tasks";
 import { Backlog } from "../features/tasks/components/backlog/Backlog";
 import { Board } from "../features/tasks/components/board/Board";
 import { Projects } from "../features/projects/Projects";
+import { CreateProject } from "../features/projects/pages/create-project/CreateProject";
 
 const routes: RouteObject[] = [
     {
@@ -18,6 +19,10 @@ const routes: RouteObject[] = [
             {   
               index: true,
               Component: Profile
+            },
+             {
+                path: 'create-project',
+                Component: CreateProject
             },
             {
                 path: 'projects',
