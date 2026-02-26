@@ -1,3 +1,5 @@
+import { useReducer } from "react";
+
 export type ProjectFormState = {
     name: string;
     description?: string;
@@ -51,17 +53,30 @@ function reducer(state: ProjectFormState, action: Action ){
 }
 
 // From
-export const projectForm =() => {
+export const useProjectForm = () => {
 
     // Reducer takes the created reducer and the state
-    const [ initalProjectState, dispatch ] = useReducer();
+    const [state, dispatch ] = useReducer(reducer, initialProjectState);
 
     // Set filed
+    const setField = (field: keyof Omit<ProjectFormState, "errors">, value: string) => {
+       return dispatch({type: 'SET_FIELD', field, value })
+    }
 
     // Set error
+    const setError = (field: keyof ProjectFormState["errors"], message: string ) => {
+        return dispatch({type: 'SET_ERROR', field,  message })
+    }
 
     // Clear error
+    const clearError = () => {
+        return dispatch({type: 'CLEAR_ERRORS'})
+    }
 
     // Reset
-    return '';
+    const reset = () => {
+        return dispatch({ type: 'RESET' })
+    }
+    
+    return {state,  setField, setError, clearError, reset };
 }
