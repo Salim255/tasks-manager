@@ -1,0 +1,62 @@
+.create-task-form {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border: 2px solid var(--primary-500);
+    padding: .4rem;
+    padding-left: 1rem;
+    background-color: var(--white);
+    &__form-group-title {
+        flex: 1;
+        display: flex;
+        gap: .5rem;
+        div {
+            display: flex;
+            align-items: center;
+            font-size: 1.2rem;
+            color: var(--primary-500);
+        }
+        input {
+            width: 100%;
+            border: unset;
+            background-color: unset;
+            outline: unset;
+        }
+    }
+    &__form-group-date {
+        input {
+            border: unset;
+            background-color: unset;
+            outline: unset;
+            color: var(--textColor);
+        }
+    }
+    &__btn {
+      
+    }
+}
+.create-btn {
+    display: flex;
+    justify-items: center;
+    border: none;
+    background-color: unset;
+    font-size: 1rem;
+    text-transform: capitalize;
+    gap: .2rem;
+    color: var(--grey-700);
+    transition: all .1s ease-in-out;
+    &__icon {
+        display: flex;
+        justify-items: center;
+        align-self: center;
+        font-size: 1.5rem;
+        color: var(--grey-700);
+    }
+    span {
+        align-self: center;
+    }
+
+    &:hover {
+        transform: scale(1.02);
+    }
+}

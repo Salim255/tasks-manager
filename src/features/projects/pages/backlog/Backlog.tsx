@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react';
 import './_backlog.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../../../../redux/store';
-import { CreateTask } from '../create-task/CreateTask';
-import { TaskItem } from '../task-item/TaskItem';
+import { CreateTask } from '../../components/create-task/CreateTask';
+import { TaskItem } from '../../components/task-item/TaskItem';
 import { sprintsList } from '../../../../shared/utils/sprints';
 import { addSprint, addTaskToSprint, removeTaskFromSprint } from '../../states/sprintSlice';
-import type { Task } from '../../model/task.model';
+import type { Task } from '../../models/task.model';
 import { removeTask, setBackTaskToBacklog } from '../../states/taskSlice';
-import { SprintHeader } from '../sprint-header/SprintHeader';
+import { SprintHeader } from '../../components/sprint-header/SprintHeader';
 
 
 export const Backlog = () => {

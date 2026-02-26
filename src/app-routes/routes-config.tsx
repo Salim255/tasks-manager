@@ -21,7 +21,22 @@ const routes: RouteObject[] = [
             },
             {
                 path: 'projects',
-                Component: Projects
+                Component: Projects,
+                 children: [
+                    { index: true, element: <Navigate to="board" replace /> },
+                    {
+                        path: 'projectId/board',
+                        Component: Board
+                    },
+                    {
+                        path: 'projectId/backlog',
+                        Component: Backlog
+                    },
+                    {
+                        path: 'projectId/tasks',
+                        Component: TaskDetails
+                    }
+                ]
             },
             {   
                 path: 'tasks',

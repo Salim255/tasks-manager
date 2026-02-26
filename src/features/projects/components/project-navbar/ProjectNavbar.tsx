@@ -1,4 +1,4 @@
-import { tasksLinks } from '../../../../shared/utils/links';
+import { projectLinks } from '../../../../shared/utils/links';
 import './_project-navbar.scss';
 import { NavLink } from "react-router-dom";
 
@@ -11,7 +11,7 @@ export const ProjectNavbar =() => {
             </div>
             <nav className="tasks-header__links">
                 {
-                    tasksLinks.map((link) => {
+                    projectLinks.map((link) => {
                         return (
                              <NavLink
                                 key={link.id} 

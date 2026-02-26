@@ -16,3 +16,9 @@ export const tasksLinks = [
       {  id: 4, text: 'backlog', path: '/tasks/backlog', icon: <FaWpforms />},
       {  id: 5, text: 'all tasks', path: '/tasks/all-tasks', icon: <ImProfile />}
 ]
+
+export const projectLinks = [
+      {  id: 2, text: 'board', path: '/projects/projectId/board', icon:  <GrTasks /> },
+      {  id: 4, text: 'backlog', path: '/projects/projectId/backlog', icon: <FaWpforms />},
+      {  id: 5, text: 'tasks', path: '/projects/projectId/tasks', icon: <ImProfile />}
+]

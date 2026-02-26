@@ -1,0 +1,27 @@
+.sprint-header {
+    display: flex;
+    gap: 1rem;
+    &__title {
+        margin-right: auto;
+        display: flex;
+        gap: .5rem;
+    }
+    &__options {
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+            //gap: .5rem;
+            &__item {
+                //border-radius: 4px;
+                min-width: 8rem;
+                padding: .5rem;
+                padding-left: 1rem;
+                &:hover {
+                    background-color: var(--grey-100);
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}
