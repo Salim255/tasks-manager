@@ -7,7 +7,7 @@ import { FiLayers } from "react-icons/fi";
 export const links  = [
       {  id: 1, text: 'profile', path: '/', icon:  <MdQueryStats /> },
       {  id: 2, text: 'Projects', path: '/projects', icon: <FiLayers />},
-      {  id: 3, text: 'add task', path: '/add-task', icon: <FaWpforms />},
+      {  id: 3, text: 'create project', path: '/add-task', icon: <FaWpforms />},
       {  id: 4, text: 'all tasks', path: '/tasks', icon: <ImProfile />},
 ]
 
