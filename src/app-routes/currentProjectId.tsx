@@ -13,6 +13,6 @@ export const  ProjectsIndexRedirect = ()  => {
     return <Navigate to="/projects/empty" replace />;
   }
 
-  console.log(activeProjectId);
+  console.log(activeProjectId, "hello 🛑🛑");
   return <Navigate to={`${activeProjectId}/board`} replace />;
 }

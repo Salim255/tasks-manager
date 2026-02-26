@@ -4,10 +4,11 @@ import { FaAlignLeft, FaUserCircle, FaCaretDown } from 'react-icons/fa';
 
 import { useEffect, useState } from 'react';
 import { updateSidebarOpenState } from '../../states/dashboardSlice';
+import type { RootState } from '../../../../redux/store';
 
 export const Navbar = () => {
     const [showLogout, setShowLogout] = useState(false);
-    const { dashboard } = useSelector((store) => store);
+    const { dashboard } = useSelector((store: RootState) => store);
     const dispatch = useDispatch();
     function toggle () {
       dispatch(updateSidebarOpenState())

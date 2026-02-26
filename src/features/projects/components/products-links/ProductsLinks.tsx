@@ -8,6 +8,7 @@ export const ProductsLinks = ({ project }:{ project: Project}) => {
     const updateActiveProjectId = () => {
         dispatch(setActiveProductId({projectId: project.id }));
     }
+
     return <>
          <li>
             <NavLink
@@ -16,7 +17,7 @@ export const ProductsLinks = ({ project }:{ project: Project}) => {
                     return  isActive  ? 'test1' : 'test2'
                 }}
                 to={`/projects/${project.id}/board`}
-                end
+             
                 >
                 {project.name}
             </NavLink>

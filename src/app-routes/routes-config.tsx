@@ -11,6 +11,7 @@ import { Board } from "../features/tasks/components/board/Board";
 import { Projects } from "../features/projects/Projects";
 import { CreateProject } from "../features/projects/pages/create-project/CreateProject";
 import { ProjectsIndexRedirect } from "./currentProjectId";
+import { Project } from "../features/projects/pages/project/Project";
 
 
 
@@ -29,7 +30,7 @@ const routes: RouteObject[] = [
             },
             {
                 path: 'projects',
-                Component: Projects,
+                Component: Project,
                  children: [
                     { index: true, element: < ProjectsIndexRedirect /> },
                     {

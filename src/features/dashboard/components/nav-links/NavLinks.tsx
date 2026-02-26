@@ -18,7 +18,8 @@ export const NavLinks = ({ toggleSidebar }: { toggleSidebar: () => void}) => {
             {
                 links.map((link) => {
                 const {id, text, path, icon} = link;
-                return <NavLink
+                return <>
+                <NavLink
                     onClick={toggleSidebar}
                     key={id}
                     to={path}
@@ -28,24 +29,23 @@ export const NavLinks = ({ toggleSidebar }: { toggleSidebar: () => void}) => {
                         : 'nav-links__nav-link'
                     }}
                     >
-                     
-                            <div className='parent-link'>
-                                <span className='icon'>  { icon } </span>
-                                { text }
-                            </div>
-                    
-                       {
-                        text==='Projects' &&  <ul>
-                           {
+                    <div className='parent-link'>
+                        <span className='icon'>  { icon } </span>
+                        { text }
+                    </div>
+                </NavLink>
+                    {   text==='Projects' && 
+                        <ul>
+                            {
                             projects.map((project) => {
                                 return(
-                                    <ProductsLinks project={project}/>
+                                    <ProductsLinks key={project.id} project={project}/>
                                 )
                             })
-                           }
+                            }
                         </ul>
-                       }
-                </NavLink>
+                    }
+                </>
             })
             }
         </div>
