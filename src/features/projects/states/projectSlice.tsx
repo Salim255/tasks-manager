@@ -49,5 +49,5 @@ const projectSlice = createSlice({
     }
 });
 
-export const { createProject } = projectSlice.actions;
+export const { createProject, setActiveProductId } = projectSlice.actions;
 export default projectSlice.reducer;

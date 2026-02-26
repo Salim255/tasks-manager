@@ -5,6 +5,7 @@ import './_nav-links.scss';
 
 import { NavLink } from "react-router-dom";
 import { useEffect } from 'react';
+import { ProductsLinks } from '../../../projects/components/products-links/ProductsLinks';
 
 
 export const NavLinks = ({ toggleSidebar }: { toggleSidebar: () => void}) => {
@@ -38,16 +39,7 @@ export const NavLinks = ({ toggleSidebar }: { toggleSidebar: () => void}) => {
                            {
                             projects.map((project) => {
                                 return(
-                                    <li><NavLink 
-                                        className={({isActive}) => {
-                                            return  isActive  ? 'test1' : 'test2'
-                                        }}
-                                        to={`/projects/${project.id}/board`}
-                                        end
-                                        >
-                                            {project.name}
-                                        </NavLink>
-                                    </li>
+                                    <ProductsLinks project={project}/>
                                 )
                             })
                            }
