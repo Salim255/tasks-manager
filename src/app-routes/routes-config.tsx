@@ -10,7 +10,7 @@ import { Backlog } from "../features/tasks/components/backlog/Backlog";
 import { Board } from "../features/tasks/components/board/Board";
 import { Projects } from "../features/projects/Projects";
 import { CreateProject } from "../features/projects/pages/create-project/CreateProject";
-import { ProjectsIndexRedirect } from "./currentProjectHook";
+import { ProjectsIndexRedirect } from "./currentProjectId";
 
 
 

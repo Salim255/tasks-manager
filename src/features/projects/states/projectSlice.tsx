@@ -41,9 +41,9 @@ const projectSlice = createSlice({
             state.isLoading = false;
             return state;
         },
-        setActiveProductId: (state, action: PayloadAction<{ productId: string}>) => {
-            const { productId } = action.payload;
-            state.activeProjectId = productId;
+        setActiveProductId: (state, action: PayloadAction<{ projectId: string}>) => {
+            const { projectId } = action.payload;
+            state.activeProjectId = projectId;
             return state;
         }
     }
