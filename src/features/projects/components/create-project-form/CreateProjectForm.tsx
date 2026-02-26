@@ -1,7 +1,10 @@
 import { useEffect, type ChangeEvent } from "react";
 import { useProjectForm } from "../../forms/projectFormBuilder"
+import { useDispatch } from "react-redux";
+import { createProject, type CreateProjectPayload } from "../../states/projectSlice";
 
 export const CreateProjectForm = () => {
+    const dispatch = useDispatch();
     const { state, setField } = useProjectForm();
 
     const handleInput = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -11,6 +14,8 @@ export const CreateProjectForm = () => {
     const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
         console.log(state);
+        const payload: CreateProjectPayload  = { name: state.name, description: state.description, status: state.status}
+        dispatch(createProject({ payload }));
     }
 
     useEffect(() => {
