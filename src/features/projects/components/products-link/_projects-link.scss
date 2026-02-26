@@ -1,0 +1,30 @@
+.projects-item {
+    font-size: 1rem;
+    margin-left: 3rem;
+    padding-bottom: .8rem;
+    display: flex;
+    gap: 1rem;
+    transition: var(--transition);
+    &__icon {
+        color: var(--grey-900);
+        transition: var(--transition);
+        &--active {
+            color: var(--primary-500);
+        }
+        &:hover {
+            color: var(--primary-500);
+        }
+    }
+    &__link {
+        color: var(--grey-500);
+        text-transform: capitalize;
+       
+        &--active {
+           color: var(--grey-900);
+        }
+    }
+    &:hover {
+        transform: scale(1.02);
+        color: var(--grey-900);
+    }
+}

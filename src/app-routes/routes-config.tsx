@@ -8,10 +8,10 @@ import { TaskDetails } from "../features/tasks/components/task-details/TaskDetai
 import { Tasks } from "../features/tasks/Tasks";
 import { Backlog } from "../features/tasks/components/backlog/Backlog";
 import { Board } from "../features/tasks/components/board/Board";
-import { Projects } from "../features/projects/Projects";
 import { CreateProject } from "../features/projects/pages/create-project/CreateProject";
 import { ProjectsIndexRedirect } from "./currentProjectId";
-import { Project } from "../features/projects/pages/project/Project";
+import { Projects } from "../features/projects/Projects";
+import { EmptyProjects } from "../features/projects/pages/empty-projects/EmptyProjects";
 
 
 
@@ -29,10 +29,14 @@ const routes: RouteObject[] = [
                 Component: CreateProject
             },
             {
-                path: 'projects',
-                Component: Project,
+                path: 'projects/',
+                Component: Projects,
                  children: [
-                    { index: true, element: < ProjectsIndexRedirect /> },
+                    { index: true, element:  <ProjectsIndexRedirect /> },
+                    {
+                        path: 'empty',
+                        Component: EmptyProjects
+                    },
                     {
                         path: ':projectId/board',
                         Component: Board

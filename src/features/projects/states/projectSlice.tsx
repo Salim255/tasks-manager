@@ -19,8 +19,6 @@ const initialState: InitialState = {
     isLoading: false,
 }
 
-// 
-
 const projectSlice = createSlice({
     name: 'projectSlice',
     initialState,
@@ -41,7 +39,7 @@ const projectSlice = createSlice({
             state.isLoading = false;
             return state;
         },
-        setActiveProductId: (state, action: PayloadAction<{ projectId: string}>) => {
+        setActiveProjectId: (state, action: PayloadAction<{ projectId: string}>) => {
             const { projectId } = action.payload;
             state.activeProjectId = projectId;
             return state;
@@ -49,5 +47,5 @@ const projectSlice = createSlice({
     }
 });
 
-export const { createProject, setActiveProductId } = projectSlice.actions;
+export const { createProject, setActiveProjectId } = projectSlice.actions;
 export default projectSlice.reducer;

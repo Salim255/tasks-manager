@@ -5,9 +5,6 @@
 
     &__nav-link {
         display: flex;
-        flex-direction: column;
-        justify-content: center;
-        justify-items: center;
         color: var(--grey-500);
         padding: 1rem 0;
         padding-left: 2.5rem;
@@ -38,37 +35,3 @@
     }
 }
 
-
-
-ul {
-    //background-color: red;
-    //text-align: center;
-    
-    margin: 0;
-    padding: 0;
-    li {
-       // padding-left: 2rem;
-        margin: 0;
-        margin: 1rem;
-        //text-align: center;
-        &:hover {
-            transform: scale(1.05);
-            color: greenyellow;
-            background-color: yellowgreen;
-        }
-    }
-}
-.parent-link {
-    display: flex;
-    
-}
-
-
-
-.test1 {
-    color: red;
-}
-
-.test2 {
-    color: black;
-}

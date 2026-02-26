@@ -5,7 +5,7 @@ import './_nav-links.scss';
 
 import { NavLink } from "react-router-dom";
 import { useEffect } from 'react';
-import { ProductsLinks } from '../../../projects/components/products-links/ProductsLinks';
+import { ProjectsLinks } from '../../../projects/components/products-link/ProjectsLink';
 
 
 export const NavLinks = ({ toggleSidebar }: { toggleSidebar: () => void}) => {
@@ -29,19 +29,19 @@ export const NavLinks = ({ toggleSidebar }: { toggleSidebar: () => void}) => {
                         : 'nav-links__nav-link'
                     }}
                     >
-                    <div className='parent-link'>
-                        <span className='icon'>  { icon } </span>
-                        { text }
-                    </div>
+                  
+                    <span className='icon'>  { icon } </span>
+                    { text }
+               
                 </NavLink>
                     {   text==='Projects' && 
                         <ul>
                             {
-                            projects.map((project) => {
-                                return(
-                                    <ProductsLinks key={project.id} project={project}/>
-                                )
-                            })
+                                projects.map((project) => {
+                                    return(
+                                        <ProjectsLinks key={project.id} project={project}/>
+                                    )
+                                })
                             }
                         </ul>
                     }

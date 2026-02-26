@@ -9,10 +9,9 @@ export const  ProjectsIndexRedirect = ()  => {
     activeProjectId ?? projects[0]?.id;
 
   if (!defaultProjectId) {
-    // Optional: empty state handling
+
     return <Navigate to="/projects/empty" replace />;
   }
 
-  console.log(activeProjectId, "hello 🛑🛑");
-  return <Navigate to={`${activeProjectId}/board`} replace />;
+  return <Navigate to={`${defaultProjectId}/board`} replace />;
 }
