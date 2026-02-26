@@ -10,6 +10,9 @@ import { Backlog } from "../features/tasks/components/backlog/Backlog";
 import { Board } from "../features/tasks/components/board/Board";
 import { Projects } from "../features/projects/Projects";
 import { CreateProject } from "../features/projects/pages/create-project/CreateProject";
+import { ProjectsIndexRedirect } from "./currentProjectHook";
+
+
 
 const routes: RouteObject[] = [
     {
@@ -28,17 +31,17 @@ const routes: RouteObject[] = [
                 path: 'projects',
                 Component: Projects,
                  children: [
-                    { index: true, element: <Navigate to="projectId/board" replace /> },
+                    { index: true, element: < ProjectsIndexRedirect /> },
                     {
-                        path: 'projectId/board',
+                        path: ':projectId/board',
                         Component: Board
                     },
                     {
-                        path: 'projectId/backlog',
+                        path: ':projectId/backlog',
                         Component: Backlog
                     },
                     {
-                        path: 'projectId/tasks',
+                        path: ':projectId/tasks',
                         Component: TaskDetails
                     }
                 ]

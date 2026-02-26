@@ -19,7 +19,22 @@ export const tasksLinks = [
 ]
 
 export const projectLinks = [
-      {  id: 2, text: 'board', path: '/projects/projectId/board', icon:  <GrTasks /> },
-      {  id: 4, text: 'backlog', path: '/projects/projectId/backlog', icon: <FaWpforms />},
-      {  id: 5, text: 'tasks', path: '/projects/projectId/tasks', icon: <ImProfile />}
-]
+  {
+    id: 1,
+    text: 'board',
+    path: (projectId: string) => `/projects/${projectId}/board`,
+    icon: <GrTasks />
+  },
+  {
+    id: 2,
+    text: 'backlog',
+    path: (projectId: string) => `/projects/${projectId}/backlog`,
+    icon: <FaWpforms />
+  },
+  {
+    id: 3,
+    text: 'tasks',
+    path: (projectId: string) => `/projects/${projectId}/tasks`,
+    icon: <ImProfile />
+  }
+];

@@ -1,6 +1,7 @@
 import { projectLinks } from '../../../../shared/utils/links';
 import './_project-navbar.scss';
 import { NavLink } from "react-router-dom";
+import { RxDropdownMenu } from "react-icons/rx";
 
 
 export const ProjectNavbar =() => {
@@ -15,7 +16,7 @@ export const ProjectNavbar =() => {
                         return (
                              <NavLink
                                 key={link.id} 
-                                to={link.path}
+                                to={link.path('1')}
                                 className={({isActive}) => {
                                     return isActive ? "tasks-header__link tasks-header__link--active" : "tasks-header__link"
                                 }} >
@@ -25,7 +26,7 @@ export const ProjectNavbar =() => {
                         )
                      })
                 }
-               
+            <RxDropdownMenu />
             </nav>
         </header>
     )

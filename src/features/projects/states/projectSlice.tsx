@@ -1,8 +1,10 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { Project } from "../models/project.model";
+import { projects } from "../../../shared/utils/projects";
 
 type InitialState = {
     projects: Project[];
+    activeProjectId?: string;
     isLoading: boolean;
 }
 
@@ -13,7 +15,7 @@ export type CreateProjectPayload = {
 }
 // Initial state 
 const initialState: InitialState = {
-    projects: [],
+    projects: [...projects],
     isLoading: false,
 }
 
@@ -37,6 +39,11 @@ const projectSlice = createSlice({
             }
             state.projects = [...state.projects, newProject ];
             state.isLoading = false;
+            return state;
+        },
+        setActiveProductId: (state, action: PayloadAction<{ productId: string}>) => {
+            const { productId } = action.payload;
+            state.activeProjectId = productId;
             return state;
         }
     }
