@@ -26,9 +26,16 @@ export const updateSprintStatus = ({
     // Update the sprint
     dispatch(onUpdateSprintStatus({ sprintId, status}));
 
-    const updatedSprint =  getState().sprintReducer.sprints.find((sprint) => sprint.id === sprintId);
-    console.log( "hello world", updatedSprint);
+    const updatedSprint =
+        getState()
+        .sprintReducer
+        .sprints
+        .find((sprint) => sprint.id === sprintId);
+
+    if (!updatedSprint) return;
+    //dispatch(updateSprintStatus());
 }
+
 // 3 create slice
 const createSprintSlice = createSlice({
     name: 'sprintSlice',

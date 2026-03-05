@@ -14,7 +14,6 @@ export const CreateProjectForm = () => {
 
     const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // console.log(state, updateSprintStatus());
         const payload: CreateProjectPayload  = { name: state.name, description: state.description, status: state.status}
         dispatch(createProject({ payload }));
     }

@@ -2,7 +2,7 @@ import "./_edit-sprint-form.scss";
 import { IoMdClose } from "react-icons/io";
 import type { Sprint } from "../../models/sprint.model";
 import { useDispatch } from "react-redux";
-import { updateSprintStatus } from "../../states/sprintSlice";
+import { onUpdateSprintStatus } from "../../states/sprintSlice";
 import type { AppDispatch } from "../../../../redux/store";
 
 export const EditSprintForm = ({ 
@@ -19,10 +19,15 @@ export const EditSprintForm = ({
         setEditSprintOpen(false);
         if (!sprint) return;
 
-        dispatch(updateSprintStatus({ 
+       /*  dispatch(updateSprintStatus({ 
             sprintId: sprint?.id, 
             status: sprint?.status === "upcoming" ? "planned" : sprint?.status,
-        }))
+        })) */
+        dispatch(onUpdateSprintStatus({ 
+            sprintId: sprint?.id, 
+            status: sprint?.status === "upcoming" ? "planned" : sprint?.status,
+        }));
+
     }
     
     return (

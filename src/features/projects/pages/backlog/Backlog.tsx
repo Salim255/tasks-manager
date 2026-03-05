@@ -56,7 +56,7 @@ export const Backlog = () => {
        setCount((prev) => prev+1);
     }
 
-    console.log(projectId, "hello world");
+    console.log(projectId, "hello world", sprints);
     useEffect(() => {
         console.log(projectId);
     }, [tasks, isCreating, sprints, isOpen, projectId]);
@@ -65,8 +65,8 @@ export const Backlog = () => {
        <>
         <section className="backlog-container">
             { sprints.length 
-              ? sprints.map((sprint) => {
-                return (
+              && sprints.map((sprint) => {
+                return sprint.projectId === projectId && (
                     <section 
                         className='backlog-container__sprints'
                         key={sprint.id}
@@ -101,7 +101,6 @@ export const Backlog = () => {
                     </section>
                 )
               }) 
-              : null
             }
 
             <section className='backlog'>
