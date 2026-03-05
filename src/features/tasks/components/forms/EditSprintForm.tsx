@@ -1,8 +1,8 @@
 import "./_editSprint.scss";
 import { IoMdClose } from "react-icons/io";
-import type { Sprint } from "../../model/sprint.model";
 import { useDispatch } from "react-redux";
 import { onUpdateSprintStatus } from "../../states/sprintSlice";
+import type { Sprint } from "../../../projects/models/sprint.model";
 
 export const EditSprintForm = ({ 
     sprint, 

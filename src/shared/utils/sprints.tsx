@@ -1,4 +1,4 @@
-import type { Sprint } from "../../features/tasks/model/sprint.model";
+import type { Sprint } from "../../features/projects/models/sprint.model";
 
 export const sprintsList: Sprint[] = [
   {
@@ -10,7 +10,7 @@ export const sprintsList: Sprint[] = [
     completeDate: undefined,
 
     tasks: [],
-
+    projectId: '1',
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   },
@@ -21,7 +21,7 @@ export const sprintsList: Sprint[] = [
     startDate: undefined,
     endDate: undefined,
     completeDate: undefined,
-
+    projectId: '2',
     tasks: [],
 
     createdAt: new Date().toISOString(),
@@ -34,7 +34,7 @@ export const sprintsList: Sprint[] = [
     startDate: undefined,
     endDate: undefined,
     completeDate: undefined,
-
+    projectId: '3',
     tasks: [],
 
     createdAt: new Date().toISOString(),
@@ -47,7 +47,7 @@ export const sprintsList: Sprint[] = [
     startDate: undefined,
     endDate: undefined,
     completeDate: undefined,
-
+    projectId: '4',
     tasks: [],
 
     createdAt: new Date().toISOString(),

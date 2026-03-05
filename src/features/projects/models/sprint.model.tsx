@@ -9,6 +9,7 @@ export interface Sprint {
   startDate?: string;
   endDate?: string;
   completeDate?: string;
+  projectId: string;
   tasks: Task[]; // ✅ embedded list
   createdAt: string;
   updatedAt: string;

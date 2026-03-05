@@ -81,7 +81,7 @@ export const Backlog = () => {
                                 />
                             <div className='sprint__tasks'> 
                                 { sprint?.tasks?.length ? 
-                                    sprint?.tasks.map((task) => {
+                                    sprint?.tasks.map((task: Task) => {
                                     return   <TaskItem
                                             draggable
                                             onDragStart={(e) => onDragStart(task, e)}

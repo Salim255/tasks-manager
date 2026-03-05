@@ -17,7 +17,7 @@ export interface Task {
   assigneeId?: string;
 
   sprintId?: string;
-
+  projectId: string;
   dueAt?: string;        // ISO date (optional)
 
   createdAt: string;

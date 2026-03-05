@@ -31,7 +31,7 @@ export const Board = () => {
 
     const countTasksByStatus = (status: TaskStatus): number | null => {
         const count = sprints?.reduce(
-            (acc, sprint) => acc + sprint.tasks.filter(task => task.status === status).length, 0
+            (acc, sprint) => acc + sprint.tasks.filter((task: Task) => task.status === status).length, 0
         );
         return count || null;
     }
@@ -54,7 +54,7 @@ export const Board = () => {
                         
                         return <div key={sprint.id} className=''> 
                             {
-                                sprint.tasks.map((task) => {
+                                sprint.tasks.map((task: Task) => {
                                    return (
                                     task.status === "todo" ? 
                                     <BoardTaskItem 
@@ -96,7 +96,7 @@ export const Board = () => {
                     ? sprints.map((sprint) => {
                         return <div key={sprint.id} className=''>
                             {
-                                sprint.tasks.map((task) => {
+                                sprint.tasks.map((task: Task) => {
                                     return(
                                       task.status === "in_progress" ?
                                       <BoardTaskItem 
@@ -123,7 +123,7 @@ export const Board = () => {
                     ? sprints.map((sprint) => {
                         return <div key={sprint.id} className=''>
                             {
-                                sprint.tasks.map((task) => {
+                                sprint.tasks.map((task: Task) => {
                                     return (
                                         task.status === "done" ?
                                         <BoardTaskItem 

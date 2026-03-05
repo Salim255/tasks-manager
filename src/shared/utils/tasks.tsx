@@ -8,6 +8,7 @@ export const tasks: Task[] = [
     description:
       "Create the main dashboard structure, responsive grid, spacing system, and visual hierarchy.",
     status: "todo",
+    projectId: '1',
     taskType: 'bug',
     priority: "high",
     dueAt: "2026-02-25",
@@ -21,6 +22,7 @@ export const tasks: Task[] = [
       "Develop BigSidebar and SmallSidebar components with active links and mobile overlay behavior.",
     status: "in_progress",
     taskType: 'task',
+    projectId: '2',
     priority: "medium",
     dueAt: "2026-02-22",
     createdAt: "2026-02-11T10:30:00.000Z",
@@ -32,6 +34,7 @@ export const tasks: Task[] = [
     description:
       "Define a clean and scalable Task interface aligned with UI and backend requirements.",
     status: "done",
+    projectId: '3',
     taskType: 'task',
     priority: "high",
     createdAt: "2026-02-12T11:45:00.000Z",
@@ -43,6 +46,7 @@ export const tasks: Task[] = [
     description:
       "Implement controlled inputs with validation, proper typing, and form reset logic.",
     status: "todo",
+     projectId: '4',
     taskType: 'task',
     priority: "medium",
     dueAt: "2026-02-28",
@@ -55,6 +59,7 @@ export const tasks: Task[] = [
     description:
       "Enable filtering by status and priority, ensuring correct state derivation.",
     status: "todo",
+     projectId: '1',
     taskType: 'task',
     priority: "low",
     createdAt: "2026-02-14T09:00:00.000Z",
@@ -67,6 +72,7 @@ export const tasks: Task[] = [
       "Allow tasks to be reordered and moved between columns while preserving state consistency.",
     status: "in_progress",
     taskType: 'task',
+     projectId: '2',
     priority: "high",
     dueAt: "2026-02-21",
     createdAt: "2026-02-15T16:40:00.000Z",
@@ -78,6 +84,7 @@ export const tasks: Task[] = [
     description:
       "Create Redux Toolkit slice for tasks with reducers, actions, and selectors.",
     status: "todo",
+     projectId: '3',
     taskType: 'task',
     priority: "medium",
     createdAt: "2026-02-16T08:25:00.000Z",
@@ -91,6 +98,7 @@ export const tasks: Task[] = [
     status: "todo",
     taskType: 'task',
     priority: "high",
+    projectId: '4',
     dueAt: "2026-03-05",
     createdAt: "2026-02-16T12:10:00.000Z",
     updatedAt: "2026-02-16T12:10:00.000Z",
@@ -102,6 +110,7 @@ export const tasks: Task[] = [
       "Implement login, logout, protected routes, and session persistence.",
     status: "todo",
     taskType: 'task',
+     projectId: '1',
     priority: "high",
     createdAt: "2026-02-17T09:50:00.000Z",
     updatedAt: "2026-02-17T09:50:00.000Z",
@@ -113,6 +122,7 @@ export const tasks: Task[] = [
       "Add tests for reducers, services, and utility functions.",
     status: "todo",
     taskType: 'task',
+    projectId: '3',
     priority: "medium",
     createdAt: "2026-02-17T13:35:00.000Z",
     updatedAt: "2026-02-17T13:35:00.000Z",
@@ -123,6 +133,7 @@ export const tasks: Task[] = [
     description:
       "Set up automated linting, testing, and build validation workflows.",
     status: "todo",
+    projectId: '4',
     taskType: 'task',
     priority: "low",
     createdAt: "2026-02-18T07:10:00.000Z",
@@ -134,6 +145,7 @@ export const tasks: Task[] = [
     description:
       "Improve rendering efficiency and minimize unnecessary component re-renders.",
     status: "todo",
+    projectId: '1',
     taskType: 'task',
     priority: "medium",
     dueAt: "2026-03-10",

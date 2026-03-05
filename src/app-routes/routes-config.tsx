@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import type { RouteObject } from "react-router-dom";
 import { Dashboard } from "../features/dashboard/Dashboard";
 import { Profile } from "../features/profile/Profile";
-import { TaskDetails } from "../features/tasks/components/task-details/TaskDetails";
+import { TaskDetails } from "../features/tasks/components/tasks-details/TaskDetails";
 import { Backlog } from "../features/projects/pages/backlog/Backlog";
 import { Board } from "../features/projects/pages/board/Board";
 import { CreateProject } from "../features/projects/pages/create-project/CreateProject";
