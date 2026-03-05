@@ -2,6 +2,7 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { Sprint, SprintStatus } from "../models/sprint.model";
 import type { Task, TaskStatus } from "../models/task.model";
+import type { AppDispatch, RootState } from "../../../redux/store";
 
 
 // 2 initial state
@@ -13,6 +14,21 @@ const initialState: StateType = {
     sprints: [],
     isLoading: false
 };
+
+// Thunks
+export const updateSprintStatus = ({
+    sprintId,
+    status,
+}: { 
+    sprintId: string;
+    status: SprintStatus
+} ) => (dispatch: AppDispatch , getState: () => RootState) => {
+    // Update the sprint
+    dispatch(onUpdateSprintStatus({ sprintId, status}));
+
+    const updatedSprint =  getState().sprintReducer.sprints.find((sprint) => sprint.id === sprintId);
+    console.log( "hello world", updatedSprint);
+}
 // 3 create slice
 const createSprintSlice = createSlice({
     name: 'sprintSlice',

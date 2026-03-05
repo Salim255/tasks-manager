@@ -2,6 +2,7 @@ import { useEffect, type ChangeEvent } from "react";
 import { useProjectForm } from "../../forms/projectFormBuilder"
 import { useDispatch } from "react-redux";
 import { createProject, type CreateProjectPayload } from "../../states/projectSlice";
+import { updateSprintStatus } from "../../states/sprintSlice";
 
 export const CreateProjectForm = () => {
     const dispatch = useDispatch();
@@ -13,7 +14,7 @@ export const CreateProjectForm = () => {
 
     const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(state);
+        // console.log(state, updateSprintStatus());
         const payload: CreateProjectPayload  = { name: state.name, description: state.description, status: state.status}
         dispatch(createProject({ payload }));
     }

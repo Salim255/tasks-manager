@@ -15,7 +15,7 @@ export type CreateProjectPayload = {
 }
 // Initial state 
 const initialState: InitialState = {
-    projects: [...projects],
+    projects: [],
     isLoading: false,
 }
 
@@ -35,7 +35,11 @@ const projectSlice = createSlice({
                 createdAt: new Date(),
                 updatedAt: new Date(),
             }
-            state.projects = [...state.projects, newProject ];
+
+            const index = state.projects.length;
+            if (index === 4) return;
+
+            state.projects = [...state.projects, projects[index]];
             state.isLoading = false;
             return state;
         },
