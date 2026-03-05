@@ -45,7 +45,7 @@ const createSprintSlice = createSlice({
             const { sprintId, status } = action.payload;
             const sprintIndex = state.sprints.findIndex(sprint => sprint.id === sprintId);
             if (sprintIndex !== -1) {
-                state.sprints[sprintIndex].status = status;
+               state.sprints[sprintIndex].status = status;
             }
         },
         updateSprintSingleTaskStatus: (

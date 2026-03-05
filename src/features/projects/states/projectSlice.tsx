@@ -1,6 +1,5 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { Project } from "../models/project.model";
-import { projects } from "../../../shared/utils/projects";
 
 type InitialState = {
     projects: Project[];
@@ -39,7 +38,7 @@ const projectSlice = createSlice({
             const index = state.projects.length;
             if (index === 4) return;
 
-            state.projects = [...state.projects, projects[index]];
+            state.projects = [...state.projects, newProject];
             state.isLoading = false;
             return state;
         },

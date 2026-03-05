@@ -82,7 +82,7 @@ export const Board = () => {
                         </p>
                         <NavLink 
                             className="btn btn--primary"
-                            to={"/tasks/backlog"}>
+                            to={`/projects/${projectId}/backlog`}>
                             Go to backlog
                         </NavLink>
                     </div>

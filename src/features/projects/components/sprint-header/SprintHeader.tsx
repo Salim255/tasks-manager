@@ -18,8 +18,8 @@ export const SprintHeader = ({
         const [isEditSprintOpen, setEditSprintOpen] = useState<boolean>(false); 
         const dispatch = useDispatch();
 
-        const updateSprintStatus = (status: SprintStatus) => {  
-            if(!sprint?.id || status === 'completed') return;
+        const updateSprintStatus = (status: SprintStatus) => { 
+            if(!sprint?.id) return;
 
             dispatch(onUpdateSprintStatus({ 
                 sprintId: sprint?.id, 
