@@ -19,7 +19,7 @@ export const ProjectNavbar =() => {
             <div>
                 Project name
             </div>
-            <nav className="tasks-header__links">
+            <nav className="project-header__links">
                 {
                     projectLinks.map((link) => {
                         return (
@@ -27,7 +27,7 @@ export const ProjectNavbar =() => {
                                 key={link.id}
                                 to={link.path( projectId ?? '')}
                                 className={({isActive}) => {
-                                    return isActive ? "tasks-header__link tasks-header__link--active" : "tasks-header__link"
+                                    return isActive ? "project-header__link project-header__link--active" : "project-header__link"
                                 }} >
                                 <span className='icon'>  { link.icon } </span>
                                 {link.text}

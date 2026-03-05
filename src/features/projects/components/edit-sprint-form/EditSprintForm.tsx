@@ -1,4 +1,4 @@
-import "./_editSprint.scss";
+import "./_edit-sprint-form.scss";
 import { IoMdClose } from "react-icons/io";
 import type { Sprint } from "../../models/sprint.model";
 import { useDispatch } from "react-redux";

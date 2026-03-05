@@ -9,6 +9,7 @@ import { addSprint, addTaskToSprint, removeTaskFromSprint } from '../../states/s
 import type { Task } from '../../models/task.model';
 import { removeTask, setBackTaskToBacklog } from '../../states/taskSlice';
 import { SprintHeader } from '../../components/sprint-header/SprintHeader';
+import { useParams } from 'react-router-dom';
 
 
 export const Backlog = () => {
@@ -16,16 +17,17 @@ export const Backlog = () => {
     const { isCreating, tasks } = useSelector((store: RootState) => store.taskSlice);
     const { sprints } = useSelector((store: RootState) => store.sprintReducer);
     const { isOpen } = useSelector((store: RootState) => store.editSprintReducer);
+    const { projectId }  = useParams()
 
     const [count, setCount] = useState<number>(0);
     const [isOptionsOpen, setOptionsOpen ] = useState<string | null>(null);
     
     const onDragStart = (task: Task, e: React.DragEvent<HTMLDivElement>) => {
-        e.dataTransfer.setData("text/plain", JSON.stringify(task)); // any payload
+        e.dataTransfer.setData("text/plain", JSON.stringify(task)); // Any payload
     };
 
     const onDragOver = (e: React.DragEvent<HTMLDivElement>) => {
-        e.preventDefault(); // ✅ REQUIRED so onDrop can fire
+        e.preventDefault(); // REQUIRED so onDrop can fire
     };
 
     const onDrop = (sprintId: string, e: React.DragEvent<HTMLElement>) => {
@@ -54,8 +56,10 @@ export const Backlog = () => {
        setCount((prev) => prev+1);
     }
 
+    console.log(projectId, "hello world");
     useEffect(() => {
-    }, [tasks, isCreating, sprints, isOpen]);
+        console.log(projectId);
+    }, [tasks, isCreating, sprints, isOpen, projectId]);
 
     return(
        <>

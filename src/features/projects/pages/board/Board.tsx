@@ -9,6 +9,7 @@ import { selectActiveSprint } from '../../states/boardSlice';
 import { BoardTaskItem } from '../../components/board-task-item/BoardTaskItem';
 
 export const Board = () => {
+    console.log("Board rendered");
     const dispatch = useDispatch();    
     const sprints = useSelector(selectActiveSprint);
 
