@@ -7,6 +7,7 @@ import { ProfileModule } from './modules/profile/profile.module';
 import { ProjectModule } from './modules/project/project.module';
 import { SprintModule } from './modules/sprint/sprint.module';
 import { TaskModule } from './modules/task/task.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { TaskModule } from './modules/task/task.module';
     ProfileModule,
     UserModule,
     AuthModule,
+    ConfigModule.forRoot({ isGlobal: true }),
   ],
   controllers: [AppController],
   providers: [AppService],
