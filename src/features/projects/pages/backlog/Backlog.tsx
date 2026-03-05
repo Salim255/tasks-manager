@@ -17,7 +17,7 @@ export const Backlog = () => {
     const { isCreating, tasks } = useSelector((store: RootState) => store.taskSlice);
     const { sprints } = useSelector((store: RootState) => store.sprintReducer);
     const { isOpen } = useSelector((store: RootState) => store.editSprintReducer);
-    const { projectId }  = useParams()
+    const { projectId }  = useParams();
 
     const [count, setCount] = useState<number>(0);
     const [isOptionsOpen, setOptionsOpen ] = useState<string | null>(null);

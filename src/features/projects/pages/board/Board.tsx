@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import './_board.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
@@ -7,10 +7,11 @@ import type { Task, TaskStatus } from '../../models/task.model';
 import { updateSprintSingleTaskStatus } from '../../states/sprintSlice';
 import { selectActiveSprint } from '../../states/boardSlice';
 import { BoardTaskItem } from '../../components/board-task-item/BoardTaskItem';
+import type { Sprint } from '../../models/sprint.model';
 
 export const Board = () => {
-    console.log("Board rendered");
-    const dispatch = useDispatch();    
+    const dispatch = useDispatch();   
+    const { projectId }  = useParams<string>() 
     const sprints = useSelector(selectActiveSprint);
 
     const onDragStart = (e: React.DragEvent<HTMLDivElement>, task: Task) => {
@@ -49,21 +50,23 @@ export const Board = () => {
                 </div>
 
                 {
-                    sprints?.length 
+                    sprints
+                    .filter(
+                        (spt: Sprint) => spt.projectId === projectId
+                    )?.length 
                     ? sprints?.map((sprint) => {
                         
                         return <div key={sprint.id} className=''> 
                             {
                                 sprint.tasks.map((task: Task) => {
                                    return (
-                                    task.status === "todo" ? 
+                                    task.status === "todo" &&
                                     <BoardTaskItem 
                                         key={task.id} 
                                         task={task} 
                                         draggable
                                         onDragStart={(e) => onDragStart(e, task)}
                                          /> 
-                                    : null
                                     )
                                 })
                             }
@@ -92,20 +95,22 @@ export const Board = () => {
             >
                 <div className='progress__header'>In Progress { countTasksByStatus("in_progress") }</div>
                 {
-                    sprints.length 
+                    sprints
+                    .filter(
+                        (spt: Sprint) => spt.projectId === projectId
+                    )?.length 
                     ? sprints.map((sprint) => {
                         return <div key={sprint.id} className=''>
                             {
                                 sprint.tasks.map((task: Task) => {
                                     return(
-                                      task.status === "in_progress" ?
+                                      task.status === "in_progress" &&
                                       <BoardTaskItem 
                                         task={task} 
                                         draggable
                                         onDragStart={(e) => onDragStart(e, task)}
                                         key={task.id} >
                                       </BoardTaskItem> 
-                                      : null
                                     )
                                 })
                             }
@@ -119,20 +124,22 @@ export const Board = () => {
                 onDragOver={onDragOver}
             >
                <div className='done__header'> Done { countTasksByStatus("done") } </div>
-                {   sprints.length 
+                {   sprints
+                    .filter(
+                        (spt: Sprint) => spt.projectId === projectId
+                    )?.length 
                     ? sprints.map((sprint) => {
                         return <div key={sprint.id} className=''>
                             {
                                 sprint.tasks.map((task: Task) => {
                                     return (
-                                        task.status === "done" ?
+                                        task.status === "done" &&
                                         <BoardTaskItem 
                                         task={task}
                                         draggable
                                         onDragStart={(e) => onDragStart(e, task)}
                                         key={task.id}>
                                         </BoardTaskItem> 
-                                        : null
                                     )
                                 })
                             }
