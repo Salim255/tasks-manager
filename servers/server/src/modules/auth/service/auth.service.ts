@@ -1,6 +1,12 @@
-import { Injectable, ConflictException, Inject, Logger } from '@nestjs/common';
+import {
+  Injectable,
+  ConflictException,
+  Inject,
+  Logger,
+  UnauthorizedException,
+} from '@nestjs/common';
 import * as bcrypt from 'bcryptjs';
-import { RegisterDto } from '../dto/auth.dto';
+import { LoginDto, RegisterDto } from '../dto/auth.dto';
 import { USER_REPOSITORY } from 'src/common/constants/constants';
 import { Repository } from 'typeorm';
 import { User } from 'src/modules/user/entity/user.entity';
@@ -14,6 +20,37 @@ export class AuthService {
     private jwtService: JwtTokenService,
     @Inject(USER_REPOSITORY) private userRepo: Repository<User>,
   ) {}
+
+  async login(dto: LoginDto) {
+    try {
+      const user = await this.userRepo.findOne({
+        where: { email: dto.email },
+      });
+
+      if (!user) {
+        throw new UnauthorizedException('Invalid email or password');
+      }
+
+      const isMatch = await bcrypt.compare(dto.password, user.password);
+
+      if (!isMatch) {
+        throw new UnauthorizedException('Invalid email or password');
+      }
+
+      const accessToken = this.jwtService.createToken(user.id);
+
+      return {
+        user,
+        tokens: {
+          accessToken: accessToken,
+          refreshToken: accessToken,
+        },
+      };
+    } catch (error) {
+      this.logger.error('Failed to login user', error);
+      throw error;
+    }
+  }
 
   async register(dto: RegisterDto) {
     try {
