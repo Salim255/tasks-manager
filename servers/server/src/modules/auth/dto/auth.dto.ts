@@ -1,15 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
+import { IsEmail, IsString, MinLength } from 'class-validator';
 
 export class RegisterDto {
   @ApiProperty({ example: 'john@example.com' })
   @IsEmail()
   email: string;
-
-  @ApiProperty({ example: 'John Doe' })
-  @IsString()
-  @IsNotEmpty()
-  fullName: string;
 
   @ApiProperty({ example: 'StrongPassword123!' })
   @IsString()
@@ -24,9 +19,8 @@ export class RegisterResponseDto {
   @ApiProperty({
     example: {
       user: {
-        id: 1,
+        id: "1",
         email: 'john@example.com',
-        fullName: 'John Doe',
         createdAt: '2024-03-05T12:00:00.000Z',
       },
       tokens: {
@@ -37,10 +31,9 @@ export class RegisterResponseDto {
   })
   data: {
     user: {
-      id: number;
+      id: string;
       email: string;
-      fullName: string;
-      createdAt: string;
+      createdAt: Date;
     };
     tokens: {
       accessToken: string;

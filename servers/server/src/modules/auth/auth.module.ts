@@ -1,9 +1,17 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
+import { AuthController } from './controller/auth.controller';
+import { JwtTokenService } from './service/jwt.token.service';
+import { UserRepository } from '../user/repository/user.repository';
+import { DatabaseModule } from 'src/database/database.module';
+import { AuthService } from './service/auth.service';
 
 @Module({
+  controllers: [AuthController],
+  providers: [JwtTokenService, AuthService, UserRepository],
   imports: [
+    DatabaseModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],

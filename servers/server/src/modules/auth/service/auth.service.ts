@@ -36,12 +36,12 @@ export class AuthService {
         RETURNING id, email, full_name, created_at;
       `;
 
-      const values = [dto.email, dto.fullName, hashedPassword];
+      const values = [dto.email, hashedPassword];
       const user: User = await this.userRepo.query(query, values);
 
       const tokens = this.jwtService.createToken(user?.id);
 
-      return { user, tokens };
+      return { user, tokens: { accessToken: tokens, refreshToken: tokens } };
     } catch (error) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       if (error?.code === '23505') {
