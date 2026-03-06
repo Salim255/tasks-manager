@@ -3,6 +3,9 @@ import { AppModule } from './app.module';
 import { Logger } from '@nestjs/common';
 import { setupSwagger } from './config/swagger.config';
 import { morganConfig } from './config/morgan.config';
+import { ConfigService } from '@nestjs/config';
+import { GlobalExceptionFilter } from './common/errors/global.error';
+
 
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule);
@@ -12,6 +15,11 @@ async function bootstrap(): Promise<void> {
   setupSwagger(app);
 
   morganConfig(app);
+
+  // Errors handlers
+  // Register http exception errors handler
+  const configService = app.get(ConfigService);
+  app.useGlobalFilters(new GlobalExceptionFilter(configService));
   await app.listen(PORT);
   const logger = new Logger('Main');
   logger.log(`Task manager's, server running on port number: ✅`, `${PORT}`);
