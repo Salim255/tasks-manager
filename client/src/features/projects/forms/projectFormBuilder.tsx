@@ -64,7 +64,7 @@ export const useProjectForm = () => {
     }
 
     // Set error
-    const setError = (field: keyof ProjectFormState["errors"], message: string ) => {
+    const setError = (field: keyof ProjectFormState["errors"], message: string) => {
         return dispatch({type: 'SET_ERROR', field,  message })
     }
 
