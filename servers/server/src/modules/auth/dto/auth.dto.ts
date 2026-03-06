@@ -16,3 +16,35 @@ export class RegisterDto {
   @MinLength(8)
   password: string;
 }
+
+export class RegisterResponseDto {
+  @ApiProperty({ example: 'success' })
+  status: string;
+
+  @ApiProperty({
+    example: {
+      user: {
+        id: 1,
+        email: 'john@example.com',
+        fullName: 'John Doe',
+        createdAt: '2024-03-05T12:00:00.000Z',
+      },
+      tokens: {
+        accessToken: 'jwt-access-token',
+        refreshToken: 'jwt-refresh-token',
+      },
+    },
+  })
+  data: {
+    user: {
+      id: number;
+      email: string;
+      fullName: string;
+      createdAt: string;
+    };
+    tokens: {
+      accessToken: string;
+      refreshToken: string;
+    };
+  };
+}
