@@ -12,7 +12,7 @@ type  InitiateState = {
     isLoading: boolean;
 }
 export type LoginPayload = { password: string; email: string};
-const url = "http://localhost:8000/api/v1/users/login";
+const url = "http://localhost:8000/api/v1/auth/login";
 
 export const loginUser = createAsyncThunk(
     'post/loginUser',

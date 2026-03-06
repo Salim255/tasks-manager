@@ -40,7 +40,12 @@ export class AuthService {
       const accessToken = this.jwtService.createToken(user.id);
 
       return {
-        user,
+        user: {
+          id: user.id,
+          email: user.email,
+          emailVerified: user.emailVerified,
+          createdAt: user.createdAt,
+        },
         tokens: {
           accessToken: accessToken,
           refreshToken: accessToken,
