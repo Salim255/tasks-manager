@@ -8,6 +8,7 @@ import { ProjectModule } from './modules/project/project.module';
 import { SprintModule } from './modules/sprint/sprint.module';
 import { TaskModule } from './modules/task/task.module';
 import { ConfigModule } from '@nestjs/config';
+import { DatabaseModule } from './database/database.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { ConfigModule } from '@nestjs/config';
     ProfileModule,
     UserModule,
     AuthModule,
+    DatabaseModule,
     ConfigModule.forRoot({ isGlobal: true }),
   ],
   controllers: [AppController],

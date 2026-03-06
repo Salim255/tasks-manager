@@ -5,10 +5,14 @@ export const DatabaseInitProvider = {
   provide: 'DATA_SOURCE',
   inject: [DB_OPTIONS],
   useFactory: async (options: DataSourceOptions) => {
-    const dataSource = new DataSource({
-      ...options,
-    });
+    try {
+      const dataSource = new DataSource({
+        ...options,
+      });
 
-    return await dataSource.initialize();
+      return await dataSource.initialize();
+    } catch (error) {
+      console.log(error, options);
+    }
   },
 };
