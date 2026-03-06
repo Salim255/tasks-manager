@@ -28,6 +28,8 @@ export const fetchProjects = createAsyncThunk(
         }
     }
 )
+
+// 
 // Initial state 
 const initialState: InitialState = {
     projects: [],
@@ -37,6 +39,18 @@ const initialState: InitialState = {
 const projectSlice = createSlice({
     name: 'projectSlice',
     initialState,
+    extraReducers: (builder) => {
+        builder
+        .addCase(fetchProjects.pending, (state, action) => {
+
+        } )
+        .addCase(fetchProjects.fulfilled, (state, action) => {
+
+        })
+        .addCase(fetchProjects.rejected, (state, action) => {
+
+        } )
+    },
     reducers: {
         createProject: (state, action: PayloadAction<{payload: CreateProjectPayload}>) => {
             state.isLoading = true;
