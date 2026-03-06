@@ -30,7 +30,7 @@ export class AuthService {
       const query = `
         INSERT INTO users (email, password)
         VALUES ($1, $2)
-        RETURNING *;
+        RETURNING email, role, "emailVerified", id, "createdAt";
       `;
 
       const values = [dto.email, hashedPassword];

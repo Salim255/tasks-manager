@@ -12,7 +12,7 @@ export function setupSwagger(app: INestApplication): void {
     .addServer('/api/v1') // 👈 Add this line to fix the prefix issue
     .addBasicAuth() // Add Basic Auth scheme
     .addBearerAuth() // Add Bearer token scheme
-    .addCookieAuth('jwt') // Actual cookie name
+    .addCookieAuth('task-m-jwt') // Actual cookie name
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
