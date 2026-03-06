@@ -1,4 +1,21 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { JwtModule } from '@nestjs/jwt';
 
-@Module({})
+@Module({
+  imports: [
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => {
+        const getValue = <T>(key: string, fb: T): T =>
+          configService.get<T>(key) ?? fb;
+        return {
+          secret: getValue('JWT_SECRET', ''),
+          signOptions: { expiresIn: getValue('JWT_EXPIRATION', '1h') },
+        };
+      },
+    }),
+  ],
+})
 export class AuthModule {}
