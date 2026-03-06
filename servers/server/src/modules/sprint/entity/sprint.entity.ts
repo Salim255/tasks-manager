@@ -5,8 +5,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
-
-export type SprintStatus = 'active' | 'completed' | 'planned' | 'upcoming';
+import type { SprintStatus } from '../dto/sprint.dto';
 
 @Entity('sprints')
 export class Sprint {
