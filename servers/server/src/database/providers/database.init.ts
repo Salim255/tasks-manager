@@ -1,3 +1,4 @@
+import { Logger } from '@nestjs/common';
 import { DB_OPTIONS } from 'src/common/constants/constants';
 import { DataSource, DataSourceOptions } from 'typeorm';
 
@@ -5,14 +6,18 @@ export const DatabaseInitProvider = {
   provide: 'DATA_SOURCE',
   inject: [DB_OPTIONS],
   useFactory: async (options: DataSourceOptions) => {
+    const logger = new Logger('DataBaseInit');
     try {
       const dataSource = new DataSource({
         ...options,
       });
-
-      return await dataSource.initialize();
+      await dataSource.initialize();
+      logger.log('Database connected successfully... ✅✅');
+      return dataSource;
     } catch (error) {
-      console.log(error, options);
+      logger.error('❌ Database connection failed...');
+      logger.error(error);
+      throw error;
     }
   },
 };

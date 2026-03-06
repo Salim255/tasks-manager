@@ -9,7 +9,7 @@ export const DatabaseOptionsProvider = {
     const getValue = <T>(key: string, fb: T): T => config.get<T>(key) ?? fb;
 
     const isDev = getValue('NODE_ENV', 'development') === 'development';
-    console.log(isDev, "hello");
+
     return {
       type: 'postgres',
 
