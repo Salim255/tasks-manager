@@ -1,10 +1,13 @@
 import { Controller, Get } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { ProjectResponseDto } from '../dto/project.dto';
+import { ProjectsListResponseDto } from '../dto/project.dto';
+import { Project } from '../entity/project.entity';
+import { ProjectService } from '../service/project.service';
 
 @ApiTags('Projects')
 @Controller('projects')
 export class ProjectController {
+  constructor(private projectService: ProjectService) {}
   @Get()
   @ApiOperation({
     summary: 'Get all projects',
@@ -14,7 +17,7 @@ export class ProjectController {
   @ApiResponse({
     status: 200,
     description: 'List of projects retrieved successfully.',
-    type: ProjectResponseDto,
+    type: ProjectsListResponseDto,
     isArray: true,
   })
   @ApiResponse({
@@ -25,18 +28,17 @@ export class ProjectController {
     status: 500,
     description: 'Internal server error.',
   })
-  async getProjects(): Promise<ProjectResponseDto[]> {
+  async getProjects(): Promise<ProjectsListResponseDto> {
     // Example mock — replace with service call
-    return [
-      {
-        id: 1,
-        name: 'Task Manager',
-        description: 'A modern task management application',
-        status: 'active',
-        ownerId: 12,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
+    const projects: Project[] = await this.projectService.getUserProjects();
+
+    const response: ProjectsListResponseDto = {
+      status: 'success',
+      data: {
+        projects: projects,
       },
-    ];
+    };
+
+    return response;
   }
 }

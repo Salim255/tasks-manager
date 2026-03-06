@@ -5,7 +5,16 @@ import { Project } from '../entity/project.entity';
 
 @Injectable()
 export class ProjectService {
-  constructor(@Inject(PROJECT_REPOSITORY) projectRepo: Repository<Project>) {
-    //console.log(this.projectRepo())
+  constructor(
+    @Inject(PROJECT_REPOSITORY) private projectRepo: Repository<Project>,
+  ) {}
+
+  async getUserProjects(): Promise<Project[]> {
+    const query = `
+      SELECT * FROM projects;
+    `;
+
+    const rows: Project[] = await this.projectRepo.query(query, []);
+    return rows;
   }
 }

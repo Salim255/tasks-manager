@@ -1,32 +1,31 @@
+import { ApiProperty } from '@nestjs/swagger';
+import { Project } from '../entity/project.entity';
+
 export enum ProjectStatus {
   ACTIVE = 'active',
   ARCHIVED = 'archived',
 }
 
-import { ApiProperty } from '@nestjs/swagger';
-
-export class ProjectResponseDto {
-  @ApiProperty({ example: 1 })
-  id: number;
-
-  @ApiProperty({ example: 'Task Manager' })
-  name: string;
-
-  @ApiProperty({
-    example: 'A modern task management application',
-    required: false,
-  })
-  description?: string;
-
-  @ApiProperty({ example: 'active', enum: ['active', 'archived'] })
+export class ProjectsListResponseDto {
+  @ApiProperty({ example: 'success' })
   status: string;
 
-  @ApiProperty({ example: 12 })
-  ownerId: number;
-
-  @ApiProperty({ example: '2024-03-05T12:00:00.000Z' })
-  createdAt: string;
-
-  @ApiProperty({ example: '2024-03-05T12:00:00.000Z' })
-  updatedAt: string;
+  @ApiProperty({
+    example: {
+      projects: [
+        {
+          id: 1,
+          name: 'Task Manager',
+          description: 'A modern task management application',
+          status: 'active',
+          ownerId: 12,
+          createdAt: '2024-03-05T12:00:00.000Z',
+          updatedAt: '2024-03-05T12:00:00.000Z',
+        },
+      ],
+    },
+  })
+  data: {
+    projects: Project[];
+  };
 }
