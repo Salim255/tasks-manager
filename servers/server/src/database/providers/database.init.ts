@@ -1,9 +1,9 @@
 import { Logger } from '@nestjs/common';
-import { DB_OPTIONS } from 'src/common/constants/constants';
+import { DATA_SOURCE, DB_OPTIONS } from 'src/common/constants/constants';
 import { DataSource, DataSourceOptions } from 'typeorm';
 
 export const DatabaseInitProvider = {
-  provide: 'DATA_SOURCE',
+  provide: DATA_SOURCE,
   inject: [DB_OPTIONS],
   useFactory: async (options: DataSourceOptions) => {
     const logger = new Logger('DataBaseInit');

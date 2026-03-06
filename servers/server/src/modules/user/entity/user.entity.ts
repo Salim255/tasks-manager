@@ -25,7 +25,7 @@ export class User {
   @Column({ default: false })
   emailVerified: boolean;
 
-  @Column({ nullable: true })
+  @Column({ type: 'text', nullable: true })
   refreshTokenHash: string | null;
 
   @Column({ type: 'enum', enum: UserRole, default: UserRole.USER })
