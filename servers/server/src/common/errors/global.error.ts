@@ -24,7 +24,7 @@ export class GlobalExceptionFilter implements ExceptionFilter {
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();
 
-    const isDev = this.configService.get<string>('NODE_ENV') !== 'production';
+    const isDev = this.configService.get<string>('NODE_ENV') === 'development';
 
     let status = HttpStatus.INTERNAL_SERVER_ERROR;
     let message = 'Internal server error';

@@ -18,7 +18,7 @@ export class Project {
   @Column({ nullable: true })
   description?: string;
 
-  @Column({ type: 'enum', enum: ProjectStatus })
+  @Column({ type: 'enum', enum: ProjectStatus, default: ProjectStatus.ACTIVE })
   status: ProjectStatus;
 
   @Column()

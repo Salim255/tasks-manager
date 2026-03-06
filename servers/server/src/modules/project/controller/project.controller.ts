@@ -1,6 +1,6 @@
-import { Controller, Get } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, Post, Req } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { ProjectsListResponseDto } from '../dto/project.dto';
+import { CreateProjectDto, CreateProjectResponseDto, ProjectsListResponseDto } from '../dto/project.dto';
 import { Project } from '../entity/project.entity';
 import { ProjectService } from '../service/project.service';
 
@@ -8,6 +8,54 @@ import { ProjectService } from '../service/project.service';
 @Controller('projects')
 export class ProjectController {
   constructor(private projectService: ProjectService) {}
+
+  @Post()
+  @ApiOperation({
+    summary: 'Create a new project',
+    description: 'Creates a new project for the authenticated user.',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Project created successfully.',
+    type: CreateProjectResponseDto,
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Validation error.',
+  })
+  @ApiResponse({
+    status: 409,
+    description: 'Project with this name already exists.',
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'Internal server error.',
+  })
+  async createProject(
+    @Body() body: CreateProjectDto,
+    @Req() req: any,
+  ): Promise<CreateProjectResponseDto> {
+    // const userId = req.user;
+    const { name, description } = body;
+    if (!name || !description) {
+      throw new BadRequestException(
+        'Project must have both name and description',
+      );
+    }
+
+    const project = await this.projectService.createProject({
+      name,
+      description,
+    });
+
+    return {
+      status: 'success',
+      data: {
+        project,
+      },
+    };
+  }
+
   @Get()
   @ApiOperation({
     summary: 'Get all projects',

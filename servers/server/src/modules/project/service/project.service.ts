@@ -1,4 +1,9 @@
-import { Inject, Injectable, InternalServerErrorException, Logger } from '@nestjs/common';
+import {
+  Inject,
+  Injectable,
+  InternalServerErrorException,
+  Logger,
+} from '@nestjs/common';
 import { PROJECT_REPOSITORY } from 'src/common/constants/constants';
 import { Repository } from 'typeorm';
 import { Project } from '../entity/project.entity';
@@ -14,17 +19,34 @@ export class ProjectService {
   async getUserProjects(): Promise<Project[]> {
     try {
       const query = `
-        SELECT * FROM projecs;
+        SELECT * FROM projects;
       `;
       const rows: Project[] = await this.projectRepo.query(query, []);
       return rows;
     } catch (error) {
       this.logger.error('Error to fetch user projects', error);
-      throw new InternalServerErrorException({
-        status: 'error',
-        message: 'Failed to fetch user projects',
-        data: null,
-      });
+      throw new InternalServerErrorException('Failed to fetch user projects');
+    }
+  }
+
+  async createProject(payload: {
+    name: string;
+    description: string;
+  }): Promise<Project> {
+    try {
+      const values = [payload.name, payload.description, '1'];
+
+      const query = `
+      INSERT INTO projects (name, description, ownerId)
+        VALUES ($1, $2, $3)
+      RETURNING *;
+      `;
+
+      const project: Project = await this.projectRepo.query(query, values);
+      return project;
+    } catch (error) {
+      this.logger.error('Error in create a project', error);
+      throw new InternalServerErrorException('Failed to create a project');
     }
   }
 }
