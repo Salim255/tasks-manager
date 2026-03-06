@@ -4,8 +4,10 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToOne,
 } from 'typeorm';
 import type { TaskPriority, TaskStatus, TaskType } from '../dto/task.dto';
+import { Project } from 'src/modules/project/entity/project.entity';
 
 @Entity('tasks')
 export class Task {
@@ -38,6 +40,9 @@ export class Task {
 
   @Column()
   projectId: string;
+
+  @ManyToOne(() => Project, { onDelete: 'CASCADE' })
+  project: Project;
 
   @Column({ type: 'timestamptz', nullable: true })
   dueAt?: Date;

@@ -4,8 +4,10 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToOne,
 } from 'typeorm';
 import type { SprintStatus } from '../dto/sprint.dto';
+import { Project } from 'src/modules/project/entity/project.entity';
 
 @Entity('sprints')
 export class Sprint {
@@ -29,6 +31,9 @@ export class Sprint {
 
   @Column()
   projectId: string;
+
+  @ManyToOne(() => Project, { onDelete: 'CASCADE' })
+  project: Project;
 
   @CreateDateColumn()
   createdAt: Date;
