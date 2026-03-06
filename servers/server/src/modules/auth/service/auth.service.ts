@@ -1,9 +1,4 @@
-import {
-  Injectable,
-  ConflictException,
-  InternalServerErrorException,
-  Inject,
-} from '@nestjs/common';
+import { Injectable, ConflictException, Inject, Logger } from '@nestjs/common';
 import * as bcrypt from 'bcryptjs';
 import { RegisterDto } from '../dto/auth.dto';
 import { USER_REPOSITORY } from 'src/common/constants/constants';
@@ -13,6 +8,8 @@ import { JwtTokenService } from './jwt.token.service';
 
 @Injectable()
 export class AuthService {
+  private logger = new Logger(AuthService.name);
+
   constructor(
     private jwtService: JwtTokenService,
     @Inject(USER_REPOSITORY) private userRepo: Repository<User>,
@@ -31,9 +28,9 @@ export class AuthService {
       const hashedPassword = await bcrypt.hash(dto.password, 10);
 
       const query = `
-        INSERT INTO users (email, full_name, password)
-        VALUES ($1, $2, $3)
-        RETURNING id, email, full_name, created_at;
+        INSERT INTO users (email, password)
+        VALUES ($1, $2)
+        RETURNING *;
       `;
 
       const values = [dto.email, hashedPassword];
@@ -43,12 +40,9 @@ export class AuthService {
 
       return { user, tokens: { accessToken: tokens, refreshToken: tokens } };
     } catch (error) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      if (error?.code === '23505') {
-        throw new ConflictException('Email already registered');
-      }
+      this.logger.error('Failed to register user', error);
 
-      throw new InternalServerErrorException('Failed to register user');
+      throw error;
     }
   }
 }
