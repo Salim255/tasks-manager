@@ -1,5 +1,8 @@
-import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { Project } from "../models/project.model";
+import axios from "axios";
+
+const apiUrl = import.meta.env.VITE_API_URL;
 
 type InitialState = {
     projects: Project[];
@@ -12,6 +15,19 @@ export type CreateProjectPayload = {
   description?: string, 
   status: 'active' | 'archived' 
 }
+
+// Thunks 
+export const fetchProjects = createAsyncThunk(
+    'get/userProjects',
+    async (_, thunkAPI) => {
+        try {
+            const response = await axios.get(`${apiUrl}/projects`);
+            console.log(response,);
+        } catch (error) {
+            console.log(error, thunkAPI);
+        }
+    }
+)
 // Initial state 
 const initialState: InitialState = {
     projects: [],
