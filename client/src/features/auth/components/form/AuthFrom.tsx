@@ -1,10 +1,18 @@
 import type { ChangeEvent } from "react";
 import { useAuthForm } from "../../form/authFormBuilder";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "../../../../redux/store";
+import { authUser, type LoginPayload } from "../../states/authSlice";
 
 export const AuthForm = () => {
+    const dispatch = useDispatch<AppDispatch>();
     const { state, setField } = useAuthForm();
     const submit = (e: ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
+        console.log(state);
+        if(!state.email || !state.password) return;
+        const payload: LoginPayload = {email: state.email, password: state.password, authType: 'register'};
+        dispatch(authUser(payload));
     }
 
     const handleInput = (e: ChangeEvent<HTMLInputElement>) => {

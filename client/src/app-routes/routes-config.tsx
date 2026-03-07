@@ -10,16 +10,11 @@ import { ProjectsIndexRedirect } from "./currentProjectId";
 import { Projects } from "../features/projects/Projects";
 import { EmptyProjects } from "../features/projects/pages/empty-projects/EmptyProjects";
 import { Auth } from "../features/auth/Auth";
-import { ProtectedRoutes } from "../features/auth/guards/ProtectedRoutes";
 
 
 
 const routes: RouteObject[] = [
     {
-        path: '/',
-        Component: ProtectedRoutes,
-        children: [
-                {
         path: '/',
         Component:  Dashboard,
         children: [
@@ -56,8 +51,6 @@ const routes: RouteObject[] = [
             },
         ],
         
-    },
-        ]
     },
     // Public routes
     {

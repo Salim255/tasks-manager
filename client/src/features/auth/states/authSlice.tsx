@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from 'axios';
 
-export type AuthType = "login" | "signup";
+export type AuthType = "login" | "register";
 export type LoginPayload = { password: string; email: string, authType: AuthType };
 type  InitiateState = {
     user?: { 
@@ -15,13 +15,13 @@ type  InitiateState = {
 }
 const apiUrl = import.meta.env.VITE_API_URL;
 
-export const loginUser = createAsyncThunk(
+export const authUser = createAsyncThunk(
     'post/authUser',
     async (data: LoginPayload, thunkAPI) => {
         try {
             const response = await axios.post(
                 `${apiUrl}/auth/${data.authType}`,
-                {email: data.email, password: data.password },
+                { email: data.email, password: data.password },
             )
             return response;
         } catch (error) {
@@ -48,16 +48,16 @@ const authSlice = createSlice({
     // Listen to fetch or the fetch call event
     extraReducers: (builder) => {
         builder
-        .addCase(loginUser.pending, (state, action) => {
+        .addCase(authUser .pending, (state, action) => {
             console.log("Is pending login",action.payload);
             state.isLoading = true;
         })
-        .addCase(loginUser.fulfilled, (state, action) => {
+        .addCase(authUser .fulfilled, (state, action) => {
             console.log("Is fulfilled user login", action.payload.data.data.user);
             state.user = action.payload.data.data.user;
             state.isLoading = false;
         })
-        .addCase(loginUser.rejected, (state, action) => {
+        .addCase(authUser .rejected, (state, action) => {
             console.log("Is rejected  user login",action.payload); 
             state.isLoading = false;
         })

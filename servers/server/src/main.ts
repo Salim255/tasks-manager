@@ -5,11 +5,14 @@ import { setupSwagger } from './config/swagger.config';
 import { morganConfig } from './config/morgan.config';
 import { ConfigService } from '@nestjs/config';
 import { GlobalExceptionFilter } from './common/errors/global.error';
-
+import { corsConfig } from './config/cors.config';
 
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule);
   const PORT = process.env.PORT ?? 3000;
+
+  // Initialize Cors config
+  corsConfig(app);
 
   // Initialize Swagger
   setupSwagger(app);
