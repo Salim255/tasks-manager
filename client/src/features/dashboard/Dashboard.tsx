@@ -6,6 +6,7 @@ import { Navbar } from './components/navbar/Navbar';
 import { useEffect } from 'react';
 import { useIsAuthenticated } from '../auth/states/authSelectors';
 
+
 export const Dashboard = () => {
     const isAuthenticated  = useIsAuthenticated();
 

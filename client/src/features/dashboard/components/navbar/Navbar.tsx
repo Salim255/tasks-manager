@@ -21,7 +21,8 @@ export const Navbar = () => {
     }
 
     useEffect(() => {
-    }, [dashboard])
+    }, [dashboard]);
+    
     return (
       <nav className='navbar'>
         <div className='navbar__nav-center'>

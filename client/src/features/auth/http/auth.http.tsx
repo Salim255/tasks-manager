@@ -20,3 +20,15 @@ export const authUser = createAsyncThunk(
         }
     }
 )
+
+export const refreshToken = createAsyncThunk(
+    'auth/refresh-token',
+    async (_, thunkApi) => {
+        try {
+            const res = await axios.get(`${apiUrl}/auth/refresh-token`);
+            return res ;
+        } catch (error) {
+            return thunkApi.rejectWithValue(error);
+        }
+    }
+)

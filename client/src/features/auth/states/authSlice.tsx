@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { authUser } from "../http/auth.http";
+import { authUser, refreshToken } from "../http/auth.http";
 
 type  InitiateState = {
     user?: { 
@@ -32,14 +32,27 @@ const authSlice = createSlice({
             console.log("Is pending login",action.payload);
             state.isLoading = true;
         })
-        .addCase(authUser .fulfilled, (state, action) => {
+        .addCase(refreshToken.pending, (state, action) => {
+            console.log(action.type)
+            return state;
+        })
+
+        .addCase(authUser.fulfilled, (state, action) => {
             console.log("Is fulfilled user login", action.payload.data.data.user);
             state.user = action.payload.data.data.user;
             state.isLoading = false;
         })
+        .addCase(refreshToken.fulfilled, (state, action) => {
+            console.log(action.type)
+            return state;
+        })
         .addCase(authUser .rejected, (state, action) => {
             console.log("Is rejected  user login",action.payload); 
             state.isLoading = false;
+        })
+        .addCase(refreshToken.rejected, (state, action) => {
+            console.log(action.type)
+            return state;
         })
     }
 })
