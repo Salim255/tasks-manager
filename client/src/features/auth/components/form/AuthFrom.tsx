@@ -2,7 +2,7 @@ import type { ChangeEvent } from "react";
 import { useAuthForm } from "../../form/authFormBuilder";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../../../redux/store";
-import { authUser, type LoginPayload } from "../../states/authSlice";
+import { authUser, type LoginPayload } from "../../http/auth.http";
 
 export const AuthForm = () => {
     const dispatch = useDispatch<AppDispatch>();

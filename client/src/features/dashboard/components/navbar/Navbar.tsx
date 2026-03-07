@@ -4,17 +4,23 @@ import { FaAlignLeft, FaUserCircle, FaCaretDown } from 'react-icons/fa';
 
 import { useEffect, useState } from 'react';
 import { updateSidebarOpenState } from '../../states/dashboardSlice';
-import type { RootState } from '../../../../redux/store';
+import { type AppDispatch, type RootState } from '../../../../redux/store';
+import { clearUser } from '../../../auth/states/authSlice';
 
 export const Navbar = () => {
     const [showLogout, setShowLogout] = useState(false);
     const { dashboard } = useSelector((store: RootState) => store);
-    const dispatch = useDispatch();
-    function toggle () {
+    const dispatch = useDispatch<AppDispatch>();
+
+    const handleLogout = () => {
+        dispatch(clearUser());
+    }
+
+    const toggle =  () =>  {
       dispatch(updateSidebarOpenState())
     }
+
     useEffect(() => {
-        console.log(dashboard);
     }, [dashboard])
     return (
       <nav className='navbar'>
@@ -41,6 +47,7 @@ export const Navbar = () => {
                     <button
                     type='button'
                     className='dropdown-btn'
+                    onClick={handleLogout}
                     >
                     logout
                     </button>
