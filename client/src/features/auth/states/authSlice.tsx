@@ -1,8 +1,6 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from 'axios';
+import { createSlice } from "@reduxjs/toolkit";
+import { authUser } from "../http/auth.http";
 
-export type AuthType = "login" | "register";
-export type LoginPayload = { password: string; email: string, authType: AuthType };
 type  InitiateState = {
     user?: { 
         email : string;
@@ -13,24 +11,6 @@ type  InitiateState = {
     }
     isLoading: boolean;
 }
-const apiUrl = import.meta.env.VITE_API_URL;
-
-export const authUser = createAsyncThunk(
-    'post/authUser',
-    async (data: LoginPayload, thunkAPI) => {
-        try {
-            const response = await axios.post(
-                `${apiUrl}/auth/${data.authType}`,
-                { email: data.email, password: data.password },
-            )
-            return response;
-        } catch (error) {
-            return thunkAPI.rejectWithValue(error);
-        }
-    }
-)
-
-
 const initialState: InitiateState = {
     isLoading: true,
 }
