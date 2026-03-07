@@ -57,3 +57,4 @@ export class RegisterResponseDto {
 }
 
 export class LoginResponseDto extends RegisterResponseDto {}
+export class RefreshSessionResponseDto extends LoginResponseDto {}

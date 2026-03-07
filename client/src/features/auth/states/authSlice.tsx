@@ -34,7 +34,7 @@ const authSlice = createSlice({
         })
         .addCase(refreshToken.pending, (state, action) => {
             console.log(action.type)
-            return state;
+            state.isLoading = true;
         })
 
         .addCase(authUser.fulfilled, (state, action) => {
@@ -44,7 +44,7 @@ const authSlice = createSlice({
         })
         .addCase(refreshToken.fulfilled, (state, action) => {
             console.log(action.type)
-            return state;
+            state.isLoading = false;
         })
         .addCase(authUser .rejected, (state, action) => {
             console.log("Is rejected  user login",action.payload); 
@@ -52,7 +52,7 @@ const authSlice = createSlice({
         })
         .addCase(refreshToken.rejected, (state, action) => {
             console.log(action.type)
-            return state;
+            state.isLoading = false;
         })
     }
 })
