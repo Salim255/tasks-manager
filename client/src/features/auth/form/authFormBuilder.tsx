@@ -4,6 +4,7 @@ import { useReducer } from "react";
 export type AuthFormState = {
     email: string;
     password: string;
+    confirmPassword: string;
     errors: Partial<Record<"email" | "password", string>>
 }
 
@@ -19,6 +20,7 @@ type Action =
 const initialUserState: AuthFormState = {
     email: '',
     password: '',
+    confirmPassword: '',
     errors: {}
 }
 
