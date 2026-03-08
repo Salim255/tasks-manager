@@ -6,6 +6,7 @@ type InitialState = {
     projects: Project[];
     activeProjectId?: string;
     isLoading: boolean;
+    isCreating: boolean;
 }
 
 export type CreateProjectPayload = {
@@ -17,6 +18,7 @@ export type CreateProjectPayload = {
 const initialState: InitialState = {
     projects: [],
     isLoading: false,
+    isCreating: false,
 }
 
 const projectSlice = createSlice({
@@ -24,24 +26,28 @@ const projectSlice = createSlice({
     initialState,
     extraReducers: (builder) => {
         builder
-        .addCase(createProjectHttp.pending, (state, action) => {
-
+        .addCase(createProjectHttp.pending, (state) => {
+            state.isCreating = true;
         })
         .addCase(fetchProjectsHttp.pending, (state, action) => {
             state.isLoading = true;
         })
         .addCase(createProjectHttp.fulfilled, (state, action) => {
-            console.log(action.payload);
-             state.projects = [...state.projects, ];
+            const { project } = action.payload.data;
+            if (!project) return;
+             state.projects = [...state.projects, project ];
+            state.isCreating = false;
         })
         .addCase(fetchProjectsHttp.fulfilled, (state, action) => {
-
+            const { projects } = action.payload.data;
+            state.projects = projects;
+            state.isLoading = false;
         })
         .addCase(createProjectHttp.rejected, (state, action) => {
-
+            state.isCreating = false;
         })
         .addCase(fetchProjectsHttp.rejected, (state, action) => {
-
+            state.isLoading = false;
         } )
     },
     reducers: {

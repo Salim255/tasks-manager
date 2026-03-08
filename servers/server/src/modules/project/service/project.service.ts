@@ -43,8 +43,8 @@ export class ProjectService {
       RETURNING *;
       `;
 
-      const project: Project = await this.projectRepo.query(query, values);
-      return project;
+      const project: Project[] = await this.projectRepo.query(query, values);
+      return project[0];
     } catch (error) {
       this.logger.error('Error in create a project', error);
       throw error;

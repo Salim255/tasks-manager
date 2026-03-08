@@ -14,9 +14,17 @@ export type CreateProjectPayload = {
 
 export type ProjectResponseDto = {
     status: string;
-    data: Project
+    data: {
+        project: Project
+    }
 }
 
+export type ProjectsResponseDto = {
+    status: string;
+    data: {
+        projects: Project[]
+    }
+}
 
 export const createProjectHttp = createAsyncThunk<
     ProjectResponseDto,  // success type
@@ -45,14 +53,24 @@ export const createProjectHttp = createAsyncThunk<
 
     }
 ) 
-export const fetchProjectsHttp = createAsyncThunk(
+export const fetchProjectsHttp = createAsyncThunk<
+ProjectsResponseDto,
+void,
+{ rejectValue: ApiErrorDto }  // error type
+>(
     'get/userProjects',
-    async (_, thunkAPI) => {
+    async (_, thunkApi) => {
         try {
             const response = await axios.get(`${apiUrl}/projects`);
-            console.log(response,);
+            return response.data;
         } catch (error) {
-            console.log(error, thunkAPI);
+            // Extract your backend error shape
+            const backendError: ApiErrorDto = error.response?.data || {
+                status: "error",
+                message: "Unknown error",
+                data: null
+            };
+            return thunkApi.rejectWithValue(backendError);
         }
     }
 )

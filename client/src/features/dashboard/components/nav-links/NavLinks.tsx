@@ -1,17 +1,20 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import type { RootState } from '../../../../redux/store';
 import { links } from '../../../../shared/utils/links';
 import './_nav-links.scss';
-
 import { NavLink } from "react-router-dom";
-import { useEffect } from 'react';
 import { ProjectsLinks } from '../../../projects/components/products-link/ProjectsLink';
-
+import { fetchProjectsHttp } from "../../../projects/http/project.http";
+import { type AppDispatch } from '../../../../redux/store';
+import { useEffect } from 'react';
 
 export const NavLinks = ({ toggleSidebar }: { toggleSidebar: () => void}) => {
     const { projects } = useSelector((store:  RootState) => store.projectReducer);
-
-    useEffect(() => {},[projects]);
+    const dispatch = useDispatch<AppDispatch>();
+    
+    useEffect(() => {
+        dispatch(fetchProjectsHttp())
+    },[dispatch])
 
     return  ( 
         <div className="nav-links">
