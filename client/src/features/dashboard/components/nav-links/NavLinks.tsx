@@ -7,9 +7,10 @@ import { ProjectsLinks } from '../../../projects/components/products-link/Projec
 import { fetchProjectsHttp } from "../../../projects/http/project.http";
 import { type AppDispatch } from '../../../../redux/store';
 import { useEffect } from 'react';
+import {useSelectProjects} from "../../../projects/states/projectsSelectors";
 
 export const NavLinks = ({ toggleSidebar }: { toggleSidebar: () => void}) => {
-    const { projects } = useSelector((store:  RootState) => store.projectReducer);
+    const projects  = useSelectProjects();
     const dispatch = useDispatch<AppDispatch>();
     
     useEffect(() => {
