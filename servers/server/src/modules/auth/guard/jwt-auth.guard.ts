@@ -27,11 +27,10 @@ export class JwtAuthGuard implements CanActivate {
     if (authHeader || authHeader?.startsWith('Bearer ')) {
       token = authHeader.split(' ')[1];
     }
-  console.log(token, "Hello token from cookies👹👹👹2", request.cookies);
+
     // 2 Fallback: check cookies (web apps)
     if (!token && this.extractTokenFromCookies(request)) {
       token = this.extractTokenFromCookies(request);
-      console.log(token, "Hello token from cookies👹👹👹")
     }
 
     if (!token) return false;
