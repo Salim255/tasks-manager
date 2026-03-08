@@ -18,7 +18,7 @@ export type ProjectResponseDto = {
 }
 
 
-export const createProject = createAsyncThunk<
+export const createProjectHttp = createAsyncThunk<
     ProjectResponseDto,  // success type
     CreateProjectPayload, // argument type
     { rejectValue: ApiErrorDto }  // error type
@@ -44,7 +44,7 @@ export const createProject = createAsyncThunk<
 
     }
 ) 
-export const fetchProjects = createAsyncThunk(
+export const fetchProjectsHttp = createAsyncThunk(
     'get/userProjects',
     async (_, thunkAPI) => {
         try {

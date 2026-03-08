@@ -107,7 +107,7 @@ export class AuthController {
     const cookieOptions = cookieOption(JWT_COOKIE_EXPIRE_IN);
 
     // Attach a cookie to an outgoing response
-    response.cookie('task-m-jwt', result.tokens.accessToken, cookieOptions);
+    response.cookie('task_m_jwt', result.tokens.accessToken, cookieOptions);
 
     return {
       status: 'success',
@@ -158,7 +158,7 @@ export class AuthController {
     const cookieOptions = cookieOption(JWT_COOKIE_EXPIRE_IN);
 
     // Attach a cookie to an outgoing response
-    response.cookie('task-m-jwt', result.tokens.accessToken, cookieOptions);
+    response.cookie('task_m_jwt', result.tokens.accessToken, cookieOptions);
     return {
       status: 'success',
       data: result,

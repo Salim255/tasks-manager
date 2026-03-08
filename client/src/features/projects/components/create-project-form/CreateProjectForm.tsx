@@ -1,10 +1,11 @@
 import { useEffect, type ChangeEvent } from "react";
 import { useProjectForm } from "../../forms/projectFormBuilder"
 import { useDispatch } from "react-redux";
-import { createProject, type CreateProjectPayload } from "../../states/projectSlice";
+import { createProjectHttp, type CreateProjectPayload } from "../../http/project.http";
+import { type AppDispatch } from "../../../../redux/store";
 
 export const CreateProjectForm = () => {
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
     const { state, setField } = useProjectForm();
 
     const handleInput = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -17,9 +18,8 @@ export const CreateProjectForm = () => {
             { 
                 name: state.name,
                 description: state.description,
-                status: state.status,
             }
-        dispatch(createProject({ payload }));
+        dispatch(createProjectHttp(payload));
     }
 
     useEffect(() => {

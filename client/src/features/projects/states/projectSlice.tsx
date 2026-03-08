@@ -1,6 +1,6 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { Project } from "../models/project.model";
-import { fetchProjects } from "../http/project.http";
+import { fetchProjectsHttp, createProjectHttp } from "../http/project.http";
 
 type InitialState = {
     projects: Project[];
@@ -10,8 +10,7 @@ type InitialState = {
 
 export type CreateProjectPayload = {
   name: string; 
-  description?: string, 
-  status: 'active' | 'archived' 
+  description?: string,
 }
  
 // Initial state 
@@ -25,19 +24,28 @@ const projectSlice = createSlice({
     initialState,
     extraReducers: (builder) => {
         builder
-        .addCase(fetchProjects .pending, (state, action) => {
-            state.isLoading = true;
-            state = {...state, projects:  }
-        } )
-        .addCase(fetchProjects.fulfilled, (state, action) => {
+        .addCase(createProjectHttp.pending, (state, action) => {
 
         })
-        .addCase(fetchProjects.rejected, (state, action) => {
+        .addCase(fetchProjectsHttp.pending, (state, action) => {
+            state.isLoading = true;
+        })
+        .addCase(createProjectHttp.fulfilled, (state, action) => {
+            console.log(action.payload);
+             state.projects = [...state.projects, ];
+        })
+        .addCase(fetchProjectsHttp.fulfilled, (state, action) => {
+
+        })
+        .addCase(createProjectHttp.rejected, (state, action) => {
+
+        })
+        .addCase(fetchProjectsHttp.rejected, (state, action) => {
 
         } )
     },
     reducers: {
-        createProject: (state, action: PayloadAction<{payload: CreateProjectPayload}>) => {
+        createProjectr: (state, action: PayloadAction<{payload: CreateProjectPayload}>) => {
             state.isLoading = true;
             const { name, description, status } = action.payload.payload;
             const newProject: Project = {
@@ -65,5 +73,5 @@ const projectSlice = createSlice({
     }
 });
 
-export const { createProject, setActiveProjectId } = projectSlice.actions;
+export const { createProjectr, setActiveProjectId } = projectSlice.actions;
 export default projectSlice.reducer;

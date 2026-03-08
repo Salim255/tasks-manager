@@ -6,10 +6,12 @@ import { JwtTokenService } from './service/jwt.token.service';
 import { UserRepository } from '../user/repository/user.repository';
 import { DatabaseModule } from 'src/database/database.module';
 import { AuthService } from './service/auth.service';
+import { JwtAuthGuard } from './guard/jwt-auth.guard';
 
 @Module({
   controllers: [AuthController],
-  providers: [JwtTokenService, AuthService, UserRepository],
+  providers: [JwtTokenService, AuthService, UserRepository, JwtAuthGuard],
+  exports: [JwtAuthGuard, JwtTokenService],
   imports: [
     DatabaseModule,
     JwtModule.registerAsync({

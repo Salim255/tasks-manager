@@ -9,7 +9,7 @@ function App(){
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    dispatch(refreshToken());
+    //dispatch(refreshToken());
   }, [dispatch]);
 
   return <RouterProvider router={ AppRoutes }></RouterProvider>

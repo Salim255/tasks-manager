@@ -32,12 +32,13 @@ export class ProjectService {
   async createProject(payload: {
     name: string;
     description: string;
+    ownerId: string;
   }): Promise<Project> {
     try {
-      const values = [payload.name, payload.description, '1'];
+      const values = [payload.name, payload.description, payload.ownerId];
 
       const query = `
-      INSERT INTO projects (name, description, ownerId)
+      INSERT INTO projects (name, description, "ownerId")
         VALUES ($1, $2, $3)
       RETURNING *;
       `;
@@ -46,7 +47,7 @@ export class ProjectService {
       return project;
     } catch (error) {
       this.logger.error('Error in create a project', error);
-      throw new InternalServerErrorException('Failed to create a project');
+      throw error;
     }
   }
 }

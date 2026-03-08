@@ -27,10 +27,11 @@ export class JwtAuthGuard implements CanActivate {
     if (authHeader || authHeader?.startsWith('Bearer ')) {
       token = authHeader.split(' ')[1];
     }
-
+  console.log(token, "Hello token from cookies👹👹👹2", request.cookies);
     // 2 Fallback: check cookies (web apps)
     if (!token && this.extractTokenFromCookies(request)) {
       token = this.extractTokenFromCookies(request);
+      console.log(token, "Hello token from cookies👹👹👹")
     }
 
     if (!token) return false;
@@ -51,7 +52,7 @@ export class JwtAuthGuard implements CanActivate {
 
   private extractTokenFromCookies(request: Request): string | undefined {
     // Type cast cookies as object with 'jwt' property for TypeScript safety
-    const cookies = request.cookies as { jwt?: string } | undefined;
-    return cookies?.jwt;
+    const cookies = request.cookies as { task_m_jwt?: string } | undefined;
+    return cookies?.task_m_jwt;
   }
 }

@@ -5,6 +5,7 @@ import {
   Get,
   Post,
   Req,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import {
@@ -14,12 +15,14 @@ import {
 } from '../dto/project.dto';
 import { Project } from '../entity/project.entity';
 import { ProjectService } from '../service/project.service';
+import { JwtAuthGuard } from 'src/modules/auth/guard/jwt-auth.guard';
 
 @ApiTags('Projects')
 @Controller('projects')
 export class ProjectController {
   constructor(private projectService: ProjectService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Post()
   @ApiOperation({
     summary: 'Create a new project',
@@ -44,10 +47,13 @@ export class ProjectController {
   })
   async createProject(
     @Body() body: CreateProjectDto,
-    @Req() req: any,
+    @Req()
+    req: Request & { user: { id: string }; refresh_token: { token: string } },
   ): Promise<CreateProjectResponseDto> {
-    // const userId = req.user;
+    const { id: userId } = req.user;
+    const { token } = req.refresh_token;
     const { name, description } = body;
+
     if (!name || !description) {
       throw new BadRequestException(
         'Project must have both name and description',
@@ -57,6 +63,7 @@ export class ProjectController {
     const project = await this.projectService.createProject({
       name,
       description,
+      ownerId: userId,
     });
 
     return {

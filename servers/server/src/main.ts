@@ -6,6 +6,7 @@ import { morganConfig } from './config/morgan.config';
 import { ConfigService } from '@nestjs/config';
 import { GlobalExceptionFilter } from './common/errors/global.error';
 import { corsConfig } from './config/cors.config';
+import cookieParser from 'cookie-parser';
 
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule);
@@ -13,6 +14,8 @@ async function bootstrap(): Promise<void> {
 
   // Initialize Cors config
   corsConfig(app);
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+  app.use(cookieParser());
 
   // Initialize Swagger
   setupSwagger(app);
