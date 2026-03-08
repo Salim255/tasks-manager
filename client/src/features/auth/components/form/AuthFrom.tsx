@@ -1,23 +1,32 @@
-import type { ChangeEvent } from "react";
+import { useState, type ChangeEvent } from "react";
 import { useAuthForm } from "../../form/authFormBuilder";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../../../redux/store";
 import { authUser, type LoginPayload } from "../../http/auth.http";
 
 export const AuthForm = () => {
+    const [iSLogin, setAuthMode] = useState<boolean>(true);
+
     const dispatch = useDispatch<AppDispatch>();
     const { state, setField } = useAuthForm();
     const submit = (e: ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
         console.log(state);
         if(!state.email || !state.password) return;
-        const payload: LoginPayload = {email: state.email, password: state.password, authType: 'register'};
+        const payload: LoginPayload = {email: state.email, password: state.password, authType: iSLogin ? 'login' :'register'};
         dispatch(authUser(payload));
     }
 
     const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
         setField(e.target.name as "password" | "email", e.target.value);
     }
+
+    const handleAutMode = () => {
+        setAuthMode((prev) => !prev);
+        console.log(iSLogin);
+    }
+
+
     return <>
     <form onSubmit={submit}>
         <div>
@@ -39,18 +48,22 @@ export const AuthForm = () => {
                 placeholder="password">
             </input>
         </div>
-        <div>
-            <label>confirm password</label>
-            <input 
-                name="confirmPassword"
-                onChange={handleInput}
-                value={state.confirmPassword}
-                placeholder="confirm password">
-            </input>
-        </div>
+        {
+            !iSLogin && <div>
+                <label>confirm password</label>
+                <input 
+                    name="confirmPassword"
+                    onChange={handleInput}
+                    value={state.confirmPassword}
+                    placeholder="confirm password">
+                </input>
+            </div>
+        }
         <button type="submit">
             submit
         </button>
+       
     </form>
+     <button onClick={handleAutMode}>{iSLogin ? 'Switch to Signup' : 'Switch to Login'}</button>
     </>
 }

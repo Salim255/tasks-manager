@@ -35,7 +35,7 @@ async function bootstrap(): Promise<void> {
   // Register http exception errors handler
   const configService = app.get(ConfigService);
   app.useGlobalFilters(new GlobalExceptionFilter(configService));
-  await app.listen(PORT);
+  await app.listen(PORT, 'localhost');
   const logger = new Logger('Main');
   logger.log(`Task manager's, server running on port number: ✅`, `${PORT}`);
 }

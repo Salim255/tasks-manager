@@ -5,7 +5,7 @@ export type AuthType = "login" | "register";
 export type LoginPayload = { password: string; email: string, authType: AuthType };
 
 const apiUrl = import.meta.env.VITE_API_URL;
-
+    
 export const authUser = createAsyncThunk(
     'post/authUser',
     async (data: LoginPayload, thunkAPI) => {
@@ -13,6 +13,7 @@ export const authUser = createAsyncThunk(
             const response = await axios.post(
                 `${apiUrl}/auth/${data.authType}`,
                 { email: data.email, password: data.password },
+                { withCredentials: true }
             )
             return response;
         } catch (error) {

@@ -26,6 +26,7 @@ export const createProjectHttp = createAsyncThunk<
     'post/createProject',
     async (data:CreateProjectPayload, thunkApi ) => {
         try {
+            axios.defaults.withCredentials = true;
             const result = await axios.post<ProjectResponseDto>(
                 `${apiUrl}/projects`,
                 data,

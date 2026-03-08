@@ -24,10 +24,13 @@ import { AuthService } from '../service/auth.service';
 import express from 'express';
 import { ConfigService } from '@nestjs/config';
 import { cookieOption } from 'src/config/cookie-options.config';
+import { Logger } from '@nestjs/common';
 
 @ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
+  private logger = new Logger(AuthController.name);
+
   constructor(
     private configService: ConfigService,
     private authService: AuthService,
@@ -105,7 +108,6 @@ export class AuthController {
 
     // Built cookie options
     const cookieOptions = cookieOption(JWT_COOKIE_EXPIRE_IN);
-
     // Attach a cookie to an outgoing response
     response.cookie('task_m_jwt', result.tokens.accessToken, cookieOptions);
 

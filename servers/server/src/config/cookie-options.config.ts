@@ -7,8 +7,9 @@ export const cookieOption = (JWT_COOKIE_EXPIRE_IN: number): CookieOptions => {
   // Save the token in cookies
   const cookieOptions = {
     expires: new Date(expires),
-    sameSite: 'none' as const, // allows cross-site requests
-    secure: true, // The cookie will only be sent in encrypted connection Only https
+    sameSite: 'lax' as const,
+    //sameSite: 'none' as const, // allows cross-site requests
+    secure: false, // The cookie will only be sent in encrypted connection Only https
     httpOnly: true, // So cookie can't be access or modify by browser
     path: '/', // cookie valid for all backend routes
     //partitioned: true, // This for Firefox warning,
