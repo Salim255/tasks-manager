@@ -10,6 +10,7 @@ import { JwtTokenPayload, JwtTokenService } from '../service/jwt.token.service';
 
 interface AuthenticatedRequest extends Request {
   user?: { id: string };
+  refresh_token?: { token: string };
 }
 
 @Injectable()
@@ -41,6 +42,7 @@ export class JwtAuthGuard implements CanActivate {
       if (!decoded) return false;
 
       request.user = { id: decoded.id };
+      request.refresh_token = { token };
       return true;
     } catch {
       return false;

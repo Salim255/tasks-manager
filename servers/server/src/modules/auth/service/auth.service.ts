@@ -6,7 +6,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import * as bcrypt from 'bcryptjs';
-import { LoginDto, RegisterDto } from '../dto/auth.dto';
+import { LoginDto, RegisterDto, DataDto } from '../dto/auth.dto';
 import { USER_REPOSITORY } from 'src/common/constants/constants';
 import { Repository } from 'typeorm';
 import { User } from 'src/modules/user/entity/user.entity';
@@ -21,7 +21,49 @@ export class AuthService {
     @Inject(USER_REPOSITORY) private userRepo: Repository<User>,
   ) {}
 
-  async login(dto: LoginDto) {
+  async validateSession(payload: {
+    userId: string;
+    refreshToken: string;
+  }): Promise<DataDto> {
+    try {
+      const user: User | null = await this.userRepo.findOne({
+        where: { id: payload.userId },
+      });
+
+      if (!user) {
+        throw new UnauthorizedException('User not found');
+      }
+
+      // Check if token matches stored hash
+      if (user.refreshTokenHash) {
+        const isValid = await bcrypt.compare(
+          payload.refreshToken,
+          user.refreshTokenHash,
+        );
+        if (!isValid) {
+          throw new UnauthorizedException('Session token mismatch');
+        }
+      }
+      const accessToken = this.jwtService.createToken(user.id);
+      return {
+        user: {
+          id: user.id,
+          email: user.email,
+          emailVerified: user.emailVerified,
+          createdAt: user.createdAt,
+        },
+        tokens: {
+          accessToken: accessToken,
+          refreshToken: accessToken,
+        },
+      };
+    } catch (error) {
+      this.logger.error('Invalid or expired session token', error);
+      throw error;
+    }
+  }
+
+  async login(dto: LoginDto): Promise<DataDto> {
     try {
       const user = await this.userRepo.findOne({
         where: { email: dto.email },
@@ -57,7 +99,7 @@ export class AuthService {
     }
   }
 
-  async register(dto: RegisterDto) {
+  async register(dto: RegisterDto): Promise<DataDto> {
     try {
       const existing = await this.userRepo.findOne({
         where: { email: dto.email },

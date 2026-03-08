@@ -3,14 +3,22 @@ import {
   Body,
   Controller,
   Post,
+  Req,
   Res,
 } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiCookieAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import {
   LoginDto,
   LoginResponseDto,
+  RefreshSessionResponseDto,
   RegisterDto,
   RegisterResponseDto,
+  DataDto,
 } from '../dto/auth.dto';
 import { AuthService } from '../service/auth.service';
 import express from 'express';
@@ -24,6 +32,41 @@ export class AuthController {
     private configService: ConfigService,
     private authService: AuthService,
   ) {}
+
+  @Post('refresh-token')
+  @ApiOperation({
+    summary: 'Restore user session',
+    description:
+      'Validates the HttpOnly refresh_token cookie and returns the authenticated user. No request body required.',
+  })
+  @ApiCookieAuth('refresh_token')
+  @ApiResponse({
+    status: 200,
+    description: 'Session restored successfully.',
+    type: RefreshSessionResponseDto,
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Invalid or expired session cookie.',
+  })
+  async refreshSession(
+    @Req()
+    req: Request & { user: { id: string }; refresh_token: { token: string } },
+  ) {
+    //Sanitize and validate input
+    const { id: userId } = req.user;
+    const { token } = req.refresh_token;
+    //Get user
+    const result: DataDto = await this.authService.validateSession({
+      userId,
+      refreshToken: token,
+    });
+
+    return {
+      status: 'success',
+      data: result,
+    };
+  }
 
   @Post('login')
   @ApiOperation({

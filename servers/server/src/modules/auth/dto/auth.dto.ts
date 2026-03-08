@@ -1,6 +1,19 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
 
+export class DataDto {
+  user: {
+    id: string;
+    email: string;
+    emailVerified?: boolean;
+    createdAt: Date;
+  };
+  tokens: {
+    accessToken: string;
+    refreshToken: string;
+  };
+}
+
 export class LoginDto {
   @ApiProperty({ example: 'john@example.com' })
   @IsEmail()
@@ -43,17 +56,7 @@ export class RegisterResponseDto {
       },
     },
   })
-  data: {
-    user: {
-      id: string;
-      email: string;
-      createdAt: Date;
-    };
-    tokens: {
-      accessToken: string;
-      refreshToken: string;
-    };
-  };
+  data: DataDto;
 }
 
 export class LoginResponseDto extends RegisterResponseDto {}
