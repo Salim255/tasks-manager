@@ -1,8 +1,6 @@
-import { createAsyncThunk, createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { Project } from "../models/project.model";
-import axios from "axios";
-
-const apiUrl = import.meta.env.VITE_API_URL;
+import { fetchProjects } from "../http/project.http";
 
 type InitialState = {
     projects: Project[];
@@ -15,21 +13,7 @@ export type CreateProjectPayload = {
   description?: string, 
   status: 'active' | 'archived' 
 }
-
-// Thunks 
-export const fetchProjects = createAsyncThunk(
-    'get/userProjects',
-    async (_, thunkAPI) => {
-        try {
-            const response = await axios.get(`${apiUrl}/projects`);
-            console.log(response,);
-        } catch (error) {
-            console.log(error, thunkAPI);
-        }
-    }
-)
-
-// 
+ 
 // Initial state 
 const initialState: InitialState = {
     projects: [],
@@ -41,8 +25,9 @@ const projectSlice = createSlice({
     initialState,
     extraReducers: (builder) => {
         builder
-        .addCase(fetchProjects.pending, (state, action) => {
-
+        .addCase(fetchProjects .pending, (state, action) => {
+            state.isLoading = true;
+            state = {...state, projects:  }
         } )
         .addCase(fetchProjects.fulfilled, (state, action) => {
 
