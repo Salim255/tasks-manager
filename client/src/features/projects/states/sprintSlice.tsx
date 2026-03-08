@@ -3,16 +3,19 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { Sprint, SprintStatus } from "../models/sprint.model";
 import type { Task, TaskStatus } from "../models/task.model";
 import type { AppDispatch, RootState } from "../../../redux/store";
+import { createSprint } from "../http/sprint.http";
 
 
 // 2 initial state
 type StateType  = {
     sprints: Sprint[];
-    isLoading: false 
+    isLoading: boolean;
+    isCreating: boolean;
 }
 const initialState: StateType = {
     sprints: [],
-    isLoading: false
+    isLoading: false,
+    isCreating: false,
 };
 
 // Thunks
@@ -37,9 +40,23 @@ export const updateSprintStatus = ({
 }
 
 // 3 create slice
-const createSprintSlice = createSlice({
+const sprintSlice = createSlice({
     name: 'sprintSlice',
     initialState,
+    extraReducers: (builder) => {
+        builder
+        .addCase(createSprint.pending,(state, action) => {
+            state.isCreating = true;
+        })
+        .addCase(createSprint.fulfilled, (state, action) => {
+            const {sprint} = action.payload.data;
+            state.sprints = [...state.sprints, sprint];
+            state.isCreating = false;
+        })
+        .addCase(createSprint.rejected, (state, action) => {
+            state.isCreating = false;
+        })
+    },
     reducers: {
         onUpdateSprintStatus: (state, action: PayloadAction<{ sprintId: string, status: SprintStatus }>) => {
             const { sprintId, status } = action.payload;
@@ -124,10 +141,10 @@ const createSprintSlice = createSlice({
 })
 
 // Export other reducers
-export const { onUpdateSprintStatus } = createSprintSlice.actions;
-export const { updateSprintSingleTaskStatus } = createSprintSlice.actions;
-export const { removeTaskFromSprint } = createSprintSlice.actions;
-export const { addTaskToSprint } = createSprintSlice.actions;
-export const { addSprint } = createSprintSlice.actions;
+export const { onUpdateSprintStatus } = sprintSlice.actions;
+export const { updateSprintSingleTaskStatus } = sprintSlice.actions;
+export const { removeTaskFromSprint } = sprintSlice.actions;
+export const { addTaskToSprint } = sprintSlice.actions;
+export const { addSprint } = sprintSlice.actions;
 //  Export reducer
-export default createSprintSlice.reducer;
+export default sprintSlice.reducer;
