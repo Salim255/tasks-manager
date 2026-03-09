@@ -11,17 +11,21 @@ export class TaskService {
   constructor(@Inject(TASK_REPOSITORY) private taskRepo: Repository<Task>) {}
 
   async createTask(payload: {
+    ownerId: string;
     title: string;
     projectId: string;
     taskType: TaskType;
   }): Promise<Task> {
     try {
       const query = `
-        INSERT INTO tasks ()
+        INSERT INTO tasks ("ownerId", title, "projectId", "taskType")
+        VALUES ($1, $2, $3, $4)
+        RETURNING *;
       `;
       const values = [
-        payload.projectId,
+        payload.ownerId,
         payload.title,
+        payload.projectId,
         payload.taskType ?? 'task',
       ];
 

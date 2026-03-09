@@ -1,5 +1,6 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { Task } from '../entity/task.entity';
 
 export type TaskStatus = 'todo' | 'in_progress' | 'done';
 export type TaskPriority = 'low' | 'medium' | 'high';
@@ -44,8 +45,17 @@ export class CreateTaskDto {
   @IsString()
   @IsOptional()
   sprintId?: string;
+}
 
-  @IsString()
-  @IsNotEmpty()
-  projectId: string;
+export class CreateTaskResponseDto {
+  @ApiProperty({ example: 'success', enum: ['success', 'error'] })
+  status: 'success' | 'error';
+
+  @ApiProperty({
+    type: () => Task,
+    description: 'The created task',
+  })
+  data: {
+    task: Task;
+  };
 }
