@@ -15,18 +15,20 @@ export class SprintService {
     try {
       const values = [payload.projectId];
       const query = `
-        WITH sprint_counter (
+        WITH sprint_counter AS (
           SELECT COUNT(*) AS total
             FROM sprints AS sp
               WHERE sp."projectId" = $1
         ),
       
-        inserted (
-          INSERT INTO sprints (name, projectId)
-            SELECT CONCAT('print', sprint_counter.total), $1
-              RETURNING *;
+        inserted AS (
+          INSERT INTO sprints (name, "projectId")
+            SELECT CONCAT('sprint', sprint_counter.total + 1),
+              $1
+            FROM sprint_counter
+          RETURNING *
         )
-        
+      
         SELECT * FROM inserted;
       `;
       const sprint: Sprint = await this.sprintRepo.query(query, values);

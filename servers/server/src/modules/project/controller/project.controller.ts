@@ -7,7 +7,12 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+  ApiBearerAuth,
+} from '@nestjs/swagger';
 import {
   CreateProjectDto,
   CreateProjectResponseDto,
@@ -17,6 +22,7 @@ import { Project } from '../entity/project.entity';
 import { ProjectService } from '../service/project.service';
 import { JwtAuthGuard } from 'src/modules/auth/guard/jwt-auth.guard';
 
+@ApiBearerAuth()
 @ApiTags('Projects')
 @Controller('projects')
 export class ProjectController {

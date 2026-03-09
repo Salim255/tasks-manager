@@ -1,14 +1,30 @@
-import { Controller, Post, Body, HttpCode, HttpStatus } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiBody } from '@nestjs/swagger';
+import {
+  Controller,
+  Post,
+  Body,
+  HttpCode,
+  HttpStatus,
+  UseGuards,
+} from '@nestjs/common';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiBody,
+  ApiBearerAuth,
+} from '@nestjs/swagger';
 import { CreateSprintDto, SprintResponseDto } from '../dto/sprint.dto';
-
-import { SprintService } from './sprint.service';
+import { SprintService } from '../service/sprint.service';
+import { Sprint } from '../entity/sprint.entity';
+import { JwtAuthGuard } from 'src/modules/auth/guard/jwt-auth.guard';
 
 @ApiTags('Sprints')
 @Controller('sprints')
 export class SprintController {
   constructor(private readonly sprintService: SprintService) {}
 
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @Post()
   @HttpCode(HttpStatus.CREATED)
   @ApiOperation({
@@ -45,6 +61,12 @@ export class SprintController {
     description: 'Project not found',
   })
   async createSprint(@Body() dto: CreateSprintDto): Promise<SprintResponseDto> {
-    return await this.sprintService.createSprint(dto);
+    const sprint: Sprint = await this.sprintService.createSprint(dto);
+    return {
+      status: 'success',
+      data: {
+        sprint,
+      },
+    };
   }
 }
