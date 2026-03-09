@@ -20,14 +20,14 @@ export class Task {
   @Column({ nullable: true })
   description?: string;
 
-  @Column({ type: 'varchar' })
+  @Column({ type: 'varchar', default: 'task' })
   taskType: TaskType;
 
-  @Column({ type: 'varchar' })
+  @Column({ type: 'varchar', default: 'todo' })
   status: TaskStatus;
 
-  @Column({ type: 'varchar' })
-  priority: TaskPriority;
+  @Column({ type: 'varchar', nullable: true })
+  priority?: TaskPriority;
 
   @Column({ nullable: true })
   ownerId?: string;

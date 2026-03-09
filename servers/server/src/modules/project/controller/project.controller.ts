@@ -57,7 +57,7 @@ export class ProjectController {
     req: Request & { user: { id: string }; refresh_token: { token: string } },
   ): Promise<CreateProjectResponseDto> {
     const { id: userId } = req.user;
-    const { token } = req.refresh_token;
+    //const { token } = req.refresh_token;
     const { name, description } = body;
 
     if (!name || !description) {
