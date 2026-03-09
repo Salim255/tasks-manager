@@ -5,21 +5,22 @@ import {
   HttpCode,
   HttpStatus,
   UseGuards,
+  Param,
 } from '@nestjs/common';
 import {
   ApiTags,
   ApiOperation,
   ApiResponse,
-  ApiBody,
   ApiBearerAuth,
+  ApiParam,
 } from '@nestjs/swagger';
-import { CreateSprintDto, SprintResponseDto } from '../dto/sprint.dto';
+import { SprintResponseDto } from '../dto/sprint.dto';
 import { SprintService } from '../service/sprint.service';
 import { Sprint } from '../entity/sprint.entity';
 import { JwtAuthGuard } from 'src/modules/auth/guard/jwt-auth.guard';
 
 @ApiTags('Sprints')
-@Controller('sprints')
+@Controller('projects/:projectId/sprints')
 export class SprintController {
   constructor(private readonly sprintService: SprintService) {}
 
@@ -32,20 +33,10 @@ export class SprintController {
     description:
       'Creates a sprint under a specific project. Each sprint must belong to exactly one project.',
   })
-  @ApiBody({
-    type: CreateSprintDto,
-    examples: {
-      basic: {
-        summary: 'Basic sprint creation',
-        value: {
-          name: 'Sprint 1',
-          status: 'planned',
-          startDate: '2026-03-10T00:00:00.000Z',
-          endDate: '2026-03-20T00:00:00.000Z',
-          projectId: '7d975331-af42-4db5-83e1-bf157b922e18',
-        },
-      },
-    },
+  @ApiParam({
+    name: 'projectId',
+    description: 'ID of the project where the sprint will be created',
+    example: 'a3f1c2b4-9d12-4e8f-8b1a-123456789abc',
   })
   @ApiResponse({
     status: 201,
@@ -60,8 +51,10 @@ export class SprintController {
     status: 404,
     description: 'Project not found',
   })
-  async createSprint(@Body() dto: CreateSprintDto): Promise<SprintResponseDto> {
-    const sprint: Sprint = await this.sprintService.createSprint(dto);
+  async createSprint(
+    @Param('projectId') projectId: string,
+  ): Promise<SprintResponseDto> {
+    const sprint: Sprint = await this.sprintService.createSprint({ projectId });
     return {
       status: 'success',
       data: {
