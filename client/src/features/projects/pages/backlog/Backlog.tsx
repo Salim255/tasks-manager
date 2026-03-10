@@ -9,7 +9,7 @@ import { addSprint, addTaskToSprint, removeTaskFromSprint } from '../../states/s
 import type { Task } from '../../models/task.model';
 import { removeTask, setBackTaskToBacklog } from '../../states/taskSlice';
 import { SprintHeader } from '../../components/sprint-header/SprintHeader';
-import { useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 
 
 export const Backlog = () => {
@@ -56,10 +56,11 @@ export const Backlog = () => {
        setCount((prev) => prev+1);
     }
 
-    console.log(projectId, "hello world", sprints);
     useEffect(() => {
         console.log(projectId);
     }, [tasks, isCreating, sprints, isOpen, projectId]);
+
+    if (!projectId) return <Navigate to="/projects" replace />;
 
     return(
        <>
@@ -95,7 +96,7 @@ export const Backlog = () => {
                             </div>
                             <div
                                 className='sprint__footer'>
-                                <CreateTask/>
+                                <CreateTask projectId={projectId}/>
                             </div>
                         </section>
                     </section>
@@ -134,7 +135,7 @@ export const Backlog = () => {
                 </section>
                 <section
                     className='backlog__footer'>
-                    <CreateTask/>
+                    <CreateTask projectId={projectId}/>
                 </section>
             </section>
         </section>

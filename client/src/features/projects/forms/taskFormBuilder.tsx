@@ -8,6 +8,7 @@ export type TaskFormState = {
   description?: string;
   status: TaskStatus;
   priority: TaskPriority;
+  projectId: string;
   sprintId?: string;
   assigneeId?: string;
   dueAt: string; // keep string for <input type="date">
@@ -22,6 +23,8 @@ type Action =
 
 export const initialTaskFormState: TaskFormState = {
   title: "",
+  projectId: "",
+  assigneeId: "",
   status: "todo",
   priority: "low",
   dueAt: "",

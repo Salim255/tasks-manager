@@ -2,13 +2,14 @@ import './_create-task.scss';
 import { useState } from "react";
 import { useTaskForm } from "../../forms/taskFormBuilder";
 import { BiPlus } from "react-icons/bi";
-import { addToBacklogTask, createTaskHttp, type CreateTaskPayload } from "../../states/taskSlice";
+import { addToBacklogTask } from "../../states/taskSlice";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../../../redux/store";
 import { tasks } from "../../../../shared/utils/tasks";
 import { TaskTypeDropdown } from '../../../../shared/components/task-type-dropdown/TaskTypeDropdown';
+import { createTaskHttp, type CreateTaskPayload } from '../../http/task.http';
 
-export const CreateTask = () => {
+export const CreateTask = ( { projectId }: { projectId: string}) => {
   const [isCreateBtn, setCreateBtn] = useState<boolean>(true);
   const { state, setField, setError, clearErrors, reset } = useTaskForm();
   const [count, restCounter] = useState<number>(0);
@@ -35,8 +36,9 @@ export const CreateTask = () => {
     const createPayload: CreateTaskPayload  = {
         title: state.title, 
         status: state.status, 
-        priority: state.priority,
-        dueAt: state.dueAt,
+        projectId: projectId ,
+        ...(state.assigneeId && { assigneeId: state.assigneeId }),
+        ...(state.dueAt && {dueAt: state.dueAt }),
     }
    
     dispatch(createTaskHttp(createPayload));

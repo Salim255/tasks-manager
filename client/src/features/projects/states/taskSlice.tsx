@@ -1,34 +1,15 @@
-import { createAsyncThunk, createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import axios from "axios";
-import type { Task, TaskStatus } from "../models/task.model";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import type { Task  } from "../models/task.model";
+import { createTaskHttp } from "../http/task.http";
 
   
-export interface CreateTaskPayload  {
-    title: string;
-    status: TaskStatus;
-    assigneeId: string;
-    dueAt: string;
-}
 
 type InitiateState = {
     tasks: Task [];
     isCreating: boolean;
 }
 
-const url = "http://localhost:8000/api/v1/users/login";
 
-export const createTaskHttp = createAsyncThunk(
-    'post/create-task',
-    async (data: CreateTaskPayload, thunkAPI) => {
-        try {
-            const response = await axios.post(url, data);
-            console.log(response);
-            return response;
-        } catch (error) {
-            return thunkAPI.rejectWithValue(error);
-        }
-    }
-)
  const initialState: InitiateState = {
     tasks: [],
     isCreating: false,
