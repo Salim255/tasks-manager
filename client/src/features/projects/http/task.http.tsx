@@ -2,14 +2,16 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { type ApiErrorDto } from "../../../shared/interfaces/shared.interfaces";
 import type { TaskStatus } from "../forms/taskFormBuilder";
-import type { Task } from "../models/task.model";
+import type { Task, TaskType } from "../models/task.model";
 
 const apiUrl = import.meta.env.VITE_API_URL;
+
 
 export interface CreateTaskPayload  {
     title: string;
     status: TaskStatus;
     assigneeId?: string;
+    taskType: TaskType;
     dueAt?: string;
     projectId: string;
 }
@@ -29,11 +31,13 @@ export const  createTaskHttp = createAsyncThunk<
     'post/createTask',
     async (data: CreateTaskPayload, thunkApi) => {
         try {
+            console.log(data);
             const response = await axios.post(
-               `${apiUrl}/projects${data.projectId}/tasks`, 
+               `${apiUrl}/projects/${data.projectId}/tasks`, 
                 data,
                 { withCredentials: true }
             );
+            console.log(response);
             return response.data;
         } catch (error) {
             // Extract your backend error shape
@@ -42,7 +46,7 @@ export const  createTaskHttp = createAsyncThunk<
                 message: "Unknown error",
                 data: null
             };
-            thunkApi.rejectWithValue(backendError);
+            return thunkApi.rejectWithValue(backendError);
         }
     }
 )

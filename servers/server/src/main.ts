@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { Logger, ValidationPipe } from '@nestjs/common';
+import { BadRequestException, Logger, ValidationPipe } from '@nestjs/common';
 import { setupSwagger } from './config/swagger.config';
 import { morganConfig } from './config/morgan.config';
 import { ConfigService } from '@nestjs/config';
@@ -24,10 +24,14 @@ async function bootstrap(): Promise<void> {
 
   app.useGlobalPipes(
     new ValidationPipe({
-      whitelist: true, // strips unknown fields
-      forbidNonWhitelisted: true, // throws error if unknown fields exist
-      transform: true, // transforms payloads into DTO instances
-      transformOptions: { enableImplicitConversion: true },
+      whitelist: true,
+      forbidNonWhitelisted: false,
+      transform: true,
+      enableDebugMessages: true,
+      exceptionFactory: (errors) => {
+        console.log(JSON.stringify(errors, null, 2)); // <-- ADD THIS
+        return new BadRequestException(errors);
+      },
     }),
   );
 

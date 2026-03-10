@@ -1,12 +1,15 @@
 import { useReducer } from "react";
+import type { TaskType } from "../models/task.model";
 
 export type TaskStatus = "todo" | "in_progress" | "done";
 export type TaskPriority = "low" | "medium" | "high";
+
 
 export type TaskFormState = {
   title: string;
   description?: string;
   status: TaskStatus;
+  taskType:  TaskType,
   priority: TaskPriority;
   projectId: string;
   sprintId?: string;
@@ -25,6 +28,7 @@ export const initialTaskFormState: TaskFormState = {
   title: "",
   projectId: "",
   assigneeId: "",
+  taskType: "task",
   status: "todo",
   priority: "low",
   dueAt: "",

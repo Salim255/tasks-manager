@@ -1,4 +1,12 @@
-import { Body, Controller, Param, Post, Req, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Logger,
+  Param,
+  Post,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiBody,
@@ -12,13 +20,15 @@ import { JwtAuthGuard } from 'src/modules/auth/guard/jwt-auth.guard';
 import { CreateTaskDto, CreateTaskResponseDto } from '../dto/task.dto';
 import { Task } from '../entity/task.entity';
 
-@ApiBearerAuth()
-@UseGuards(JwtAuthGuard)
 @ApiTags('Tasks')
 @Controller('projects/:projectId/tasks')
 export class TaskController {
+  private logger = new Logger(TaskController.name);
+
   constructor(private taskService: TaskService) {}
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Post()
   @ApiOperation({
     summary: 'Create a new task',
@@ -50,6 +60,7 @@ export class TaskController {
   ) {
     const { id: userId } = req.user;
     const { title, taskType } = dto;
+
     const task: Task = await this.taskService.createTask({
       title,
       projectId,

@@ -36,13 +36,14 @@ export const CreateTask = ( { projectId }: { projectId: string}) => {
     const createPayload: CreateTaskPayload  = {
         title: state.title, 
         status: state.status, 
-        projectId: projectId ,
+        projectId: projectId,
+        taskType: state.taskType,
         ...(state.assigneeId && { assigneeId: state.assigneeId }),
         ...(state.dueAt && {dueAt: state.dueAt }),
     }
    
     dispatch(createTaskHttp(createPayload));
-    dispatch(addToBacklogTask({ task: tasks[count] }));
+    //dispatch(addToBacklogTask({ task: tasks[count] }));
     restCounter((prev) => prev+1)
     reset();
   };

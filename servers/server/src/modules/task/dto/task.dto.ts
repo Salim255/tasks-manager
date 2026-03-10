@@ -1,5 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsIn, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { Task } from '../entity/task.entity';
 
 export type TaskStatus = 'todo' | 'in_progress' | 'done';
@@ -17,17 +17,25 @@ export class CreateTaskDto {
   @IsOptional()
   description?: string;
 
-  @ApiPropertyOptional({ default: 'task' })
-  @IsString()
-  @IsOptional()
+  @ApiPropertyOptional({
+    enum: ['task', 'bug', 'story'],
+  })
+  @IsIn(['task', 'bug', 'story'])
+  @IsNotEmpty()
   taskType: TaskType;
 
-  @ApiPropertyOptional({ default: 'todo' })
-  @IsString()
+  @ApiPropertyOptional({
+    enum: ['todo', 'in_progress', 'done'],
+    default: 'todo',
+  })
+  @IsIn(['todo', 'in_progress', 'done'])
   @IsOptional()
   status?: TaskStatus;
 
-  @IsString()
+  @ApiPropertyOptional({
+    enum: ['low', 'medium', 'high'],
+  })
+  @IsIn(['low', 'medium', 'high'])
   @IsOptional()
   priority?: TaskPriority;
 
@@ -45,6 +53,11 @@ export class CreateTaskDto {
   @IsString()
   @IsOptional()
   sprintId?: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  @IsOptional()
+  projectId?: string;
 }
 
 export class CreateTaskResponseDto {

@@ -15,7 +15,7 @@ type InitiateState = {
     isCreating: false,
 }
 
-const createTaskSlice = createSlice({
+const taskSlice = createSlice({
     name: 'taskSlice',
     initialState,
     reducers: {
@@ -54,10 +54,12 @@ const createTaskSlice = createSlice({
         builder
         .addCase(createTaskHttp.pending, (state, action) => {
             console.log(action);
+            
             state.isCreating = true;
         })
         .addCase(createTaskHttp.fulfilled, (state, action) => {
-            console.log(action);
+            const { task } = action.payload.data;
+            state.tasks = [...state.tasks, task];
             state.isCreating = false;
         })
         .addCase(createTaskHttp.rejected, (state, action) => {
@@ -67,8 +69,8 @@ const createTaskSlice = createSlice({
     },
 })
 
-export const { setBackTaskToBacklog } = createTaskSlice.actions;
-export const { addToBacklogTask } = createTaskSlice.actions;
-export const { removeTask } = createTaskSlice.actions;
+export const { setBackTaskToBacklog } = taskSlice.actions;
+export const { addToBacklogTask } = taskSlice.actions;
+export const { removeTask } = taskSlice.actions;
 
-export default createTaskSlice.reducer;
+export default taskSlice.reducer;
