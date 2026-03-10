@@ -5,6 +5,12 @@ import type { ApiErrorDto } from "../../../shared/interfaces/shared.interfaces";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
+export type FetchSprintsResponseDto = {
+    status: string;
+    data: {
+        sprints: Sprint []
+    }
+}
 export type CreateSprintPayload = {
     projectId: string
 }
@@ -16,6 +22,30 @@ export type CreateSprintResponseDto = {
     }
 }
 
+export const fetchSprintsHttp =  createAsyncThunk<
+        FetchSprintsResponseDto,
+        { projectId: string },
+        { rejectValue: ApiErrorDto } 
+    >(
+        'get/fetchSprintsByProject',
+        async (data: {projectId: string}, thunkApi) => {
+            try {
+                const response = await axios.get(
+                    `${apiUrl}/projects/${data.projectId}/sprints`,
+                    { withCredentials: true }
+                );
+                return response.data;
+            } catch (error) {
+                // Extract your backend error shape
+                const backendError: ApiErrorDto = error.response?.data || {
+                    status: "error",
+                    message: "Unknown error",
+                    data: null
+                };
+                return thunkApi.rejectWithValue(backendError);
+            }
+        }
+    )
 export const createSprint = createAsyncThunk<
     CreateSprintResponseDto,
     CreateSprintPayload,
