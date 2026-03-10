@@ -2,8 +2,6 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { Task  } from "../models/task.model";
 import { createTaskHttp, getTasksHttp } from "../http/task.http";
 
-  
-
 type InitiateState = {
     tasks: Task [];
     isCreating: boolean;
@@ -55,6 +53,7 @@ const taskSlice = createSlice({
     extraReducers: (builder) => {
         builder
         .addCase(getTasksHttp.pending, (state, action) => {
+           state.isLoading = true;
            console.log(action);
         })
         .addCase(getTasksHttp.fulfilled, (state, action) => {

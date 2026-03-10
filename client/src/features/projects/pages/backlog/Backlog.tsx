@@ -4,23 +4,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import { type AppDispatch, type RootState } from '../../../../redux/store';
 import { CreateTask } from '../../components/create-task/CreateTask';
 import { TaskItem } from '../../components/task-item/TaskItem';
-import { sprintsList } from '../../../../shared/utils/sprints';
 import { addSprint, addTaskToSprint, removeTaskFromSprint } from '../../states/sprintSlice';
 import type { Task } from '../../models/task.model';
 import { removeTask, setBackTaskToBacklog } from '../../states/taskSlice';
 import { SprintHeader } from '../../components/sprint-header/SprintHeader';
 import { Navigate, useParams } from 'react-router-dom';
-import { getTasksHttp } from '../../http/task.http';
-
+import { createSprint } from '../../http/sprint.http';
+import { useSprintSelector } from '../../states/sprintSelectors';
 
 export const Backlog = () => {
     const dispatch = useDispatch<AppDispatch>();
     const { isCreating, tasks } = useSelector((store: RootState) => store.taskSlice);
-    const { sprints } = useSelector((store: RootState) => store.sprintReducer);
+    const { sprints } = useSprintSelector();
     const { isOpen } = useSelector((store: RootState) => store.editSprintReducer);
     const { projectId }  = useParams();
 
-    const [count, setCount] = useState<number>(0);
     const [isOptionsOpen, setOptionsOpen ] = useState<string | null>(null);
     
     const onDragStart = (task: Task, e: React.DragEvent<HTMLDivElement>) => {
@@ -52,9 +50,8 @@ export const Backlog = () => {
     };
 
     const createSprintHandler = () => {
-      if (count > 3) return;
-       dispatch(addSprint(sprintsList[count]));
-       setCount((prev) => prev+1);
+       if(!projectId) return;
+       dispatch(createSprint({projectId}));
     }
 
     useEffect(() => {

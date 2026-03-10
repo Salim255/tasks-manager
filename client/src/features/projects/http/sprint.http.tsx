@@ -24,7 +24,10 @@ export const createSprint = createAsyncThunk<
     'post/createSprint',
     async (data:CreateSprintPayload , thunkApi) => {
         try {
-            const response = await axios.post(`${apiUrl}/sprints`, data, { withCredentials: true } );
+            const response = await axios.post(`${apiUrl}/projects/${data.projectId}/sprints`, 
+                {},
+                { withCredentials: true },
+            );
             return response.data;
         } catch (error) {
             // Extract your backend error shape

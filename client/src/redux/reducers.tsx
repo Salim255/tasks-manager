@@ -1,6 +1,6 @@
 import reducer from "../features/dashboard/states/dashboardSlice";
 import taskReducer from "../features/projects/states/taskSlice";
-import sprintReducer from "../features/tasks/states/sprintSlice";
+import sprintReducer from "../features/projects/states/sprintSlice";
 import editSprintReducer from "../features/tasks/states/editSprintSlice";
 import projectReducer from "../features/projects/states/projectSlice";
 import authReducer from "../features/auth/states/authSlice";
