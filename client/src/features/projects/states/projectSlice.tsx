@@ -29,22 +29,23 @@ const projectSlice = createSlice({
         .addCase(createProjectHttp.pending, (state) => {
             state.isCreating = true;
         })
-        .addCase(fetchProjectsHttp.pending, (state, action) => {
-            state.isLoading = true;
-        })
         .addCase(createProjectHttp.fulfilled, (state, action) => {
             const { project } = action.payload.data;
             if (!project) return;
              state.projects = [...state.projects, project ];
             state.isCreating = false;
         })
+        .addCase(createProjectHttp.rejected, (state, action) => {
+            state.isCreating = false;
+        })
         .addCase(fetchProjectsHttp.fulfilled, (state, action) => {
             const { projects } = action.payload.data;
+            console.log(projects);
             state.projects = projects;
             state.isLoading = false;
         })
-        .addCase(createProjectHttp.rejected, (state, action) => {
-            state.isCreating = false;
+        .addCase(fetchProjectsHttp.pending, (state, action) => {
+            state.isLoading = true;
         })
         .addCase(fetchProjectsHttp.rejected, (state, action) => {
             state.isLoading = false;

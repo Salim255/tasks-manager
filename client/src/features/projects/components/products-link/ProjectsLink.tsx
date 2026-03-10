@@ -4,10 +4,13 @@ import type { Project } from "../../models/project.model";
 import { useDispatch } from "react-redux";
 import { setActiveProjectId } from "../../states/projectSlice";
 import { SiCloudflareworkers } from "react-icons/si";
+import { useEffect } from 'react';
+import { type AppDispatch } from '../../../../redux/store';
+import { getTasksHttp } from '../../http/task.http';
 
 
 export const ProjectsLinks = ({ project }: { project: Project }) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const { projectId } = useParams();
 
   const isCurrentProject = projectId === project.id;
@@ -16,6 +19,10 @@ export const ProjectsLinks = ({ project }: { project: Project }) => {
     dispatch(setActiveProjectId({ projectId: project.id }));
   };
 
+  useEffect(() => {
+    dispatch(getTasksHttp({ projectId }));
+  }, [dispatch, projectId])
+  
   return (
     <li className="projects-item">
     

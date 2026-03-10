@@ -10,6 +10,19 @@ export class TaskService {
 
   constructor(@Inject(TASK_REPOSITORY) private taskRepo: Repository<Task>) {}
 
+  async getTasksByProject({ projectId }: { projectId: string }) {
+    try {
+      const query = `
+        SELECT * FROM tasks AS t
+        WHERE  t."projectId" = $1;
+      `;
+      const tasks: Task[] = await this.taskRepo.query(query, [projectId]);
+      return tasks;
+    } catch (error) {
+      this.logger.error(error);
+      throw error;
+    }
+  }
   async createTask(payload: {
     ownerId: string;
     title: string;

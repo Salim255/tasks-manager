@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './_backlog.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import type { RootState } from '../../../../redux/store';
+import { type AppDispatch, type RootState } from '../../../../redux/store';
 import { CreateTask } from '../../components/create-task/CreateTask';
 import { TaskItem } from '../../components/task-item/TaskItem';
 import { sprintsList } from '../../../../shared/utils/sprints';
@@ -10,10 +10,11 @@ import type { Task } from '../../models/task.model';
 import { removeTask, setBackTaskToBacklog } from '../../states/taskSlice';
 import { SprintHeader } from '../../components/sprint-header/SprintHeader';
 import { Navigate, useParams } from 'react-router-dom';
+import { getTasksHttp } from '../../http/task.http';
 
 
 export const Backlog = () => {
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
     const { isCreating, tasks } = useSelector((store: RootState) => store.taskSlice);
     const { sprints } = useSelector((store: RootState) => store.sprintReducer);
     const { isOpen } = useSelector((store: RootState) => store.editSprintReducer);

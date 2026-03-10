@@ -62,13 +62,16 @@ export const  createTaskHttp = createAsyncThunk<
 
 export const getTasksHttp = createAsyncThunk<
     GetTasksResponseDto,
-    void,
+    { projectId : string },
     { rejectValue: ApiErrorDto }
 >(
     'get/getTasks',
-    async (_, thunkApi) => {
+    async (projectId : {projectId: string}, thunkApi) => {
         try {
-            const response = await axios.get(`${apiUrl}/tasks`, {withCredentials: true});
+            const response = await axios.get(
+                `${apiUrl}/projects/${ projectId }/tasks`,
+                { withCredentials: true },
+            );
             return response.data;
         } catch (error) {
             // Extract your backend error shape

@@ -44,31 +44,38 @@ export class ProjectService {
   }
 
   async getUserProjectsByUser({
-    projectId,
+    ownerId,
   }: {
-    projectId: string;
+    ownerId: string;
   }): Promise<Project[]> {
     try {
       const query = `
         SELECT *,
 
-          (
-            SELECT json_agg ( task.* )
-              FROM tasks AS task
-                WHERE task."projectId" = project.id
+          COALESCE (
+            (
+              SELECT json_agg ( task.* )
+                FROM tasks AS task
+                  WHERE task."projectId" = project.id
+            ),
+            '[]'::json
           ) AS tasks,
+         
 
-          (
-            SELECT json_agg ( sprint.* )
-              FROM sprints AS sprint
-                WHERE sprint."projectId" = project.id
+          COALESCE (
+            (
+              SELECT json_agg ( sprint.* )
+                FROM sprints AS sprint
+                  WHERE sprint."projectId" = project.id
+          ),
+          '[]'::json
           ) AS sprints
 
         FROM projects AS project
         
-        WHERE project.owner = $1;
+        WHERE project."ownerId" = $1;
       `;
-      const rows: Project[] = await this.projectRepo.query(query, [projectId]);
+      const rows: Project[] = await this.projectRepo.query(query, [ownerId]);
       return rows;
     } catch (error) {
       this.logger.error('Error to fetch user projects', error);

@@ -6,6 +6,28 @@ export type TaskStatus = 'todo' | 'in_progress' | 'done';
 export type TaskPriority = 'low' | 'medium' | 'high';
 export type TaskType = 'task' | 'bug' | 'story';
 
+export class TasksListResponseDto {
+  @ApiProperty({ example: 'success' })
+  status: 'success';
+
+  @ApiProperty({
+    example: {
+      tasks: [
+        {
+          id: '1960e80a-fb58-40fe-aa22-cbe6e2edf5bc',
+          title: 'Fix login bug',
+          taskType: 'task',
+          status: 'todo',
+          projectId: '8deb02d6-6dd0-409b-911e-d2ab709f34e2',
+        },
+      ],
+    },
+  })
+  data: {
+    tasks: Task[];
+  };
+}
+
 export class CreateTaskDto {
   @ApiProperty({ example: 'Fix login bug' })
   @IsString()
