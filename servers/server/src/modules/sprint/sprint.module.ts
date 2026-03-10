@@ -9,5 +9,6 @@ import { AuthModule } from '../auth/auth.module';
   imports: [AuthModule, DatabaseModule],
   providers: [SprintRepository, SprintService],
   controllers: [SprintController],
+  exports: [SprintService],
 })
 export class SprintModule {}

@@ -2,6 +2,7 @@ import { Inject, Injectable, Logger } from '@nestjs/common';
 import { SPRINT_REPOSITORY } from 'src/common/constants/constants';
 import { Repository } from 'typeorm';
 import { Sprint } from '../entity/sprint.entity';
+import { Task } from 'src/modules/task/entity/task.entity';
 
 @Injectable()
 export class SprintService {
@@ -11,6 +12,23 @@ export class SprintService {
     @Inject(SPRINT_REPOSITORY) private sprintRepo: Repository<Sprint>,
   ) {}
 
+  async getSprintsByProject(projectId: {
+    projectId: string;
+  }): Promise<Sprint & { tasks: Task[] }[]> {
+    try {
+      const query = `
+      SELECT  * FROM projects
+      `;
+      const sprints: Sprint & { tasks: Task[] }[] = await this.sprintRepo.query(
+        query,
+        [projectId],
+      );
+      return sprints;
+    } catch (error) {
+      this.logger.error(error);
+      throw error;
+    }
+  }
   async createSprint(payload: { projectId: string }): Promise<Sprint> {
     try {
       const values = [payload.projectId];

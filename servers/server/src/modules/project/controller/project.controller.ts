@@ -26,11 +26,16 @@ import { JwtAuthGuard } from 'src/modules/auth/guard/jwt-auth.guard';
 import { TasksListResponseDto } from 'src/modules/task/dto/task.dto';
 import { ApiErrorResponseDto } from 'src/common/interfaces/shared.interface';
 import { TaskService } from 'src/modules/task/service/task.service';
+import { SprintsListResponseDto } from 'src/modules/sprint/dto/sprint.dto';
+import { Task } from 'src/modules/task/entity/task.entity';
+import { Sprint } from 'src/modules/sprint/entity/sprint.entity';
+import { SprintService } from 'src/modules/sprint/service/sprint.service';
 
 @ApiTags('Projects')
 @Controller('projects')
 export class ProjectController {
   constructor(
+    private sprintService: SprintService,
     private taskService: TaskService,
     private projectService: ProjectService,
   ) {}
@@ -134,6 +139,57 @@ export class ProjectController {
     return {
       status: 'success',
       data: { tasks },
+    };
+  }
+
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  @Get(':projectId/sprints')
+  @ApiOperation({
+    summary: 'Get all sprints for a project',
+    description:
+      'Returns a list of all sprints belonging to the specified project for the authenticated user.',
+  })
+  @ApiParam({
+    name: 'projectId',
+    required: true,
+    description: 'The ID of the project whose sprints will be retrieved.',
+    example: '3d660f2d-5653-4b8c-9ecc-b4497ff64a06',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'List of sprints retrieved successfully.',
+    type: SprintsListResponseDto,
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized — missing or invalid authentication token.',
+    type: ApiErrorResponseDto,
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Project not found.',
+    type: ApiErrorResponseDto,
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'Internal server error.',
+    type: ApiErrorResponseDto,
+  })
+  async getSprintsByProject(
+    @Param('projectId') projectId: string,
+    @Req() req: Request & { user: { id: string } },
+  ): Promise<SprintsListResponseDto> {
+    const { id: userId } = req.user;
+
+    const sprints =
+        await this.sprintService.getSprintsByProject({
+        projectId
+    });
+
+    return {
+      status: 'success',
+      data: { sprints },
     };
   }
 

@@ -1,8 +1,19 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Sprint } from '../entity/sprint.entity';
 import { IsNotEmpty } from 'class-validator';
+import { Task } from 'src/modules/task/entity/task.entity';
 
 export type SprintStatus = 'active' | 'completed' | 'planned' | 'upcoming';
+
+export class SprintsListResponseDto {
+  @ApiProperty({ example: 'success', enum: ['success', 'error'] })
+  status: 'success' | 'error';
+
+  @ApiProperty({ type: () => Object })
+  data: {
+    sprints: Sprint & { tasks: Task[] }[];
+  };
+}
 
 export class CreateSprintDto {
   @ApiProperty({
