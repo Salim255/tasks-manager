@@ -7,12 +7,14 @@ import { createTaskHttp, getTasksHttp } from "../http/task.http";
 type InitiateState = {
     tasks: Task [];
     isCreating: boolean;
+    isLoading: boolean;
 }
 
 
  const initialState: InitiateState = {
     tasks: [],
     isCreating: false,
+    isLoading: false,
 }
 
 const taskSlice = createSlice({
@@ -57,9 +59,13 @@ const taskSlice = createSlice({
         })
         .addCase(getTasksHttp.fulfilled, (state, action) => {
            console.log(action.payload);
+           const {tasks} = action.payload.data;
+           state.tasks = [...tasks];
+           state.isLoading = false;
         })
         .addCase(getTasksHttp.rejected, (state, action) => {
             console.log(action.error);
+            state.isLoading = false
         })
         .addCase(createTaskHttp.pending, (state, action) => {
             console.log(action);

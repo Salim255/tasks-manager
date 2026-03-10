@@ -7,6 +7,10 @@ export class ApiErrorResponseDto {
   @ApiProperty({ example: 'Project not found' })
   message: string;
 
-  @ApiProperty({ example: null })
+  @ApiProperty({
+    type: 'null',
+    example: null,
+    description: 'Always null in error responses',
+  })
   data: null;
 }

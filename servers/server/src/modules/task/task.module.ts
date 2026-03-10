@@ -9,6 +9,6 @@ import { AuthModule } from '../auth/auth.module';
   imports: [AuthModule, DatabaseModule],
   providers: [TaskService, TaskRepository],
   controllers: [TaskController],
-  exports: [TaskService],
+  exports: [TaskService, TaskRepository],
 })
 export class TaskModule {}

@@ -69,7 +69,7 @@ export const getTasksHttp = createAsyncThunk<
     async (projectId : {projectId: string}, thunkApi) => {
         try {
             const response = await axios.get(
-                `${apiUrl}/projects/${ projectId }/tasks`,
+                `${apiUrl}/projects/${projectId.projectId}/tasks`,
                 { withCredentials: true },
             );
             return response.data;

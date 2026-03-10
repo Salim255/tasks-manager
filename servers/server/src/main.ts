@@ -11,6 +11,7 @@ import cookieParser from 'cookie-parser';
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule);
   const PORT = process.env.PORT ?? 3000;
+  const logger = new Logger('Bootstrap');
 
   // Initialize Cors config
   corsConfig(app);
@@ -39,11 +40,12 @@ async function bootstrap(): Promise<void> {
   // Register http exception errors handler
   const configService = app.get(ConfigService);
   app.useGlobalFilters(new GlobalExceptionFilter(configService));
-  await app.listen(PORT, 'localhost');
-  const logger = new Logger('Main');
-  logger.log(`Task manager's, server running on port number: ✅`, `${PORT}`);
+
+  await app.listen(PORT, '127.0.0.1');
+  logger.log(`Task manager's, server running... on port number: ✅`, `${PORT}`);
 }
 
-bootstrap().catch(() => {
+bootstrap().catch((error) => {
+  console.log(error);
   process.exit(1);
 });

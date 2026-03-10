@@ -49,6 +49,8 @@ export class ProjectsListResponseDto {
   status: string;
 
   @ApiProperty({
+    description: 'List of projects',
+    type: () => Object, // <-- IMPORTANT
     example: {
       projects: [
         {

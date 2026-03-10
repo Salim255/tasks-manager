@@ -20,6 +20,7 @@ export const ProjectsLinks = ({ project }: { project: Project }) => {
   };
 
   useEffect(() => {
+    if (!projectId) return;
     dispatch(getTasksHttp({ projectId }));
   }, [dispatch, projectId])
   

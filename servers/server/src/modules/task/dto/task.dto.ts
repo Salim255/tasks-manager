@@ -11,6 +11,8 @@ export class TasksListResponseDto {
   status: 'success';
 
   @ApiProperty({
+    description: 'List of tasks',
+    type: () => Object, // <-- IMPORTANT
     example: {
       tasks: [
         {
