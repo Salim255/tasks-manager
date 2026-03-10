@@ -1,20 +1,15 @@
-import { useDispatch } from 'react-redux';
 import { links } from '../../../../shared/utils/links';
 import './_nav-links.scss';
 import { NavLink } from "react-router-dom";
 import { ProjectsLinks } from '../../../projects/components/products-link/ProjectsLink';
-import { fetchProjectsHttp } from "../../../projects/http/project.http";
-import { type AppDispatch } from '../../../../redux/store';
 import { Fragment, useEffect } from 'react';
 import {useSelectProjects} from "../../../projects/states/projectsSelectors";
 
 export const NavLinks = ({ toggleSidebar }: { toggleSidebar: () => void}) => {
     const projects  = useSelectProjects();
-    const dispatch = useDispatch<AppDispatch>();
     
     useEffect(() => {
-        dispatch(fetchProjectsHttp())
-    },[dispatch])
+    },[projects])
 
     return  ( 
         <div className="nav-links">
