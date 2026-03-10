@@ -35,7 +35,7 @@ export class Task {
   @Column({ nullable: true })
   assigneeId?: string;
 
-  @Column({ nullable: true })
+  @Column({ type: 'uuid', nullable: true })
   sprintId?: string;
 
   @Column()

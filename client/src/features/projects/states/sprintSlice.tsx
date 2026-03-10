@@ -3,7 +3,7 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { Sprint, SprintStatus } from "../models/sprint.model";
 import type { Task, TaskStatus } from "../models/task.model";
 import type { AppDispatch, RootState } from "../../../redux/store";
-import { createSprint } from "../http/sprint.http";
+import { createSprint, fetchSprintsHttp } from "../http/sprint.http";
 
 
 // 2 initial state
@@ -45,11 +45,23 @@ const sprintSlice = createSlice({
     initialState,
     extraReducers: (builder) => {
         builder
+        .addCase(fetchSprintsHttp.pending, (state, action) => {
+            state.isLoading = true;
+        })
+        .addCase(fetchSprintsHttp.fulfilled, (state, action) => {
+            const {sprints } = action.payload.data;
+            state.sprints = sprints;
+            state.isLoading = false;
+        })
+        .addCase(fetchSprintsHttp.rejected, (state, action) => {
+            state.isLoading = false;
+        })
+
         .addCase(createSprint.pending,(state, action) => {
             state.isCreating = true;
         })
         .addCase(createSprint.fulfilled, (state, action) => {
-            const {sprint} = action.payload.data;
+            const { sprint } = action.payload.data;
             state.sprints = [...state.sprints, sprint];
             state.isCreating = false;
         })

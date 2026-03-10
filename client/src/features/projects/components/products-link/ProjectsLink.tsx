@@ -7,6 +7,7 @@ import { SiCloudflareworkers } from "react-icons/si";
 import { useEffect } from 'react';
 import { type AppDispatch } from '../../../../redux/store';
 import { getTasksHttp } from '../../http/task.http';
+import { fetchSprintsHttp } from '../../http/sprint.http';
 
 
 export const ProjectsLinks = ({ project }: { project: Project }) => {
@@ -22,6 +23,7 @@ export const ProjectsLinks = ({ project }: { project: Project }) => {
   useEffect(() => {
     if (!projectId) return;
     dispatch(getTasksHttp({ projectId }));
+    dispatch(fetchSprintsHttp({ projectId }))
   }, [dispatch, projectId])
   
   return (

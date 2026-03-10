@@ -12,16 +12,24 @@ export class SprintService {
     @Inject(SPRINT_REPOSITORY) private sprintRepo: Repository<Sprint>,
   ) {}
 
-  async getSprintsByProject(projectId: {
+  async getSprintsByProject(payload: {
     projectId: string;
   }): Promise<Sprint & { tasks: Task[] }[]> {
     try {
       const query = `
-      SELECT  * FROM projects
+        SELECT
+          *,
+          (
+            SELECT COALESCE (json_agg ( tasks.* ), '[]'::json )
+              FROM tasks
+                WHERE tasks."sprintId" = sprint.id
+          ) AS tasks
+        FROM sprints AS sprint
+          WHERE  sprint."projectId" = $1;
       `;
       const sprints: Sprint & { tasks: Task[] }[] = await this.sprintRepo.query(
         query,
-        [projectId],
+        [payload.projectId],
       );
       return sprints;
     } catch (error) {
@@ -29,6 +37,7 @@ export class SprintService {
       throw error;
     }
   }
+
   async createSprint(payload: { projectId: string }): Promise<Sprint> {
     try {
       const values = [payload.projectId];
@@ -49,8 +58,8 @@ export class SprintService {
       
         SELECT * FROM inserted;
       `;
-      const sprint: Sprint = await this.sprintRepo.query(query, values);
-      return sprint;
+      const sprint: Sprint[] = await this.sprintRepo.query(query, values);
+      return sprint[0];
     } catch (error) {
       this.logger.error('Error to create sprint');
       throw error;

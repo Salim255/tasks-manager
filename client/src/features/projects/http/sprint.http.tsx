@@ -45,7 +45,8 @@ export const fetchSprintsHttp =  createAsyncThunk<
                 return thunkApi.rejectWithValue(backendError);
             }
         }
-    )
+    );
+
 export const createSprint = createAsyncThunk<
     CreateSprintResponseDto,
     CreateSprintPayload,

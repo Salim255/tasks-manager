@@ -182,9 +182,8 @@ export class ProjectController {
   ): Promise<SprintsListResponseDto> {
     const { id: userId } = req.user;
 
-    const sprints =
-        await this.sprintService.getSprintsByProject({
-        projectId
+    const sprints = await this.sprintService.getSprintsByProject({
+      projectId,
     });
 
     return {

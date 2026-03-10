@@ -45,11 +45,11 @@ export const SprintHeader = ({
                         isEditSprintOpen={isEditSprintOpen} 
                         setEditSprintOpen={setEditSprintOpen}
                         sprint={sprint}/>
-                    <span> ({sprint.tasks.length} work items) </span>
+                    <span> ({sprint?.tasks?.length} work items) </span>
                 </div>
                 <div className='sprint-header__actions'>
                     <button 
-                        disabled={sprint.tasks.length === 0 || sprint.status === "upcoming"} 
+                        disabled={sprint?.tasks?.length === 0 || sprint.status === "upcoming"} 
                         onClick={() => updateSprintStatus(sprint.status === "planned" ? "active" : "completed")}>
                             {
                                 getActionText(sprint.status)
