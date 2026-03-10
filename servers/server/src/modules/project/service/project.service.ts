@@ -19,7 +19,21 @@ export class ProjectService {
   async getUserProjects(): Promise<Project[]> {
     try {
       const query = `
-        SELECT * FROM projects;
+        SELECT *,
+
+          (
+            SELECT json_agg ( task.* )
+              FROM tasks AS task
+                WHERE task."projectId" = project.id
+          ) AS tasks,
+
+          (
+            SELECT json_agg ( sprint.* )
+              FROM sprints AS sprint
+                WHERE sprint."projectId" = project.id
+          ) AS sprints
+
+        FROM projects AS project;
       `;
       const rows: Project[] = await this.projectRepo.query(query, []);
       return rows;

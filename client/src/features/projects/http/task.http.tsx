@@ -60,7 +60,7 @@ export const  createTaskHttp = createAsyncThunk<
 )
 
 
-export const getTasks = createAsyncThunk<
+export const getTasksHttp = createAsyncThunk<
     GetTasksResponseDto,
     void,
     { rejectValue: ApiErrorDto }

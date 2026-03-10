@@ -8,6 +8,7 @@ import { useIsAuthenticated } from '../auth/states/authSelectors';
 import type { AppDispatch } from '../../redux/store';
 import { useDispatch } from 'react-redux';
 import { fetchProjectsHttp } from '../projects/http/project.http';
+import { getTasksHttp } from '../projects/http/task.http';
 
 
 export const Dashboard = () => {
@@ -16,6 +17,7 @@ export const Dashboard = () => {
     
     useEffect(() => {
         dispatch(fetchProjectsHttp());
+        dispatch(getTasksHttp());
     },[dispatch, isAuthenticated ])
 
     if (!isAuthenticated) return <Navigate to="/auth" replace />;
