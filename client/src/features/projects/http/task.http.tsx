@@ -21,6 +21,14 @@ export type CreateTaskResponseDto = {
     data: {
         task: Task
     }
+
+}
+
+export type GetTasksResponseDto = {
+    status: string;
+    data: {
+        tasks: Task []
+    }
 }
 
 export const  createTaskHttp = createAsyncThunk<
@@ -47,6 +55,30 @@ export const  createTaskHttp = createAsyncThunk<
                 data: null
             };
             return thunkApi.rejectWithValue(backendError);
+        }
+    }
+)
+
+
+export const getTasks = createAsyncThunk<
+    GetTasksResponseDto,
+    void,
+    { rejectValue: ApiErrorDto }
+>(
+    'get/getTasks',
+    async (_, thunkApi) => {
+        try {
+            const response = await axios.get(`${apiUrl}/tasks`, {withCredentials: true});
+            return response.data;
+        } catch (error) {
+            // Extract your backend error shape
+            const backendError: ApiErrorDto = error.response?.data || {
+                status: "error",
+                message: "Unknown error",
+                data: null
+            };
+            return thunkApi.rejectWithValue(backendError);
+            
         }
     }
 )

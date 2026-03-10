@@ -54,7 +54,6 @@ const taskSlice = createSlice({
         builder
         .addCase(createTaskHttp.pending, (state, action) => {
             console.log(action);
-            
             state.isCreating = true;
         })
         .addCase(createTaskHttp.fulfilled, (state, action) => {
