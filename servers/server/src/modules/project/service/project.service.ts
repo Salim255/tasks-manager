@@ -43,6 +43,39 @@ export class ProjectService {
     }
   }
 
+  async getUserProjectsByUser({
+    projectId,
+  }: {
+    projectId: string;
+  }): Promise<Project[]> {
+    try {
+      const query = `
+        SELECT *,
+
+          (
+            SELECT json_agg ( task.* )
+              FROM tasks AS task
+                WHERE task."projectId" = project.id
+          ) AS tasks,
+
+          (
+            SELECT json_agg ( sprint.* )
+              FROM sprints AS sprint
+                WHERE sprint."projectId" = project.id
+          ) AS sprints
+
+        FROM projects AS project
+        
+        WHERE project.owner = $1;
+      `;
+      const rows: Project[] = await this.projectRepo.query(query, [projectId]);
+      return rows;
+    } catch (error) {
+      this.logger.error('Error to fetch user projects', error);
+      throw new InternalServerErrorException('Failed to fetch user projects');
+    }
+  }
+
   async createProject(payload: {
     name: string;
     description: string;
