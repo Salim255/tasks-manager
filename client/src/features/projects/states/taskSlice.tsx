@@ -1,12 +1,12 @@
 import { createAsyncThunk, createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
-import type { Task, TaskPriority, TaskStatus } from "../models/task.model";
+import type { Task, TaskStatus } from "../models/task.model";
 
   
 export interface CreateTaskPayload  {
     title: string;
     status: TaskStatus;
-    priority: TaskPriority;
+    assigneeId: string;
     dueAt: string;
 }
 

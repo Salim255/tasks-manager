@@ -64,7 +64,7 @@ export const Backlog = () => {
     return(
        <>
         <section className="backlog-container">
-            { sprints.length 
+            { sprints.length > 0 
               && sprints.map((sprint) => {
                 return sprint.projectId === projectId && (
                     <section 
