@@ -19,6 +19,8 @@ import {
 import { TaskService } from '../service/task.service';
 import { JwtAuthGuard } from 'src/modules/auth/guard/jwt-auth.guard';
 import {
+  UpdatedTaskResponseDto,
+  UpdateTaskDto,
   UpdateTaskSprintDto,
   UpdateTaskSprintResponseDto,
 } from '../dto/task.dto';
@@ -98,4 +100,64 @@ export class TaskController {
       data: { task: updatedTask },
     };
   }
+
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  @Patch(':taskId')
+  @ApiOperation({
+    summary: 'Update a task by its ID',
+    description:
+      'Updates any editable fields of a task. Only the fields provided in the body will be updated.',
+  })
+  @ApiParam({
+    name: 'taskId',
+    required: true,
+    description: 'The ID of the task to update',
+    example: '71d008a6-2beb-46a9-9a4f-5bfd94f9625b',
+  })
+  @ApiBody({ type: UpdateTaskDto })
+  @ApiResponse({
+    status: 200,
+    description: 'Task updated successfully.',
+    type: UpdateTaskSprintResponseDto,
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Bad Request — validation failed.',
+    type: ApiErrorResponseDto,
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized — missing or invalid authentication token.',
+    type: ApiErrorResponseDto,
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Task not found.',
+    type: ApiErrorResponseDto,
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'Internal server error.',
+    type: ApiErrorResponseDto,
+  })
+  async updateTask(
+    @Param('taskId') taskId: string,
+    @Body() dto: UpdateTaskDto,
+    @Req() req: Request & { user: { id: string } },
+  ): Promise<UpdatedTaskResponseDto> {
+    const { id: userId } = req.user;
+
+    const task = await this.taskService.updateTask({
+      taskId,
+      userId,
+      dto,
+    });
+
+    return {
+      status: 'success',
+      data: { task },
+    };
+  }
+
 }

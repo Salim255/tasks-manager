@@ -10,7 +10,7 @@ import { SprintHeader } from '../../components/sprint-header/SprintHeader';
 import { Navigate, useParams } from 'react-router-dom';
 import { createSprint } from '../../http/sprint.http';
 import { useSprintSelector } from '../../states/sprintSelectors';
-import { updateTaskSprintHttp } from '../../http/task.http';
+import { removeTaskSprintIdHttp, updateTaskSprintHttp } from '../../http/task.http';
 
 export const Backlog = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -42,7 +42,7 @@ export const Backlog = () => {
         e.preventDefault();
         const data = e.dataTransfer.getData("text/plain");
         const task = JSON.parse(data);
-       dispatch(setBackTaskToBacklog({ task }))
+       dispatch(removeTaskSprintIdHttp({ taskId: task.id }))
     };
 
     const createSprintHandler = () => {
@@ -113,14 +113,14 @@ export const Backlog = () => {
                     onDragOver={onDragOver}
                     onDrop={onReverseDrop}
                     className='backlog__content' >
-                    { tasks.length ? 
-                        tasks.map((task) => {
-                            return  !task?.sprintId ?  <TaskItem
+                    { tasks.filter((tsk) => !tsk.sprintId)?.length ? 
+                        tasks.filter((t) => !t.sprintId).map((task) => {
+                           return <TaskItem
                                 draggable
                                 onDragStart={(e) => onDragStart(task, e)}
                                 key={task.id} 
                                 task={task} 
-                            /> : null
+                            /> 
                         }): 
                         <div className='empty'>
                             Your backlog is empty

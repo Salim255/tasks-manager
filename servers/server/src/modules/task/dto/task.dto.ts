@@ -6,6 +6,48 @@ export type TaskStatus = 'todo' | 'in_progress' | 'done';
 export type TaskPriority = 'low' | 'medium' | 'high';
 export type TaskType = 'task' | 'bug' | 'story';
 
+export class UpdateTaskDto {
+  @ApiPropertyOptional({
+    example: 'Fix login bug',
+    description: 'The new title of the task',
+  })
+  @IsOptional()
+  @IsString()
+  title?: string;
+
+  @ApiPropertyOptional({
+    example: 'in-progress',
+    enum: ['todo', 'in-progress', 'done'],
+  })
+  @IsOptional()
+  @IsString()
+  status?: 'todo' | 'in-progress' | 'done';
+
+  @ApiPropertyOptional({
+    example: 'high',
+    enum: ['low', 'medium', 'high'],
+  })
+  @IsOptional()
+  @IsString()
+  priority?: 'low' | 'medium' | 'high';
+
+  @ApiPropertyOptional({
+    example: '3d660f2d-5653-4b8c-9ecc-b4497ff64a06',
+    nullable: true,
+    description: 'The sprint ID to assign the task to. Use null to remove.',
+  })
+  @IsOptional()
+  sprintId?: string | null;
+
+  @ApiPropertyOptional({
+    example: 'User forgot password on login page',
+    description: 'Optional description of the task',
+  })
+  @IsOptional()
+  @IsString()
+  description?: string;
+}
+
 export class UpdateTaskSprintResponseDto {
   @ApiProperty({ example: 'success', enum: ['success', 'error'] })
   status: 'success' | 'error';
@@ -15,6 +57,8 @@ export class UpdateTaskSprintResponseDto {
     task: Task;
   };
 }
+
+export class UpdatedTaskResponseDto extends UpdateTaskSprintResponseDto {}
 
 export class UpdateTaskSprintDto {
   @ApiProperty({

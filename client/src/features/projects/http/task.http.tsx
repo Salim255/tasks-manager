@@ -38,7 +38,7 @@ export type GetTasksResponseDto = {
     }
 }
 
-export const removeTaskSprintId = createAsyncThunk(
+export const removeTaskSprintIdHttp = createAsyncThunk(
     'patch/removeTaskSprintId',
     async (data: {taskId: string}, thunkApi) => {
         try {
