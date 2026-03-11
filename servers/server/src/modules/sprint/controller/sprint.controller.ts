@@ -7,6 +7,7 @@ import {
   UseGuards,
   Param,
   Patch,
+  Req,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -16,7 +17,11 @@ import {
   ApiParam,
   ApiBody,
 } from '@nestjs/swagger';
-import { SprintResponseDto, UpdateSprintDto, UpdateSprintResponseDto } from '../dto/sprint.dto';
+import {
+  SprintResponseDto,
+  UpdateSprintDto,
+  UpdateSprintResponseDto,
+} from '../dto/sprint.dto';
 import { SprintService } from '../service/sprint.service';
 import { Sprint } from '../entity/sprint.entity';
 import { JwtAuthGuard } from 'src/modules/auth/guard/jwt-auth.guard';
@@ -69,15 +74,18 @@ export class SprintController {
   })
   async updateSprint(
     @Param('sprintId') sprintId: string,
-    @Body() dto: UpdateSprintDto,
+    @Body() body: UpdateSprintDto,
     @Req() req: Request & { user: { id: string } },
   ): Promise<UpdateSprintResponseDto> {
     const { id: userId } = req.user;
-
+    const { completeDate, endDate, startDate, name, status } = body;
     const sprint = await this.sprintService.updateSprint({
       sprintId,
-      userId,
-      dto,
+      completeDate,
+      endDate,
+      startDate,
+      name,
+      status,
     });
 
     return {

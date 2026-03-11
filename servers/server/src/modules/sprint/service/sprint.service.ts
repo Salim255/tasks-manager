@@ -1,8 +1,9 @@
-import { Inject, Injectable, Logger } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable, Logger } from '@nestjs/common';
 import { SPRINT_REPOSITORY } from 'src/common/constants/constants';
 import { Repository } from 'typeorm';
 import { Sprint } from '../entity/sprint.entity';
 import { Task } from 'src/modules/task/entity/task.entity';
+import { UpdateSprintDto } from '../dto/sprint.dto';
 
 @Injectable()
 export class SprintService {
@@ -12,6 +13,56 @@ export class SprintService {
     @Inject(SPRINT_REPOSITORY) private sprintRepo: Repository<Sprint>,
   ) {}
 
+  async updateSprint(
+    payload: { sprintId: string } & UpdateSprintDto,
+  ): Promise<Sprint> {
+    try {
+      const fields: string[] = [];
+      const values: string[] = [];
+      let index = 1;
+
+      // Build the dynamic query SQL
+      for (const key of Object.keys(payload)) {
+        if (key === 'sprintId') continue; // skip primary key
+
+        const value: string | undefined = payload[key] as string | undefined;
+
+        // Only update fields that are provided (undefined = ignore)
+        if (value !== undefined) {
+          // Quote date columns to avoid case issues
+          const column =
+            key === 'completeDate' || key === 'startDate' || key === 'endDate'
+              ? `"${key}"`
+              : key;
+          fields.push(`${column} = $${index++}`);
+          values.push(value);
+        }
+      }
+
+      // No fields provided → reject
+      if (fields.length === 0) {
+        throw new BadRequestException('No fields provided to update sprint');
+      }
+
+      // Add sprintId as last parameter
+      values.push(payload.sprintId);
+
+      const query = `
+        UPDATE sprints
+          SET ${fields.join(', ')}
+            WHERE id = $${index}
+              RETURNING *;
+        `;
+      const updatedSprint: Sprint[][] = await this.sprintRepo.query(
+        query,
+        values,
+      );
+      return updatedSprint[0][0];
+    } catch (error) {
+      this.logger.error(error);
+      throw error;
+    }
+  }
   async getSprintsByProject(payload: {
     projectId: string;
   }): Promise<Sprint & { tasks: Task[] }[]> {
