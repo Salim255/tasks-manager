@@ -3,6 +3,8 @@ import {
   Body,
   Controller,
   Get,
+  HttpCode,
+  HttpStatus,
   Param,
   Post,
   Req,
@@ -31,9 +33,13 @@ import {
 } from 'src/modules/task/dto/task.dto';
 import { ApiErrorResponseDto } from 'src/common/interfaces/shared.interface';
 import { TaskService } from 'src/modules/task/service/task.service';
-import { SprintsListResponseDto } from 'src/modules/sprint/dto/sprint.dto';
+import {
+  SprintResponseDto,
+  SprintsListResponseDto,
+} from 'src/modules/sprint/dto/sprint.dto';
 import { Task } from 'src/modules/task/entity/task.entity';
 import { SprintService } from 'src/modules/sprint/service/sprint.service';
+import { Sprint } from 'src/modules/sprint/entity/sprint.entity';
 
 @ApiTags('Projects')
 @Controller('projects')
@@ -43,6 +49,45 @@ export class ProjectController {
     private taskService: TaskService,
     private projectService: ProjectService,
   ) {}
+
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @Post(':projectId/sprints')
+  @HttpCode(HttpStatus.CREATED)
+  @ApiOperation({
+    summary: 'Create a new sprint',
+    description:
+      'Creates a sprint under a specific project. Each sprint must belong to exactly one project.',
+  })
+  @ApiParam({
+    name: 'projectId',
+    description: 'ID of the project where the sprint will be created',
+    example: 'a3f1c2b4-9d12-4e8f-8b1a-123456789abc',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Sprint created successfully',
+    type: SprintResponseDto,
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Invalid payload or missing required fields',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Project not found',
+  })
+  async createSprint(
+    @Param('projectId') projectId: string,
+  ): Promise<SprintResponseDto> {
+    const sprint: Sprint = await this.sprintService.createSprint({ projectId });
+    return {
+      status: 'success',
+      data: {
+        sprint,
+      },
+    };
+  }
 
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)

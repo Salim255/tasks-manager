@@ -1,4 +1,9 @@
-import { BadRequestException, Inject, Injectable, Logger } from '@nestjs/common';
+import {
+  BadRequestException,
+  Inject,
+  Injectable,
+  Logger,
+} from '@nestjs/common';
 import { SPRINT_REPOSITORY } from 'src/common/constants/constants';
 import { Repository } from 'typeorm';
 import { Sprint } from '../entity/sprint.entity';

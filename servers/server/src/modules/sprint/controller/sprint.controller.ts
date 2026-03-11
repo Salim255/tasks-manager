@@ -1,14 +1,4 @@
-import {
-  Controller,
-  Post,
-  Body,
-  HttpCode,
-  HttpStatus,
-  UseGuards,
-  Param,
-  Patch,
-  Req,
-} from '@nestjs/common';
+import { Controller, Body, UseGuards, Param, Patch, Req } from '@nestjs/common';
 import {
   ApiTags,
   ApiOperation,
@@ -17,18 +7,13 @@ import {
   ApiParam,
   ApiBody,
 } from '@nestjs/swagger';
-import {
-  SprintResponseDto,
-  UpdateSprintDto,
-  UpdateSprintResponseDto,
-} from '../dto/sprint.dto';
+import { UpdateSprintDto, UpdateSprintResponseDto } from '../dto/sprint.dto';
 import { SprintService } from '../service/sprint.service';
-import { Sprint } from '../entity/sprint.entity';
 import { JwtAuthGuard } from 'src/modules/auth/guard/jwt-auth.guard';
 import { ApiErrorResponseDto } from 'src/common/interfaces/shared.interface';
 
 @ApiTags('Sprints')
-@Controller('projects/:projectId/sprints')
+@Controller('sprints')
 export class SprintController {
   constructor(private readonly sprintService: SprintService) {}
 
@@ -91,45 +76,6 @@ export class SprintController {
     return {
       status: 'success',
       data: { sprint },
-    };
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
-  @Post()
-  @HttpCode(HttpStatus.CREATED)
-  @ApiOperation({
-    summary: 'Create a new sprint',
-    description:
-      'Creates a sprint under a specific project. Each sprint must belong to exactly one project.',
-  })
-  @ApiParam({
-    name: 'projectId',
-    description: 'ID of the project where the sprint will be created',
-    example: 'a3f1c2b4-9d12-4e8f-8b1a-123456789abc',
-  })
-  @ApiResponse({
-    status: 201,
-    description: 'Sprint created successfully',
-    type: SprintResponseDto,
-  })
-  @ApiResponse({
-    status: 400,
-    description: 'Invalid payload or missing required fields',
-  })
-  @ApiResponse({
-    status: 404,
-    description: 'Project not found',
-  })
-  async createSprint(
-    @Param('projectId') projectId: string,
-  ): Promise<SprintResponseDto> {
-    const sprint: Sprint = await this.sprintService.createSprint({ projectId });
-    return {
-      status: 'success',
-      data: {
-        sprint,
-      },
     };
   }
 }
