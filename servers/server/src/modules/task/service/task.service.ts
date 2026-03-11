@@ -10,6 +10,28 @@ export class TaskService {
 
   constructor(@Inject(TASK_REPOSITORY) private taskRepo: Repository<Task>) {}
 
+  async updateTaskSprint(payload: {
+    taskId: string;
+    sprintId: string;
+  }): Promise<Task> {
+    try {
+      const query = `
+      UPDATE tasks AS task
+        SET task.sprintId = $2
+      WHERE task.id = $1;
+        RETURNING *;
+      `;
+      const updatedTask: Task[] = await this.taskRepo.query(query, [
+        payload.taskId,
+        payload.sprintId,
+      ]);
+      return updatedTask[0];
+    } catch (error) {
+      this.logger.error(error);
+      throw error;
+    }
+  }
+
   async getTasksByProject({ projectId }: { projectId: string }) {
     try {
       const query = `
