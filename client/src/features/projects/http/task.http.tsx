@@ -4,6 +4,7 @@ import { type ApiErrorDto } from "../../../shared/interfaces/shared.interfaces";
 import type { TaskStatus } from "../forms/taskFormBuilder";
 import type { Task, TaskType } from "../models/task.model";
 
+
 const apiUrl = import.meta.env.VITE_API_URL;
 
 
@@ -16,13 +17,19 @@ export interface CreateTaskPayload  {
     projectId: string;
 }
 
+export type UpdateTaskSprintPayload = {
+    taskId: string;
+    sprintId: string;
+};
+
 export type CreateTaskResponseDto = {
     status: string;
     data: {
         task: Task
     }
-
 }
+
+export type  UpdatedTaskResponseDto = CreateTaskResponseDto;
 
 export type GetTasksResponseDto = {
     status: string;
@@ -31,28 +38,31 @@ export type GetTasksResponseDto = {
     }
 }
 
-//tasks/71d008a6-2beb-46a9-9a4f-5bfd94f9625b/sprint
-export const updateTaskSprint = createAsyncThunk(
-    'update/taskSprint',
-    async (data: { sprintId: string,  taskId: string}, thunkApi) => {
-        try {
-            const response = await axios.patch(`${apiUrl}/tasks/${data.sprintId}/sprint`, 
-                {sprintId: data.sprintId},
-                { withCredentials: true }
-            );
-
-            return response.data;
-        } catch (error) {
-            // Extract your backend error shape
-            const backendError: ApiErrorDto = error.response?.data || {
-                status: "error",
-                message: "Unknown error",
-                data: null
-            };
-            return thunkApi.rejectWithValue(backendError);
+export const updateTaskSprintHttp = createAsyncThunk<
+    UpdatedTaskResponseDto,
+    UpdateTaskSprintPayload ,
+    { rejectValue: ApiErrorDto }
+    >(
+        'update/taskSprint',
+        async (data: UpdateTaskSprintPayload , thunkApi) => {
+            try {
+                const response = await axios.patch(
+                    `${apiUrl}/tasks/${data.taskId}/sprint`, 
+                    { sprintId: data.sprintId },
+                    { withCredentials: true }
+                );
+                return response.data;
+            } catch (error) {
+                // Extract your backend error shape
+                const backendError: ApiErrorDto = error.response?.data || {
+                    status: "error",
+                    message: "Unknown error",
+                    data: null
+                };
+                return thunkApi.rejectWithValue(backendError);
+            }
         }
-    }
-)
+    )
 export const  createTaskHttp = createAsyncThunk<
     CreateTaskResponseDto,
     CreateTaskPayload,

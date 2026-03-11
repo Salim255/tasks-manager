@@ -4,13 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { DiScrum } from "react-icons/di";
 import type { Task, TaskStatus } from '../../models/task.model';
-import { updateSprintSingleTaskStatus } from '../../states/sprintSlice';
 import { selectActiveSprint } from '../../states/boardSlice';
 import { BoardTaskItem } from '../../components/board-task-item/BoardTaskItem';
 import type { Sprint } from '../../models/sprint.model';
 
-export const Board = () => {
-    const dispatch = useDispatch();   
+export const Board = () => {  
     const { projectId }  = useParams<string>() 
     const sprints = useSelector(selectActiveSprint);
 
@@ -23,7 +21,7 @@ export const Board = () => {
         const data = e.dataTransfer.getData("text/plain");
         const task = JSON.parse(data);
         console.log("dropped", type, task);
-        dispatch(updateSprintSingleTaskStatus({task, status: type}));
+        //dispatch(updateSprintSingleTaskStatus({task, status: type}));
     }
 
     const onDragOver = (e: React.DragEvent<HTMLDivElement>) => {

@@ -1,11 +1,13 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { Task  } from "../models/task.model";
-import { createTaskHttp, getTasksHttp } from "../http/task.http";
+import { createTaskHttp, getTasksHttp, updateTaskSprintHttp } from "../http/task.http";
 
 type InitiateState = {
     tasks: Task [];
     isCreating: boolean;
     isLoading: boolean;
+    isUpdating: boolean;
+    isOpen: boolean;
 }
 
 
@@ -13,6 +15,8 @@ type InitiateState = {
     tasks: [],
     isCreating: false,
     isLoading: false,
+    isUpdating: false,
+    isOpen: false,
 }
 
 const taskSlice = createSlice({
@@ -48,10 +52,25 @@ const taskSlice = createSlice({
             const tasks = state?.tasks?.filter((t) => t.id !== task.id);
 
             state.tasks = [...tasks];
-        }
+        },
     },
     extraReducers: (builder) => {
         builder
+        .addCase(updateTaskSprintHttp.pending, (state, action) => {
+            state.isUpdating = true; 
+        })
+        .addCase(updateTaskSprintHttp.fulfilled, (state, action) => {
+            const { task } = action.payload.data;
+            console.log(state.tasks, task);
+            state.tasks = state.tasks.map((t) => {
+                return  t.id === task.id ? task: t;
+            });
+            console.log(state.tasks);
+            state.isUpdating = false;
+        })
+        .addCase(updateTaskSprintHttp.rejected, (state, action) => {
+            state.isUpdating = false
+        })
         .addCase(getTasksHttp.pending, (state, action) => {
            state.isLoading = true;
            console.log(action);

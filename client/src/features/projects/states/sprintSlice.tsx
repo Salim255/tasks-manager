@@ -1,7 +1,6 @@
 // 1 http
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { Sprint, SprintStatus } from "../models/sprint.model";
-import type { Task, TaskStatus } from "../models/task.model";
 import type { AppDispatch, RootState } from "../../../redux/store";
 import { createSprint, fetchSprintsHttp } from "../http/sprint.http";
 
@@ -11,11 +10,19 @@ type StateType  = {
     sprints: Sprint[];
     isLoading: boolean;
     isCreating: boolean;
+    isUpdating: boolean;
+
+    isOpen: boolean;
+    sprint?: Sprint;
 }
 const initialState: StateType = {
     sprints: [],
     isLoading: false,
     isCreating: false,
+    isUpdating: false,
+
+    isOpen: false
+    
 };
 
 // Thunks
@@ -77,86 +84,26 @@ const sprintSlice = createSlice({
                state.sprints[sprintIndex].status = status;
             }
         },
-        updateSprintSingleTaskStatus: (
-            state, 
-            action: PayloadAction<{ task: Task, status: TaskStatus}>,
-        ) => {
-            const { task, status } = action.payload;
-            // 1 Find the sprint
-            const sprintIndex = state?.sprints
-                ?.findIndex((sprint) => sprint.id === task.sprintId);
-          
-            if (sprintIndex === -1) return;
-
-            // 2 Concerned sprint
-            const concernedSprint = state.sprints[sprintIndex];
-
-            // 3 Update task status in sprint
-            concernedSprint.tasks = concernedSprint?.tasks
-                ?.map((tsk) => tsk.id === task.id ? {...tsk, status: status} : tsk);
-
-            // 4 Update state
-            state.sprints[sprintIndex] = concernedSprint;
-
-        },
-        removeTaskFromSprint: (
-            state, 
-            action: PayloadAction<{sprintId: string, taskId: string}>,
-        ) => {
-            // 1 Find the sprint
-            const sprintIndex = state?.sprints
-                ?.findIndex((sprint) => sprint.id === action.payload.sprintId);
-          
-            if (sprintIndex === -1) return;
-
-            // 2 Concerned sprint
-            const concernedSprint = state.sprints[sprintIndex];
-
-            // 3 Remove task from sprint
-            concernedSprint.tasks = concernedSprint?.tasks
-                ?.filter((task) => task.id !== action.payload.taskId);
-
-            // 4 Update state
-            state.sprints[sprintIndex] = concernedSprint;
-
-        },
         addSprint: (state, action: PayloadAction<Sprint> ) => {
             state.sprints = [...state.sprints , action.payload]
         },
-        addTaskToSprint: (
-            state, 
-            action: PayloadAction<{ task: Task, sprintId: string }>,
-        ) => {
-
-            const { task, sprintId } = action.payload;
-
-            // 1. Remove task from all sprints 
-            state.sprints.forEach(
-                sprint => { sprint.tasks = sprint.tasks.filter(t => t.id !== task.id); }
-            );
-          
-
-            // Add the the task to the sprint
-            const sprintIndex = state.sprints
-                ?.findIndex((sprint) => sprint.id === sprintId);   
-
-            if (sprintIndex === -1) return;
- 
-
-            // Else add task
-            // 3. Add task to the correct sprint 
-            state.sprints[sprintIndex].tasks.push({ ...task, sprintId });
-
+        openEditSprint: (state, action:  PayloadAction<{ sprint: Sprint }>) => {
+            const { sprint } = action.payload;
+            console.log(sprint, "hello from open edit sprint");
+            state.isOpen = true;
+            state.sprint = sprint;
+        },
+        closeEditSprint: (state) => {
+            state.isOpen = false;
+            state.sprint = undefined;
         }
     },
 
 })
 
 // Export other reducers
+export const { openEditSprint, closeEditSprint } = sprintSlice.actions;
 export const { onUpdateSprintStatus } = sprintSlice.actions;
-export const { updateSprintSingleTaskStatus } = sprintSlice.actions;
-export const { removeTaskFromSprint } = sprintSlice.actions;
-export const { addTaskToSprint } = sprintSlice.actions;
 export const { addSprint } = sprintSlice.actions;
 //  Export reducer
 export default sprintSlice.reducer;

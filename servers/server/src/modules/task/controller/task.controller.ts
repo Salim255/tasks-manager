@@ -87,14 +87,15 @@ export class TaskController {
     if (!sprintId || sprintId === undefined) {
       throw new BadRequestException('sprintId must be provided');
     }
-    const task: Task = await this.taskService.updateTaskSprint({
+    const updatedTask: Task = await this.taskService.updateTaskSprint({
       taskId,
       sprintId,
     });
 
+    this.logger.debug(updatedTask, dto);
     return {
       status: 'success',
-      data: { task },
+      data: { task: updatedTask },
     };
   }
 }
