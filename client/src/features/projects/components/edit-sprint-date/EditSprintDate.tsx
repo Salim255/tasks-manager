@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { EditSprintForm } from "../edit-sprint-form/EditSprintForm";
 import type { Sprint } from "../../models/sprint.model";
 import { FaRegEdit } from "react-icons/fa";
+import { useSprintForm } from "../../forms-builders/sprintFormBuilder";
 
 export const EditSprintDate = ({
         sprint, 
@@ -13,7 +14,7 @@ export const EditSprintDate = ({
         isEditSprintOpen: boolean, 
         setEditSprintOpen: (open: boolean) => void,
     }) => {
-        
+        const { state, setField, setError, clearErrors, reset } = useSprintForm();
         const onEditSprintDate = (sprint: Sprint) => {
             console.log(sprint, "hello from edit sprint date");
             setEditSprintOpen(!isEditSprintOpen);

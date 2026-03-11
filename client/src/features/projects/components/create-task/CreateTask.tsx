@@ -1,6 +1,6 @@
 import './_create-task.scss';
 import { useState } from "react";
-import { useTaskForm } from "../../forms/taskFormBuilder";
+import { useTaskForm } from "../../forms-builders/taskFormBuilder";
 import { BiPlus } from "react-icons/bi";
 import { addToBacklogTask } from "../../states/taskSlice";
 import { useDispatch } from "react-redux";
@@ -12,7 +12,6 @@ import { createTaskHttp, type CreateTaskPayload } from '../../http/task.http';
 export const CreateTask = ( { projectId }: { projectId: string}) => {
   const [isCreateBtn, setCreateBtn] = useState<boolean>(true);
   const { state, setField, setError, clearErrors, reset } = useTaskForm();
-  const [count, restCounter] = useState<number>(0);
   const dispatch = useDispatch<AppDispatch>();
 
   const handleChange = (

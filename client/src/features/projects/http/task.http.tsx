@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { type ApiErrorDto } from "../../../shared/interfaces/shared.interfaces";
-import type { TaskStatus } from "../forms/taskFormBuilder";
+import type { TaskStatus } from "../forms-builders/taskFormBuilder";
 import type { Task, TaskType } from "../models/task.model";
 
 

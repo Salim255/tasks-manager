@@ -1,5 +1,5 @@
 import { useState, type ChangeEvent } from "react";
-import { useAuthForm } from "../../form/authFormBuilder";
+import { useAuthForm } from "../../form-builder/authFormBuilder";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../../../redux/store";
 import { authUser, type LoginPayload } from "../../http/auth.http";
