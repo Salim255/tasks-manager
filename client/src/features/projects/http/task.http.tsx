@@ -38,6 +38,27 @@ export type GetTasksResponseDto = {
     }
 }
 
+export const removeTaskSprintId = createAsyncThunk(
+    'patch/removeTaskSprintId',
+    async (data: {taskId: string}, thunkApi) => {
+        try {
+            const response = await axios.patch(
+                `${apiUrl}/tasks/${data.taskId}`,
+                {},
+                { withCredentials: true }
+            );
+            return response.data;
+        } catch (error) {
+            // Extract your backend error shape
+            const backendError: ApiErrorDto = error.response?.data || {
+                status: "error",
+                message: "Unknown error",
+                data: null
+            };
+            return thunkApi.rejectWithValue(backendError);
+        }
+    }
+);
 export const updateTaskSprintHttp = createAsyncThunk<
     UpdatedTaskResponseDto,
     UpdateTaskSprintPayload ,
@@ -62,7 +83,8 @@ export const updateTaskSprintHttp = createAsyncThunk<
                 return thunkApi.rejectWithValue(backendError);
             }
         }
-    )
+    );
+
 export const  createTaskHttp = createAsyncThunk<
     CreateTaskResponseDto,
     CreateTaskPayload,

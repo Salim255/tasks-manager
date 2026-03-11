@@ -5,7 +5,7 @@ import { type AppDispatch, type RootState } from '../../../../redux/store';
 import { CreateTask } from '../../components/create-task/CreateTask';
 import { TaskItem } from '../../components/task-item/TaskItem';
 import type { Task } from '../../models/task.model';
-import { removeTask, setBackTaskToBacklog } from '../../states/taskSlice';
+import { setBackTaskToBacklog } from '../../states/taskSlice';
 import { SprintHeader } from '../../components/sprint-header/SprintHeader';
 import { Navigate, useParams } from 'react-router-dom';
 import { createSprint } from '../../http/sprint.http';
@@ -35,8 +35,6 @@ export const Backlog = () => {
         const task: Task = JSON.parse(data);
 
         if(task.sprintId === sprintId ) return;
-
-        //dispatch(addTaskToSprint({task, sprintId}));
         dispatch(updateTaskSprintHttp({ taskId: task.id, sprintId }));
     };
 
