@@ -14,6 +14,7 @@ import {
   ApiTags,
   ApiBearerAuth,
   ApiParam,
+  ApiBody,
 } from '@nestjs/swagger';
 import {
   CreateProjectDto,
@@ -23,12 +24,15 @@ import {
 import { Project } from '../entity/project.entity';
 import { ProjectService } from '../service/project.service';
 import { JwtAuthGuard } from 'src/modules/auth/guard/jwt-auth.guard';
-import { TasksListResponseDto } from 'src/modules/task/dto/task.dto';
+import {
+  CreateTaskDto,
+  CreateTaskResponseDto,
+  TasksListResponseDto,
+} from 'src/modules/task/dto/task.dto';
 import { ApiErrorResponseDto } from 'src/common/interfaces/shared.interface';
 import { TaskService } from 'src/modules/task/service/task.service';
 import { SprintsListResponseDto } from 'src/modules/sprint/dto/sprint.dto';
 import { Task } from 'src/modules/task/entity/task.entity';
-import { Sprint } from 'src/modules/sprint/entity/sprint.entity';
 import { SprintService } from 'src/modules/sprint/service/sprint.service';
 
 @ApiTags('Projects')
@@ -39,6 +43,55 @@ export class ProjectController {
     private taskService: TaskService,
     private projectService: ProjectService,
   ) {}
+
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  @Post(':projectId/tasks')
+  @ApiOperation({
+    summary: 'Create a new task',
+    description:
+      'Creates a new task inside the specified project. Requires authentication via HttpOnly session cookie.',
+  })
+  @ApiParam({
+    name: 'projectId',
+    description: 'ID of the project where the task will be created',
+    example: 'a3f1c2b4-9d12-4e8f-8b1a-123456789abc',
+  })
+  @ApiBody({
+    type: CreateTaskDto,
+    description: 'Task creation payload',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Task successfully created',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Project not found',
+  })
+  async createTask(
+    @Param('projectId') projectId: string,
+    @Body() dto: CreateTaskDto,
+    @Req()
+    req: Request & { user: { id: string }; refresh_token: { token: string } },
+  ) {
+    const { id: userId } = req.user;
+    const { title, taskType } = dto;
+
+    const task: Task = await this.taskService.createTask({
+      title,
+      projectId,
+      taskType,
+      ownerId: userId,
+    });
+    const response: CreateTaskResponseDto = {
+      status: 'success',
+      data: {
+        task,
+      },
+    };
+    return response;
+  }
 
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)

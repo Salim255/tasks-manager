@@ -16,16 +16,16 @@ export class TaskService {
   }): Promise<Task> {
     try {
       const query = `
-      UPDATE tasks AS task
-        SET task.sprintId = $2
-      WHERE task.id = $1;
+        UPDATE tasks 
+          SET "sprintId" = $2
+        WHERE tasks.id = $1
         RETURNING *;
       `;
-      const updatedTask: Task[] = await this.taskRepo.query(query, [
+      const updatedTask: Task[][] = await this.taskRepo.query(query, [
         payload.taskId,
         payload.sprintId,
       ]);
-      return updatedTask[0];
+      return updatedTask[0][0];
     } catch (error) {
       this.logger.error(error);
       throw error;
