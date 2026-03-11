@@ -6,6 +6,28 @@ export type TaskStatus = 'todo' | 'in_progress' | 'done';
 export type TaskPriority = 'low' | 'medium' | 'high';
 export type TaskType = 'task' | 'bug' | 'story';
 
+export class UpdateTaskSprintResponseDto {
+  @ApiProperty({ example: 'success', enum: ['success', 'error'] })
+  status: 'success' | 'error';
+
+  @ApiProperty({ type: () => Object })
+  data: {
+    task: Task;
+  };
+}
+
+export class UpdateTaskSprintDto {
+  @ApiProperty({
+    example: '3d660f2d-5653-4b8c-9ecc-b4497ff64a06',
+    nullable: true,
+    description:
+      'The ID of the sprint to assign the task to. Use null to remove the task from any sprint.',
+  })
+  @IsOptional()
+  @IsString()
+  sprintId: string | null;
+}
+
 export class TasksListResponseDto {
   @ApiProperty({ example: 'success' })
   status: 'success';
