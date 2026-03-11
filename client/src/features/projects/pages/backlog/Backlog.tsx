@@ -52,8 +52,8 @@ export const Backlog = () => {
     const countWorkItem = () => {
         return tasks.filter((task) => !task.sprintId).length;
     }
+    
     useEffect(() => {
-        console.log('updated task', tasks)
     }, [tasks, isCreating, sprints, isOpen, projectId]);
 
     if (!projectId) return <Navigate to="/projects" replace />;

@@ -4,7 +4,8 @@ import type { Sprint, SprintStatus } from "../../models/sprint.model";
 import { EditSprintDate } from "../edit-sprint-date/EditSprintDate";
 import { useState } from 'react';
 import { onUpdateSprintStatus } from '../../states/sprintSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import type { RootState } from '../../../../redux/store';
 
 export const SprintHeader = ({
         sprint,
@@ -15,6 +16,7 @@ export const SprintHeader = ({
         isOptionsOpen: string | null, 
         setOptionsOpen: (sprintId: string | null) => void ,
     }) => {
+        const { tasks } = useSelector((store: RootState) => store.taskSlice);
         const [isEditSprintOpen, setEditSprintOpen] = useState<boolean>(false); 
         const dispatch = useDispatch();
 
@@ -36,6 +38,9 @@ export const SprintHeader = ({
                 default: return "";
             }
         }
+         const countWorkItem = () => {
+            return tasks.filter((task) => task.sprintId === sprint.id).length;
+        }
         
         return(
             <div className='sprint-header'>
@@ -45,7 +50,7 @@ export const SprintHeader = ({
                         isEditSprintOpen={isEditSprintOpen} 
                         setEditSprintOpen={setEditSprintOpen}
                         sprint={sprint}/>
-                    <span> ({sprint?.tasks?.length} work items) </span>
+                    <span> { countWorkItem() } work items </span>
                 </div>
                 <div className='sprint-header__actions'>
                     <button 
