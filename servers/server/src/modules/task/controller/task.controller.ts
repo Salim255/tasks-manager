@@ -86,9 +86,6 @@ export class TaskController {
       throw new BadRequestException('Task ID is required');
     }
 
-    if (!sprintId || sprintId === undefined) {
-      throw new BadRequestException('sprintId must be provided');
-    }
     const updatedTask: Task = await this.taskService.updateTaskSprint({
       taskId,
       sprintId,
@@ -147,17 +144,12 @@ export class TaskController {
     @Req() req: Request & { user: { id: string } },
   ): Promise<UpdatedTaskResponseDto> {
     const { id: userId } = req.user;
-
-    const task = await this.taskService.updateTask({
-      taskId,
-      userId,
-      dto,
-    });
+    const { title, description, priority, status } = dto;
+    const task = await this.taskService.updateTask();
 
     return {
       status: 'success',
       data: { task },
     };
   }
-
 }

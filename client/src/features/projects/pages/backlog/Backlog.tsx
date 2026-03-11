@@ -5,12 +5,11 @@ import { type AppDispatch, type RootState } from '../../../../redux/store';
 import { CreateTask } from '../../components/create-task/CreateTask';
 import { TaskItem } from '../../components/task-item/TaskItem';
 import type { Task } from '../../models/task.model';
-import { setBackTaskToBacklog } from '../../states/taskSlice';
 import { SprintHeader } from '../../components/sprint-header/SprintHeader';
 import { Navigate, useParams } from 'react-router-dom';
 import { createSprint } from '../../http/sprint.http';
 import { useSprintSelector } from '../../states/sprintSelectors';
-import { removeTaskSprintIdHttp, updateTaskSprintHttp } from '../../http/task.http';
+import { updateTaskSprintHttp } from '../../http/task.http';
 
 export const Backlog = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -42,7 +41,7 @@ export const Backlog = () => {
         e.preventDefault();
         const data = e.dataTransfer.getData("text/plain");
         const task = JSON.parse(data);
-       dispatch(removeTaskSprintIdHttp({ taskId: task.id }))
+        dispatch(updateTaskSprintHttp({ taskId: task.id, sprintId: null }));
     };
 
     const createSprintHandler = () => {
@@ -50,6 +49,9 @@ export const Backlog = () => {
        dispatch(createSprint({projectId}));
     }
 
+    const countWorkItem = () => {
+        return tasks.filter((task) => !task.sprintId).length;
+    }
     useEffect(() => {
         console.log('updated task', tasks)
     }, [tasks, isCreating, sprints, isOpen, projectId]);
@@ -103,7 +105,7 @@ export const Backlog = () => {
                <section 
                 className='backlog__header'>
                     <div>
-                        Backlog (0 works item)
+                        Backlog { countWorkItem() } works item
                     </div>
 
                     <button onClick={createSprintHandler}>create sprint</button>

@@ -19,7 +19,7 @@ export interface CreateTaskPayload  {
 
 export type UpdateTaskSprintPayload = {
     taskId: string;
-    sprintId: string;
+    sprintId: string | null;
 };
 
 export type CreateTaskResponseDto = {
@@ -38,9 +38,9 @@ export type GetTasksResponseDto = {
     }
 }
 
-export const removeTaskSprintIdHttp = createAsyncThunk(
-    'patch/removeTaskSprintId',
-    async (data: {taskId: string}, thunkApi) => {
+export const updateTasHttp = createAsyncThunk(
+    'update/task',
+    async (data: { taskId: string }, thunkApi) => {
         try {
             const response = await axios.patch(
                 `${apiUrl}/tasks/${data.taskId}`,
@@ -64,7 +64,7 @@ export const updateTaskSprintHttp = createAsyncThunk<
     UpdateTaskSprintPayload ,
     { rejectValue: ApiErrorDto }
     >(
-        'update/taskSprint',
+        'update/task-sprint',
         async (data: UpdateTaskSprintPayload , thunkApi) => {
             try {
                 const response = await axios.patch(
