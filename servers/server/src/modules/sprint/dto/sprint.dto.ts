@@ -1,9 +1,52 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Sprint } from '../entity/sprint.entity';
-import { IsNotEmpty } from 'class-validator';
+import { IsISO8601, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { Task } from 'src/modules/task/entity/task.entity';
 
 export type SprintStatus = 'active' | 'completed' | 'planned' | 'upcoming';
+
+export class UpdateSprintDto {
+  @ApiPropertyOptional({
+    example: 'Sprint 12',
+    description: 'The new name of the sprint',
+  })
+  @IsOptional()
+  @IsString()
+  name?: string;
+
+  @ApiPropertyOptional({
+    example: 'active',
+    enum: ['planned', 'upcoming', 'active', 'completed'],
+    description: 'The status of the sprint',
+  })
+  @IsOptional()
+  @IsString()
+  status?: 'planned' | 'upcoming' | 'active' | 'completed';
+
+  @ApiPropertyOptional({
+    example: '2026-03-10T00:00:00.000Z',
+    description: 'The start date of the sprint',
+  })
+  @IsOptional()
+  @IsISO8601()
+  startDate?: string;
+
+  @ApiPropertyOptional({
+    example: '2026-03-20T00:00:00.000Z',
+    description: 'The end date of the sprint',
+  })
+  @IsOptional()
+  @IsISO8601()
+  endDate?: string;
+
+  @ApiPropertyOptional({
+    example: '2026-03-21T00:00:00.000Z',
+    description: 'The completion date of the sprint',
+  })
+  @IsOptional()
+  @IsISO8601()
+  completeDate?: string;
+}
 
 export class SprintsListResponseDto {
   @ApiProperty({ example: 'success', enum: ['success', 'error'] })
@@ -38,3 +81,5 @@ export class SprintResponseDto {
   })
   data: SprintDataDto;
 }
+
+export class UpdateSprintResponseDto extends SprintResponseDto {}

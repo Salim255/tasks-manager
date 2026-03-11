@@ -20,6 +20,8 @@ export const Board = () => {
         e.preventDefault();
         const data = e.dataTransfer.getData("text/plain");
         const task = JSON.parse(data);
+        console.log("dropped", type, task);
+        //dispatch(updateSprintSingleTaskStatus({task, status: type}));
     }
 
     const onDragOver = (e: React.DragEvent<HTMLDivElement>) => {

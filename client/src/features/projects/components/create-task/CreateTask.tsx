@@ -43,8 +43,6 @@ export const CreateTask = ( { projectId }: { projectId: string}) => {
     }
    
     dispatch(createTaskHttp(createPayload));
-    //dispatch(addToBacklogTask({ task: tasks[count] }));
-    restCounter((prev) => prev+1)
     reset();
   };
    
