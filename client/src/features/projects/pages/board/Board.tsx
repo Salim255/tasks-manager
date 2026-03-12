@@ -1,16 +1,18 @@
 import { NavLink, useParams } from 'react-router-dom';
 import './_board.scss';
-import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { DiScrum } from "react-icons/di";
 import type { Task, TaskStatus } from '../../models/task.model';
-import { selectActiveSprint } from '../../states/boardSlice';
 import { BoardTaskItem } from '../../components/board-task-item/BoardTaskItem';
 import type { Sprint } from '../../models/sprint.model';
+import { useSprintSelector } from '../../states/sprintSelectors';
+import { useTasksSelector } from '../../states/taskSelectors';
+import { updateTasHttp } from '../../http/task.http';
 
-export const Board = () => {  
+export const Board = () => {
     const { projectId }  = useParams<string>() 
-    const sprints = useSelector(selectActiveSprint);
+    const { sprints } = useSprintSelector();
+    const { tasks } = useTasksSelector();
 
     const onDragStart = (e: React.DragEvent<HTMLDivElement>, task: Task) => {
         e.dataTransfer.setData("text/plain", JSON.stringify(task)); // any payload
@@ -21,7 +23,9 @@ export const Board = () => {
         const data = e.dataTransfer.getData("text/plain");
         const task = JSON.parse(data);
         console.log("dropped", type, task);
-        //dispatch(updateSprintSingleTaskStatus({task, status: type}));
+        ///dispatch(updateSprintSingleTaskStatus({task, status: type}));
+
+        dispatch(updateTasHttp())
     }
 
     const onDragOver = (e: React.DragEvent<HTMLDivElement>) => {
@@ -29,13 +33,11 @@ export const Board = () => {
     }
 
     const countTasksByStatus = (status: TaskStatus): number | null => {
-        const count = sprints?.reduce(
-            (acc, sprint) => acc + sprint?.tasks?.filter((task: Task) => task.status === status).length, 0
-        );
+        const count = tasks?.filter((task: Task) => task.status === status).length;
         return count || null;
     }
 
-    useEffect(() => {}, [sprints]);
+    useEffect(() => {}, [sprints, tasks]);
 
     return (
         <section className="board">

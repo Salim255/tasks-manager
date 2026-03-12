@@ -145,7 +145,13 @@ export class TaskController {
   ): Promise<UpdatedTaskResponseDto> {
     const { id: userId } = req.user;
     const { title, description, priority, status } = dto;
-    const task = await this.taskService.updateTask();
+    const task = await this.taskService.updateTask({
+      title,
+      description,
+      priority,
+      status,
+      taskId: taskId,
+    });
 
     return {
       status: 'success',

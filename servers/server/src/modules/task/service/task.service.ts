@@ -1,8 +1,8 @@
-import { Inject, Injectable, Logger } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable, Logger } from '@nestjs/common';
 import { TASK_REPOSITORY } from 'src/common/constants/constants';
 import { Repository } from 'typeorm';
 import { Task } from '../entity/task.entity';
-import { TaskType } from '../dto/task.dto';
+import { TaskType, UpdateTaskDto } from '../dto/task.dto';
 
 @Injectable()
 export class TaskService {
@@ -10,17 +10,47 @@ export class TaskService {
 
   constructor(@Inject(TASK_REPOSITORY) private taskRepo: Repository<Task>) {}
 
-  async updateTask(): Promise<Task> {
+  async updateTask(payload: UpdateTaskDto & { taskId: string }): Promise<Task> {
     try {
-      const values = [];
-      const query = ``;
-      const task: Task = await this.taskRepo.query(query, values);
-      return task;
+      const fields: string[] = [];
+      const values: string[] = [];
+      let index = 1;
+
+      for (const column of Object.keys(payload)) {
+        if (column === 'taskId') continue; // skip primary key
+
+        const value: string | undefined = payload[column] as string | undefined;
+
+        if (value !== undefined) {
+          // Quote date columns to avoid case issues
+          fields.push(`${column} = $${index++}`);
+          values.push(value);
+        }
+      }
+
+      // No fields provided → reject
+      if (fields.length === 0) {
+        throw new BadRequestException('No fields provided to update task');
+      }
+
+      // Add taskId as last parameter
+      // It takes that last updated value of the index in the for loop
+      values.push(payload.taskId);
+
+      const query = `
+        UPDATE tasks
+          SET ${fields.join(', ')}
+          WHERE id = $${index}
+            RETURNING *;
+        `;
+      const task: Task[][] = await this.taskRepo.query(query, values);
+      return task[0][0];
     } catch (error) {
       this.logger.error(error);
       throw error;
     }
   }
+
   async updateTaskSprint(payload: {
     taskId: string;
     sprintId: string | null;
