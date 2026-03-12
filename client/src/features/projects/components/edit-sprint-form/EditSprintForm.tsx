@@ -14,7 +14,7 @@ export const EditSprintForm = ({
     sprint: Sprint; 
     setEditSprintOpen: (open: boolean) => void,
  }) => {
-   const { state, setField, reset } = useSprintForm();
+   const { state, setField, reset } = useSprintForm(sprint);
    const dispatch = useDispatch<AppDispatch>();
 
    const handleChange = (
@@ -39,10 +39,10 @@ export const EditSprintForm = ({
             sprintId: sprint?.id, 
             status: sprint?.status === "upcoming" ? "planned" : sprint?.status,
         })) */
-        dispatch(onUpdateSprintStatus({ 
+        /* dispatch(onUpdateSprintStatus({ 
             sprintId: sprint?.id, 
             status: sprint?.status === "upcoming" ? "planned" : sprint?.status,
-        }));
+        })); */
         reset();
     }
     

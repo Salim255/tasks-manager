@@ -15,7 +15,7 @@ type Action =
   | { type: "SET_FIELD"; field: keyof Omit<SprintFormState, "errors">; value: string }
   | { type: "SET_ERROR"; field: keyof SprintFormState["errors"]; message: string }
   | { type: "CLEAR_ERRORS" }
-  | { type: "RESET" };
+  | { type: "RESET", payload: SprintFormState  };
 
 export const initialTaskFormState: SprintFormState = {
     name: "",
@@ -52,7 +52,7 @@ function reducer(state: SprintFormState, action: Action): SprintFormState {
 
 const mapSprintToFormState = (sprint: Sprint): SprintFormState => ({
   name: sprint.name ?? "",
-  status: sprint.status ?? "planned",
+  status: sprint.status ?? "upcoming",
   startDate: sprint.startDate ?? "",
   endDate: sprint.endDate ?? "",
   goal: sprint.goal ?? "",
@@ -77,7 +77,10 @@ export const useSprintForm = (initialSprint?: Sprint) => {
 
   const clearErrors = () => dispatch({ type: "CLEAR_ERRORS" });
 
-  const reset = () => dispatch({ type: "RESET" });
+  const reset = () => dispatch({
+    type: "RESET",
+    payload: initialSprint ? mapSprintToFormState(initialSprint) : initialTaskFormState
+ });
 
   return { state, setField, setError, clearErrors, reset };
 };
