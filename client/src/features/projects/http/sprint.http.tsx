@@ -31,16 +31,22 @@ export type CreateSprintResponseDto = {
     }
 }
 
-export const updateSprint = createAsyncThunk(
+export const updateSprintHttp = createAsyncThunk<
+        FetchSprintsResponseDto,
+        UpdateSprintPayload & { sprintId: string},
+        { rejectValue: ApiErrorDto } 
+    >(
     'update/sprint',
-    async (data: , thunkApi) => {
+    async (data: UpdateSprintPayload & { sprintId: string} , thunkApi) => {
         try {
-            const {sprintId, ...rest } = data;
+            const { sprintId, ...rest } = data;
             const response = await axios.patch(
                 `${apiUrl}/sprints/${sprintId}`,
                 rest,
                 { withCredentials: true },
             )
+
+            return response.data;
         } catch (error) {
             // Extract your backend error shape
             const backendError: ApiErrorDto = error.response?.data || {
@@ -52,6 +58,7 @@ export const updateSprint = createAsyncThunk(
         }
     }
 )
+
 export const fetchSprintsHttp =  createAsyncThunk<
         FetchSprintsResponseDto,
         { projectId: string },
