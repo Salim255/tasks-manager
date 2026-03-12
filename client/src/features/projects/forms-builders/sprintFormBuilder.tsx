@@ -2,8 +2,8 @@ import { useReducer } from "react";
 import type { Sprint, SprintStatus } from "../models/sprint.model";
 
 export type SprintFormState = {
-    name: string;
-    status: SprintStatus;
+    name?: string;
+    status?: SprintStatus;
     startDate?: string;
     endDate?: string;
     completeDate?: string;
@@ -51,12 +51,12 @@ function reducer(state: SprintFormState, action: Action): SprintFormState {
 }
 
 const mapSprintToFormState = (sprint: Sprint): SprintFormState => ({
-  name: sprint.name ?? "",
-  status: sprint.status ?? "upcoming",
-  startDate: sprint.startDate ?? "",
-  endDate: sprint.endDate ?? "",
-  goal: sprint.goal ?? "",
-  completeDate: sprint.completeDate ?? "",
+  name: sprint.name ?? undefined,
+  status: sprint.status ?? 'upcoming',
+  startDate: sprint.startDate ?? undefined,
+  endDate: sprint.endDate ?? undefined,
+  goal: sprint.goal ?? undefined,
+  completeDate: sprint.completeDate ??  undefined,
   errors: {},
 });
 

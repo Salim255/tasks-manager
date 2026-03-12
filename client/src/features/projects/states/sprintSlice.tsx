@@ -2,7 +2,7 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { Sprint, SprintStatus } from "../models/sprint.model";
 import type { AppDispatch, RootState } from "../../../redux/store";
-import { createSprint, fetchSprintsHttp } from "../http/sprint.http";
+import { createSprint, fetchSprintsHttp, updateSprintHttp } from "../http/sprint.http";
 
 
 // 2 initial state
@@ -52,6 +52,18 @@ const sprintSlice = createSlice({
     initialState,
     extraReducers: (builder) => {
         builder
+        .addCase(updateSprintHttp.pending, (state, action) => {
+            state.isUpdating = true;
+        })
+        .addCase(updateSprintHttp.fulfilled, (state, action) => {
+            const { sprint } = action.payload.data;
+            console.log(sprint);
+            state.sprints = state.sprints.map((spt) =>  spt.id === sprint.id ? sprint : spt );
+            state.isUpdating = false;
+        })
+        .addCase(updateSprintHttp.rejected, (state, action) => {
+
+        })
         .addCase(fetchSprintsHttp.pending, (state, action) => {
             state.isLoading = true;
         })

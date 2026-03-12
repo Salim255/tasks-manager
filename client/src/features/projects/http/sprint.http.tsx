@@ -6,11 +6,11 @@ import type { ApiErrorDto } from "../../../shared/interfaces/shared.interfaces";
 const apiUrl = import.meta.env.VITE_API_URL;
 
 export type UpdateSprintPayload = {
-  ame?: string;
+  name?: string;
   status?: SprintStatus;
-  startDate?: Date;
-  endDate?: Date;
-  completeDate?: Date;
+  startDate?: string;
+  endDate?: string;
+  completeDate?: string;
   goal?: string;
 }
 
@@ -31,8 +31,10 @@ export type CreateSprintResponseDto = {
     }
 }
 
+export type UpdateSprintResponseDto = CreateSprintResponseDto ;
+
 export const updateSprintHttp = createAsyncThunk<
-        FetchSprintsResponseDto,
+        UpdateSprintResponseDto,
         UpdateSprintPayload & { sprintId: string},
         { rejectValue: ApiErrorDto } 
     >(

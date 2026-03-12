@@ -6,6 +6,7 @@ import { onUpdateSprintStatus } from "../../states/sprintSlice";
 import type { AppDispatch } from "../../../../redux/store";
 import { useSprintForm } from "../../forms-builders/sprintFormBuilder";
 import type { ChangeEvent } from "react";
+import { updateSprintHttp, type UpdateSprintPayload } from "../../http/sprint.http";
 
 export const EditSprintForm = ({ 
     sprint, 
@@ -32,7 +33,7 @@ export const EditSprintForm = ({
     const clickSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
         setEditSprintOpen(false);
-
+    
         if (!sprint) return;
 
        /*  dispatch(updateSprintStatus({ 
@@ -43,6 +44,16 @@ export const EditSprintForm = ({
             sprintId: sprint?.id, 
             status: sprint?.status === "upcoming" ? "planned" : sprint?.status,
         })); */
+        const payload: UpdateSprintPayload = {
+            ...( (state.name !== undefined && state.name !== sprint.name) && { name: state.name } ),
+            ...( (state.status !== undefined  &&  state.status !== sprint.status) && { status: state.status } ),
+            ...( (state.startDate !== undefined  && state.startDate !== sprint.startDate) && { startDate: state.startDate } ),
+            ...( (state.endDate  !== undefined  &&  state.endDate !== sprint.endDate) && { endDate: state.endDate } ),
+            ...((state.completeDate !== undefined  && state.completeDate !== sprint.completeDate) && { completeDate: state.completeDate }),
+        }
+
+        console.log(payload);
+        dispatch(updateSprintHttp({...payload, sprintId: sprint.id}))
         reset();
     }
     
