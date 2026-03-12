@@ -11,6 +11,7 @@ export interface Sprint {
   startDate?: string;
   endDate?: string;
   completeDate?: string;
+  goal?: string; 
   projectId: string;
   tasks: Task []; 
   createdAt: string;

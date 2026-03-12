@@ -79,7 +79,7 @@ export const EditSprintForm = ({
                 <div className="edit-sprint-form__end-date">
                    <label htmlFor="endDate"> end date </label>
                     <input
-                       id="endDate"
+                        id="endDate"
                         type="date"
                         name="endDate"
                         value={state.endDate}
