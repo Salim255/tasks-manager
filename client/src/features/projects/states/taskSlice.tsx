@@ -61,11 +61,9 @@ const taskSlice = createSlice({
         })
         .addCase(updateTasHttp.fulfilled, (state, action) => {
             const { task } = action.payload.data;
-            console.log(state.tasks, task);
             state.tasks = state.tasks.map((t) => {
                 return  t.id === task.id ? task: t;
             });
-            console.log(state.tasks);
             state.isUpdating = false;
         })
         .addCase(updateTasHttp.rejected, (state, action) => {

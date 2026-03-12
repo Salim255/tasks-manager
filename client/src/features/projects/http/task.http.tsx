@@ -8,6 +8,14 @@ import type { Task, TaskType } from "../models/task.model";
 const apiUrl = import.meta.env.VITE_API_URL;
 
 
+export type UpdateTaskPayload = {
+  title?: string;
+  status?: TaskStatus;
+  priority?: 'low' | 'medium' | 'high';
+  sprintId?: string 
+  description?: string;
+}
+
 export interface CreateTaskPayload  {
     title: string;
     status: TaskStatus;
@@ -38,30 +46,35 @@ export type GetTasksResponseDto = {
     }
 }
 
-export const updateTasHttp = createAsyncThunk(
-    'update/task',
-    async (data: { taskId: string }, thunkApi) => {
-        try {
-            const response = await axios.patch(
-                `${apiUrl}/tasks/${data.taskId}`,
-                {},
-                { withCredentials: true }
-            );
-            return response.data;
-        } catch (error) {
-            // Extract your backend error shape
-            const backendError: ApiErrorDto = error.response?.data || {
-                status: "error",
-                message: "Unknown error",
-                data: null
-            };
-            return thunkApi.rejectWithValue(backendError);
+export const updateTasHttp = createAsyncThunk<
+    UpdatedTaskResponseDto,
+    UpdateTaskPayload & { taskId: string },
+     { rejectValue: ApiErrorDto }
+    >(
+        'update/updateTask',
+        async (data: UpdateTaskPayload & { taskId: string }, thunkApi) => {
+            try {
+                const {taskId, ...rest} = data;
+                const response = await axios.patch(
+                    `${apiUrl}/tasks/${taskId}`,
+                    rest,
+                    { withCredentials: true }
+                );
+                return response.data;
+            } catch (error) {
+                // Extract your backend error shape
+                const backendError: ApiErrorDto = error.response?.data || {
+                    status: "error",
+                    message: "Unknown error",
+                    data: null
+                };
+                return thunkApi.rejectWithValue(backendError);
+            }
         }
-    }
-);
+    );
 export const updateTaskSprintHttp = createAsyncThunk<
     UpdatedTaskResponseDto,
-    UpdateTaskSprintPayload ,
+    UpdateTaskSprintPayload,
     { rejectValue: ApiErrorDto }
     >(
         'update/task-sprint',

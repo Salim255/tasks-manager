@@ -1,6 +1,6 @@
 import { NavLink, useParams } from 'react-router-dom';
 import './_board.scss';
-import { useEffect } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { DiScrum } from "react-icons/di";
 import type { Task, TaskStatus } from '../../models/task.model';
 import { BoardTaskItem } from '../../components/board-task-item/BoardTaskItem';
@@ -8,11 +8,23 @@ import type { Sprint } from '../../models/sprint.model';
 import { useSprintSelector } from '../../states/sprintSelectors';
 import { useTasksSelector } from '../../states/taskSelectors';
 import { updateTasHttp } from '../../http/task.http';
+import { useDispatch } from 'react-redux';
+import { type AppDispatch } from '../../../../redux/store';
 
-export const Board = () => {
+export const Board = () => { 
     const { projectId }  = useParams<string>() 
     const { sprints } = useSprintSelector();
     const { tasks } = useTasksSelector();
+    const dispatch = useDispatch<AppDispatch>();
+
+
+    const activeSprintIds = useMemo(() => {
+        return new Set(sprints
+            .filter((sprint) => sprint.status === 'active')
+            .map((sprint) => sprint.id)
+        );
+    }, [sprints])
+
 
     const onDragStart = (e: React.DragEvent<HTMLDivElement>, task: Task) => {
         e.dataTransfer.setData("text/plain", JSON.stringify(task)); // any payload
@@ -22,10 +34,10 @@ export const Board = () => {
         e.preventDefault();
         const data = e.dataTransfer.getData("text/plain");
         const task = JSON.parse(data);
-        console.log("dropped", type, task);
-        ///dispatch(updateSprintSingleTaskStatus({task, status: type}));
 
-        dispatch(updateTasHttp())
+        if (!task.id) return;
+        const payload = { status: type, taskId: task.id };
+        dispatch(updateTasHttp(payload))
     }
 
     const onDragOver = (e: React.DragEvent<HTMLDivElement>) => {
@@ -33,8 +45,14 @@ export const Board = () => {
     }
 
     const countTasksByStatus = (status: TaskStatus): number | null => {
-        const count = tasks?.filter((task: Task) => task.status === status).length;
-        return count || null;
+        // Get active sprints set
+        const counter = tasks
+            ?.filter(
+                (task: Task) => 
+                    task.status === status 
+                    && (task.sprintId && activeSprintIds.has(task.sprintId))
+            ).length || null;
+        return counter ;
     }
 
     useEffect(() => {}, [sprints, tasks]);
@@ -52,26 +70,34 @@ export const Board = () => {
                 {
                     sprints
                     ?.filter(
-                        (spt: Sprint) => spt.projectId === projectId
+                        (spt: Sprint) => spt.status === 'active'
                     )?.length 
-                    ? sprints?.map((sprint) => {
-                        
-                        return <div key={sprint.id} className=''> 
-                            {
-                                sprint.tasks.map((task: Task) => {
-                                   return (
-                                    task.status === "todo" &&
-                                    <BoardTaskItem 
-                                        key={task.id} 
-                                        task={task} 
-                                        draggable
-                                        onDragStart={(e) => onDragStart(e, task)}
-                                         /> 
-                                    )
-                                })
-                            }
-                        </div>
-                    })
+                    ? 
+                        sprints.
+                        filter((sprint) => sprint.status === 'active')
+                        .map((sprint) => {
+                            
+                            return <div key={sprint.id} className=''> 
+                                {
+                                    tasks.map((task: Task) => {
+                                    return (
+                                        (
+                                            task.status === "todo" 
+                                            && 
+                                            task.sprintId === sprint.id
+                                        ) 
+                                        &&
+                                        <BoardTaskItem 
+                                            key={task.id} 
+                                            task={task} 
+                                            draggable
+                                            onDragStart={(e) => onDragStart(e, task)}
+                                            /> 
+                                        )
+                                    })
+                                }
+                            </div>
+                        })
                     : <div className='todo__empty'>
                         <DiScrum className='icon'/>
                         <h3>
@@ -93,29 +119,37 @@ export const Board = () => {
                 onDrop={(e) => onDrop(e, "in_progress")}
                 onDragOver={onDragOver}
             >
-                <div className='progress__header'>In Progress { countTasksByStatus("in_progress") }</div>
+                <div className='progress__header'>
+                    In Progress { countTasksByStatus("in_progress") }
+                </div>
                 {
                     sprints
                     .filter(
-                        (spt: Sprint) => spt.projectId === projectId
+                        (spt: Sprint) => spt.status === 'active' 
                     )?.length 
-                    ? sprints.map((sprint) => {
-                        return <div key={sprint.id} className=''>
-                            {
-                                sprint.tasks.map((task: Task) => {
-                                    return(
-                                      task.status === "in_progress" &&
-                                      <BoardTaskItem 
-                                        task={task} 
-                                        draggable
-                                        onDragStart={(e) => onDragStart(e, task)}
-                                        key={task.id} >
-                                      </BoardTaskItem> 
-                                    )
-                                })
-                            }
-                        </div>
-                    })
+                    ? sprints
+                        .filter((sprint) => sprint.status === 'active')
+                        .map((sprint) => {
+                            return <div key={sprint.id} className=''>
+                                {
+                                    tasks.map((task: Task) => {
+                                        return(
+                                            (
+                                                task.status === "in_progress" 
+                                                && task.sprintId === sprint.id
+                                            ) 
+                                            &&
+                                            <BoardTaskItem 
+                                                task={task} 
+                                                draggable
+                                                onDragStart={(e) => onDragStart(e, task)}
+                                                key={task.id} >
+                                            </BoardTaskItem> 
+                                        )
+                                    })
+                                }
+                            </div>
+                        })
                     : null
                 }
             </div>
@@ -128,17 +162,23 @@ export const Board = () => {
                     .filter(
                         (spt: Sprint) => spt.projectId === projectId
                     )?.length 
-                    ? sprints.map((sprint) => {
+                    ? sprints
+                        .filter((sprint) => sprint.status === 'active')
+                        .map((sprint) => {
                         return <div key={sprint.id} className=''>
                             {
-                                sprint.tasks.map((task: Task) => {
+                                tasks.map((task: Task) => {
                                     return (
-                                        task.status === "done" &&
+                                        (
+                                            task.status === "done" 
+                                            && task.sprintId === sprint.id
+                                        ) 
+                                        &&
                                         <BoardTaskItem 
-                                        task={task}
-                                        draggable
-                                        onDragStart={(e) => onDragStart(e, task)}
-                                        key={task.id}>
+                                            task={task}
+                                            draggable
+                                            onDragStart={(e) => onDragStart(e, task)}
+                                            key={task.id}>
                                         </BoardTaskItem> 
                                     )
                                 })
