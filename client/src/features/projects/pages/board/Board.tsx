@@ -1,6 +1,6 @@
 import { NavLink, useParams } from 'react-router-dom';
 import './_board.scss';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo} from 'react';
 import { DiScrum } from "react-icons/di";
 import type { Task, TaskStatus } from '../../models/task.model';
 import { BoardTaskItem } from '../../components/board-task-item/BoardTaskItem';
@@ -45,7 +45,6 @@ export const Board = () => {
     }
 
     const countTasksByStatus = (status: TaskStatus): number | null => {
-        // Get active sprints set
         const counter = tasks
             ?.filter(
                 (task: Task) => 
