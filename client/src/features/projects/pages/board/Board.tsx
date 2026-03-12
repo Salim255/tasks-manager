@@ -1,32 +1,22 @@
-import { NavLink, useParams } from 'react-router-dom';
 import './_board.scss';
-import { useEffect, useMemo} from 'react';
-import { DiScrum } from "react-icons/di";
+import { useEffect } from 'react';
 import type { Task, TaskStatus } from '../../models/task.model';
-import { BoardTaskItem } from '../../components/board-task-item/BoardTaskItem';
-import type { Sprint } from '../../models/sprint.model';
 import { useSprintSelector } from '../../states/sprintSelectors';
 import { useTasksSelector } from '../../states/taskSelectors';
 import { updateTasHttp } from '../../http/task.http';
 import { useDispatch } from 'react-redux';
 import { type AppDispatch } from '../../../../redux/store';
 import { BoardColumn } from './components/BoardColumn';
+import { useBoardData } from './board-hooks/boardData';
 
 
 export const Board = () => { 
-
-    const { projectId }  = useParams<string>() 
+    
     const { sprints } = useSprintSelector();
     const { tasks } = useTasksSelector();
     const dispatch = useDispatch<AppDispatch>();
+    const boardTasks = useBoardData(tasks, sprints);
 
-
-    const activeSprintIds = useMemo(() => {
-        return new Set(sprints
-            .filter((sprint) => sprint.status === 'active')
-            .map((sprint) => sprint.id)
-        );
-    }, [sprints])
 
 
     const onDragStart = (e: React.DragEvent<HTMLDivElement>, task: Task) => {
@@ -53,8 +43,7 @@ export const Board = () => {
             <BoardColumn 
                 title="To Do"
                 status="todo"
-                sprints={sprints}
-                tasks={tasks}
+                tasks={boardTasks.todo}
                 onDragStart={onDragStart}
                 onDrop={(e) => onDrop(e, "todo")}
                 onDragOver={onDragOver}
@@ -62,8 +51,7 @@ export const Board = () => {
             <BoardColumn 
                 title="In Progress"
                 status="in_progress"
-                sprints={sprints}
-                tasks={tasks}
+                tasks={boardTasks.in_progress}
                 onDragStart={onDragStart}
                 onDrop={(e) => onDrop(e, "in_progress")}
                 onDragOver={onDragOver}
@@ -71,8 +59,7 @@ export const Board = () => {
             <BoardColumn 
                 title="Done"
                 status="done"
-                sprints={sprints}
-                tasks={tasks}
+                tasks={boardTasks.done}
                 onDragStart={onDragStart}
                 onDrop={(e) => onDrop(e, "done")}
                 onDragOver={onDragOver}
