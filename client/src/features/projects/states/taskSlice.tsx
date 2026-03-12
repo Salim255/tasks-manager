@@ -89,7 +89,6 @@ const taskSlice = createSlice({
            console.log(action);
         })
         .addCase(getTasksHttp.fulfilled, (state, action) => {
-           console.log(action.payload);
            const {tasks} = action.payload.data;
            state.tasks = [...tasks];
            state.isLoading = false;

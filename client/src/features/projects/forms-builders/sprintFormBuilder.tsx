@@ -19,7 +19,7 @@ type Action =
 
 export const initialTaskFormState: SprintFormState = {
     name: "",
-    status: 'upcoming', 
+    status: 'planned', 
     errors: {},
 };
 

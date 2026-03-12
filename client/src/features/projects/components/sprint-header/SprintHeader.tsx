@@ -3,9 +3,9 @@ import { OptionsBtn } from "../../../../shared/components/options-btn/OptionsBtn
 import type { Sprint, SprintStatus } from "../../models/sprint.model";
 import { EditSprintDate } from "../edit-sprint-date/EditSprintDate";
 import { useState } from 'react';
-import { onUpdateSprintStatus } from '../../states/sprintSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import type { RootState } from '../../../../redux/store';
+import { type AppDispatch, type RootState } from '../../../../redux/store';
+import { updateSprintHttp } from '../../http/sprint.http';
 
 export const SprintHeader = ({
         sprint,
@@ -18,15 +18,16 @@ export const SprintHeader = ({
     }) => {
         const { tasks } = useSelector((store: RootState) => store.taskSlice);
         const [isEditSprintOpen, setEditSprintOpen] = useState<boolean>(false); 
-        const dispatch = useDispatch();
+        const dispatch = useDispatch<AppDispatch>();
 
-        const updateSprintStatus = (status: SprintStatus) => { 
+        const updateSprintStatus = () => { 
             if(!sprint?.id) return;
-
-            dispatch(onUpdateSprintStatus({ 
-                sprintId: sprint?.id, 
-                status: status,
-            }));
+            
+            const status: SprintStatus = sprint.status === 'planned' ? 'active': 'completed';
+    
+            const payload = { status, sprintId: sprint.id };
+            console.log(payload)
+            dispatch(updateSprintHttp(payload));
         }
 
         const getActionText = ( status: SprintStatus ) => {
@@ -34,8 +35,7 @@ export const SprintHeader = ({
                 case "planned": return "Start sprint";
                 case "active": return "Complete sprint";
                 case "completed": return "Sprint completed";
-                case "upcoming": return "Start sprint";
-                default: return "";
+                default: return null;
             }
         }
          const countWorkItem = () => {
@@ -53,13 +53,17 @@ export const SprintHeader = ({
                     <span> { countWorkItem() } work items </span>
                 </div>
                 <div className='sprint-header__actions'>
-                    <button 
-                        disabled={sprint?.tasks?.length === 0 || sprint.status === "upcoming"} 
-                        onClick={() => updateSprintStatus(sprint.status === "planned" ? "active" : "completed")}>
-                            {
-                                getActionText(sprint.status)
-                            }
-                    </button>
+                    {
+                        getActionText(sprint.status) && 
+                        <button 
+                            disabled={!(sprint.startDate && sprint.endDate)} 
+                            onClick={() => updateSprintStatus()}>
+                                {
+                                    getActionText(sprint.status)
+                                }
+                        </button>
+                    }
+                   
                 </div>
                 <div 
                     className='sprint-header__options'>

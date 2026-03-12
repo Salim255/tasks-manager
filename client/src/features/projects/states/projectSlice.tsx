@@ -40,7 +40,6 @@ const projectSlice = createSlice({
         })
         .addCase(fetchProjectsHttp.fulfilled, (state, action) => {
             const { projects } = action.payload.data;
-            console.log(projects);
             state.projects = projects;
             state.isLoading = false;
         })
@@ -49,10 +48,10 @@ const projectSlice = createSlice({
         })
         .addCase(fetchProjectsHttp.rejected, (state, action) => {
             state.isLoading = false;
-        } )
+        })
     },
     reducers: {
-        createProjectr: (state, action: PayloadAction<{payload: CreateProjectPayload}>) => {
+        createProject: (state, action: PayloadAction<{payload: CreateProjectPayload}>) => {
             state.isLoading = true;
             const { name, description, status } = action.payload.payload;
             const newProject: Project = {

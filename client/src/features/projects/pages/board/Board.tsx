@@ -1,6 +1,6 @@
 import { NavLink, useParams } from 'react-router-dom';
 import './_board.scss';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { DiScrum } from "react-icons/di";
 import type { Task, TaskStatus } from '../../models/task.model';
@@ -30,7 +30,7 @@ export const Board = () => {
 
     const countTasksByStatus = (status: TaskStatus): number | null => {
         const count = sprints?.reduce(
-            (acc, sprint) => acc + sprint.tasks.filter((task: Task) => task.status === status).length, 0
+            (acc, sprint) => acc + sprint?.tasks?.filter((task: Task) => task.status === status).length, 0
         );
         return count || null;
     }

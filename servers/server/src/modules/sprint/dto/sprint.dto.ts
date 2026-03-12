@@ -16,12 +16,12 @@ export class UpdateSprintDto {
 
   @ApiPropertyOptional({
     example: 'active',
-    enum: ['planned', 'upcoming', 'active', 'completed'],
+    enum: ['planned', 'active', 'completed'],
     description: 'The status of the sprint',
   })
   @IsOptional()
   @IsString()
-  status?: 'planned' | 'upcoming' | 'active' | 'completed';
+  status?: 'planned' | 'active' | 'completed';
 
   @ApiPropertyOptional({
     example: '2026-03-10T00:00:00.000Z',
