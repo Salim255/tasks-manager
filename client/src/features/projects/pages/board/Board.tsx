@@ -13,9 +13,9 @@ export const Board = () => {
     const sprints = useSelector(selectActiveSprint);
 
     const onDragStart = (e: React.DragEvent<HTMLDivElement>, task: Task) => {
-       // console.log(task);
         e.dataTransfer.setData("text/plain", JSON.stringify(task)); // any payload
     }
+
     const onDrop = (e: React.DragEvent<HTMLDivElement>, type: TaskStatus) => {
         e.preventDefault();
         const data = e.dataTransfer.getData("text/plain");
@@ -49,7 +49,7 @@ export const Board = () => {
 
                 {
                     sprints
-                    .filter(
+                    ?.filter(
                         (spt: Sprint) => spt.projectId === projectId
                     )?.length 
                     ? sprints?.map((sprint) => {

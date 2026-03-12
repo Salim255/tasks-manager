@@ -25,7 +25,11 @@ export const SprintHeader = ({
             
             const status: SprintStatus = sprint.status === 'planned' ? 'active': 'completed';
     
-            const payload = { status, sprintId: sprint.id };
+            const payload = {
+                status,
+                sprintId: sprint.id,
+                ...(status === 'completed' && { completeDate: new Date().toISOString()})
+            };
             console.log(payload)
             dispatch(updateSprintHttp(payload));
         }
@@ -56,7 +60,7 @@ export const SprintHeader = ({
                     {
                         getActionText(sprint.status) && 
                         <button 
-                            disabled={!(sprint.startDate && sprint.endDate)} 
+                            disabled={!(sprint.startDate && sprint.endDate) || (sprint.status === 'completed')} 
                             onClick={() => updateSprintStatus()}>
                                 {
                                     getActionText(sprint.status)
