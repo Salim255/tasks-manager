@@ -1,5 +1,5 @@
 import { useReducer } from "react";
-import type { SprintStatus } from "../models/sprint.model";
+import type { Sprint, SprintStatus } from "../models/sprint.model";
 
 export type SprintFormState = {
     name: string;
@@ -50,8 +50,24 @@ function reducer(state: SprintFormState, action: Action): SprintFormState {
   }
 }
 
-export const useSprintForm = () => {
-  const [state, dispatch] = useReducer(reducer, initialTaskFormState);
+const mapSprintToFormState = (sprint: Sprint): SprintFormState => ({
+  name: sprint.name ?? "",
+  status: sprint.status ?? "planned",
+  startDate: sprint.startDate ?? "",
+  endDate: sprint.endDate ?? "",
+  goal: sprint.goal ?? "",
+  completeDate: sprint.completeDate ?? "",
+  errors: {},
+});
+
+export const useSprintForm = (initialSprint?: Sprint) => {
+  const [state, dispatch] = useReducer(
+    reducer,
+    initialSprint, // coming sprint
+    (comingSprint) => comingSprint 
+                        ? mapSprintToFormState(comingSprint) 
+                        : initialTaskFormState
+    );
 
   const setField = (field: keyof Omit<SprintFormState, "errors">, value: string) =>
     dispatch({ type: "SET_FIELD", field, value });
