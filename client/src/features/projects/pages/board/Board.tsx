@@ -10,8 +10,11 @@ import { useTasksSelector } from '../../states/taskSelectors';
 import { updateTasHttp } from '../../http/task.http';
 import { useDispatch } from 'react-redux';
 import { type AppDispatch } from '../../../../redux/store';
+import { BoardColumn } from './components/BoardColumn';
+
 
 export const Board = () => { 
+
     const { projectId }  = useParams<string>() 
     const { sprints } = useSprintSelector();
     const { tasks } = useTasksSelector();
@@ -34,7 +37,6 @@ export const Board = () => {
         e.preventDefault();
         const data = e.dataTransfer.getData("text/plain");
         const task = JSON.parse(data);
-
         if (!task.id) return;
         const payload = { status: type, taskId: task.id };
         dispatch(updateTasHttp(payload))
@@ -44,21 +46,38 @@ export const Board = () => {
         e.preventDefault();
     }
 
-    const countTasksByStatus = (status: TaskStatus): number | null => {
-        const counter = tasks
-            ?.filter(
-                (task: Task) => 
-                    task.status === status 
-                    && (task.sprintId && activeSprintIds.has(task.sprintId))
-            ).length || null;
-        return counter ;
-    }
-
     useEffect(() => {}, [sprints, tasks]);
 
     return (
         <section className="board">
-            <div className="todo"
+            <BoardColumn 
+                title="To Do"
+                status="todo"
+                sprints={sprints}
+                tasks={tasks}
+                onDragStart={onDragStart}
+                onDrop={(e) => onDrop(e, "todo")}
+                onDragOver={onDragOver}
+            />
+            <BoardColumn 
+                title="In Progress"
+                status="in_progress"
+                sprints={sprints}
+                tasks={tasks}
+                onDragStart={onDragStart}
+                onDrop={(e) => onDrop(e, "in_progress")}
+                onDragOver={onDragOver}
+            />
+            <BoardColumn 
+                title="Done"
+                status="done"
+                sprints={sprints}
+                tasks={tasks}
+                onDragStart={onDragStart}
+                onDrop={(e) => onDrop(e, "done")}
+                onDragOver={onDragOver}
+            />
+         {/*    <div className="todo"
                 onDrop={(e) => onDrop(e, "todo")}
                 onDragOver={onDragOver}
             >
@@ -113,8 +132,8 @@ export const Board = () => {
                     </div>
                 }
               
-            </div>
-            <div className="progress"
+            </div> */}
+         {/*    <div className="progress"
                 onDrop={(e) => onDrop(e, "in_progress")}
                 onDragOver={onDragOver}
             >
@@ -151,8 +170,8 @@ export const Board = () => {
                         })
                     : null
                 }
-            </div>
-            <div className="done"
+            </div> */}
+          {/*   <div className="done"
                 onDrop={(e) => onDrop(e, "done")}
                 onDragOver={onDragOver}
             >
@@ -186,7 +205,7 @@ export const Board = () => {
                     })
                     : null
                 }
-            </div>
+            </div> */}
         </section>
     )
 }
