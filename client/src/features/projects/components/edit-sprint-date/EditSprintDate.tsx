@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import { EditSprintForm } from "../edit-sprint-form/EditSprintForm";
 import type { Sprint } from "../../models/sprint.model";
 import { FaRegEdit } from "react-icons/fa";
-import { useSprintForm } from "../../forms-builders/sprintFormBuilder";
 
 export const EditSprintDate = ({
         sprint, 
@@ -14,12 +13,14 @@ export const EditSprintDate = ({
         isEditSprintOpen: boolean, 
         setEditSprintOpen: (open: boolean) => void,
     }) => {
-        const { state, setField, setError, clearErrors, reset } = useSprintForm();
         const onEditSprintDate = (sprint: Sprint) => {
             console.log(sprint, "hello from edit sprint date");
             setEditSprintOpen(!isEditSprintOpen);
         }
         
+        const handleDateFormat = () => {
+            //return `${new Date(sprint.startDate).toLocaleDateString()}`
+        }
         useEffect(() => {
             
         }, [sprint])
@@ -31,14 +32,12 @@ export const EditSprintDate = ({
                     <span> 
                         {
                         sprint.startDate && sprint.endDate 
-                        ? ` (${new Date(sprint.startDate).toLocaleDateString()} - ${new Date(sprint.endDate).toLocaleDateString()})`
+                        ?  ` (${new Date(sprint.startDate).toLocaleDateString()} - ${new Date(sprint.endDate).toLocaleDateString()})`
                         : 
-                        <>
-                            <button onClick={() => onEditSprintDate(sprint)}> 
-                                <span><FaRegEdit/></span> 
-                                add date
-                            </button> 
-                        </>
+                        <button onClick={() => onEditSprintDate(sprint)}> 
+                            <span><FaRegEdit/></span> 
+                            add date
+                        </button> 
                         }
                     </span> 
                 </section>

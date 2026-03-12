@@ -4,6 +4,8 @@ import type { Sprint } from "../../models/sprint.model";
 import { useDispatch } from "react-redux";
 import { onUpdateSprintStatus } from "../../states/sprintSlice";
 import type { AppDispatch } from "../../../../redux/store";
+import { useSprintForm } from "../../forms-builders/sprintFormBuilder";
+import type { ChangeEvent } from "react";
 
 export const EditSprintForm = ({ 
     sprint, 
@@ -12,11 +14,25 @@ export const EditSprintForm = ({
     sprint: Sprint; 
     setEditSprintOpen: (open: boolean) => void,
  }) => {
+   const { state, setField, reset } = useSprintForm();
    const dispatch = useDispatch<AppDispatch>();
 
-    const clickSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+   const handleChange = (
+    event: ChangeEvent<
+        HTMLInputElement |
+        HTMLSelectElement |
+        HTMLTextAreaElement
+        >) => {
+        setField(
+            event.target.name as
+            "name" | "goal" | "status" | "startDate" | "endDate" | "completeDate",
+            event.target.value,
+        );
+   }
+    const clickSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
         setEditSprintOpen(false);
+
         if (!sprint) return;
 
        /*  dispatch(updateSprintStatus({ 
@@ -27,7 +43,7 @@ export const EditSprintForm = ({
             sprintId: sprint?.id, 
             status: sprint?.status === "upcoming" ? "planned" : sprint?.status,
         }));
-
+        reset();
     }
     
     return (
@@ -45,15 +61,19 @@ export const EditSprintForm = ({
                         id="name"
                         type="text"
                         name="name"
+                        value={state.name}
                         placeholder="sprint name"
+                        onChange={handleChange}
                     />
                 </div>
                 <div className="edit-sprint-form__start-date">
                     <label htmlFor="startDate"> start date </label>
                     <input
-                       id="startDate"
+                        id="startDate"
                         type="date"
                         name="startDate"
+                        value={state.startDate}
+                        onChange={handleChange}
                     />
                 </div>
                 <div className="edit-sprint-form__end-date">
@@ -62,6 +82,8 @@ export const EditSprintForm = ({
                        id="endDate"
                         type="date"
                         name="endDate"
+                        value={state.endDate}
+                        onChange={handleChange}
                     />
                 </div>
                 <div className="edit-sprint-form__goal">
@@ -69,7 +91,9 @@ export const EditSprintForm = ({
                     <textarea
                         id="goal"
                         name="goal"
+                        value={state.goal}
                         placeholder="what is the goal of this sprint?"
+                        onChange={handleChange}
                     />
                 </div>
                 <div className="edit-sprint-form__actions">

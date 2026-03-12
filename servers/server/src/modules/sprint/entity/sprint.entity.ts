@@ -32,6 +32,9 @@ export class Sprint {
   @Column()
   projectId: string;
 
+  @Column({ nullable: true })
+  goal?: string;
+
   @ManyToOne(() => Project, { onDelete: 'CASCADE' })
   project: Project;
 
