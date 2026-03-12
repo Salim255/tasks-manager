@@ -2,26 +2,28 @@ import { useMemo } from "react";
 import type { Sprint } from "../../../models/sprint.model";
 import type { Task, TaskStatus } from "../../../models/task.model";
 
-export const useBoardData = (tasks: Task[], sprints: Sprint[]): Record<TaskStatus, Task[]> => {
+export const useBoardData = (tasks: Task[], sprints: Sprint[]) => {
   return useMemo(() => {
     // Active sprint IDs
-    const activeSprintIds = new Set(
-      sprints.filter(s => s.status === "active").map(s => s.id)
-    );
+    const activeSprints = sprints.filter(s => s.status === "active").map(s => s.id);
+    const activeSprintIds = new Set(activeSprints);
 
     // Initialize empty groups
-    const board: Record<TaskStatus, Task[]> = {
+    const tasksByStatus: Record<TaskStatus, Task[]> = {
       todo: [],
       in_progress: [],
-      done: []
+      done: [],
     };
 
     // Loop tasks once
     for (const task of tasks) {
       if (!task.sprintId || !activeSprintIds.has(task.sprintId)) continue;
-      board[task.status].push(task);
+      tasksByStatus[task.status].push(task);
     }
 
-    return board;
+    return {
+        tasksByStatus,
+        sprintSize: activeSprintIds.size
+    };
   }, [tasks, sprints]);
 };

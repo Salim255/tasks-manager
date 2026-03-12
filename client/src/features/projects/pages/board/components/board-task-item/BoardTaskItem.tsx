@@ -1,8 +1,8 @@
 import './_board-task-item.scss';
 import { useState } from "react";
 import { IoCheckboxOutline } from "react-icons/io5";
-import { OptionsBtn } from "../../../../shared/components/options-btn/OptionsBtn";
-import type { TaskItemProps } from "../task-item/TaskItem";
+import { OptionsBtn } from "../../../../../../shared/components/options-btn/OptionsBtn";
+import type { TaskItemProps } from "../../../../components/task-item/TaskItem";
 import { GoPerson } from "react-icons/go";
 
 export const BoardTaskItem =  ({ task, ...props }: TaskItemProps) => {

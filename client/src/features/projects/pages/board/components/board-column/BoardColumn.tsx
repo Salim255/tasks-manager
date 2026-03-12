@@ -1,12 +1,14 @@
+import "./_board-column.scss";
 import { DiScrum } from "react-icons/di";
-import { BoardTaskItem } from "../../../components/board-task-item/BoardTaskItem";
-import type { Task, TaskStatus } from "../../../models/task.model";
+import { BoardTaskItem } from "../board-task-item/BoardTaskItem";
+import type { Task, TaskStatus } from "../../../../models/task.model";
 import { NavLink, useParams } from "react-router-dom";
 import { type DragEvent } from "react";
 
 export interface BoardColumnProps {
   title: string;
   status: TaskStatus;
+  sprintsSize: number;
   tasks: Task[];
   onDragStart: (e: DragEvent, task: Task) => void;
   onDrop: (e: DragEvent, status: TaskStatus) => void;
@@ -17,6 +19,7 @@ export const BoardColumn = ({
         title,
         status,
         tasks,
+        sprintsSize,
         onDragStart,
         onDrop,
         onDragOver
@@ -25,22 +28,12 @@ export const BoardColumn = ({
   
     
     const { projectId }  = useParams<string>() ;
-  /*   const countTasksByStatus = (status: TaskStatus): number | null => {
-        const counter = tasks
-            ?.filter(
-                (task: Task) => 
-                    task.status === status 
-                    && (task.sprintId && activeSprintIds.has(task.sprintId))
-            ).length || null;
-        return counter ;
-    }
- */
     return   <div className={`board-column ${status}`}
                 onDrop={(e) => onDrop(e, status)}
                 onDragOver={onDragOver}
             >
                 <div className='todo__header'>
-                    {title} { tasks.length }
+                    {title} { tasks.length > 0 ? sprintsSize : null }
                 </div>
 
                 {
@@ -61,20 +54,26 @@ export const BoardColumn = ({
                             }
                         </div>
                         
-                    : <div className='todo__empty'>
-                        <DiScrum className='icon'/>
-                        <h3>
-                            Get started in backlog
-                        </h3>
-                        <p>
-                            Plan and star a sprint to see work here
-                        </p>
-                        <NavLink 
-                            className="btn btn--primary"
-                            to={`/projects/${projectId}/backlog`}>
-                            Go to backlog
-                        </NavLink>
-                    </div>
+                    : 
+                    <>
+                        {
+                            (status === 'todo' && sprintsSize === 0) ? 
+                            <div className='todo__empty'>
+                                <DiScrum className='icon'/>
+                                <h3>
+                                    Get started in backlog
+                                </h3>
+                                <p>
+                                    Plan and star a sprint to see work here
+                                </p>
+                                <NavLink 
+                                    className="btn btn--primary"
+                                    to={`/projects/${projectId}/backlog`}>
+                                    Go to backlog
+                                </NavLink>
+                            </div> : null
+                        }
+                    </>
                 }
               
             </div>   
