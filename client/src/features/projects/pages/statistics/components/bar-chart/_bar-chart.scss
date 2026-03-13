@@ -1,0 +1,36 @@
+.bar-char {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+    align-items: end;
+    gap: 20px;
+
+    height: 220px;
+
+    &__item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .bar {
+            width: 100%;
+            height: var(--value);
+
+            background: linear-gradient(
+                to top,
+                #3b82f6,
+                #60a5fa
+            );
+
+            border-radius: 6px 6px 0 0;
+            transition: height 0.4s ease;
+            &__value {
+                font-size: 14px;
+                margin-bottom: 4px;
+            }
+
+            &__label {
+            font-size: 12px;
+            margin-top: 6px;
+            }
+        }
+    }
+}
