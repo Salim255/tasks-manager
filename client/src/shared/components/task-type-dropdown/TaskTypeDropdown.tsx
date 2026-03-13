@@ -1,30 +1,45 @@
 import "./_task-type-dropdown.scss";
 import { IoBookmarkOutline, IoBugOutline, IoCheckboxOutline } from "react-icons/io5";
-import type { TaskType } from "../../../features/tasks/model/task.model";
 import { RiArrowDropDownLine } from "react-icons/ri";
+import { useState, type ChangeEvent, type FC } from "react";
+import type { TaskType } from "../../../features/projects/models/task.model";
 
-import { useState } from "react";
-const typeIcon = {
-    task: <IoCheckboxOutline />,
-    bug: <IoBugOutline />,
-    story: <IoBookmarkOutline />
+
+interface TaskTypeDropdownProps {
+  value: string;
+  onChange: (e: ChangeEvent<HTMLSelectElement>) => void;
+  children: React.ReactNode; // for options
+}
+
+const typeIcon = (value: string ) => {
+    switch(value){
+        case "story":
+           return <IoBookmarkOutline />;
+        case "bug":
+            return <IoBugOutline />;
+        default: 
+        return <IoCheckboxOutline />;
+    }
 };
 
-export const TaskTypeDropdown = ( {children}: {children: React.ReactNode}) => {
-  const [type, setType] = useState<TaskType>("task");
+export const TaskTypeDropdown: FC<TaskTypeDropdownProps> = ( { children, value, onChange }) => {
+  //const [type, setType] = useState<TaskType>("task");
+
   const handleTaskTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setType(e.target.value as TaskType);
+        // setType(e.target.value as TaskType);
     };
+
   return (
     <section 
         className="task-drop-down"  >
         <div className="task-drop-down__container" >
             <div className="task-drop-down__icon">
-                {typeIcon[type]}
+                { typeIcon(value) }
             </div>
             <select 
                 className="task-drop-down__select"
-                onChange={handleTaskTypeChange}
+                value={value}
+                onChange={(e) => onChange(e)}
                 >
                 {children}
             </select>

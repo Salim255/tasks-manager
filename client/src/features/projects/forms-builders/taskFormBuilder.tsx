@@ -9,13 +9,13 @@ export type TaskFormState = {
   title: string;
   description?: string;
   status: TaskStatus;
-  taskType:  TaskType,
+  taskType: TaskType,
   priority: TaskPriority;
   projectId: string;
   sprintId?: string;
   assigneeId?: string;
   dueAt: string; // keep string for <input type="date">
-  errors: Partial<Record<"title" | "description" | "status" | "priority" | "dueAt", string>>;
+  errors: Partial<Record< "taskType" | "title" | "description" | "status" | "priority" | "dueAt", string>>;
 };
 
 type Action =
@@ -36,7 +36,9 @@ export const initialTaskFormState: TaskFormState = {
 };
 
 function reducer(state: TaskFormState, action: Action): TaskFormState {
+  console.log(action, "Hello from action");
   switch (action.type) {
+  
     case "SET_FIELD":
       return {
         ...state,

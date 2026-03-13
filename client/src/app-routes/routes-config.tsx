@@ -10,7 +10,8 @@ import { Projects } from "../features/projects/Projects";
 import { EmptyProjects } from "../features/projects/pages/empty-projects/EmptyProjects";
 import { Auth } from "../features/auth/Auth";
 import { TasksList } from "../features/projects/pages/tasks-list/TasksList";
-
+import { Component } from "react";
+import { Statistics } from "../features/projects/pages/statistics/Statistics";
 
 
 const routes: RouteObject[] = [
@@ -46,6 +47,11 @@ const routes: RouteObject[] = [
                     {
                         path: ':projectId/tasks',
                         Component: TasksList
+                    }
+                    , 
+                    {
+                        path: ':projectId/statistics',
+                        Component: Statistics
                     }
                 ]
             },

@@ -4,6 +4,7 @@ import { FaWpforms } from "react-icons/fa";
 import { GrTasks } from "react-icons/gr";
 import { FiLayers } from "react-icons/fi";
 import { FiPlusSquare } from "react-icons/fi";
+import { FiBarChart2 } from "react-icons/fi";
 
 export const links  = [
       {  id: 1, text: 'profile', path: '/', icon:  <MdQueryStats /> },
@@ -36,5 +37,12 @@ export const projectLinks = [
     text: 'tasks',
     path: (projectId: string) => `/projects/${projectId}/tasks`,
     icon: <ImProfile />
+  },
+    {
+    id: 4,
+    text: 'Summary',
+    path: (projectId: string) => `/projects/${projectId}/statistics`,
+    icon: <FiBarChart2 />
   }
+
 ];

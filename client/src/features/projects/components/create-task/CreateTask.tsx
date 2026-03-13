@@ -1,11 +1,9 @@
 import './_create-task.scss';
-import { useState } from "react";
+import { useState, type ChangeEvent } from "react";
 import { useTaskForm } from "../../forms-builders/taskFormBuilder";
 import { BiPlus } from "react-icons/bi";
-import { addToBacklogTask } from "../../states/taskSlice";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../../../redux/store";
-import { tasks } from "../../../../shared/utils/tasks";
 import { TaskTypeDropdown } from '../../../../shared/components/task-type-dropdown/TaskTypeDropdown';
 import { createTaskHttp, type CreateTaskPayload } from '../../http/task.http';
 
@@ -15,13 +13,13 @@ export const CreateTask = ( { projectId }: { projectId: string}) => {
   const dispatch = useDispatch<AppDispatch>();
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
-    setField(e.target.name as "title" | "description" | "status" | "priority" | "dueAt", e.target.value);
+    setField(e.target.name as "title" | "taskType" | "description" | "status" | "priority" | "dueAt", e.target.value);
   };
 
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
     console.log("hello from submit", state)
     setCreateBtn(true);
     e.preventDefault();
@@ -61,7 +59,10 @@ export const CreateTask = ( { projectId }: { projectId: string}) => {
             <form onSubmit={handleSubmit} className='create-task-form'>
                 {/* Title */}
                 <div className="create-task-form__form-group-title">
-                    <TaskTypeDropdown >
+                    <TaskTypeDropdown
+                      value={state.taskType}
+                      onChange={handleChange}
+                    >
                         <option value="task">Task</option>
                         <option value="bug">Bug</option>
                         <option value="story">Story</option>
