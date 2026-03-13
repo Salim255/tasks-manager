@@ -1,3 +1,17 @@
+import { useTasksSelector } from "../../states/taskSelectors";
+
 export const TasksList = () => {
-    return <div>Hell for tasks list</div>
+    const { tasks } = useTasksSelector();
+    return <div>
+        Hell for tasks list
+            <div>
+                {
+                    tasks.map((task) => {
+                       return  <div id={task.id}>
+                            {task.title}
+                        </div>
+                    })
+                }
+            </div>
+        </div>
 }
