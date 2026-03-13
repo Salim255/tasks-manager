@@ -9,21 +9,17 @@ import { type AppDispatch } from '../../../../redux/store';
 import { BoardColumn } from './components/board-column/BoardColumn';
 import { useBoardData } from './board-hooks/boardData';
 
-
 export const Board = () => { 
-    
     const { sprints } = useSprintSelector();
     const { tasks } = useTasksSelector();
     const dispatch = useDispatch<AppDispatch>();
     const boardData = useBoardData(tasks, sprints);
 
-
-
-    const onDragStart = (e: React.DragEvent<HTMLDivElement>, task: Task) => {
+    const onDragStart = (e: React.DragEvent<Element>, task: Task) => {
         e.dataTransfer.setData("text/plain", JSON.stringify(task)); // any payload
     }
 
-    const onDrop = (e: React.DragEvent<HTMLDivElement>, type: TaskStatus) => {
+    const onDrop = (e: React.DragEvent<Element>, type: TaskStatus) => {
         e.preventDefault();
         const data = e.dataTransfer.getData("text/plain");
         const task = JSON.parse(data);
@@ -32,7 +28,7 @@ export const Board = () => {
         dispatch(updateTasHttp(payload))
     }
 
-    const onDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    const onDragOver = (e: React.DragEvent<Element>) => {
         e.preventDefault();
     }
 
