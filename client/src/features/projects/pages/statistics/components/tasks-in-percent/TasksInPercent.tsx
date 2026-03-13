@@ -1,10 +1,12 @@
 import type { Task, TaskStatus } from "../../../../models/task.model";
-import "./_tasks-counter.scss";
+import "./_tasks-in-percent.scss";
 
-export const TasksCounter = ({ tasksByStatus }: { tasksByStatus: Record<TaskStatus, Task[ ]>} ) => {
+export const TasksInPercent = ({ tasksByStatus }: { tasksByStatus: Record<TaskStatus, Task[ ]>} ) => {
     return <div>
+
             { tasksByStatus.todo.length }
             { tasksByStatus.in_progress.length }
             { tasksByStatus.done.length }
-        </div>
-}
+
+    </div>
+} 
