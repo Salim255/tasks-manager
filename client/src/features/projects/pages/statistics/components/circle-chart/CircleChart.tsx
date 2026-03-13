@@ -4,9 +4,9 @@ import "./_circle-chart.scss";
 export const CircleChart = ({ tasksByStatus }: { tasksByStatus: Record<TaskStatus, Task[ ]>}) => {
     const countStyle = {
     background: `conic-gradient(
-        red 0% 35%,
-        blue 35% 75%,
-        rgb(68, 255, 0) 75% 100%)
+        #357DE8 0% 35%,
+        #BF63F3 35% 75%,
+        #82B536 75% 100%)
     `}
     
     return <>
