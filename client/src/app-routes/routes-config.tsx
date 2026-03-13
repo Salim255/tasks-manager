@@ -2,7 +2,6 @@ import { createBrowserRouter } from "react-router-dom";
 import type { RouteObject } from "react-router-dom";
 import { Dashboard } from "../features/dashboard/Dashboard";
 import { Profile } from "../features/profile/Profile";
-import { TaskDetails } from "../features/tasks/components/tasks-details/TaskDetails";
 import { Backlog } from "../features/projects/pages/backlog/Backlog";
 import { Board } from "../features/projects/pages/board/Board";
 import { CreateProject } from "../features/projects/pages/create-project/CreateProject";
@@ -10,6 +9,7 @@ import { ProjectsIndexRedirect } from "./currentProjectId";
 import { Projects } from "../features/projects/Projects";
 import { EmptyProjects } from "../features/projects/pages/empty-projects/EmptyProjects";
 import { Auth } from "../features/auth/Auth";
+import { TasksList } from "../features/projects/pages/tasks-list/TasksList";
 
 
 
@@ -45,7 +45,7 @@ const routes: RouteObject[] = [
                     },
                     {
                         path: ':projectId/tasks',
-                        Component: TaskDetails
+                        Component: TasksList
                     }
                 ]
             },
