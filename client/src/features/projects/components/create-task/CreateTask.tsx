@@ -15,13 +15,18 @@ export const CreateTask = ( { projectId }: { projectId: string}) => {
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
-    console.log(e.target.value);
-    setField(e.target.name as "title" | "taskType" | "description" | "status" | "priority" | "dueAt", e.target.value);
+    setField(
+        e.target.name as "title" 
+        | "taskType" 
+        | "description"
+        | "status"
+        | "priority"
+        | "dueAt", 
+        e.target.value
+    );
   };
 
-
   const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
-    console.log("hello from submit", state)
     setCreateBtn(true);
     e.preventDefault();
     clearErrors();

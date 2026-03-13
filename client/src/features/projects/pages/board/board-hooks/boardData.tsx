@@ -7,7 +7,7 @@ export const useBoardData = (tasks: Task[], sprints: Sprint[]) => {
     // Active sprint IDs
     const activeSprints = sprints.filter(s => s.status === "active").map(s => s.id);
     const activeSprintIds = new Set(activeSprints);
-
+    console.log(activeSprints);
     // Initialize empty groups
     const tasksByStatus: Record<TaskStatus, Task[]> = {
       todo: [],

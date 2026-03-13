@@ -36,7 +36,6 @@ export const initialTaskFormState: TaskFormState = {
 };
 
 function reducer(state: TaskFormState, action: Action): TaskFormState {
-  console.log(action, "Hello from action");
   switch (action.type) {
   
     case "SET_FIELD":

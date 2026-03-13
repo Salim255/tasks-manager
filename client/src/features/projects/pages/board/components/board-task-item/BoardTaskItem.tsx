@@ -1,9 +1,9 @@
 import './_board-task-item.scss';
 import { useState } from "react";
-import { IoCheckboxOutline } from "react-icons/io5";
 import { OptionsBtn } from "../../../../../../shared/components/options-btn/OptionsBtn";
 import type { TaskItemProps } from "../../../../components/task-item/TaskItem";
 import { GoPerson } from "react-icons/go";
+import { typeIcon } from '../../../../../../shared/utils/methods';
 
 export const BoardTaskItem =  ({ task, ...props }: TaskItemProps) => {
     const [isOptionsOpen, setOptionsOpen ] = useState<string | null>(null);
@@ -28,7 +28,7 @@ export const BoardTaskItem =  ({ task, ...props }: TaskItemProps) => {
             </section>
             <section className='board-task-item__footer'>
                 <div className='board-task-item__checkbox'>
-                    <IoCheckboxOutline className="board-task-item__checkbox-icon"/> <span> sprint name </span>
+                    { typeIcon(task.taskType) } <span> sprint name </span>
                 </div>
                 <div className='board-task-item__assignee'>
                     {/* {task.assigneeId} */}

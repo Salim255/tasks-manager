@@ -35,7 +35,7 @@ export const BoardColumn = ({
             onDragOver={onDragOver}
         >
             <div className='todo__header'>
-                { title } { tasks.length > 0 ? sprintsSize : null }
+                { title } { tasks.length > 0 ? tasks.length: null }
             </div>
 
             {
