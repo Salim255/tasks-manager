@@ -1,8 +1,8 @@
 import './_task-item.scss';
 import type { Task } from "../../models/task.model";
-import { IoCheckboxOutline } from 'react-icons/io5';
 import { OptionsBtn } from '../../../../shared/components/options-btn/OptionsBtn';
 import { useState } from 'react';
+import { typeIcon } from '../../../../shared/utils/methods';
 
 export type TaskItemProps = { task: Task; } & React.HTMLAttributes<HTMLDivElement>; // <-- this is the magic
 
@@ -12,7 +12,7 @@ export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
         <div className="task-item" {...props} >
             <section className='task-item__content'>
                 <div className='task-item__checkbox'>
-                    <IoCheckboxOutline/>
+                    {typeIcon(task.taskType)}
                 </div>
                 <div className='task-item__title'>
                     {task.title}  

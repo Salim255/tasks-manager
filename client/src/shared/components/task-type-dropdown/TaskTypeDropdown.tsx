@@ -1,34 +1,18 @@
 import "./_task-type-dropdown.scss";
-import { IoBookmarkOutline, IoBugOutline, IoCheckboxOutline } from "react-icons/io5";
 import { RiArrowDropDownLine } from "react-icons/ri";
-import { useState, type ChangeEvent, type FC } from "react";
-import type { TaskType } from "../../../features/projects/models/task.model";
+import { type ChangeEvent, type FC } from "react";
+import { typeIcon } from "../../utils/methods";
 
 
 interface TaskTypeDropdownProps {
   value: string;
   onChange: (e: ChangeEvent<HTMLSelectElement>) => void;
+   name?: string; // optional name for forms
   children: React.ReactNode; // for options
 }
 
-const typeIcon = (value: string ) => {
-    switch(value){
-        case "story":
-           return <IoBookmarkOutline />;
-        case "bug":
-            return <IoBugOutline />;
-        default: 
-        return <IoCheckboxOutline />;
-    }
-};
 
-export const TaskTypeDropdown: FC<TaskTypeDropdownProps> = ( { children, value, onChange }) => {
-  //const [type, setType] = useState<TaskType>("task");
-
-  const handleTaskTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        // setType(e.target.value as TaskType);
-    };
-
+export const TaskTypeDropdown: FC<TaskTypeDropdownProps> = ( { children, value, name, onChange }) => {
   return (
     <section 
         className="task-drop-down"  >
@@ -38,6 +22,7 @@ export const TaskTypeDropdown: FC<TaskTypeDropdownProps> = ( { children, value, 
             </div>
             <select 
                 className="task-drop-down__select"
+                name={name}
                 value={value}
                 onChange={(e) => onChange(e)}
                 >

@@ -15,6 +15,7 @@ export const CreateTask = ( { projectId }: { projectId: string}) => {
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
+    console.log(e.target.value);
     setField(e.target.name as "title" | "taskType" | "description" | "status" | "priority" | "dueAt", e.target.value);
   };
 
@@ -60,6 +61,7 @@ export const CreateTask = ( { projectId }: { projectId: string}) => {
                 {/* Title */}
                 <div className="create-task-form__form-group-title">
                     <TaskTypeDropdown
+                    name="taskType"
                       value={state.taskType}
                       onChange={handleChange}
                     >
