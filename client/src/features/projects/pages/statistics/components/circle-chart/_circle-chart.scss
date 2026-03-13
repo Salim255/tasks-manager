@@ -1,0 +1,45 @@
+.circle-chart {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    align-items: center;
+    &__chart {
+        height: 20rem;
+        width: 20rem;
+        border-radius: 50%;
+    }
+
+    &__legend {
+        min-width: 10rem;
+        .circle-chart__todo,
+        .circle-chart__progress,
+        .circle-chart__done {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+            span {
+                display: block;
+                height: 2rem;
+                width: 2rem;
+            }
+        }
+
+        .circle-chart__todo {
+            span {
+               background-color: #BF63F3;
+            }
+        }
+        .circle-chart__progress {
+            span {
+              background-color: #357DE8;
+            }
+            
+        }
+        .circle-chart__done {
+           span {
+             background-color: #82B536;
+           }
+        }
+    }
+    
+}
