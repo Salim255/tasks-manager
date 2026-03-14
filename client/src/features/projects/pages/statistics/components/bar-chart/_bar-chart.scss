@@ -4,23 +4,25 @@
     align-items: end;
     gap: 20px;
 
-    height: 220px;
+    height: 80%;
 
     &__item {
         display: flex;
         flex-direction: column;
         align-items: center;
+        justify-content: end;
+        height: 100%;
         .bar {
-            width: 100%;
-            height: var(--value);
-
+            width: 4rem;
+            height: max(var(--value), 1%);
+            text-align: center;
             background: linear-gradient(
                 to top,
                 #3b82f6,
                 #60a5fa
             );
 
-            border-radius: 6px 6px 0 0;
+            //border-radius: 6px 6px 0 0;
             transition: height 0.4s ease;
             &__value {
                 font-size: 14px;
@@ -28,9 +30,13 @@
             }
 
             &__label {
-            font-size: 12px;
-            margin-top: 6px;
+                font-size: 12px;
+                margin-top: 6px;
             }
         }
     }
+}
+
+h1 {
+    margin-top: 1rem;
 }

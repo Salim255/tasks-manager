@@ -1,4 +1,10 @@
 .statistics {
-    //background-color: red;
+    // background-color: red;
     display: flex;
+    gap: 2rem;
+    &__status,
+    &__work-types {
+        flex: 1;
+        min-height: 30rem;
+    }
 }

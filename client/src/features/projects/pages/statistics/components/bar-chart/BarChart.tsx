@@ -1,32 +1,26 @@
 import "./_bar-chart.scss";
-import type { Task, TaskStatus } from "../../../../models/task.model";
+import type { TaskType } from "../../../../models/task.model";
 
-export const BarChart = ({ tasksByStatus }: { tasksByStatus: Record<TaskStatus, Task[ ]>}) => {
-    const chartData = [
-        { label: "Task", value: tasksByStatus.done.length },
-        { label: "Bug", value: tasksByStatus.in_progress.length },
-        { label: "Story", value: tasksByStatus.done.length }
-    ];
+export const BarChart = ({ barChartDataPercentage }: { barChartDataPercentage: Record<TaskType, {label: string; nb: number; value: number}>}) => {
 
-     const max = Math.max(...chartData.map(d => d.value));
 
+    //const max = Math.max(...chartData.map(d => d.value));
     return <div className="bar-char">
         {
-           chartData.map((bar) => {
-            const percent = max ? (bar.value / max) * 100 : 0;
-            return (
-                <div key={bar.label} className="bar-char__item">
+            (Object?.keys(barChartDataPercentage) as TaskType[])?.map((key) => {
+                 return (
+                <div key={barChartDataPercentage[key].label} className="bar-char__item">
                     <div 
                         className="bar"
-                        style={{ "--value": `${percent}%` } as React.CSSProperties}
+                        style={{ "--value": `${barChartDataPercentage[key].value}%` } as React.CSSProperties}
                     >
-                        <span className="bar__value">{bar.value}</span>
-                        <span className="bar__label">{bar.label}</span>
+                        <span className="bar__value">{barChartDataPercentage[key].value} %</span>
+                      {/*   <span className="bar__label">{barChartDataPercentage[key].label}</span> */}
                     </div>
+                   <h1>{barChartDataPercentage[key].label}</h1>
                 </div>
             )
-           }) 
-        }
-           
+            }) 
+        } 
         </div>
 }
