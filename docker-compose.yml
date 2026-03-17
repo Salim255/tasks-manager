@@ -1,5 +1,21 @@
 version: "3.9"
 services:
+  tasks-manager-db:
+    container_name: tasks-manager-db
+    image: postgres:16
+    restart: always
+
+    environment:
+      POSTGRES_USER: ${{DB_USERNAME}}
+      POSTGRES_PASSWORD: ${{DB_PASSWORD}}
+      POSTGRES_DB: ${{DB_NAME}}
+
+    volumes:
+      - tasks-data:/var/lib/postgresql/data ## tasks-data => /var/lib/postgresql/data
+
+    networks:
+      - tasks-manager-network
+    
   tasks-manager-client:
     container_name: tasks-manager-client
 
@@ -19,7 +35,8 @@ services:
   
   tasks-manager-server:
     container_name: tasks-manager-server
-
+    depends_on:
+      -  tasks-manager-db
     build:
       context: ./servers/server
       dockerfile: Dockerfile
@@ -36,6 +53,9 @@ services:
       
     env_file:
       - ./servers/server/.env
+  
+volumes:
+  tasks-data:
   
 networks:
   tasks-manager-network:

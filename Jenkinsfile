@@ -149,7 +149,14 @@ pipeline {
                             cat "$BACKEND_ENV" > servers/server/.env
                         '''
                     }
+
+                    withCredentials([file(credentialsId: 'tasksmanager-db.env', variable: 'DB_ENV')]) {
+                        sh '''
+                            cat "DB_ENV" > .env
+                        '''
+                    }
                 } 
+                
                 sh 'ls -la servers/server'
                
             } 
