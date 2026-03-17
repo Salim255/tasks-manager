@@ -152,7 +152,7 @@ pipeline {
 
                     withCredentials([file(credentialsId: 'tasksmanager-db.env', variable: 'DB_ENV')]) {
                         sh '''
-                            cat "DB_ENV" > .env
+                            cat "$DB_ENV" > .env
                         '''
                     }
                 } 
