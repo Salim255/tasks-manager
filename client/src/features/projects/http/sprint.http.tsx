@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import type { Sprint, SprintStatus } from "../models/sprint.model";
 import type { ApiErrorDto } from "../../../shared/interfaces/shared.interfaces";
 
@@ -51,12 +51,21 @@ export const updateSprintHttp = createAsyncThunk<
             return response.data;
         } catch (error) {
             // Extract your backend error shape
-            const backendError: ApiErrorDto = error.response?.data || {
+            if (error instanceof AxiosError) {
+                const backendError: ApiErrorDto = error.response?.data || {
+                    status: "error",
+                    message: "Unknown error",
+                    data: null
+                };
+
+                return thunkApi.rejectWithValue(backendError);
+            }
+            // fallback for non-Axios errors
+            return thunkApi.rejectWithValue({
                 status: "error",
-                message: "Unknown error",
+                message: "Unexpected error",
                 data: null
-            };
-            return thunkApi.rejectWithValue(backendError);
+            });
         }
     }
 )
@@ -75,13 +84,21 @@ export const fetchSprintsHttp =  createAsyncThunk<
                 );
                 return response.data;
             } catch (error) {
-                // Extract your backend error shape
-                const backendError: ApiErrorDto = error.response?.data || {
+                if (error instanceof AxiosError) {
+                    const backendError: ApiErrorDto = error.response?.data || {
+                        status: "error",
+                        message: "Unknown error",
+                        data: null
+                    };
+
+                    return thunkApi.rejectWithValue(backendError);
+                }
+                // fallback for non-Axios errors
+                return thunkApi.rejectWithValue({
                     status: "error",
-                    message: "Unknown error",
+                    message: "Unexpected error",
                     data: null
-                };
-                return thunkApi.rejectWithValue(backendError);
+                });
             }
         }
     );
@@ -100,13 +117,21 @@ export const createSprint = createAsyncThunk<
             );
             return response.data;
         } catch (error) {
-            // Extract your backend error shape
-            const backendError: ApiErrorDto = error.response?.data || {
+           if (error instanceof AxiosError) {
+                    const backendError: ApiErrorDto = error.response?.data || {
+                        status: "error",
+                        message: "Unknown error",
+                        data: null
+                    };
+
+                return thunkApi.rejectWithValue(backendError);
+            }
+            // fallback for non-Axios errors
+            return thunkApi.rejectWithValue({
                 status: "error",
-                message: "Unknown error",
+                message: "Unexpected error",
                 data: null
-            };
-            return thunkApi.rejectWithValue(backendError);
+            });
         }
     }
 )

@@ -1,7 +1,7 @@
+import type { Sprint } from '../../../features/projects/models/sprint.model';
+import type { Task } from '../../../features/projects/models/task.model';
 import './_option-btn.scss';
 import { SlOptions } from "react-icons/sl";
-import type { Sprint } from "../../../features/tasks/model/sprint.model";
-import type { Task } from '../../../features/tasks/model/task.model';
 
 export const OptionsBtn = ({ 
         item, 

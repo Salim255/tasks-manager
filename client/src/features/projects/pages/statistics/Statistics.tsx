@@ -9,7 +9,7 @@ import { TasksCounter } from "./components/tasks-counter/TasksCounter";
 export const  Statistics = () => {
     const { tasks } = useTasksSelector();
      const { sprints } = useSprintSelector();
-    const { tasksByStatus, barChartDataPercentage } = useStatisticsData(tasks, sprints);
+    const { tasksByStatus, barChartDataPercentage } = useStatisticsData(tasks);
 
     useEffect(() => {}, [tasks, sprints])
     return <section className="statistics">

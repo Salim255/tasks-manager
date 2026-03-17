@@ -1,8 +1,7 @@
 import { useMemo } from "react";
-import type { Sprint } from "../../../models/sprint.model";
 import type { Task, TaskStatus, TaskType } from "../../../models/task.model";
 
-export const useStatisticsData = (tasks: Task[], sprints: Sprint[]) => {
+export const useStatisticsData = (tasks: Task[]) => {
   return useMemo(() => {
     // Active sprint IDs
     // const sprintsIds = new Set(sprints.map((spr) => spr.id));
@@ -12,7 +11,7 @@ export const useStatisticsData = (tasks: Task[], sprints: Sprint[]) => {
       in_progress: [],
       done: [],
     };
-
+    
     const barChartDataPercentage: Record<TaskType, {label: string; nb: number;  value: number}> =  {
       task:  { label: "Task", nb: 0,  value: 0 },
       bug:  { label: "Bug", nb: 0, value: 0 },
@@ -44,5 +43,5 @@ export const useStatisticsData = (tasks: Task[], sprints: Sprint[]) => {
         tasksByStatus,
         barChartDataPercentage
     };
-  }, [tasks]);
+  }, [tasks ]);
 };

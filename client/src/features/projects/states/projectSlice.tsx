@@ -35,7 +35,7 @@ const projectSlice = createSlice({
              state.projects = [...state.projects, project ];
             state.isCreating = false;
         })
-        .addCase(createProjectHttp.rejected, (state, action) => {
+        .addCase(createProjectHttp.rejected, (state) => {
             state.isCreating = false;
         })
         .addCase(fetchProjectsHttp.fulfilled, (state, action) => {
@@ -43,34 +43,14 @@ const projectSlice = createSlice({
             state.projects = projects;
             state.isLoading = false;
         })
-        .addCase(fetchProjectsHttp.pending, (state, action) => {
+        .addCase(fetchProjectsHttp.pending, (state) => {
             state.isLoading = true;
         })
-        .addCase(fetchProjectsHttp.rejected, (state, action) => {
+        .addCase(fetchProjectsHttp.rejected, (state) => {
             state.isLoading = false;
         })
     },
     reducers: {
-        createProject: (state, action: PayloadAction<{payload: CreateProjectPayload}>) => {
-            state.isLoading = true;
-            const { name, description, status } = action.payload.payload;
-            const newProject: Project = {
-                id: String(state.projects.length + 1) ,
-                name: name,
-                description: description,
-                status: status,
-                ownerId: '1',
-                createdAt: new Date(),
-                updatedAt: new Date(),
-            }
-
-            const index = state.projects.length;
-            if (index === 4) return;
-
-            state.projects = [...state.projects, newProject];
-            state.isLoading = false;
-            return state;
-        },
         setActiveProjectId: (state, action: PayloadAction<{ projectId: string}>) => {
             const { projectId } = action.payload;
             state.activeProjectId = projectId;
@@ -79,5 +59,5 @@ const projectSlice = createSlice({
     }
 });
 
-export const { createProjectr, setActiveProjectId } = projectSlice.actions;
+export const { setActiveProjectId } = projectSlice.actions;
 export default projectSlice.reducer;

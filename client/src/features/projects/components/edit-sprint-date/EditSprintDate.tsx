@@ -18,9 +18,9 @@ export const EditSprintDate = ({
             setEditSprintOpen(!isEditSprintOpen);
         }
         
-        const handleDateFormat = () => {
-            //return `${new Date(sprint.startDate).toLocaleDateString()}`
-        }
+      /*   const handleDateFormat = () => {
+            return `${new Date(sprint.startDate).toLocaleDateString()}`
+        } */
         useEffect(() => {
             
         }, [sprint])

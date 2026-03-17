@@ -52,7 +52,7 @@ const sprintSlice = createSlice({
     initialState,
     extraReducers: (builder) => {
         builder
-        .addCase(updateSprintHttp.pending, (state, action) => {
+        .addCase(updateSprintHttp.pending, (state) => {
             state.isUpdating = true;
         })
         .addCase(updateSprintHttp.fulfilled, (state, action) => {
@@ -61,10 +61,10 @@ const sprintSlice = createSlice({
             state.sprints = state.sprints.map((spt) =>  spt.id === sprint.id ? sprint : spt );
             state.isUpdating = false;
         })
-        .addCase(updateSprintHttp.rejected, (state, action) => {
-
+        .addCase(updateSprintHttp.rejected, (state) => {
+            state.isUpdating = false
         })
-        .addCase(fetchSprintsHttp.pending, (state, action) => {
+        .addCase(fetchSprintsHttp.pending, (state) => {
             state.isLoading = true;
         })
         .addCase(fetchSprintsHttp.fulfilled, (state, action) => {
@@ -72,11 +72,11 @@ const sprintSlice = createSlice({
             state.sprints = sprints;
             state.isLoading = false;
         })
-        .addCase(fetchSprintsHttp.rejected, (state, action) => {
+        .addCase(fetchSprintsHttp.rejected, (state) => {
             state.isLoading = false;
         })
 
-        .addCase(createSprint.pending,(state, action) => {
+        .addCase(createSprint.pending,(state) => {
             state.isCreating = true;
         })
         .addCase(createSprint.fulfilled, (state, action) => {
@@ -84,7 +84,7 @@ const sprintSlice = createSlice({
             state.sprints = [...state.sprints, sprint];
             state.isCreating = false;
         })
-        .addCase(createSprint.rejected, (state, action) => {
+        .addCase(createSprint.rejected, (state) => {
             state.isCreating = false;
         })
     },

@@ -3,7 +3,7 @@ import AppRoutes from "./app-routes/routes-config";
 import { useDispatch } from "react-redux";
 import { type AppDispatch } from "./redux/store";
 import { useEffect } from "react";
-import { refreshToken } from "./features/auth/http/auth.http";
+// import { refreshToken } from "./features/auth/http/auth.http";
 
 function App(){
   const dispatch = useDispatch<AppDispatch>();

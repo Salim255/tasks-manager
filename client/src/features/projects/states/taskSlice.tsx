@@ -56,7 +56,7 @@ const taskSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-        .addCase(updateTasHttp.pending, (state, action) => {
+        .addCase(updateTasHttp.pending, (state) => {
             state.isUpdating = true; 
         })
         .addCase(updateTasHttp.fulfilled, (state, action) => {
@@ -66,10 +66,10 @@ const taskSlice = createSlice({
             });
             state.isUpdating = false;
         })
-        .addCase(updateTasHttp.rejected, (state, action) => {
+        .addCase(updateTasHttp.rejected, (state) => {
             state.isUpdating = false;
         })
-        .addCase(updateTaskSprintHttp.pending, (state, action) => {
+        .addCase(updateTaskSprintHttp.pending, (state) => {
             state.isUpdating = true; 
         })
         .addCase(updateTaskSprintHttp.fulfilled, (state, action) => {
@@ -79,7 +79,7 @@ const taskSlice = createSlice({
             });
             state.isUpdating = false;
         })
-        .addCase(updateTaskSprintHttp.rejected, (state, action) => {
+        .addCase(updateTaskSprintHttp.rejected, (state) => {
             state.isUpdating = false
         })
         .addCase(getTasksHttp.pending, (state, action) => {
