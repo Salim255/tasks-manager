@@ -41,7 +41,7 @@ async function bootstrap(): Promise<void> {
   const configService = app.get(ConfigService);
   app.useGlobalFilters(new GlobalExceptionFilter(configService));
 
-  await app.listen(PORT, '127.0.0.1');
+  await app.listen(PORT);
   logger.log(`Task manager's, server running... on port number: ✅`, `${PORT}`);
 }
 
