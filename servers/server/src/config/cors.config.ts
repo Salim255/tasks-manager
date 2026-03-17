@@ -4,10 +4,8 @@ export function corsConfig(app: INestApplication) {
   const allowedOrigins = [
     'http://localhost:5173',
     'http://127.0.0.1:5173',
-    'https://comparable-clips-horses-agent.trycloudflare.com',
-    'https://web.kundul.app',
-    'capacitor://localhost',
-    'capacitor://localhost',
+    'https://tasks.salimcode.site',
+    'https://www.tasks.salimcode.site',
   ];
   app.enableCors({
     origin: (origin, callback) => {
