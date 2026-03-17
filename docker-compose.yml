@@ -1,0 +1,40 @@
+version: "3.9"
+services:
+  tasks-manager-client:
+    container_name: tasks-manager-client
+
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    
+    image: tasks-manager-client:latest
+
+    ports:
+      - "3004:80"
+
+    restart: always
+
+    networks:
+      - tasks-manager-network
+  
+  tasks-manager-server:
+    container_name: tasks-manager-server
+
+    build:
+      context: ./servers/sever
+      dockerfile: Dockerfile
+    
+    image: tasks-manager-server:latest
+
+    ports:
+      - "3005:3000"
+    
+    restart: always
+
+    networks:
+      - tasks-manager-network
+    env_file:
+      - ./server.env
+networks:
+  tasks-manager-network:
+    driver: bridge
