@@ -150,6 +150,12 @@ pipeline {
                         '''
                     }
 
+                    withCredentials([file(credentialsId: 'tasks-client-env', variable: 'FRONTEND_ENV')]) {
+                        sh '''
+                            cat "$FRONTEND_ENV" > client/.env
+                        '''
+                    }
+
                     withCredentials([file(credentialsId: 'tasksmanager-db.env', variable: 'DB_ENV')]) {
                         sh '''
                             cat "$DB_ENV" > .env
