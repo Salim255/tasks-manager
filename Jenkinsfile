@@ -141,6 +141,20 @@ pipeline {
         }
 
 
+        stage('Prepare environment') { 
+            steps { 
+                script { 
+                    withCredentials([file(credentialsId: 'server-env', variable: 'BACKEND_ENV')]) {
+                        sh '''
+                            cat "$BACKEND_ENV" > servers/server/.env
+                        '''
+                    }
+                } 
+                sh 'ls -la servers/server'
+               
+            } 
+        }
+
         /************************************************************************************
          * STAGE 5 — DEPLOY USING DOCKER COMPOSE
          * ----------------------------------------------------------------------------------
