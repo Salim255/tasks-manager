@@ -29,7 +29,7 @@ RUN npm install --production
 COPY --from=build /app/dist/ ./dist
 
 # Expose port uses process.en.PORT
-ENV PORT=4000
+ENV PORT=3000
 EXPOSE $PORT
 
 # Start the server
