@@ -21,7 +21,7 @@ export const DatabaseOptionsProvider = {
 
       database: getValue('DB_NAME', ''),
 
-      synchronize: false,
+      synchronize: true,
       logging: false,
       entities: [__dirname + '/../../modules/**/entity/*.entity{.ts,.js}'],
     };
