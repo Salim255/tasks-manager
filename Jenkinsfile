@@ -78,9 +78,12 @@ pipeline {
                     echo "Changed files:\n${changes}"
 
                     // Boolean flags used later to decide what to build
-                    CLIENT_CHANGED = changes.contains("client/")
-                    SERVER_CHANGED = changes.contains("serves/server")
+                    def CLIENT_CHANGED = changes.contains("client/")
+                    def SERVER_CHANGED = changes.contains("serves/server/")
 
+                    // Store them in env vars so other stages can read them
+                    env.CLIENT_CHANGED = CLIENT_CHANGED.toString()
+                    env.SERVER_CHANGED = SERVER_CHANGED.toString()
                     echo "Client changed? → ${CLIENT_CHANGED}"
                     echo "Server changed? → ${SERVER_CHANGED}"
                 }
