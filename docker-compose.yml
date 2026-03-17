@@ -6,9 +6,9 @@ services:
     restart: always
 
     environment:
-      POSTGRES_USER: ${{DB_USERNAME}}
-      POSTGRES_PASSWORD: ${{DB_PASSWORD}}
-      POSTGRES_DB: ${{DB_NAME}}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
 
     volumes:
       - tasks-data:/var/lib/postgresql/data ## tasks-data => /var/lib/postgresql/data
@@ -56,7 +56,7 @@ services:
   
 volumes:
   tasks-data:
-  
+
 networks:
   tasks-manager-network:
     driver: bridge
