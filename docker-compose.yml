@@ -21,7 +21,7 @@ services:
     container_name: tasks-manager-server
 
     build:
-      context: ./servers/sever
+      context: ./servers/server
       dockerfile: Dockerfile
     
     image: tasks-manager-server:latest
