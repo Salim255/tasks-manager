@@ -79,7 +79,7 @@ pipeline {
 
                     // Boolean flags used later to decide what to build
                     def CLIENT_CHANGED = changes.contains("client/")
-                    def SERVER_CHANGED = changes.contains("serves/server/")
+                    def SERVER_CHANGED = changes.contains("servers/server/")
 
                     // Store them in env vars so other stages can read them
                     env.CLIENT_CHANGED = CLIENT_CHANGED.toString()
@@ -162,7 +162,7 @@ pipeline {
 
                     sh """
                         docker compose down
-                        docker compose up -d --build
+                        docker-compose up -d --build
                     """
                 }
             }

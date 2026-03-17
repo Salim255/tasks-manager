@@ -12,6 +12,7 @@ FROM node:20-alpine AS build
 # Set working directory
 WORKDIR /app
 
+ENV NODE_ENV=production
 # Copy only package.json + package-lock.json first
 # ---------------------------------------------------------------------
 # WHY:

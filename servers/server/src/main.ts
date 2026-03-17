@@ -45,8 +45,6 @@ async function bootstrap(): Promise<void> {
   logger.log(`Task manager's, server running... on port number: ✅`, `${PORT}`);
 }
 
-
-
 bootstrap().catch((error) => {
   console.log(error);
   process.exit(1);
