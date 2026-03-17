@@ -144,7 +144,7 @@ pipeline {
         stage('Prepare environment') { 
             steps { 
                 script { 
-                    withCredentials([file(credentialsId: 'server-env', variable: 'BACKEND_ENV')]) {
+                    withCredentials([file(credentialsId: 'tasks-server-env', variable: 'BACKEND_ENV')]) {
                         sh '''
                             cat "$BACKEND_ENV" > servers/server/.env
                         '''
