@@ -3,35 +3,49 @@
     grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
     align-items: end;
     gap: 20px;
-    aspect-ratio: 1 / 1;  
-    padding: 4rem;
+    //height: 100%;
+    padding: 0  4rem;
+    //height: 30rem;
+    //height: 100%;
+    min-height: 20rem;
     &__item {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: end;
+     
+        //aspect-ratio: 1 / 1; 
+        //width: 100%;
         height: 100%;
-        p {
-            margin: 0;
+        .item-label {
+            gap: 2px;
+            display: flex;
+            align-items: center;
+            span {
+                display: flex;
+                justify-self: center;
+            }
         }
         .bar {
             width: 4rem;
             height: max(var(--value), 0.1%);
             text-align: center;
             padding: 0 3px;
-            background: linear-gradient(
-                to top,
-                #3b82f6,
-                #60a5fa
-            );
-
+           
+            position: relative;
             //border-radius: 6px 6px 0 0;
             transition: height 0.4s ease;
             &__value {
                 font-size: 10px;
+                font-weight: bolder;
                 margin-bottom: 4px;
-                color: red;
+                //color: rgb(247, 0, 255);
                 display: block;
+
+                position: absolute;
+                top: -2rem;
+                left: 0;
+                right: 0;
             }
 
             &__label {
@@ -43,10 +57,32 @@
     }
 }
 
-h1 {
-   // margin-top: 1rem;
+#story { 
+    .bar {
+         background: linear-gradient(
+                to top,
+                #41bb7a,
+                #41bb7a,
+            );
+    }
 }
-
+#bug{
+    //background-color: red;
+    .bar {
+         background: linear-gradient(
+                to top,
+                #ec6206,
+                #ec6206
+            );
+    }
+}
 #task{
     //background-color: red;
+    .bar {
+         background: linear-gradient(
+                to top,
+                 #2f8bfc,
+                #60a5fa
+            );
+    }
 }

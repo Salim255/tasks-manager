@@ -12,7 +12,7 @@ export const CircleChart = ({ tasksByStatus }: { tasksByStatus: Record<TaskStatu
     
     return <>
         <section className="circle-chart">
-            <div className="text">
+            <div className="circle-chart__circle-container">
                 <div className="circle-chart__chart" style={countStyle}></div>
             </div>
             <CircleLegend  tasksByStatus={tasksByStatus} />
