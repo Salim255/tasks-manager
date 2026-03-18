@@ -2,12 +2,26 @@ import type { Task, TaskStatus } from "../../../../models/task.model";
 import { CircleLegend } from "../circle-legend/CircleLegend";
 import "./_circle-chart.scss";
 
-export const CircleChart = ({ tasksByStatus }: { tasksByStatus: Record<TaskStatus, Task[ ]>}) => {
+
+export const CircleChart = ({
+    tasksByStatus,
+    circleChartDataPercentage,
+}: {
+    tasksByStatus: Record<TaskStatus, Task[ ]>;
+    circleChartDataPercentage: Record<TaskStatus, { label: string; nb: number; value: number }>;
+}) => {
     const countStyle = {
     background: `conic-gradient(
-        #357DE8 0% 35%,
-        #BF63F3 35% 75%,
-        #82B536 75% 100%)
+        #357DE8 
+            0% 
+            ${circleChartDataPercentage.in_progress.value}%,
+        #BF63F3 
+            ${circleChartDataPercentage.in_progress.value}% 
+            ${circleChartDataPercentage.todo.value}%,
+        #82B536
+             ${circleChartDataPercentage.todo.value}%
+              ${circleChartDataPercentage.done.value}%
+              )
     `}
     
     return <>

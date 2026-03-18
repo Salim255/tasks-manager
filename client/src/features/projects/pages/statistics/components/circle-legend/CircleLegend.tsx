@@ -5,7 +5,7 @@ export const CircleLegend = ({tasksByStatus}: { tasksByStatus: Record<TaskStatus
     return  (
     <div className="circle-legend">
         <div className="circle-legend__todo">
-            <span></span>  To Do: { tasksByStatus.todo.length }
+            <span></span> To Do: { tasksByStatus.todo.length }
         </div>
         <div className="circle-legend__progress">
             <span></span> In progress: { tasksByStatus.in_progress.length }
