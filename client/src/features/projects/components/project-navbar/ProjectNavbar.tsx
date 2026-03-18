@@ -1,12 +1,10 @@
 import { projectLinks } from '../../../../shared/utils/links';
 import './_project-navbar.scss';
 import { NavLink, useParams } from "react-router-dom";
-import { RxDropdownMenu } from "react-icons/rx";
 import { useSelector } from 'react-redux';
 import type { RootState } from '../../../../redux/store';
 import { useEffect } from 'react';
-
-
+import { IoMdOptions } from "react-icons/io";
 
 export const ProjectNavbar =() => {
     const {projects, activeProjectId} = useSelector((store:  RootState) => store.projectReducer);
@@ -35,7 +33,10 @@ export const ProjectNavbar =() => {
                         )
                      })
                 }
-            <RxDropdownMenu />
+
+                <button className='project-header__options'>
+                   <IoMdOptions className='icon' />
+                </button>
             </nav>
         </header>
     )

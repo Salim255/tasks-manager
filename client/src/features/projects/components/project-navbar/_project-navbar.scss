@@ -1,8 +1,29 @@
 .project-header {
     border-bottom: 2px solid red;
     margin-bottom: 1rem;
+    .icon {
+        font-size: 1rem;
+        margin-right: .5rem;
+        display: grid;
+        place-items: center;
+        transition: var(--transition);
+    }
+    &__options{
+        align-self: center;
+        margin: .5rem 0;
+        margin-left: auto;
+        background-color: transparent;
+        border: none;
+        &:hover {
+            cursor: pointer;
+        }
+        .icon {
+            font-size: 1.5rem;
+        }
+    }
     &__links {
         display: flex;
+        justify-items: center;
         gap: 2rem;
     }
     &__link {
@@ -18,13 +39,5 @@
                 color: var(--primary-500);
             }
         }
-    }
-
-    .icon {
-        font-size: 1rem;
-        margin-right: .5rem;
-        display: grid;
-        place-items: center;
-        transition: var(--transition);
     }
 }
