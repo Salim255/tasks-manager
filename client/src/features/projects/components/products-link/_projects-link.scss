@@ -1,13 +1,14 @@
 .projects-item {
     font-size: 1rem;
-    margin-left: 3rem;
-    padding-bottom: .8rem;
+    height: 3rem;
     display: flex;
+    padding-left: 3rem;
     gap: 1rem;
     transition: var(--transition);
     &__icon {
         color: var(--grey-900);
         transition: var(--transition);
+        align-self: center;
         &--active {
             color: var(--primary-500);
         }
@@ -18,13 +19,14 @@
     &__link {
         color: var(--grey-500);
         text-transform: capitalize;
-       
+        align-self: center;
         &--active {
            color: var(--grey-900);
         }
     }
     &:hover {
-        transform: scale(1.02);
+        transform: scale(1.05);
         color: var(--grey-900);
+        background: var(--grey-50);
     }
 }

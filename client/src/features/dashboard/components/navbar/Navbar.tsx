@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import './_navbar.scss';
 import { FaAlignLeft, FaUserCircle, FaCaretDown } from 'react-icons/fa';
-import {MdQueryStats} from "react-icons/md";
 import { useEffect, useState } from 'react';
 import { updateSidebarOpenState } from '../../states/dashboardSlice';
 import { type AppDispatch, type RootState } from '../../../../redux/store';
@@ -59,10 +58,7 @@ export const Navbar = () => {
                         profile
                     </NavLink>
                 </div>
-
-               
             </div>
-           
         </div>
       </nav>
     )
