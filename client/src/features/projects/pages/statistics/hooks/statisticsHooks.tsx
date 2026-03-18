@@ -46,15 +46,21 @@ export const useStatisticsData = (tasks: Task[]) => {
       + circleChartDataPercentage.done.nb;
     
     if (circleSomme > 0) {
-      circleChartDataPercentage.todo.value = Math.round(((circleChartDataPercentage.todo.nb / somme)  * 100) * 10) / 10;
-      circleChartDataPercentage.in_progress.value =   Math.round(((circleChartDataPercentage.in_progress.nb / somme) * 100) * 10) / 10 ;
-      circleChartDataPercentage.done.value =  Math.round(( (circleChartDataPercentage.done.nb / somme) * 100) * 10) / 10;
+      circleChartDataPercentage.todo.value =
+        Math.round(((circleChartDataPercentage.todo.nb / somme)  * 100) * 10) / 10;
+      circleChartDataPercentage.in_progress.value =
+        Math.round(((circleChartDataPercentage.in_progress.nb / somme) * 100) * 10) / 10 ;
+      circleChartDataPercentage.done.value = 
+        Math.round(( (circleChartDataPercentage.done.nb / somme) * 100) * 10) / 10;
     }
  
     if (somme > 0) {
-      barChartDataPercentage.bug.value = Math.round(((barChartDataPercentage.bug.nb / somme)  * 100) * 10) / 10;
-      barChartDataPercentage.task.value =   Math.round(((barChartDataPercentage.task.nb / somme) * 100) * 10) / 10 ;
-      barChartDataPercentage.story.value =  Math.round(( (barChartDataPercentage.story.nb / somme) * 100) * 10) / 10;
+      barChartDataPercentage.bug.value =
+        Math.round(((barChartDataPercentage.bug.nb / somme)  * 100) * 10) / 10;
+      barChartDataPercentage.task.value =
+        Math.round(((barChartDataPercentage.task.nb / somme) * 100) * 10) / 10 ;
+      barChartDataPercentage.story.value =
+        Math.round(( (barChartDataPercentage.story.nb / somme) * 100) * 10) / 10;
     }
 
     return {

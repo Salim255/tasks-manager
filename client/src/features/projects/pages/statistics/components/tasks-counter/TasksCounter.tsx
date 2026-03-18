@@ -12,7 +12,7 @@ export const TasksCounter = ({
 } ) => {
     return <div className="tasks-counter" >
         <h1>Status overview</h1>
-       <div>
+        <div>
          <CircleChart tasksByStatus={tasksByStatus}  circleChartDataPercentage={ circleChartDataPercentage} />  
         </div>      
     </div>

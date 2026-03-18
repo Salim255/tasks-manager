@@ -21,16 +21,27 @@ export const CircleChart = ({
         #82B536
              ${circleChartDataPercentage.todo.value}%
               ${circleChartDataPercentage.done.value}%
-              )
-    `}
-    
+        )`
+    }
+
+    const isEmptyProject =():boolean => {
+        return !circleChartDataPercentage.done.value
+        && !circleChartDataPercentage.in_progress.value
+        && !circleChartDataPercentage.todo.value;
+    }
     return <>
-        <section className="circle-chart">
-            <div className="circle-chart__circle-container">
-                <div className="circle-chart__chart" style={countStyle}></div>
-            </div>
-            <CircleLegend  tasksByStatus={tasksByStatus} />
-        </section>
+        {
+            isEmptyProject()
+            ? 
+            <section>Place holder</section>
+            :
+            <section className="circle-chart">
+                <div className="circle-chart__circle-container">
+                    <div className="circle-chart__chart" style={countStyle}></div>
+                </div>
+                <CircleLegend  tasksByStatus={tasksByStatus} />
+            </section>
+        }
     </>
 
 }
