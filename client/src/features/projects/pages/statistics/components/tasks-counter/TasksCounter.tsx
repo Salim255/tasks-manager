@@ -6,6 +6,8 @@ import { CircleChart } from "../circle-chart/CircleChart";
 export const TasksCounter = ({ tasksByStatus }: { tasksByStatus: Record<TaskStatus, Task[ ]>} ) => {
     return <div className="tasks-counter" >
         <h1>Status overview</h1>
-        <CircleChart tasksByStatus={tasksByStatus} />        
+       <div>
+         <CircleChart tasksByStatus={tasksByStatus} />  
+        </div>      
     </div>
 }

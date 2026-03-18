@@ -13,9 +13,9 @@ export const useStatisticsData = (tasks: Task[]) => {
     };
     
     const barChartDataPercentage: Record<TaskType, {label: string; nb: number;  value: number}> =  {
-      task:  { label: "Task", nb: 0,  value: 0 },
-      bug:  { label: "Bug", nb: 0, value: 0 },
-      story:  { label: "Story", nb: 0, value: 0}
+      task:  { label: "task", nb: 0,  value: 0 },
+      bug:  { label: "bug", nb: 0, value: 0 },
+      story:  { label: "story", nb: 0, value: 0}
      }
 
   

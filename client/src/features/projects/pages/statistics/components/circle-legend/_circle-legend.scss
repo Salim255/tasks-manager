@@ -1,0 +1,41 @@
+.circle-legend {
+    min-width: 10rem; 
+    display: flex; 
+    justify-content: center;
+    &__todo,
+    &__progress,
+    &__done {
+        display: flex;
+        gap: 1rem;
+        margin: .5rem 0;
+        align-items: center;
+        justify-content: center;
+        span {
+            display: block;
+            height: 1rem;
+            width: 1rem;
+         
+        }
+    }
+
+    &__todo {
+        span { 
+            background: linear-gradient(
+                to top,
+                #3b82f6,
+                #60a5fa
+            );
+        }
+    }
+    &__progress {
+        span {
+            background-color: #357DE8;
+        }
+        
+    }
+    &__done {
+        span {
+            background-color: #82B536;
+        }
+    }
+}

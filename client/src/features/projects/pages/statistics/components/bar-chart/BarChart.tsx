@@ -9,15 +9,14 @@ export const BarChart = ({ barChartDataPercentage }: { barChartDataPercentage: R
         {
             (Object?.keys(barChartDataPercentage) as TaskType[])?.map((key) => {
                  return (
-                <div key={barChartDataPercentage[key].label} className="bar-char__item">
+                <div key={barChartDataPercentage[key].label} id={barChartDataPercentage[key].label} className="bar-char__item">
                     <div 
                         className="bar"
                         style={{ "--value": `${barChartDataPercentage[key].value}%` } as React.CSSProperties}
                     >
-                        <span className="bar__value">{barChartDataPercentage[key].value} %</span>
-                      {/*   <span className="bar__label">{barChartDataPercentage[key].label}</span> */}
+                        <p className="bar__value">{barChartDataPercentage[key].value} %</p>
                     </div>
-                   <h1>{barChartDataPercentage[key].label}</h1>
+                   <p>{barChartDataPercentage[key].label}</p>
                 </div>
             )
             }) 

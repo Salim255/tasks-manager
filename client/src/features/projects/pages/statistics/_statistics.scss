@@ -1,10 +1,11 @@
 .statistics {
-    // background-color: red;
     display: flex;
     gap: 2rem;
     &__status,
     &__work-types {
         flex: 1;
-        min-height: 30rem;
+        border: 2px solid var(--primary-50);
+        border-radius: .5rem;
+        padding: 1rem;
     }
 }

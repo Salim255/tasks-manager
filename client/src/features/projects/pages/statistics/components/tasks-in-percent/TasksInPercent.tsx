@@ -5,6 +5,8 @@ import "./_tasks-in-percent.scss";
 export const TasksInPercent = ({ barChartDataPercentage }: { barChartDataPercentage: Record<TaskType, {label: string; nb: number; value: number}>} ) => {
     return <div className="tasks-in-percent">
         <h1>Types of work </h1>
-        <BarChart barChartDataPercentage={barChartDataPercentage}/>
+       <div>
+         <BarChart  barChartDataPercentage={barChartDataPercentage} />
+       </div>
     </div>
 } 

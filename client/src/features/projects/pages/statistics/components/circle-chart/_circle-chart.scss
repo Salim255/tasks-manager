@@ -1,45 +1,18 @@
 .circle-chart {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-between;
     gap: 2rem;
-    align-items: center;
-    &__chart {
-        height: 20rem;
-        width: 20rem;
-        border-radius: 50%;
+    
+    .text {
+padding: 0 6rem;
     }
-
-    &__legend {
-        min-width: 10rem;
-        .circle-chart__todo,
-        .circle-chart__progress,
-        .circle-chart__done {
-            display: flex;
-            gap: 1rem;
-            margin: 1rem 0;
-            span {
-                display: block;
-                height: 2rem;
-                width: 2rem;
-            }
-        }
-
-        .circle-chart__todo {
-            span {
-               background-color: #BF63F3;
-            }
-        }
-        .circle-chart__progress {
-            span {
-              background-color: #357DE8;
-            }
-            
-        }
-        .circle-chart__done {
-           span {
-             background-color: #82B536;
-           }
-        }
+    &__chart {
+        aspect-ratio: 1 / 1;   // forces height = width
+        width: 50%;
+        border-radius: 50%;
+        align-self: center;
+       
     }
     
 }

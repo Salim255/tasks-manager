@@ -17,7 +17,7 @@ export const  Statistics = () => {
                <TasksCounter tasksByStatus={tasksByStatus}/>
             </div>
             <div className="statistics__work-types">
-                < TasksInPercent barChartDataPercentage={barChartDataPercentage} />
+                <TasksInPercent barChartDataPercentage={barChartDataPercentage} />
             </div>
     </section>
 }
