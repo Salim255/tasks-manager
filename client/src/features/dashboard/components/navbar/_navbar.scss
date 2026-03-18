@@ -26,9 +26,11 @@
     cursor: pointer;
     display: flex;
     align-items: center;
+    gap: 2rem;
   }
   .btn-container {
     position: relative;
+    display: flex;
   }
   .btn {
     display: flex;

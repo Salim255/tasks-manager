@@ -1,11 +1,13 @@
 import { useDispatch, useSelector } from 'react-redux';
 import './_navbar.scss';
 import { FaAlignLeft, FaUserCircle, FaCaretDown } from 'react-icons/fa';
-
+import {MdQueryStats} from "react-icons/md";
 import { useEffect, useState } from 'react';
 import { updateSidebarOpenState } from '../../states/dashboardSlice';
 import { type AppDispatch, type RootState } from '../../../../redux/store';
 import { clearUser } from '../../../auth/states/authSlice';
+import { NavLink } from 'react-router-dom';
+
 
 export const Navbar = () => {
     const [showLogout, setShowLogout] = useState(false);
@@ -52,8 +54,15 @@ export const Navbar = () => {
                     >
                     logout
                     </button>
+                    <NavLink to={"/"} className='dropdown-btn btn-container__user-profile'>
+                        <FaUserCircle />
+                        profile
+                    </NavLink>
                 </div>
+
+               
             </div>
+           
         </div>
       </nav>
     )
