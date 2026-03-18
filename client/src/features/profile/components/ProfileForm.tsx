@@ -2,7 +2,8 @@ import { useEffect, useReducer } from 'react';
 
 
 type ProfileFormState = {
-  name: string;
+  firstName: string;
+  lastName: string;
   avatarUrl?: string;
   errors: Record<string, string>;
 };
@@ -11,7 +12,7 @@ type Action = { type: "SET_FIELD"; field: string; value: string } |
 { type: "SET_ERROR"; field: string; message: string } | 
 { type: "CLEAR_ERRORS" };
 
-const initialState: ProfileFormState = { name: "", avatarUrl: "", errors: {}  };
+const initialState: ProfileFormState = { firstName: "", lastName: "",  avatarUrl: "", errors: {}  };
 
 function reducer(state: ProfileFormState, action: Action) { 
     switch (action.type) { 
@@ -51,7 +52,7 @@ export const ProfileForm = () => {
   }
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!state.name.trim()) return;
+    if (!state.firstName.trim() || ! state.lastName.trim()) return;
     console.log(state);
   };
 
@@ -61,31 +62,25 @@ export const ProfileForm = () => {
   return (
     <form onSubmit={handleSubmit} className='form'>
         <h3>Create Profile</h3>
-
-        {/* Title */}
         <div className="form__form-group">
-            <label htmlFor="title">Title</label>
+            <label htmlFor="firstName">Your first name</label>
             <input
-                id="title"
                 type="text"
                 name="name"
-                value={state.name}
+                value={state.firstName}
                 onChange={handleChange}
-                placeholder="Enter task title"
+                placeholder="Your first name"
             />
         </div>
-
-        {/* Due Date */}
         <div className="form__form-group">
-            <label htmlFor="dueAt">Due Date</label>
+            <label htmlFor="lastName">Your last name</label>
             <input
-                id="dueAt"
-                type="date"
-                name="avatarUrl"
-                value={state.avatarUrl}
+                name="lastName"
+                value={state.lastName}
                 onChange={handleChange}
+                placeholder="Your last name"
             />
-        </div>
+        </div> 
 
         <button type="submit" className="btn">
             Create profile
