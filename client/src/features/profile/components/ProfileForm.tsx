@@ -30,7 +30,7 @@ export const ProfileForm = () => {
               </label>
             <input
                 type="text"
-                name="name"
+                name="firstName"
                 value={state.firstName}
                 onChange={handleChange}
                 placeholder="Your first name"
