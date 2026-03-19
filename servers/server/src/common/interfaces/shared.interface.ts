@@ -14,3 +14,22 @@ export class ApiErrorResponseDto {
   })
   data: null;
 }
+
+export class ApiResponseData<T> {
+  @ApiProperty({ description: 'Wrapped response payload' })
+  payload: T;
+}
+
+export class ApiResponse<T> {
+  @ApiProperty({
+    example: 'success',
+    description: 'Request status',
+  })
+  status: 'success' | 'error';
+
+  @ApiProperty({
+    description: 'Response data wrapper',
+    type: () => ApiResponseData,
+  })
+  data: ApiResponseData<T>;
+}
