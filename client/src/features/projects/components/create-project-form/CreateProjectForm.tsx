@@ -24,27 +24,31 @@ export const CreateProjectForm = () => {
 
     useEffect(() => {
     }, [state])
-    
-    return <form onSubmit={handleSubmit}>
-        <div>
-            <label>Name your project</label>
+
+    return <form onSubmit={handleSubmit} className="form">
+        <div className="form-row">
+            <label className="form-label">Name your project</label>
             <input 
+                className="form-input"
                 name="name"
                 value={state.name}
                 type="text" 
                 onChange={handleInput}
+                placeholder="project name"
             />
         </div>
 
-        <div>
-            <label>Describe your project</label>
+        <div className="form-row">
+            <label className="form-label">Describe your project</label>
             <textarea
+                className="form-textarea"
                 value={state.description}
                 onChange={handleInput}
                 name="description"
+                placeholder="project description"
                 />
         </div>
-        <button type="submit">
+        <button type="submit" className="btn btn-hero form-row">
             create
         </button>
     </form>
