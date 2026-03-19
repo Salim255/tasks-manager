@@ -14,7 +14,11 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/modules/auth/guard/jwt-auth.guard';
-import { CreateProfileDto, CreateProfileResponse, GetProfileResponse } from '../dto/profile.dto';
+import {
+  CreateProfileDto,
+  CreateProfileResponse,
+  GetProfileResponse,
+} from '../dto/profile.dto';
 import { ProfileService } from '../service/profile.service';
 import { Profile } from '../entity/profile.entity';
 import { Request } from 'express';
@@ -49,8 +53,18 @@ export class ProfileController {
     status: 500,
     description: 'Internal server error.',
   })
-  async getProfile(@Req() req): Promise<GetProfileResponse> {
-    const profile = await this.profileService.getProfile(req.user.id);
+  async getProfile(
+    @Req()
+    req: Request & { user: { id: string }; refresh_token: { token: string } },
+  ): Promise<GetProfileResponse> {
+    const { id: userId } = req.user;
+
+    if (!userId) {
+      throw new BadRequestException('Missing required fields');
+    }
+    const profile: Profile = await this.profileService.getUserProfile({
+      userId,
+    });
 
     return {
       status: 'success',

@@ -11,6 +11,20 @@ export class ProfileService {
     @Inject(PROFILE_REPOSITORY) private profileRepo: Repository<Profile>,
   ) {}
 
+  async getUserProfile(userId: { userId: string }): Promise<Profile> {
+    try {
+      const query = `
+        SELECT * FRM profiles  AS pr
+          WHERE pr.userId = $1;
+      `;
+      const values = [userId];
+      const profile: Profile = await this.profileRepo.query(query, values);
+      return profile;
+    } catch (error) {
+      this.logger.error(error);
+      throw error;
+    }
+  }
   async create(
     payload: CreateProfileDto & { userId: string },
   ): Promise<Profile> {
