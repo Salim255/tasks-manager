@@ -19,7 +19,7 @@ const routes: RouteObject[] = [
         Component:  Dashboard,
         children: [
             {   
-              index: true,
+              path: 'profile',
               Component: Profile
             },
              {

@@ -52,7 +52,7 @@ export const Navbar = () => {
                     >
                     logout
                     </button>
-                    <NavLink to={"/"} className='dropdown-btn btn-container__user-profile'>
+                    <NavLink to={"/profile"} className='dropdown-btn btn-container__user-profile'>
                         <FaUserCircle />
                         profile
                     </NavLink>
