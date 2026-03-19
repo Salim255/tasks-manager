@@ -23,7 +23,7 @@ const profileSlice = createSlice({
             state.isCreating = true;
         })
         .addCase(createProfileHttp.fulfilled, (state, action) => {
-            const { profile } = action.payload.profile;
+            const { profile } = action.payload.data;
             state.profile = profile;
             state.isCreating = false;
         })

@@ -1,19 +1,36 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
 import type { ApiErrorDto } from "../../../shared/interfaces/shared.interfaces";
+import type { Profile } from "../model/profile.model";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
-export const createProfileHttp = createAsyncThunk(
+export type CreateProfilePayload = {
+    firstName: string;
+    lastName: string;
+}
+
+export type ProfileResponseDto = {
+    status: string;
+    data: {
+        profile: Profile
+    }
+}
+
+export const createProfileHttp = createAsyncThunk<
+    ProfileResponseDto,
+    CreateProfilePayload,
+    { rejectValue: ApiErrorDto } 
+    >(
     'post/createProfile',
-    async (data, thunkApi) => {
+    async (data: CreateProfilePayload, thunkApi) => {
         try {
-            const response = await axios.post(
+            const response = await axios.post<ProfileResponseDto>(
                 `${apiUrl}/profiles`,
                 data,
                 { withCredentials: true }
             );
-            return response;
+            return response.data;
         } catch (error) {
             // Extract your backend error shape
             if (error instanceof AxiosError) {
