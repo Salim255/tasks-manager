@@ -34,3 +34,5 @@ const profileSlice = createSlice({
 
     } 
 )
+
+export default profileSlice.reducer;
