@@ -1,8 +1,15 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/modules/auth/guard/jwt-auth.guard';
-import { CreateProfileDto } from '../dto/profile.dto';
+import { CreateProfileDto, CreateProfileResponse } from '../dto/profile.dto';
 import { ProfileService } from '../service/profile.service';
+import { Profile } from '../entity/profile.entity';
 
 @Controller('Profiles')
 export class ProfileController {
@@ -19,7 +26,7 @@ export class ProfileController {
   @ApiResponse({
     status: 201,
     description: 'Profile created successfully.',
-    type: CreateProfileResponseDto,
+    type: CreateProfileResponse,
   })
   @ApiResponse({
     status: 400,
@@ -35,8 +42,25 @@ export class ProfileController {
   })
   async createProfile(
     @Body() dto: CreateProfileDto,
-  ): Promise<CreateProfileResponseDto> {
-    const {lastName, firstName} = dto;
-    return this.profileService.create(dto);
+    req: Request & { user: { id: string }; refresh_token: { token: string } },
+  ): Promise<CreateProfileResponse> {
+    const { id: userId } = req.user;
+    const { lastName, firstName } = dto;
+
+    if (!lastName || !firstName || !userId) {
+      throw new BadRequestException('Missing required fields');
+    }
+    const profile: Profile = await this.profileService.create({
+      lastName,
+      firstName,
+      userId,
+    });
+
+    return {
+      status: 'success',
+      data: {
+        profile: profile,
+      },
+    };
   }
 }
