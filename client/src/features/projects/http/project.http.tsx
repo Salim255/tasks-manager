@@ -26,11 +26,38 @@ export type ProjectsResponseDto = {
     }
 }
 
+
+export const getUserProfileHttp = createAsyncThunk(
+    'get/userProfile',
+    async (_, thunkApi) => {
+        try {
+            const response = await axios.get(`${apiUrl}/profiles`, { withCredentials: true});
+            return response.data;
+        } catch (error) {
+             // Extract your backend error shape
+            if (error instanceof AxiosError) {
+                    const backendError: ApiErrorDto = error.response?.data || {
+                        status: "error",
+                        message: "Unknown error",
+                        data: null
+                    };
+
+                return thunkApi.rejectWithValue(backendError);
+            }
+            // fallback for non-Axios errors
+            return thunkApi.rejectWithValue({
+                status: "error",
+                message: "Unexpected error",
+                data: null
+            });
+        }
+    }
+)
 export const createProjectHttp = createAsyncThunk<
     ProjectResponseDto,  // success type
     CreateProjectPayload, // argument type
     { rejectValue: ApiErrorDto }  // error type
->(
+    >(
     'post/createProject',
     async (data:CreateProjectPayload, thunkApi ) => {
         try {
@@ -61,11 +88,12 @@ export const createProjectHttp = createAsyncThunk<
 
     }
 ) 
+
 export const fetchProjectsHttp = createAsyncThunk<
-ProjectsResponseDto,
-void,
-{ rejectValue: ApiErrorDto }  // error type
->(
+    ProjectsResponseDto,
+    void,
+    { rejectValue: ApiErrorDto }  // error type
+    >(
     'get/userProjects',
     async (_, thunkApi) => {
         try {
