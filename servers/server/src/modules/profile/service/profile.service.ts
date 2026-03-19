@@ -17,7 +17,7 @@ export class ProfileService {
     try {
       const values = [payload.lastName, payload.lastName, payload.userId];
       const query = `
-        INSERT INTO profiles (lastName, firstName, "userId")
+        INSERT INTO profiles ("lastName", "firstName", "userId")
           VALUES ($1, $2, $3)
         RETURNING *;
       `;

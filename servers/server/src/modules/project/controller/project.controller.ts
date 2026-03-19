@@ -40,6 +40,7 @@ import {
 import { Task } from 'src/modules/task/entity/task.entity';
 import { SprintService } from 'src/modules/sprint/service/sprint.service';
 import { Sprint } from 'src/modules/sprint/entity/sprint.entity';
+import { Request } from 'express';
 
 @ApiTags('Projects')
 @Controller('projects')
@@ -123,6 +124,9 @@ export class ProjectController {
     const { id: userId } = req.user;
     const { title, taskType } = dto;
 
+    if (!userId || !title || !taskType) {
+      throw new BadRequestException('Missing required fields');
+    }
     const task: Task = await this.taskService.createTask({
       title,
       projectId,

@@ -3,14 +3,22 @@ import {
   Body,
   Controller,
   Post,
+  Req,
   UseGuards,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/modules/auth/guard/jwt-auth.guard';
 import { CreateProfileDto, CreateProfileResponse } from '../dto/profile.dto';
 import { ProfileService } from '../service/profile.service';
 import { Profile } from '../entity/profile.entity';
+import { Request } from 'express';
 
+@ApiTags('Projects')
 @Controller('Profiles')
 export class ProfileController {
   constructor(private profileService: ProfileService) {}
@@ -42,6 +50,7 @@ export class ProfileController {
   })
   async createProfile(
     @Body() dto: CreateProfileDto,
+    @Req()
     req: Request & { user: { id: string }; refresh_token: { token: string } },
   ): Promise<CreateProfileResponse> {
     const { id: userId } = req.user;
