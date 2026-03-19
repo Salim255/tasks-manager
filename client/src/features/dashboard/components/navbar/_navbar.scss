@@ -72,7 +72,7 @@
 
 
 
-/* ✅ correct media query equivalent */
+/* correct media query equivalent */
 @media (min-width: 992px) {
   .navbar {
     position: sticky;
@@ -85,7 +85,15 @@
     }
 
     .logo-text {
-        display: block;
+      display: block;
+      display: block;
+      font-size: 1.5rem;
+      font-weight: 600;
+      background: linear-gradient(135deg, #1e90ff, #0066ff, #00c6ff);
+      //background: linear-gradient(135deg, #3a7bd5, #2b6cb0, #1e4e8c);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
   }
 }

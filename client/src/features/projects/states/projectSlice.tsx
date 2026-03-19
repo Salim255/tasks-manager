@@ -5,6 +5,7 @@ import { fetchProjectsHttp, createProjectHttp } from "../http/project.http";
 type InitialState = {
     projects: Project[];
     activeProjectId?: string;
+    activeProject?: Project;
     isLoading: boolean;
     isCreating: boolean;
 }
@@ -53,6 +54,8 @@ const projectSlice = createSlice({
     reducers: {
         setActiveProjectId: (state, action: PayloadAction<{ projectId: string}>) => {
             const { projectId } = action.payload;
+            const project = state.projects.find((p) => p.id === projectId);
+            state.activeProject = project;
             state.activeProjectId = projectId;
             return state;
         }

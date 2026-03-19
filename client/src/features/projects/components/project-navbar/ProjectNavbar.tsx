@@ -7,16 +7,14 @@ import { useEffect } from 'react';
 import { IoMdOptions } from "react-icons/io";
 
 export const ProjectNavbar =() => {
-    const {projects, activeProjectId} = useSelector((store:  RootState) => store.projectReducer);
+    const {projects, activeProjectId, activeProject} = useSelector((store:  RootState) => store.projectReducer);
     const { projectId } = useParams();
     const defaultProjectId =  projectId ; 
     useEffect(() => {}, [projects,  activeProjectId, defaultProjectId]);
 
     return (
         <header className="project-header">
-            <div>
-                Project name
-            </div>
+            <h2 className='project-header__title'> {activeProject?.name} </h2>
             <nav className="project-header__links">
                 {
                     projectLinks.map((link) => {

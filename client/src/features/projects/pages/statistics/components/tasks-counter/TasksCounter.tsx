@@ -11,7 +11,7 @@ export const TasksCounter = ({
     circleChartDataPercentage: Record<TaskStatus, { label: TaskStatus; nb: number; value: number }>;
 } ) => {
     return <div className="tasks-counter" >
-        <h1>Status overview</h1>
+        <h4 className="tasks-counter__title">Status overview</h4>
         <div>
          <CircleChart tasksByStatus={tasksByStatus}  circleChartDataPercentage={ circleChartDataPercentage} />  
         </div>      
