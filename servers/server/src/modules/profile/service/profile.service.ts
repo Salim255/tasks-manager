@@ -11,15 +11,15 @@ export class ProfileService {
     @Inject(PROFILE_REPOSITORY) private profileRepo: Repository<Profile>,
   ) {}
 
-  async getUserProfile(userId: { userId: string }): Promise<Profile> {
+  async getUserProfile(payload: { userId: string }): Promise<Profile> {
     try {
       const query = `
-        SELECT * FRM profiles  AS pr
-          WHERE pr.userId = $1;
+        SELECT * FROM profiles  AS pr
+          WHERE pr."userId" = $1;
       `;
-      const values = [userId];
-      const profile: Profile = await this.profileRepo.query(query, values);
-      return profile;
+      const values = [payload.userId];
+      const profile: Profile[] = await this.profileRepo.query(query, values);
+      return profile[0];
     } catch (error) {
       this.logger.error(error);
       throw error;

@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { getUserProfileHttp } from "../../profile/http/profileHttp";
 
 export type AuthType = "login" | "register";
 export type LoginPayload = { password: string; email: string, authType: AuthType };
@@ -15,6 +16,7 @@ export const authUser = createAsyncThunk(
                 { email: data.email, password: data.password },
                 { withCredentials: true }
             )
+            thunkAPI.dispatch(getUserProfileHttp());
             return response;
         } catch (error) {
             return thunkAPI.rejectWithValue(error);

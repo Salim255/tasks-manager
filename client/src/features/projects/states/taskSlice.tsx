@@ -82,9 +82,8 @@ const taskSlice = createSlice({
         .addCase(updateTaskSprintHttp.rejected, (state) => {
             state.isUpdating = false
         })
-        .addCase(getTasksHttp.pending, (state, action) => {
+        .addCase(getTasksHttp.pending, (state) => {
            state.isLoading = true;
-           console.log(action);
         })
         .addCase(getTasksHttp.fulfilled, (state, action) => {
            const {tasks} = action.payload.data;
@@ -95,8 +94,7 @@ const taskSlice = createSlice({
             console.log(action.error);
             state.isLoading = false
         })
-        .addCase(createTaskHttp.pending, (state, action) => {
-            console.log(action);
+        .addCase(createTaskHttp.pending, (state) => {
             state.isCreating = true;
         })
         .addCase(createTaskHttp.fulfilled, (state, action) => {
@@ -104,8 +102,7 @@ const taskSlice = createSlice({
             state.tasks = [...state.tasks, task];
             state.isCreating = false;
         })
-        .addCase(createTaskHttp.rejected, (state, action) => {
-            console.log(action);
+        .addCase(createTaskHttp.rejected, (state) => {
             state.isCreating = false;
         })
 

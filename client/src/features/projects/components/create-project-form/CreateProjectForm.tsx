@@ -23,8 +23,8 @@ export const CreateProjectForm = () => {
     }
 
     useEffect(() => {
-        console.log(state, "hello state")
     }, [state])
+    
     return <form onSubmit={handleSubmit}>
         <div>
             <label>Name your project</label>

@@ -4,11 +4,14 @@ import { ProjectNavbar } from "./components/project-navbar/ProjectNavbar";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../redux/store";
 import { fetchProjectsHttp } from "./http/project.http";
+import { useEffect } from "react";
 
 export const Projects = () => {
     const dispatch = useDispatch<AppDispatch>();
 
-    dispatch(fetchProjectsHttp());
+    useEffect(() => {
+        dispatch(fetchProjectsHttp());
+    }, [dispatch]);
 
     return  (
         <div className="projects-layout">

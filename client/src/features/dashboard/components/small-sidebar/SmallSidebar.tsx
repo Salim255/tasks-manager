@@ -13,7 +13,6 @@ export const SmallSidebar = () => {
     function toggle() {
         dispatch(updateSidebarOpenState())
     }
-    console.log(isSideBarIsOpen);
     return (
       <aside className='sm-aside'>
             <div className={isSideBarIsOpen ? 'sm-aside__sidebar-container  sm-aside--show-sidebar'

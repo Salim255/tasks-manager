@@ -28,30 +28,23 @@ const authSlice = createSlice({
     // Listen to fetch or the fetch call event
     extraReducers: (builder) => {
         builder
-        .addCase(authUser .pending, (state, action) => {
-            console.log("Is pending login",action.payload);
+        .addCase(authUser .pending, (state) => {
             state.isLoading = true;
         })
-        .addCase(refreshToken.pending, (state, action) => {
-            console.log(action.type)
+        .addCase(refreshToken.pending, (state) => {
             state.isLoading = true;
         })
-
         .addCase(authUser.fulfilled, (state, action) => {
-            console.log("Is fulfilled user login", action.payload.data.data.user);
             state.user = action.payload.data.data.user;
             state.isLoading = false;
         })
-        .addCase(refreshToken.fulfilled, (state, action) => {
-            console.log(action.type)
+        .addCase(refreshToken.fulfilled, (state) => {
             state.isLoading = false;
         })
-        .addCase(authUser .rejected, (state, action) => {
-            console.log("Is rejected  user login",action.payload); 
+        .addCase(authUser .rejected, (state) => {
             state.isLoading = false;
         })
-        .addCase(refreshToken.rejected, (state, action) => {
-            console.log(action.type)
+        .addCase(refreshToken.rejected, (state) => {
             state.isLoading = false;
         })
     }

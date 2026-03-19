@@ -15,7 +15,6 @@ export const BigSidebar = () => {
     }
 
     useEffect(() => {
-        console.log(isSideBarIsOpen)
     }, [isSideBarIsOpen])
     return (
         <aside className="bg-aside" >
