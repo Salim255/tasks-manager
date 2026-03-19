@@ -53,8 +53,10 @@ export const Navbar = () => {
                     logout
                     </button>
                     <NavLink to={"/profile"} className='dropdown-btn btn-container__user-profile'>
-                        <FaUserCircle />
-                        profile
+                        
+                         {/*  <FaUserCircle /> */}
+                           profile
+                   
                     </NavLink>
                 </div>
             </div>
