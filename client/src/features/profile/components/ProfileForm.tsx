@@ -1,31 +1,24 @@
-import { useEffect, useReducer } from 'react';
 import { createProfileHttp, type CreateProfilePayload } from '../http/profileHttp';
 import { useDispatch } from 'react-redux';
 import { type AppDispatch } from '../../../redux/store';
+import { useProfileForm } from '../form-builder/profileFormBuilder';
 
 export const ProfileForm = () => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const {setField, reset, state } = useProfileForm();
   const dispatcher = useDispatch<AppDispatch>();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    dispatch({
-        type: 'SET_FIELD',
-        field: event.target.name,
-        value: event.target.value
-    })
+    setField(event.target.name as "firstName" | "lastName", event.target.value);
   }
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!state.firstName.trim() || ! state.lastName.trim()) return;
 
     const payload: CreateProfilePayload = {firstName: state.firstName, lastName: state.lastName};
-     dispatcher(createProfileHttp(payload));
-    console.log(state);
+    dispatcher(createProfileHttp(payload));
+    reset();
   };
 
-  useEffect(() => {
-    //console.log(state);
-  }, [state])
   return (
     <form onSubmit={handleSubmit} className='form'>
         <h3>Create Profile</h3>

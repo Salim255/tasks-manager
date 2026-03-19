@@ -61,5 +61,5 @@ export const useProfileForm = () => {
         return dispatch({ type: 'RESET' })
     }
 
-    return {setField, setError, clearError, reset}
+    return {state, setField, setError, clearError, reset}
 }
