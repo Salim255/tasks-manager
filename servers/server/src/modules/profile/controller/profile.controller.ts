@@ -2,6 +2,7 @@ import {
   BadRequestException,
   Body,
   Controller,
+  Get,
   Post,
   Req,
   UseGuards,
@@ -13,7 +14,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/modules/auth/guard/jwt-auth.guard';
-import { CreateProfileDto, CreateProfileResponse } from '../dto/profile.dto';
+import { CreateProfileDto, CreateProfileResponse, GetProfileResponse } from '../dto/profile.dto';
 import { ProfileService } from '../service/profile.service';
 import { Profile } from '../entity/profile.entity';
 import { Request } from 'express';
@@ -22,6 +23,40 @@ import { Request } from 'express';
 @Controller('Profiles')
 export class ProfileController {
   constructor(private profileService: ProfileService) {}
+
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  @Get()
+  @ApiOperation({
+    summary: 'Get authenticated user profile',
+    description:
+      'Returns the profile information of the currently authenticated user.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Profile retrieved successfully.',
+    type: GetProfileResponse,
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized. Missing or invalid authentication token.',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Profile not found.',
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'Internal server error.',
+  })
+  async getProfile(@Req() req): Promise<GetProfileResponse> {
+    const profile = await this.profileService.getProfile(req.user.id);
+
+    return {
+      status: 'success',
+      data: { profile },
+    };
+  }
 
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)

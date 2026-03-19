@@ -33,7 +33,9 @@ export const CircleChart = ({
         {
             isEmptyProject()
             ? 
-            <section>Place holder</section>
+            <section className="circle-place-holder">
+                <p> No work items yet! </p>
+            </section>
             :
             <section className="circle-chart">
                 <div className="circle-chart__circle-container">

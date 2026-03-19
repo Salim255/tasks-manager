@@ -3,12 +3,14 @@ import { IsString, MinLength } from 'class-validator';
 import { Profile } from '../entity/profile.entity';
 import { ApiResponseData } from 'src/common/interfaces/shared.interface';
 
-export class CreatedProfile {
+export class UserProfile {
   @ApiProperty({ type: Profile })
   profile: Profile;
 }
 
-export class CreateProfileResponse extends ApiResponseData<CreatedProfile> {}
+export class CreateProfileResponse extends ApiResponseData<UserProfile> {}
+
+export class GetProfileResponse extends ApiResponseData<UserProfile> {}
 
 export class CreateProfileDto {
   @ApiProperty({
