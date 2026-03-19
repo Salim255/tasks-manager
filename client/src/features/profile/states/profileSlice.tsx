@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createProfileHttp } from "../http/profileHttp";
+import { createProfileHttp, getUserProfileHttp } from "../http/profileHttp";
 import { type Profile } from "../model/profile.model";
 
 type InitiateState = {
@@ -19,6 +19,17 @@ const profileSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
+        .addCase(getUserProfileHttp.pending, (state)=> {
+            state.isLoading = true;
+        })
+        .addCase(getUserProfileHttp.fulfilled, (state, action) => {
+            const {profile} = action.payload.data;
+            state.profile = profile;
+            state.isLoading = false;
+        })
+        .addCase(getUserProfileHttp.rejected, (state) => {
+            state.isLoading = false;
+        })
         .addCase(createProfileHttp.pending, (state) => {
             state.isCreating = true;
         })
