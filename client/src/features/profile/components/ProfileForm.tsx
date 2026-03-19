@@ -21,20 +21,28 @@ export const ProfileForm = () => {
 
   return (
     <form onSubmit={handleSubmit} className='form'>
-        <h3>Create Profile</h3>
-        <div className="form__form-group">
-            <label htmlFor="firstName">Your first name</label>
+        <h3> Profile Setup </h3>
+        <div className="form-row">
+            <label 
+              className='form-label'
+              htmlFor="firstName">
+                Your first name
+              </label>
             <input
                 type="text"
                 name="name"
                 value={state.firstName}
                 onChange={handleChange}
                 placeholder="Your first name"
+                className='form-input'
             />
         </div>
-        <div className="form__form-group">
-            <label htmlFor="lastName">Your last name</label>
+        <div className="form-row">
+            <label
+              className='form-label'
+              htmlFor="lastName">Your last name</label>
             <input
+                className='form-input'
                 name="lastName"
                 value={state.lastName}
                 onChange={handleChange}
@@ -42,8 +50,11 @@ export const ProfileForm = () => {
             />
         </div> 
 
-        <button type="submit" className="btn">
-            Create profile
+
+        <button
+          type="submit"
+          className="btn btn-hero">
+            Submit
         </button>
     </form>
   );
