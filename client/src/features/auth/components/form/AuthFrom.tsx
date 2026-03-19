@@ -1,3 +1,4 @@
+import "./_auth-form.scss";
 import { useState, type ChangeEvent } from "react";
 import { useAuthForm } from "../../form-builder/authFormBuilder";
 import { useDispatch } from "react-redux";
@@ -11,7 +12,6 @@ export const AuthForm = () => {
     const { state, setField } = useAuthForm();
     const submit = (e: ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(state);
         if(!state.email || !state.password) return;
         const payload: LoginPayload = {email: state.email, password: state.password, authType: iSLogin ? 'login' :'register'};
         dispatch(authUser(payload));
@@ -23,15 +23,15 @@ export const AuthForm = () => {
 
     const handleAutMode = () => {
         setAuthMode((prev) => !prev);
-        console.log(iSLogin);
     }
 
 
     return <>
-    <form onSubmit={submit}>
-        <div>
-            <label>Email</label>
+    <form onSubmit={submit} className="form auth-form">
+        <div className="form-row">
+            <label className="form-label">Email</label>
             <input 
+                className="form-input"
                 name="email"
                 onChange={handleInput}
                 value={state.email}
@@ -39,9 +39,10 @@ export const AuthForm = () => {
 
             </input>
         </div>
-        <div>
-            <label>password</label>
+        <div className="form-row">
+            <label className="form-label">password</label>
             <input 
+                className="form-input"
                 name="password"
                 onChange={handleInput}
                 value={state.password}
@@ -49,9 +50,10 @@ export const AuthForm = () => {
             </input>
         </div>
         {
-            !iSLogin && <div>
-                <label>confirm password</label>
+            !iSLogin && <div className="form-row ">
+                <label className="form-label">confirm password</label>
                 <input 
+                    className="form-input"
                     name="confirmPassword"
                     onChange={handleInput}
                     value={state.confirmPassword}
@@ -59,11 +61,15 @@ export const AuthForm = () => {
                 </input>
             </div>
         }
-        <button type="submit">
-            submit
-        </button>
-       
+       <div className="form-row auth-form__btns">
+            <button type="submit" className="btn btn-hero ">
+               { !iSLogin ? 'Signup' : 'Login'}
+            </button>
+
+            <button onClick={handleAutMode} className="btn btn-hero">
+                {iSLogin ? 'Switch to Signup' : 'Switch to Login'}
+            </button>
+       </div>
     </form>
-     <button onClick={handleAutMode}>{iSLogin ? 'Switch to Signup' : 'Switch to Login'}</button>
     </>
 }

@@ -31,7 +31,7 @@ export const Navbar = () => {
                 <FaAlignLeft />
             </button>
             <div>
-                <h3 className='logo-text'>dashboard</h3>
+                <h3 className='logo-text'>FlowBoard</h3>
             </div>
             <div className='btn-container'>
                 <button
