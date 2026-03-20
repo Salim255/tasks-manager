@@ -2,18 +2,20 @@ import "./_create-project-form.scss";
 import { useEffect, type ChangeEvent } from "react";
 import { useProjectForm } from "../../forms-builders/projectFormBuilder"
 import { useDispatch } from "react-redux";
-import { createProjectHttp, type CreateProjectPayload } from "../../http/project.http";
+import { createProjectHttp, type CreateProjectPayload, type ProjectResponseDto } from "../../http/project.http";
 import { type AppDispatch } from "../../../../redux/store";
+import { useNavigate } from "react-router-dom";
 
 export const CreateProjectForm = () => {
     const dispatch = useDispatch<AppDispatch>();
+    const navigate = useNavigate();
     const { state, setField } = useProjectForm();
 
     const handleInput = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         setField(e.target.name as 'name' | 'description', e.target.value);
     }
 
-    const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
         const payload: CreateProjectPayload =
             { 
@@ -21,7 +23,12 @@ export const CreateProjectForm = () => {
                 description: state.description,
             }
         if (!payload.name) return
-        dispatch(createProjectHttp(payload));
+        const result = await dispatch(createProjectHttp(payload));
+       
+        if (createProjectHttp.fulfilled.match(result)) { 
+            const project = result.payload.data.project;
+            navigate(`/projects/${project.id}/board`)
+        }
     }
 
     useEffect(() => {
