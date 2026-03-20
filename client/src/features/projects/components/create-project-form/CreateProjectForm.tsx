@@ -8,7 +8,7 @@ import { type AppDispatch } from "../../../../redux/store";
 export const CreateProjectForm = () => {
     const dispatch = useDispatch<AppDispatch>();
     const { state, setField } = useProjectForm();
-
+    
     const handleInput = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         setField(e.target.name as 'name' | 'description', e.target.value);
     }
@@ -20,6 +20,7 @@ export const CreateProjectForm = () => {
                 name: state.name,
                 description: state.description,
             }
+        if (!payload.description || !payload.name) return
         dispatch(createProjectHttp(payload));
     }
 
