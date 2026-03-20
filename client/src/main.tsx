@@ -3,9 +3,12 @@ import './index.css'
 import App from './App.tsx'
 import { Provider } from 'react-redux';
 import store from './redux/store.tsx';
+import { ClickOutsideProvider } from './shared/hooks/ClickOutsideProvider.tsx';
 
 createRoot(document.getElementById('root')!).render( 
     <Provider store={store}>
-      <App />
+      < ClickOutsideProvider>
+        <App />
+      </ClickOutsideProvider>
     </Provider>
 )
