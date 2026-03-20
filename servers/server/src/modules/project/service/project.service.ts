@@ -7,6 +7,7 @@ import {
 import { PROJECT_REPOSITORY } from 'src/common/constants/constants';
 import { Repository } from 'typeorm';
 import { Project } from '../entity/project.entity';
+import { CreateProjectDto } from '../dto/project.dto';
 
 @Injectable()
 export class ProjectService {
@@ -83,11 +84,9 @@ export class ProjectService {
     }
   }
 
-  async createProject(payload: {
-    name: string;
-    description: string;
-    ownerId: string;
-  }): Promise<Project> {
+  async createProject(
+    payload: CreateProjectDto & { ownerId: string },
+  ): Promise<Project> {
     try {
       const values = [payload.name, payload.description, payload.ownerId];
 

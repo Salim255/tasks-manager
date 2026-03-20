@@ -175,7 +175,7 @@ export class ProjectController {
     //const { token } = req.refresh_token;
     const { name, description } = body;
 
-    if (!name || !description) {
+    if (!name) {
       throw new BadRequestException(
         'Project must have both name and description',
       );
