@@ -10,3 +10,10 @@ export const typeIcon = (value: string ) => {
         return <IoCheckboxOutline />;
     }
 };
+
+export const formatDate = (date: string) => {
+  return new Date(date).toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "short",
+  });
+};

@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { EditSprintForm } from "../edit-sprint-form/EditSprintForm";
 import type { Sprint } from "../../models/sprint.model";
 import { FaRegEdit } from "react-icons/fa";
+import { formatDate } from "../../../../shared/utils/methods";
 
 export const EditSprintDate = ({
         sprint, 
@@ -32,7 +33,7 @@ export const EditSprintDate = ({
                     <span> 
                         {
                         sprint.startDate && sprint.endDate 
-                        ?  ` (${new Date(sprint.startDate).toLocaleDateString()} - ${new Date(sprint.endDate).toLocaleDateString()})`
+                        ?  `${formatDate(sprint.startDate)} - ${formatDate(sprint.endDate)}`
                         : 
                         <button onClick={() => onEditSprintDate(sprint)}> 
                             <span><FaRegEdit/></span> 

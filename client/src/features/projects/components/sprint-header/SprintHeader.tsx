@@ -35,6 +35,7 @@ export const SprintHeader = ({
         }
 
         const getActionText = ( status: SprintStatus ) => {
+            console.log(status);
             switch (status) {
                 case "planned": return "Start sprint";
                 case "active": return "Complete sprint";

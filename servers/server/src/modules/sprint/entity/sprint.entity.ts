@@ -17,7 +17,7 @@ export class Sprint {
   @Column()
   name: string;
 
-  @Column({ type: 'varchar', default: 'upcoming' })
+  @Column({ type: 'varchar', default: 'planned' })
   status: SprintStatus;
 
   @Column({ type: 'timestamptz', nullable: true })

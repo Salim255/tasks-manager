@@ -53,6 +53,7 @@ export const Backlog = () => {
         return tasks.filter((task) => !task.sprintId).length;
     }
     
+    console.log(sprints);
     useEffect(() => {
     }, [tasks, isCreating, sprints, isOpen, projectId]);
 

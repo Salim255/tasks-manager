@@ -2,17 +2,12 @@ import { useEffect } from 'react';
 import './_profile.scss';
 import { ProfileForm } from './components/ProfileForm';
 import { useProfileSelector } from './states/profileSelectors';
-import { useDispatch } from 'react-redux';
-import type { AppDispatch } from '../../redux/store';
 
 export const Profile = () => {
     const { profile } = useProfileSelector();
-
-    const dispatch = useDispatch<AppDispatch>();
-
     useEffect(() => {
     
-    },[profile, dispatch])
+    },[profile])
 
     if (profile) {
         return (
@@ -23,7 +18,6 @@ export const Profile = () => {
                 <div>
                     {profile.firstName} {profile.lastName}
                 </div>
-               {/*  <div> title</div> */}
             </section>
         )
     } 
