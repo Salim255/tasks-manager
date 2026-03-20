@@ -1,15 +1,17 @@
 import { useDispatch, useSelector } from 'react-redux';
 import './_navbar.scss';
 import { FaAlignLeft, FaUserCircle, FaCaretDown } from 'react-icons/fa';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { updateSidebarOpenState } from '../../states/dashboardSlice';
 import { type AppDispatch, type RootState } from '../../../../redux/store';
 import { clearUser } from '../../../auth/states/authSlice';
 import { NavLink } from 'react-router-dom';
 import { useProfileSelector } from '../../../profile/states/profileSelectors';
+import { useClickOutside } from '../../../../shared/hooks/useClickOutside';
 
 
 export const Navbar = () => {
+
     const [showLogout, setShowLogout] = useState(false);
     const { dashboard } = useSelector((store: RootState) => store);
     const { profile } = useProfileSelector();
@@ -23,8 +25,14 @@ export const Navbar = () => {
       dispatch(updateSidebarOpenState())
     }
 
+    const ref = useRef<HTMLDivElement>(null!);
+    const { register, unregister } = useClickOutside();
     useEffect(() => {
-    }, [dashboard, profile]);
+        if (ref.current) {
+          register(ref, () => setShowLogout(false));
+        }
+        return () => unregister(ref);
+    }, [dashboard, profile, register, unregister, showLogout]);
     
     return (
       <nav className='navbar'>
@@ -46,7 +54,7 @@ export const Navbar = () => {
                      {profile?.firstName}
                     <FaCaretDown />
                 </button>
-                <div className={showLogout ? 'dropdown show-dropdown' : 'dropdown'}>
+                <div ref={ref} className={showLogout ? 'dropdown show-dropdown' : 'dropdown'}>
                     <button
                     type='button'
                     className='dropdown-btn'

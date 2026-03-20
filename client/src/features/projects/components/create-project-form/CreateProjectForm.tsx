@@ -2,7 +2,7 @@ import "./_create-project-form.scss";
 import { useEffect, type ChangeEvent } from "react";
 import { useProjectForm } from "../../forms-builders/projectFormBuilder"
 import { useDispatch } from "react-redux";
-import { createProjectHttp, type CreateProjectPayload, type ProjectResponseDto } from "../../http/project.http";
+import { createProjectHttp, type CreateProjectPayload} from "../../http/project.http";
 import { type AppDispatch } from "../../../../redux/store";
 import { useNavigate } from "react-router-dom";
 

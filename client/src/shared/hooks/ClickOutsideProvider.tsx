@@ -29,7 +29,6 @@ export const ClickOutsideProvider = ({ children }: PropsWithChildren) => {
   }, []);
 
   const register = (ref: RefObject<HTMLDivElement>, callback: () => void) => {
-    console.log(ref);
     refs.current.add(ref);
     callbacks.current.set(ref, callback);
   };
