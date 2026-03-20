@@ -6,11 +6,13 @@ import { updateSidebarOpenState } from '../../states/dashboardSlice';
 import { type AppDispatch, type RootState } from '../../../../redux/store';
 import { clearUser } from '../../../auth/states/authSlice';
 import { NavLink } from 'react-router-dom';
+import { useProfileSelector } from '../../../profile/states/profileSelectors';
 
 
 export const Navbar = () => {
     const [showLogout, setShowLogout] = useState(false);
     const { dashboard } = useSelector((store: RootState) => store);
+    const { profile } = useProfileSelector();
     const dispatch = useDispatch<AppDispatch>();
 
     const handleLogout = () => {
@@ -22,7 +24,7 @@ export const Navbar = () => {
     }
 
     useEffect(() => {
-    }, [dashboard]);
+    }, [dashboard, profile]);
     
     return (
       <nav className='navbar'>
@@ -41,22 +43,20 @@ export const Navbar = () => {
                 >
                     <FaUserCircle />
                     {/* {user?.name} */}
-                    Salim
+                     {profile?.firstName}
                     <FaCaretDown />
                 </button>
                 <div className={showLogout ? 'dropdown show-dropdown' : 'dropdown'}>
                     <button
                     type='button'
                     className='dropdown-btn'
-                    onClick={handleLogout}
-                    >
-                    logout
+                    onClick={handleLogout}>
+                        logout
                     </button>
-                    <NavLink to={"/profile"} className='dropdown-btn btn-container__user-profile'>
-                        
-                         {/*  <FaUserCircle /> */}
-                           profile
-                   
+                    <NavLink 
+                        to={"/profile"} 
+                        className='dropdown-btn btn-container__user-profile'>
+                        profile
                     </NavLink>
                 </div>
             </div>
