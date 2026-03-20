@@ -9,7 +9,8 @@ import { IoMdOptions } from "react-icons/io";
 export const ProjectNavbar =() => {
     const {projects, activeProjectId, activeProject} = useSelector((store:  RootState) => store.projectReducer);
     const { projectId } = useParams();
-    const defaultProjectId =  projectId ; 
+    const defaultProjectId =  projectId;
+     
     useEffect(() => {}, [projects,  activeProjectId, defaultProjectId]);
 
     return (

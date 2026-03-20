@@ -22,7 +22,7 @@ const routes: RouteObject[] = [
               path: 'profile',
               Component: Profile
             },
-             {
+            {
                 path: 'create-project',
                 Component: CreateProject
             },

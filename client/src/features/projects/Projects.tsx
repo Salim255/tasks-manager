@@ -1,17 +1,20 @@
 import "./_projects.scss";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { ProjectNavbar } from "./components/project-navbar/ProjectNavbar";
-import { useDispatch } from "react-redux";
-import type { AppDispatch } from "../../redux/store";
-import { fetchProjectsHttp } from "./http/project.http";
+import { useSelector } from "react-redux";
 import { useEffect } from "react";
+import type { RootState } from "../../redux/store";
 
 export const Projects = () => {
-    const dispatch = useDispatch<AppDispatch>();
-
+    const navigate = useNavigate();
+    const {projects, isLoading } = useSelector((store:  RootState) => store.projectReducer);
+   
     useEffect(() => {
-        dispatch(fetchProjectsHttp());
-    }, [dispatch]);
+        if (!isLoading && !projects.length){
+            navigate("/create-project", { replace: true });
+            return;
+        }       
+    }, [projects, navigate, isLoading]);
 
     return  (
         <div className="projects-layout">
