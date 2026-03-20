@@ -1,3 +1,4 @@
+import "./_create-project-form.scss";
 import { useEffect, type ChangeEvent } from "react";
 import { useProjectForm } from "../../forms-builders/projectFormBuilder"
 import { useDispatch } from "react-redux";
@@ -25,31 +26,33 @@ export const CreateProjectForm = () => {
     useEffect(() => {
     }, [state])
 
-    return <form onSubmit={handleSubmit} className="form">
-        <div className="form-row">
-            <label className="form-label">Name your project</label>
-            <input 
-                className="form-input"
-                name="name"
-                value={state.name}
-                type="text" 
-                onChange={handleInput}
-                placeholder="project name"
-            />
-        </div>
-
-        <div className="form-row">
-            <label className="form-label">Describe your project</label>
-            <textarea
-                className="form-textarea"
-                value={state.description}
-                onChange={handleInput}
-                name="description"
-                placeholder="project description"
+    return (
+        <form onSubmit={handleSubmit} className="form">
+            <div className="form-row">
+                <label className="form-label">Name your project</label>
+                <input 
+                    className="form-input"
+                    name="name"
+                    value={state.name}
+                    type="text" 
+                    onChange={handleInput}
+                    placeholder="project name"
                 />
-        </div>
-        <button type="submit" className="btn btn-hero form-row">
-            create
-        </button>
-    </form>
+            </div>
+
+            <div className="form-row">
+                <label className="form-label">Describe your project</label>
+                <textarea
+                    className="form-textarea"
+                    value={state.description}
+                    onChange={handleInput}
+                    name="description"
+                    placeholder="project description"
+                    />
+            </div>
+            <button type="submit" className="btn btn-hero form-row">
+                create
+            </button>
+        </form>
+    )
 } 

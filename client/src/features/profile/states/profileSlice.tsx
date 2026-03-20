@@ -26,6 +26,7 @@ const profileSlice = createSlice({
             const {profile} = action.payload.data;
             state.profile = profile;
             state.isLoading = false;
+            
         })
         .addCase(getUserProfileHttp.rejected, (state) => {
             state.isLoading = false;

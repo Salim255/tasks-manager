@@ -5,24 +5,19 @@ import { useProfileSelector } from './states/profileSelectors';
 
 export const Profile = () => {
     const { profile } = useProfileSelector();
-    useEffect(() => {
-    
-    },[profile])
 
-    if (profile) {
-        return (
-            <section className="profile">
-                <img 
-                    className='profile__hero'
-                    src='/assets/images/default-profile.jpg' alt='hero'/>
-                <div>
-                    {profile.firstName} {profile.lastName}
-                </div>
-            </section>
-        )
-    } 
-  
+    useEffect(() => {},[profile]);
+
+    if(!profile) return <ProfileForm />
+
     return (
-        <ProfileForm />
+        <section className="profile">
+            <img 
+                className='profile__hero'
+                src='/assets/images/default-profile.jpg' alt='hero'/>
+            <div>
+                {profile.firstName} {profile.lastName}
+            </div>
+        </section>
     )
 }
