@@ -1,5 +1,6 @@
 .options-btn {
     position: relative;
+
     &__modal {
         position: absolute;
         top: 100%;
@@ -8,6 +9,7 @@
         border: 1px solid var(--primary-300);
         border-radius: .2rem;
         display: none;
+        z-index: 1;
         &--active {
             display: block;
         }

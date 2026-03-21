@@ -1,6 +1,7 @@
 .sprint-header {
     display: flex;
     gap: 1rem;
+    z-index: 1;
     &__title {
         margin-right: auto;
         display: flex;
