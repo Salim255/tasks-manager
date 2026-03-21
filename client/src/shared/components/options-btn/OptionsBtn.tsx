@@ -19,6 +19,7 @@ export const OptionsBtn = ({
   
     const isOpen = isOptionsOpen === item.id;
     const onOptionsClick = () => {
+        console.log("hello world");
         setOptionsOpen(isOpen  ?  null: item.id);
     };
     
@@ -28,15 +29,21 @@ export const OptionsBtn = ({
 
     useEffect(() => {
         if (ref.current) {
-            register(ref, () => setOptionsOpen(null));
+           register(ref, () => setOptionsOpen(null));
         }
         return () => unregister(ref);
     }, [setOptionsOpen, register, unregister]);
     
     return (
-        <div ref={ref} className="options-btn" onClick={onOptionsClick}>
-            <SlOptions />
-            <div className={ isOpen
+        <div
+         
+          
+            className="options-btn">
+            <SlOptions    onClick={onOptionsClick} />
+            <div
+               ref={ref}
+            
+                className={ isOpen
                 ? `options-btn__modal options-btn__modal--active` 
                 : 'options-btn__modal'
                 }>

@@ -30,9 +30,9 @@ export const SprintHeader = ({
                 sprintId: sprint.id,
                 ...(status === 'completed' && { completeDate: new Date().toISOString()})
             };
-            console.log(payload)
             dispatch(updateSprintHttp(payload));
         }
+
 
         const getActionText = ( status: SprintStatus ) => {
             switch (status) {
@@ -42,11 +42,13 @@ export const SprintHeader = ({
                 default: return null;
             }
         }
-         const countWorkItem = () => {
+        const countWorkItem = () => {
             return tasks.filter((task) => task.sprintId === sprint.id).length;
         }
         
-        return(
+        
+
+        return (
             <div className='sprint-header'>
                 <div className='sprint-header__title'>
                     Scrum {sprint.name} 
@@ -77,11 +79,17 @@ export const SprintHeader = ({
                         setOptionsOpen={setOptionsOpen}
                     >
                         <ul className='options-list'>
-                            <li className='options-list__item' onClick={() => setEditSprintOpen((prev) => !prev)}>
+                            <li 
+                                data-action="edit-sprint"
+                                className='options-list__item' 
+                                >
                                 edit sprint
                             </li>
-                    
-                            <li className='options-list__item'>Delete Sprint</li>
+                            <li 
+                                data-action="delete-sprint"
+                                className='options-list__item'>
+                                Delete Sprint
+                            </li>
                         </ul>
                     </OptionsBtn>
                 </div>
