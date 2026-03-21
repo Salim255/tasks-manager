@@ -40,7 +40,7 @@ export const ClickOutsideProvider = ({ children }: PropsWithChildren) => {
   useEffect(() => {
     function handleClick(e: MouseEvent) {
       const target = e.target as HTMLElement;
-     
+  
       if (!target) return;
 
       // If click is inside the form → DO NOT CLOSE

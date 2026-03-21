@@ -11,7 +11,7 @@ import { useClickOutside } from '../../../../shared/hooks/useClickOutside';
 
 
 export const Navbar = () => {
-
+    const ref = useRef<HTMLDivElement>(null!);
     const [showLogout, setShowLogout] = useState(false);
     const { dashboard } = useSelector((store: RootState) => store);
     const { profile } = useProfileSelector();
@@ -25,7 +25,6 @@ export const Navbar = () => {
       dispatch(updateSidebarOpenState())
     }
 
-    const ref = useRef<HTMLDivElement>(null!);
     const { register, unregister } = useClickOutside();
     useEffect(() => {
         if (ref.current) {
@@ -43,7 +42,7 @@ export const Navbar = () => {
             <div>
                 <h4 className='logo-text'>FlowBoard</h4>
             </div>
-            <div className='btn-container'>
+            <div className='btn-container' ref={ref}>
                 <button
                     type='button'
                     className='btn'
@@ -54,7 +53,7 @@ export const Navbar = () => {
                      {profile?.firstName}
                     <FaCaretDown />
                 </button>
-                <div ref={ref} className={showLogout ? 'dropdown show-dropdown' : 'dropdown'}>
+                <div  className={showLogout ? 'dropdown show-dropdown' : 'dropdown'}>
                     <button
                     type='button'
                     className='dropdown-btn'
@@ -62,7 +61,8 @@ export const Navbar = () => {
                         logout
                     </button>
                     <NavLink 
-                        to={"/profile"} 
+                        to={"/profile"}
+                        onClick={() => setShowLogout(!showLogout)}
                         className='dropdown-btn btn-container__user-profile'>
                         profile
                     </NavLink>
