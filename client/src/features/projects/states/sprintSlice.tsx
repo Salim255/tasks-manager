@@ -101,9 +101,9 @@ const sprintSlice = createSlice({
         },
         openEditSprint: (state, action:  PayloadAction<{ sprintId: string }>) => {
             const { sprintId } = action.payload;
-            console.log(sprintId, "hello from open edit sprint");
+            const candidateSprint = state.sprints.find((spr) => spr.id === sprintId);
+            state.sprint = candidateSprint;
             state.isOpen = true;
-            state.sprint = state.sprints[0];
         },
         closeEditSprint: (state) => {
             state.isOpen = false;

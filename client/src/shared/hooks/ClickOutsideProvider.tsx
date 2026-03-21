@@ -60,6 +60,7 @@ export const ClickOutsideProvider = ({ children }: PropsWithChildren) => {
 
     document.addEventListener("mousedown", handleClick);
     return () => document.removeEventListener("mousedown", handleClick);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const register = (ref: RefObject<HTMLDivElement>, callback: () => void) => {
