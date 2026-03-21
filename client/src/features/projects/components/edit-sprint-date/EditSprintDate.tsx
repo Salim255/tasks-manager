@@ -17,7 +17,6 @@ export const EditSprintDate = ({sprint}: { sprint: Sprint }) => {
             dispatch(openEditSprint({ sprintId: sprint.id}));
         }
         
-
         useEffect(() => {
             
         }, [sprint]);
