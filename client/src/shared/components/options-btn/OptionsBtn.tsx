@@ -19,7 +19,6 @@ export const OptionsBtn = ({
   
     const isOpen = isOptionsOpen === item.id;
     const onOptionsClick = () => {
-        console.log("hello world");
         setOptionsOpen(isOpen  ?  null: item.id);
     };
     
@@ -42,7 +41,6 @@ export const OptionsBtn = ({
             <SlOptions    onClick={onOptionsClick} />
             <div
                ref={ref}
-            
                 className={ isOpen
                 ? `options-btn__modal options-btn__modal--active` 
                 : 'options-btn__modal'

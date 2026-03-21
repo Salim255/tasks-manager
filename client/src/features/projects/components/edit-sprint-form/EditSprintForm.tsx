@@ -1,21 +1,20 @@
 import "./_edit-sprint-form.scss";
 import { IoMdClose } from "react-icons/io";
-import type { Sprint } from "../../models/sprint.model";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../../../redux/store";
 import { useSprintForm } from "../../forms-builders/sprintFormBuilder";
-import type { ChangeEvent } from "react";
+import { useEffect, useRef, type ChangeEvent } from "react";
 import { updateSprintHttp, type UpdateSprintPayload } from "../../http/sprint.http";
+import { useSprintSelector } from "../../states/sprintSelectors";
+import { useClickOutside } from "../../../../shared/hooks/useClickOutside";
+import { closeEditSprint } from "../../states/sprintSlice";
 
-export const EditSprintForm = ({ 
-    sprint, 
-    setEditSprintOpen,
- }: { 
-    sprint: Sprint; 
-    setEditSprintOpen: (open: boolean) => void,
- }) => {
+export const EditSprintForm = () => {
+   const { sprint } = useSprintSelector();
    const { state, setField, reset } = useSprintForm(sprint);
    const dispatch = useDispatch<AppDispatch>();
+   const ref = useRef<HTMLDivElement>(null!);
+   const { register, unregister } = useClickOutside();
 
    const handleChange = (
     event: ChangeEvent<
@@ -31,8 +30,7 @@ export const EditSprintForm = ({
    }
     const clickSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setEditSprintOpen(false);
-    
+
         if (!sprint) return;
         
         const payload: UpdateSprintPayload = {
@@ -48,13 +46,25 @@ export const EditSprintForm = ({
         reset();
     }
     
+    const closeModal = () => {
+       dispatch(closeEditSprint());
+    }
+
+    useEffect(() => {
+        if (ref.current) {
+           register(ref, closeModal);
+        }
+        return () => unregister(ref);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [register, unregister]);
+
     return (
-        <section className="edit-sprint">
-            <form className="edit-sprint-form"  onSubmit={clickSubmit}>
+        <section   ref={ref} className="edit-sprint">
+            <form  className="edit-sprint-form"  onSubmit={clickSubmit}>
                 <div className="edit-sprint-form__header">
                     <h1> Edit sprint: {sprint?.name}</h1>
                     <div>
-                        <button onClick={() => setEditSprintOpen(false)}><IoMdClose /></button>
+                        <button onClick={closeModal}><IoMdClose /></button>
                     </div>
                 </div>
                 <div className="edit-sprint-form__title">
@@ -99,7 +109,7 @@ export const EditSprintForm = ({
                     />
                 </div>
                 <div className="edit-sprint-form__actions">
-                    <button onClick={() => setEditSprintOpen(false)}> cancel </button>
+                    <button onClick={closeModal}> cancel </button>
                     <button className="edit-sprint-form__submit" type="submit"> update </button>
                 </div>
             </form>

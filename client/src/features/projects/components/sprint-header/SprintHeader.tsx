@@ -81,11 +81,13 @@ export const SprintHeader = ({
                         <ul className='options-list'>
                             <li 
                                 data-action="edit-sprint"
+                                data-id={sprint.id}
                                 className='options-list__item' 
                                 >
                                 edit sprint
                             </li>
                             <li 
+                                data-id={sprint.id}
                                 data-action="delete-sprint"
                                 className='options-list__item'>
                                 Delete Sprint

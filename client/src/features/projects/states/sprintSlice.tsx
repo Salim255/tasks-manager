@@ -99,11 +99,11 @@ const sprintSlice = createSlice({
         addSprint: (state, action: PayloadAction<Sprint> ) => {
             state.sprints = [...state.sprints , action.payload]
         },
-        openEditSprint: (state, action:  PayloadAction<{ sprint: Sprint }>) => {
-            const { sprint } = action.payload;
-            console.log(sprint, "hello from open edit sprint");
+        openEditSprint: (state, action:  PayloadAction<{ sprintId: string }>) => {
+            const { sprintId } = action.payload;
+            console.log(sprintId, "hello from open edit sprint");
             state.isOpen = true;
-            state.sprint = sprint;
+            state.sprint = state.sprints[0];
         },
         closeEditSprint: (state) => {
             state.isOpen = false;
