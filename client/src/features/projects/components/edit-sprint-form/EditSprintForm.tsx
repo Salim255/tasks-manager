@@ -59,17 +59,18 @@ export const EditSprintForm = () => {
     }, [register, unregister]);
 
     return (
-        <section   ref={ref} className="edit-sprint">
-            <form  className="edit-sprint-form"  onSubmit={clickSubmit}>
-                <div className="edit-sprint-form__header">
+        <section ref={ref} className="edit-sprint">
+            <form  data-modal-body  className="form edit-sprint-form"  onSubmit={clickSubmit}>
+                <div className="form-row edit-sprint-form__header">
                     <h1> Edit sprint: {sprint?.name}</h1>
                     <div>
                         <button onClick={closeModal}><IoMdClose /></button>
                     </div>
                 </div>
-                <div className="edit-sprint-form__title">
-                    <label htmlFor="name">Sprint name: </label>
+                <div className="form-row edit-sprint-form__title">
+                    <label htmlFor="name" className="form-label">Sprint name: </label>
                     <input
+                        className="form-input"
                         id="name"
                         type="text"
                         name="name"
@@ -78,9 +79,10 @@ export const EditSprintForm = () => {
                         onChange={handleChange}
                     />
                 </div>
-                <div className="edit-sprint-form__start-date">
-                    <label htmlFor="startDate"> start date </label>
+                <div className="form-row edit-sprint-form__start-date">
+                    <label  className="form-label" htmlFor="startDate"> start date </label>
                     <input
+                        className="form-input"
                         id="startDate"
                         type="date"
                         name="startDate"
@@ -88,9 +90,10 @@ export const EditSprintForm = () => {
                         onChange={handleChange}
                     />
                 </div>
-                <div className="edit-sprint-form__end-date">
-                   <label htmlFor="endDate"> end date </label>
+                <div className="form-row edit-sprint-form__end-date">
+                   <label className="form-label" htmlFor="endDate"> end date </label>
                     <input
+                        className="form-input"
                         id="endDate"
                         type="date"
                         name="endDate"
@@ -98,9 +101,10 @@ export const EditSprintForm = () => {
                         onChange={handleChange}
                     />
                 </div>
-                <div className="edit-sprint-form__goal">
-                    <label htmlFor="goal">Sprint goal </label>
+                <div className="form-row edit-sprint-form__goal">
+                    <label className="form-label" htmlFor="goal">Sprint goal </label>
                     <textarea
+                        className="form-textarea"
                         id="goal"
                         name="goal"
                         value={state.goal}
@@ -108,9 +112,9 @@ export const EditSprintForm = () => {
                         onChange={handleChange}
                     />
                 </div>
-                <div className="edit-sprint-form__actions">
+                <div className="form-row edit-sprint-form__actions">
                     <button onClick={closeModal}> cancel </button>
-                    <button className="edit-sprint-form__submit" type="submit"> update </button>
+                    <button className="btn btn-hero edit-sprint-form__submit" type="submit"> update </button>
                 </div>
             </form>
         </section>

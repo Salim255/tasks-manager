@@ -35,8 +35,6 @@ export const OptionsBtn = ({
     
     return (
         <div
-         
-          
             className="options-btn">
             <SlOptions    onClick={onOptionsClick} />
             <div

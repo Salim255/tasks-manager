@@ -40,8 +40,12 @@ export const ClickOutsideProvider = ({ children }: PropsWithChildren) => {
   useEffect(() => {
     function handleClick(e: MouseEvent) {
       const target = e.target as HTMLElement;
-
+     
       if (!target) return;
+
+      // If click is inside the form → DO NOT CLOSE
+      const isInsideForm = target.closest("[data-modal-body]");
+      if (isInsideForm) return;
 
       // 1. Detect menu actions BEFORE closing
       const action: ActionType = target.dataset.action as ActionType;
