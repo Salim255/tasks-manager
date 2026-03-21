@@ -48,7 +48,6 @@ export const ClickOutsideProvider = ({ children }: PropsWithChildren) => {
       const id = target.dataset.id as string;
 
       if (action && id) updateStore({ type: action , itemId: id});
-      console.log(target);
       //console.log(result);
       refs.current.forEach((ref) => {
         if (ref.current && !ref.current.contains(e.target as Node)) {
