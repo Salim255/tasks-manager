@@ -2,7 +2,6 @@ import './_sprint-header.scss';
 import { OptionsBtn } from "../../../../shared/components/options-btn/OptionsBtn";
 import type { Sprint, SprintStatus } from "../../models/sprint.model";
 import { EditSprintDate } from "../edit-sprint-date/EditSprintDate";
-import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { type AppDispatch, type RootState } from '../../../../redux/store';
 import { updateSprintHttp } from '../../http/sprint.http';
@@ -17,7 +16,6 @@ export const SprintHeader = ({
         setOptionsOpen: (sprintId: string | null) => void ,
     }) => {
         const { tasks } = useSelector((store: RootState) => store.taskSlice);
-        const [isEditSprintOpen, setEditSprintOpen] = useState<boolean>(false); 
         const dispatch = useDispatch<AppDispatch>();
 
         const updateSprintStatus = () => { 
@@ -52,9 +50,7 @@ export const SprintHeader = ({
             <div className='sprint-header'>
                 <div className='sprint-header__title'>
                     Scrum {sprint.name} 
-                    <EditSprintDate 
-                        isEditSprintOpen={isEditSprintOpen} 
-                        setEditSprintOpen={setEditSprintOpen}
+                    <EditSprintDate
                         sprint={sprint}/>
                     <span> { countWorkItem() } work items </span>
                 </div>

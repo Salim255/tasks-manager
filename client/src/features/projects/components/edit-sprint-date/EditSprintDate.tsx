@@ -9,12 +9,7 @@ import { openEditSprint } from "../../states/sprintSlice";
 import { useDispatch } from "react-redux";
 import { type AppDispatch } from "../../../../redux/store";
 
-export const EditSprintDate = ({
-        sprint,
-    }: { 
-        sprint: Sprint,
-        setEditSprintOpen: (open: boolean) => void,
-    }) => {
+export const EditSprintDate = ({sprint}: { sprint: Sprint }) => {
         const dispatch = useDispatch<AppDispatch>();
         const { isOpen } = useSprintSelector();
 
