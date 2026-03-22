@@ -58,6 +58,7 @@ export const SprintHeader = ({
                     {
                         getActionText(sprint.status) && 
                         <button 
+                            className='actions-btn'
                             disabled={!(sprint.startDate && sprint.endDate) || (sprint.status === 'completed')} 
                             onClick={() => updateSprintStatus()}>
                                 {
