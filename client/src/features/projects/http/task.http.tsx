@@ -11,6 +11,7 @@ const apiUrl = import.meta.env.VITE_API_URL;
 export type UpdateTaskPayload = {
   title?: string;
   status?: TaskStatus;
+  taskType?: TaskType;
   priority?: 'low' | 'medium' | 'high';
   sprintId?: string 
   description?: string;

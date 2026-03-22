@@ -8,6 +8,7 @@ import { updateSprintHttp, type UpdateSprintPayload } from "../../http/sprint.ht
 import { useSprintSelector } from "../../states/sprintSelectors";
 import { useClickOutside } from "../../../../shared/hooks/useClickOutside";
 import { closeEditSprint } from "../../states/sprintSlice";
+import { ModalOverlay } from "../../../../shared/components/modal-overlay/ModalOverlay";
 
 export const EditSprintForm = () => {
    const { sprint } = useSprintSelector();
@@ -59,7 +60,7 @@ export const EditSprintForm = () => {
     }, [register, unregister]);
 
     return (
-        <section ref={ref} className="edit-sprint">
+        <ModalOverlay onClose={closeModal}>
             <form  data-modal-body  className="form edit-sprint-form"  onSubmit={clickSubmit}>
                 <div className="form-row edit-sprint-form__header">
                     <h1> Edit sprint: {state?.name}</h1>
@@ -117,6 +118,6 @@ export const EditSprintForm = () => {
                     <button className="btn btn-hero edit-sprint-form__submit" type="submit"> update </button>
                 </div>
             </form>
-        </section>
+        </ModalOverlay>
     )
 }

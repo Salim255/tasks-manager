@@ -78,9 +78,9 @@ const mapTaskToFormState = (task: Task): TaskFormState => ({
 export const useTaskForm = (initialTask?: Task) => {
   const [state, dispatch] = useReducer(
     reducer,
-    initialTask
+    initialTask,
     (comingTask) => comingTask ?
-      mapSprintToFormState(comingSprint)
+      mapTaskToFormState(comingTask)
       : initialTaskFormState
   );
 
