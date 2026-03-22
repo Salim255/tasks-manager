@@ -3,19 +3,13 @@
     grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
     align-items: end;
     gap: 20px;
-    //height: 100%;
     padding: 0  4rem;
-    //height: 30rem;
-    //height: 100%;
     min-height: 20rem;
     &__item {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: end;
-     
-        //aspect-ratio: 1 / 1; 
-        //width: 100%;
         height: 100%;
         .item-label {
             gap: 2px;
@@ -33,7 +27,6 @@
             padding: 0 3px;
            
             position: relative;
-            //border-radius: 6px 6px 0 0;
             transition: height 0.4s ease;
             &__value {
                 font-size: 10px;
@@ -58,30 +51,16 @@
 
 #story { 
     .bar {
-         background: linear-gradient(
-                to top,
-                #41bb7a,
-                #41bb7a,
-            );
+         background: var(--story-color);
     }
 }
 #bug{
-    //background-color: red;
     .bar {
-         background: linear-gradient(
-                to top,
-                #ec6206,
-                #ec6206
-            );
+         background: var(--bug-color)
     }
 }
 #task{
-    //background-color: red;
     .bar {
-         background: linear-gradient(
-                to top,
-                 #2f8bfc,
-                #60a5fa
-            );
+         background: var(--primary-500)
     }
 }

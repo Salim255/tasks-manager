@@ -20,7 +20,15 @@
             display: flex;
             justify-content: center;       
             font-size: 1.2rem;
-            color: var(--primary-500);
+            &--task {
+              color: var(--primary-500);
+            }
+            &--story{
+                color: var(--story-color);
+            }
+            &--bug {
+                color: var(--bug-color);
+            }
         }
     }
     &__status{

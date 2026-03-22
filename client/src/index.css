@@ -26,6 +26,9 @@ html {
   --primary-800: #1e40af;
   --primary-900: #1e3a8a;
 
+  --story-color:#41bb7a;
+  --bug-color: #ec6206;
+
   /* grey */
   --grey-50: #f0f4f8;
   --grey-100: #d9e2ec;

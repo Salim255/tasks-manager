@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../../../redux/store";
 import { TaskTypeDropdown } from '../../../../shared/components/task-type-dropdown/TaskTypeDropdown';
 import { createTaskHttp, type CreateTaskPayload } from '../../http/task.http';
+import { typeIcon } from '../../../../shared/utils/methods';
 
 export const CreateTask = ( { projectId }: { projectId: string}) => {
   const [isCreateBtn, setCreateBtn] = useState<boolean>(true);
@@ -70,9 +71,9 @@ export const CreateTask = ( { projectId }: { projectId: string}) => {
                       value={state.taskType}
                       onChange={handleChange}
                     >
-                        <option value="task">Task</option>
-                        <option value="bug">Bug</option>
-                        <option value="story">Story</option>
+                        <option value="task"> Task </option>
+                        <option value="bug"> { typeIcon('task') } Bug </option>
+                        <option value="story"> {typeIcon('story')} Story</option>
                     </TaskTypeDropdown>
                     <input
                         id="title"

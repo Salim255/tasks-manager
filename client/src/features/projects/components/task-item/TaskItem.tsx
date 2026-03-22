@@ -11,7 +11,7 @@ export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
     return (
         <div className="task-item" {...props} >
             <section className='task-item__content'>
-                <div className='task-item__checkbox'>
+                <div className={`task-item__checkbox task-item__checkbox--${task.taskType}`}>
                     {typeIcon(task.taskType)}
                 </div>
                 <div className='task-item__title'>
