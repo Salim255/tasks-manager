@@ -31,7 +31,9 @@ export const EditSprintDate = ({sprint}: { sprint: Sprint }) => {
                         sprint.startDate && sprint.endDate 
                         ?  `${formatDate(sprint.startDate)} - ${formatDate(sprint.endDate)}`
                         : 
-                        <button onClick={() => onEditSprintDate(sprint)}> 
+                        <button
+                            className="edit-btn"
+                            onClick={() => onEditSprintDate(sprint)}> 
                             <span><FaRegEdit/></span> 
                             add date
                         </button> 

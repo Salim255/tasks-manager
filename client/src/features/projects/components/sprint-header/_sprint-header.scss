@@ -5,7 +5,16 @@
     &__title {
         margin-right: auto;
         display: flex;
+        justify-items: center;
+        align-items: center;
         gap: .5rem;
+        .sprint-name {
+            font-weight: 700;
+            font-size: 1.4rem;
+        }
+        .sprint-items {
+            color: rgb(111, 112, 112);
+        }
     }
     &__actions {
         .actions-btn {  

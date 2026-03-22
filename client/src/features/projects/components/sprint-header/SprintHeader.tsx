@@ -5,6 +5,8 @@ import { EditSprintDate } from "../edit-sprint-date/EditSprintDate";
 import { useDispatch, useSelector } from 'react-redux';
 import { type AppDispatch, type RootState } from '../../../../redux/store';
 import { updateSprintHttp } from '../../http/sprint.http';
+import { openEditSprint } from '../../states/sprintSlice';
+import { useMemo } from 'react';
 
 export const SprintHeader = ({
         sprint,
@@ -21,6 +23,10 @@ export const SprintHeader = ({
         const updateSprintStatus = () => { 
             if(!sprint?.id) return;
             
+            if (sprint.status === "planned" && !(sprint.startDate && sprint.endDate)) {
+                dispatch(openEditSprint({ sprintId: sprint.id}));
+                return;
+            }
             const status: SprintStatus = sprint.status === 'planned' ? 'active': 'completed';
     
             const payload = {
@@ -40,30 +46,27 @@ export const SprintHeader = ({
                 default: return null;
             }
         }
-        const countWorkItem = () => {
+        const countWorkItem = useMemo(()=> {
             return tasks.filter((task) => task.sprintId === sprint.id).length;
-        }
+        }, [tasks, sprint]);
         
-        
-
         return (
             <div className='sprint-header'>
                 <div className='sprint-header__title'>
-                    Scrum {sprint.name} 
+                    <div className='sprint-name'> Scrum {sprint.name} </div>
                     <EditSprintDate
                         sprint={sprint}/>
-                    <span> { countWorkItem() } work items </span>
+                    <div className='sprint-items'> { countWorkItem } work items </div>
                 </div>
                 <div className='sprint-header__actions'>
                     {
-                        getActionText(sprint.status) && 
+                       
                         <button 
                             className='actions-btn'
-                            disabled={!(sprint.startDate && sprint.endDate) || (sprint.status === 'completed')} 
                             onClick={() => updateSprintStatus()}>
-                                {
-                                    getActionText(sprint.status)
-                                }
+                            {
+                                getActionText(sprint.status)
+                            }
                         </button>
                     }
                    
