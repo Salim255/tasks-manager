@@ -58,18 +58,24 @@ export const SprintHeader = ({
                         sprint={sprint}/>
                     <div className='sprint-items'> { countWorkItem } work items </div>
                 </div>
-                <div className='sprint-header__actions'>
+                <div 
+                    className='sprint-header__actions'
+                    style={
+                        {
+                        "--show-tooltip": countWorkItem === 0 ? "1" : "0"
+                        } as React.CSSProperties
+                    }>
                     {
                        
                         <button 
                             className='actions-btn'
+                            disabled={countWorkItem===0}
                             onClick={() => updateSprintStatus()}>
                             {
                                 getActionText(sprint.status)
                             }
                         </button>
-                    }
-                   
+                    }    
                 </div>
                 <div 
                     className='sprint-header__options'>
