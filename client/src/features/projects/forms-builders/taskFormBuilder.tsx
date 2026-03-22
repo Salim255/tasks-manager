@@ -1,5 +1,5 @@
 import { useReducer } from "react";
-import type { TaskType } from "../models/task.model";
+import type { Task, TaskType } from "../models/task.model";
 
 export type TaskStatus = "todo" | "in_progress" | "done";
 export type TaskPriority = "low" | "medium" | "high";
@@ -62,8 +62,27 @@ function reducer(state: TaskFormState, action: Action): TaskFormState {
   }
 }
 
-export const useTaskForm = () => {
-  const [state, dispatch] = useReducer(reducer, initialTaskFormState);
+const mapTaskToFormState = (task: Task): TaskFormState => ({
+  title: task.title ?? undefined,
+  description: task.description ?? undefined,
+  status: task.status ?? "todo" ,
+  taskType: task.taskType ?? "task",
+  dueAt: task.dueAt ?? "",
+  priority: task.priority ?? "low",
+  projectId: task.projectId ?? undefined,
+  sprintId: task.sprintId ?? undefined,
+  assigneeId: task.assigneeId ?? undefined,
+  errors: {},
+});
+
+export const useTaskForm = (initialTask?: Task) => {
+  const [state, dispatch] = useReducer(
+    reducer,
+    initialTask
+    (comingTask) => comingTask ?
+      mapSprintToFormState(comingSprint)
+      : initialTaskFormState
+  );
 
   const setField = (field: keyof Omit<TaskFormState, "errors">, value: string) =>
     dispatch({ type: "SET_FIELD", field, value });

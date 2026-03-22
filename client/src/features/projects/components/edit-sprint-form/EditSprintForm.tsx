@@ -62,7 +62,7 @@ export const EditSprintForm = () => {
         <section ref={ref} className="edit-sprint">
             <form  data-modal-body  className="form edit-sprint-form"  onSubmit={clickSubmit}>
                 <div className="form-row edit-sprint-form__header">
-                    <h1> Edit sprint: {sprint?.name}</h1>
+                    <h1> Edit sprint: {state?.name}</h1>
                     <div>
                         <button onClick={closeModal}><IoMdClose /></button>
                     </div>

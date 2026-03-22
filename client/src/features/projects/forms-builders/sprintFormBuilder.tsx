@@ -65,8 +65,8 @@ export const useSprintForm = (initialSprint?: Sprint) => {
     reducer,
     initialSprint, // coming sprint
     (comingSprint) => comingSprint 
-                        ? mapSprintToFormState(comingSprint) 
-                        : initialTaskFormState
+        ? mapSprintToFormState(comingSprint) 
+        : initialTaskFormState
     );
 
   const setField = (field: keyof Omit<SprintFormState, "errors">, value: string) =>
