@@ -23,9 +23,24 @@
         align-items: center;
         gap: .2rem;
     
-        .board-task-item__checkbox-icon {
+       /*  .board-task-item__checkbox-icon {
             font-size: 1.2rem;
             color: var(--primary-500);
+        } */
+        &--task {
+            span {
+                color: var(--primary-500);
+            }
+        }
+        &--story{
+            span {
+                color: var(--story-color);
+            }
+        }
+        &--bug {
+            span {
+                color: var(--bug-color);
+            }
         }
     }
     &__footer {
