@@ -24,7 +24,7 @@ export const BarChart = ({
                     >
                         <p className="bar__value">{barChartDataPercentage[key].value} %</p>
                     </div>
-                   <p className="item-label"> <span> {typeIcon(barChartDataPercentage[key].label)} </span>{barChartDataPercentage[key].label}s</p>
+                   <p className={`item-label item-label--${barChartDataPercentage[key].label}`}> <span> {typeIcon(barChartDataPercentage[key].label)} </span>{barChartDataPercentage[key].label}s</p>
                 </div>
             )
             }) 

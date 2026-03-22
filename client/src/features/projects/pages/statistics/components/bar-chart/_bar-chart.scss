@@ -15,6 +15,21 @@
             gap: 2px;
             display: flex;
             align-items: center;
+            &--task {
+                span {
+                    color: var(--primary-500);
+                }
+            }
+            &--story{
+                span {
+                  color: var(--story-color);
+                }
+            }
+            &--bug {
+                span{
+                   color: var(--bug-color);
+                }
+            }
             span {
                 display: flex;
                 justify-self: center;
