@@ -4,6 +4,7 @@ import { createTaskHttp, getTasksHttp, updateTasHttp, updateTaskSprintHttp } fro
 
 type InitiateState = {
     tasks: Task [];
+    task?: Task;
     isCreating: boolean;
     isLoading: boolean;
     isUpdating: boolean;
@@ -23,6 +24,14 @@ const taskSlice = createSlice({
     name: 'taskSlice',
     initialState,
     reducers: {
+        isEditingTask: (state, action: PayloadAction<{taskId: string}>) => {
+            const {taskId} = action.payload;
+            if (taskId) return;
+            const task = state.tasks.find((ts) => ts.id === taskId);
+            state.task = task;
+            state.isUpdating = true;
+        },
+        
         setBackTaskToBacklog: (state, action: PayloadAction<{ task: Task }>) => {
             const { task } = action.payload;
 
@@ -109,6 +118,7 @@ const taskSlice = createSlice({
     },
 })
 
+export const { isEditingTask } = taskSlice.actions;
 export const { setBackTaskToBacklog } = taskSlice.actions;
 export const { addToBacklogTask } = taskSlice.actions;
 export const { removeTask } = taskSlice.actions;
