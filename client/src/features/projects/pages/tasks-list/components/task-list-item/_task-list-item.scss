@@ -1,0 +1,9 @@
+.task-list-item {
+    div {
+        border: 2px solid gray;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        padding: .5rem;
+    }
+}

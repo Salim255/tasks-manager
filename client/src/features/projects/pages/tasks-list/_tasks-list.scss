@@ -1,0 +1,24 @@
+.tasks-list {
+    height: 30rem;
+    width: 100%;
+    overflow: auto;
+    padding-bottom: 1rem;
+    border-radius: .2rem;
+}
+
+
+
+.task-grid {
+  display: grid;
+  grid-template-columns:
+    minmax(150px, 1fr)
+    minmax(250px, 2fr)
+    minmax(150px, 1fr)
+    minmax(150px, 1fr)
+    minmax(120px, 1fr)
+    minmax(120px, 1fr)
+    minmax(150px, 1fr)
+    minmax(150px, 1fr)
+    minmax(150px, 1fr)
+    minmax(150px, 1fr);
+}

@@ -1,17 +1,18 @@
 .shared-layout {
  
   &__dashboard {
+    background: var(--white);
     display: grid;
     grid-template-columns: 1fr;
-    background: var(--white);
     @media (min-width: 992px) {
-      grid-template-columns: auto 1fr;
+      grid-template-columns: auto minmax(0, 1fr);
     }
   }
   &__dashboard-page {
-    width: 90vw;
+    width: 100%;
     margin: 0 auto;
     padding: 2rem 0;
+    overflow: hidden; 
     @media (min-width: 992px) {
       width: 90%;
     }
