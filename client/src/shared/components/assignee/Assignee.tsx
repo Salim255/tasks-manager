@@ -1,5 +1,8 @@
-export const Assignee = ({assigneeId}: {assigneeId: string}) => {
+import { GoPerson } from "react-icons/go";
+
+
+export const Assignee = ({assigneeId}: {assigneeId: string | undefined}) => {
     return <div className="assignee">
-        { assigneeId }
+        <GoPerson /> { assigneeId ?? 'unassigned' }
     </div>
 }

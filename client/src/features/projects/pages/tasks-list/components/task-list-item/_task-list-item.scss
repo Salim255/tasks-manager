@@ -1,5 +1,14 @@
 .task-list-item {
-    div {
+    &__name,
+    &__description,
+    &__reporter,
+    &__priority,
+    &__status,
+    &__resolution,
+    &__updated,
+    &__due-date,
+    &__created-at,
+    &__assignee {
         border: 2px solid gray;
         overflow: hidden;
         text-overflow: ellipsis;
