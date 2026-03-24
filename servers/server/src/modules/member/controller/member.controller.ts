@@ -1,4 +1,11 @@
-import { Body, Controller, Post, UseGuards, Req, Logger } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Post,
+  UseGuards,
+  Logger,
+  BadRequestException,
+} from '@nestjs/common';
 import {
   ApiTags,
   ApiBearerAuth,
@@ -6,16 +13,16 @@ import {
   ApiBody,
   ApiResponse,
 } from '@nestjs/swagger';
-import { CreateProjectMemberDto } from '../dto/project-member.dto';
 import { JwtAuthGuard } from 'src/modules/auth/guard/jwt-auth.guard';
 import { ApiErrorResponseDto } from 'src/common/interfaces/shared.interface';
 import { Member } from '../entity/member.entity';
 import { MemberService } from '../service/member.service';
+import { CreateMemberDto } from '../dto/member.dto';
 
 @ApiTags('Members')
 @Controller('members')
-export class MembersController {
-  private logger = new Logger(MembersController.name);
+export class MemberController {
+  private logger = new Logger(MemberController.name);
 
   constructor(private readonly memberService: MemberService) {}
 
@@ -27,7 +34,7 @@ export class MembersController {
     description:
       'Creates a new project member entry linking a user to a project with a specific role. Only project admins should be allowed to perform this action.',
   })
-  @ApiBody({ type: CreateProjectMemberDto })
+  @ApiBody({ type: CreateMemberDto })
   @ApiResponse({
     status: 201,
     description: 'Project member created successfully.',
@@ -53,16 +60,12 @@ export class MembersController {
     description: 'Internal server error.',
     type: ApiErrorResponseDto,
   })
-  async createProjectMember(
-    @Body() dto: CreateProjectMemberDto,
-    @Req() req: Request & { user: { id: string } },
-  ): Promise<Member> {
-    const { id: userId } = req.user;
+  async createProjectMember(@Body() dto: CreateMemberDto): Promise<Member> {
+    const { userId, projectId, role } = dto;
 
-    this.logger.log(
-      `User ${userId} is adding user ${dto.userId} to project ${dto.projectId} with role ${dto.role}`,
-    );
-
-    return this.memberService.create(dto, userId);
+    if (!userId || !projectId || !role) {
+      throw new BadRequestException('Project member data  missing');
+    }
+    return this.memberService.create({ userId, projectId, role });
   }
 }
