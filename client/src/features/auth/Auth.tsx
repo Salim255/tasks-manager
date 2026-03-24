@@ -29,7 +29,7 @@ export const Auth = () => {
     }, [isAuthenticated, profile, navigate, isProfileLoading, dispatch]);
     
     return <section className="app-auth">
-        <div>
+        <div className="app-auth__header">
             <h1 className="title-underline"> FlowBoard </h1>
         </div>
         <AuthForm/>
