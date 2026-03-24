@@ -9,9 +9,11 @@ import { SprintModule } from './modules/sprint/sprint.module';
 import { TaskModule } from './modules/task/task.module';
 import { ConfigModule } from '@nestjs/config';
 import { DatabaseModule } from './database/database.module';
+import { ProjectMemberModule } from './modules/project-member/ProjectMember.module';
 
 @Module({
   imports: [
+    ProjectMemberModule,
     TaskModule,
     SprintModule,
     ProjectModule,
