@@ -9,11 +9,11 @@ services:
     image: postgres:16
     # Using the official Postgres image ensures stability and updates.
 
-    environment:
-      # Database credentials injected from your environment (.env or CI/CD).
-      POSTGRES_USER: ${DB_USERNAME}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: ${DB_NAME}
+    #environment:
+    # Database credentials injected from your environment (.env or CI/CD).
+    # env_file → sends variables directly into the container
+    env_file:
+      - .env
 
     volumes:
       # Persistent storage for PostgreSQL data.
