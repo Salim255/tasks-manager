@@ -158,7 +158,11 @@ pipeline {
 
                     withCredentials([file(credentialsId: 'tasksmanager-db.env', variable: 'DB_ENV')]) {
                         sh '''
-                            cat "$DB_ENV" > .env
+                            # Load the .env file into environment variables
+                            set -a
+                            source "$DB_ENV"
+                            set +a
+                            # cat "$DB_ENV" > .env
                         '''
                     }
                 } 
