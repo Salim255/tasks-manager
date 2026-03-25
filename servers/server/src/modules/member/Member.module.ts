@@ -4,9 +4,10 @@ import { MemberService } from './service/member.service';
 import { MemberRepository } from './repository/member.repository';
 import { AuthModule } from '../auth/auth.module';
 import { DatabaseModule } from 'src/database/database.module';
+import { UserModule } from '../user/user.module';
 
 @Module({
-  imports: [AuthModule, DatabaseModule],
+  imports: [UserModule, AuthModule, DatabaseModule],
   controllers: [MemberController],
   providers: [MemberService, MemberRepository],
 })

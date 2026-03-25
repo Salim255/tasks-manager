@@ -16,11 +16,11 @@ export class CreateMemberDto {
   projectId: string;
 
   @ApiProperty({
-    description: 'The ID of the user being added to the project',
+    description: 'The email of the user we want to add to the project',
     example: 'b7e1c2d3-4f5a-6789-bcde-987654321000',
   })
   @IsUUID()
-  userId: string;
+  email: string;
 
   @ApiProperty({
     description: 'The role of the user inside the project',

@@ -11,7 +11,9 @@ export class MemberService {
     @Inject(MEMBER_REPOSITORY) private memberRepo: Repository<Member>,
   ) {}
 
-  async create(payload: CreateMemberDto): Promise<Member> {
+  async create(
+    payload: Omit<CreateMemberDto, 'email'> & { userId: string },
+  ): Promise<Member> {
     try {
       const query = `
         INSERT INTO members ("projectId", "userId", role)

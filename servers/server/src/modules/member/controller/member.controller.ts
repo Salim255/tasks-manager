@@ -18,13 +18,18 @@ import { ApiErrorResponseDto } from 'src/common/interfaces/shared.interface';
 import { Member } from '../entity/member.entity';
 import { MemberService } from '../service/member.service';
 import { CreateMemberDto } from '../dto/member.dto';
+import { UserService } from 'src/modules/user/service/user.service';
+import { User } from 'src/modules/user/entity/user.entity';
 
 @ApiTags('Members')
 @Controller('members')
 export class MemberController {
   private logger = new Logger(MemberController.name);
 
-  constructor(private readonly memberService: MemberService) {}
+  constructor(
+    private userService: UserService,
+    private readonly memberService: MemberService,
+  ) {}
 
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
@@ -61,11 +66,14 @@ export class MemberController {
     type: ApiErrorResponseDto,
   })
   async createProjectMember(@Body() dto: CreateMemberDto): Promise<Member> {
-    const { userId, projectId, role } = dto;
-
-    if (!userId || !projectId || !role) {
+    const { email, projectId, role } = dto;
+    if (!email || !projectId || !role) {
       throw new BadRequestException('Project member data  missing');
     }
-    return this.memberService.create({ userId, projectId, role });
+    const user: User | null = await this.userService.getUserByEmail({ email });
+    if (!user) {
+      throw new BadRequestException('User not exist with the given email');
+    }
+    return this.memberService.create({ userId: user.id, projectId, role });
   }
 }
