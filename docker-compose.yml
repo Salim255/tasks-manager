@@ -32,6 +32,9 @@ services:
 
     networks:
       - tasks-manager-network
+      
+    env_file:
+      - ./client/.env
   
   tasks-manager-server:
     container_name: tasks-manager-server
