@@ -3,10 +3,9 @@ import { IoMdClose } from "react-icons/io";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../../../redux/store";
 import { useSprintForm } from "../../forms-builders/sprintFormBuilder";
-import { useEffect, useRef, type ChangeEvent } from "react";
+import { type ChangeEvent } from "react";
 import { updateSprintHttp, type UpdateSprintPayload } from "../../http/sprint.http";
 import { useSprintSelector } from "../../states/sprintSelectors";
-import { useClickOutside } from "../../../../shared/hooks/useClickOutside";
 import { closeEditSprint } from "../../states/sprintSlice";
 import { ModalOverlay } from "../../../../shared/components/modal-overlay/ModalOverlay";
 
@@ -14,8 +13,7 @@ export const EditSprintForm = () => {
    const { sprint } = useSprintSelector();
    const { state, setField, reset } = useSprintForm(sprint);
    const dispatch = useDispatch<AppDispatch>();
-   const ref = useRef<HTMLDivElement>(null!);
-   const { register, unregister } = useClickOutside();
+ 
 
    const handleChange = (
     event: ChangeEvent<
@@ -51,13 +49,7 @@ export const EditSprintForm = () => {
        dispatch(closeEditSprint());
     }
 
-    useEffect(() => {
-        if (ref.current) {
-           register(ref, closeModal);
-        }
-        return () => unregister(ref);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [register, unregister]);
+
 
     return (
         <ModalOverlay onClose={closeModal}>

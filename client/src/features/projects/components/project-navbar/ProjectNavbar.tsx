@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import type { RootState } from '../../../../redux/store';
 import { useEffect } from 'react';
 import { IoMdOptions } from "react-icons/io";
-import { GoPersonAdd } from "react-icons/go";
+import { AddMemberForm } from '../add-member-form/AddMemberForm';
 
 export const ProjectNavbar =() => {
     const {projects, activeProjectId, activeProject} = useSelector((store:  RootState) => store.projectReducer);
@@ -16,7 +16,7 @@ export const ProjectNavbar =() => {
 
     return (
         <header className="project-header">
-            <h2 className='project-header__title'> {activeProject?.name} <GoPersonAdd/> </h2>
+            <h2 className='project-header__title'> {activeProject?.name} <AddMemberForm /></h2>
             <nav className="project-header__links">
                 {
                     projectLinks.map((link) => {

@@ -6,7 +6,7 @@ import { Fragment, useEffect } from 'react';
 import {useSelectProjects} from "../../../projects/states/projectsSelectors";
 
 export const NavLinks = ({ toggleSidebar }: { toggleSidebar: () => void}) => {
-    const projects  = useSelectProjects();
+    const { projects } = useSelectProjects();
     
     useEffect(() => {
     },[projects])

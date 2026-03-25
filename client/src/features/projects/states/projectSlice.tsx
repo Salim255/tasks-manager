@@ -8,6 +8,7 @@ type InitialState = {
     activeProject?: Project;
     isLoading: boolean;
     isCreating: boolean;
+    isAddMember: boolean;
 }
 
 export type CreateProjectPayload = {
@@ -20,6 +21,7 @@ const initialState: InitialState = {
     projects: [],
     isLoading: false,
     isCreating: false,
+    isAddMember: false,
 }
 
 const projectSlice = createSlice({
@@ -52,6 +54,10 @@ const projectSlice = createSlice({
         })
     },
     reducers: {
+        onAddMemberModal: (state, action: PayloadAction<{actionType: boolean}>) => {
+            const {actionType } = action.payload;
+            state.isAddMember = actionType;
+        },
         setActiveProjectId: (state, action: PayloadAction<{ projectId: string}>) => {
             const { projectId } = action.payload;
             const project = state.projects.find((p) => p.id === projectId);
@@ -62,5 +68,5 @@ const projectSlice = createSlice({
     }
 });
 
-export const { setActiveProjectId } = projectSlice.actions;
+export const { setActiveProjectId, onAddMemberModal } = projectSlice.actions;
 export default projectSlice.reducer;
