@@ -9,26 +9,38 @@ import { onAddMemberModal } from "../../states/projectSlice";
 import { IoMdClose } from "react-icons/io";
 import { useMemberForm } from "../../forms-builders/memberFormBuilder";
 
-export const AddMemberForm = ({projectId}:{projectId: string}) => {
+export const AddMemberForm = ({ projectId }:{ projectId: string }) => {
     const dispatch = useDispatch<AppDispatch>();
-    const { state, setField } =  useMemberForm(projectId);
+
+    const { state, setField, reset } =  useMemberForm(projectId);
     const { isAddMember } = useSelectProjects();
     
     const onClose = () => {
         dispatch(onAddMemberModal());
     }
 
+    const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        reset();
+    }
+
     const handleChange = (e:  ChangeEvent<HTMLInputElement |HTMLSelectElement >) => {
         setField(e.target.name as "role" | "memberEmail" , e.target.value);
+        if (!state.projectId) setField("projectId", projectId);    
     }
-    useEffect(() => {}, [isAddMember]);
+
+    useEffect(() => {
+    }, [isAddMember, projectId]);
 
     if (!isAddMember) {
         return  <GoPersonAdd onClick={onClose}/> 
     }
   
     return <ModalOverlay onClose={onClose}>
-        <form data-modal-body  className="form add-member-form" >
+        <form 
+            onSubmit={handleSubmit}
+            data-modal-body 
+            className="form add-member-form" >
             <div className="from-row add-member-form__header">
                 <h6> Add people to My Scrum Space </h6>
                 <div> <button onClick={onClose}><IoMdClose /></button> </div>

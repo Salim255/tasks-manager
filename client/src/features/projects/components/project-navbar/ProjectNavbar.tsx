@@ -16,7 +16,7 @@ export const ProjectNavbar =() => {
 
     return (
         <header className="project-header">
-            <h2 className='project-header__title'> {activeProject?.name} <AddMemberForm /></h2>
+            <h2 className='project-header__title'> {activeProject?.name} <AddMemberForm projectId={projectId!} /></h2>
             <nav className="project-header__links">
                 {
                     projectLinks.map((link) => {

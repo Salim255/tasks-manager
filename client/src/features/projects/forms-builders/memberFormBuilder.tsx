@@ -3,7 +3,7 @@ import { useReducer } from "react";
 type MemberRole = 'admin' | 'member';
 
 export type MemberFormState = {
-    projectId: string;
+    projectId?: string;
     memberEmail?: string;
     role:  MemberRole;
     errors: Partial<Record<"projectId" | "memberEmail" | "role", string>>;
@@ -18,7 +18,7 @@ type Action =
 
 // State
 export const initialMemberState: MemberFormState = {
-    projectId: "",
+    projectId: undefined,
     memberEmail: "",
     role: 'member' ,
     errors: {}
@@ -54,7 +54,7 @@ function reducer(state: MemberFormState, action: Action ){
 }
 
 const mapProjectIdToFormState = (projectId: string): MemberFormState => ({
-  projectId: projectId ?? undefined,
+  projectId: projectId ?? initialMemberState.projectId,
   memberEmail: initialMemberState.memberEmail,
   role: initialMemberState.role,
   errors: {},
@@ -62,7 +62,6 @@ const mapProjectIdToFormState = (projectId: string): MemberFormState => ({
 
 // From
 export const useMemberForm = (projectId: string) => {
-
     // Reducer takes the created reducer and the state
     const [state, dispatch ] = useReducer(
         reducer,

@@ -27,7 +27,7 @@ export const EditSprintForm = () => {
             event.target.value,
         );
    }
-    const clickSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
+    const clickSubmit = (e: ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         if (!sprint) return;
