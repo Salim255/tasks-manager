@@ -15,11 +15,12 @@ import {
 } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/modules/auth/guard/jwt-auth.guard';
 import { ApiErrorResponseDto } from 'src/common/interfaces/shared.interface';
-import { Member } from '../entity/member.entity';
+
 import { MemberService } from '../service/member.service';
 import { CreateMemberDto } from '../dto/member.dto';
 import { UserService } from 'src/modules/user/service/user.service';
 import { User } from 'src/modules/user/entity/user.entity';
+import { Member } from '../entity/member.entity';
 
 @ApiTags('Members')
 @Controller('members')
