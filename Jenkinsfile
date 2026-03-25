@@ -188,8 +188,7 @@ pipeline {
                     echo "📦 Deploying application using Docker Compose..."
 
                     sh """
-                        docker-compose down
-                        docker-compose up -d --build
+                        docker stack deploy -c docker-compose.yml tasksmanager
                     """
                 }
             }
