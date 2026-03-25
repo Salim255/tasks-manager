@@ -24,7 +24,6 @@ export const initialMemberState: MemberFormState = {
     errors: {}
 }
 
-
 // Reducer
 function reducer(state: MemberFormState, action: Action ){
     switch(action.type){
@@ -53,7 +52,6 @@ function reducer(state: MemberFormState, action: Action ){
             return state
     }
 }
-
 
 const mapProjectIdToFormState = (projectId: string): MemberFormState => ({
   projectId: projectId ?? undefined,
