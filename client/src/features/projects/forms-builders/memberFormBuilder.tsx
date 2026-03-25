@@ -1,6 +1,6 @@
 import { useReducer } from "react";
 
-type MemberRole = 'admin' | 'member';
+export type MemberRole = 'admin' | 'member';
 
 export type MemberFormState = {
     projectId?: string;
