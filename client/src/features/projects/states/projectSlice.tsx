@@ -1,6 +1,7 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { Project } from "../models/project.model";
 import { fetchProjectsHttp, createProjectHttp } from "../http/project.http";
+import { addMemberHttp } from "../http/member.http";
 
 type InitialState = {
     projects: Project[];
@@ -9,6 +10,7 @@ type InitialState = {
     isLoading: boolean;
     isCreating: boolean;
     isAddMember: boolean;
+    isLoadingMember: boolean;
 }
 
 export type CreateProjectPayload = {
@@ -22,6 +24,7 @@ const initialState: InitialState = {
     isLoading: false,
     isCreating: false,
     isAddMember: false,
+    isLoadingMember: false,
 }
 
 const projectSlice = createSlice({
@@ -29,6 +32,24 @@ const projectSlice = createSlice({
     initialState,
     extraReducers: (builder) => {
         builder
+        .addCase(addMemberHttp.pending, (state) => {
+            state.isLoadingMember = true;
+        })
+        .addCase(addMemberHttp.fulfilled, (state, action) => {
+            const { member } = action.payload.data;
+            const candidateIndex = state.projects.findIndex((p) => p.id === member.projectId);
+
+            if (candidateIndex === -1){
+                state.isLoadingMember = false;
+                return;
+            };
+
+            state.projects[candidateIndex].members.push(member);
+            state.isLoadingMember = false;
+        })
+        .addCase(addMemberHttp.rejected, (state) => {
+            state.isLoadingMember = false;
+        })
         .addCase(createProjectHttp.pending, (state) => {
             state.isCreating = true;
         })
