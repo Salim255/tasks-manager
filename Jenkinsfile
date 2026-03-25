@@ -159,9 +159,6 @@ pipeline {
                     withCredentials([file(credentialsId: 'tasksmanager-db.env', variable: 'DB_ENV')]) {
                         sh '''
                             cat "$DB_ENV" > .env
-                            pwd
-                            ls -la
-                            cat .env
                         '''
                     }
                 } 
@@ -191,7 +188,8 @@ pipeline {
                     echo "📦 Deploying application using Docker Compose..."
 
                     sh """
-                        docker stack deploy -c docker-compose.yml tasksmanager
+                        docker-compose down
+                        docker-compose up -d --build
                     """
                 }
             }

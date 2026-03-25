@@ -1,0 +1,107 @@
+version: "3.9"  
+# The Compose/Stack file format version.
+# Swarm fully supports version 3.x syntax.
+
+services:
+  tasks-manager-db:
+    # PostgreSQL database service.
+    # In Swarm, container_name is not allowed because Swarm manages names internally.
+    image: postgres:16
+    # Using the official Postgres image ensures stability and updates.
+
+    #environment:
+    # Database credentials injected from your environment (.env or CI/CD).
+    # env_file → sends variables directly into the container
+    env_file:
+      - .env
+
+    volumes:
+      # Persistent storage for PostgreSQL data.
+      # Swarm will create a named volume "tasks-data".
+      - tasks-data:/var/lib/postgresql/data
+
+    networks:
+      # Attach this service to the overlay network.
+      - tasks-manager-network
+
+    deploy:
+      # Swarm-specific deployment configuration.
+      restart_policy:
+        # Restart the DB container only if it fails.
+        condition: on-failure
+      # No replicas here — databases should not be scaled horizontally without clustering.
+
+  tasks-manager-client:
+    # Angular/Ionic frontend service.
+    build:
+      # Build context points to your frontend folder.
+      context: ./client
+      dockerfile: Dockerfile
+    image: tasks-manager-client:latest
+    # After building, Swarm will use this image.
+
+    ports:
+      # Host port 3004 → container port 80 (Nginx inside the client image).
+      # This port must be unique on the server.
+      - "3004:80"
+
+    networks:
+      - tasks-manager-network
+
+    deploy:
+      # Swarm deployment rules for the frontend.
+      replicas: 1
+      # You can increase replicas later for load balancing.
+      update_config:
+        # Update one container at a time → rolling updates.
+        parallelism: 1
+        # Start the new container before stopping the old one → zero downtime.
+        order: start-first
+      restart_policy:
+        # Restart only on failure.
+        condition: on-failure
+
+  tasks-manager-server:
+    # NestJS backend service.
+    depends_on:
+      # Compose-style dependency. Swarm ignores this for startup order,
+      # but it's still useful for readability.
+      - tasks-manager-db
+
+    build:
+      # Build context for the backend.
+      context: ./servers/server
+      dockerfile: Dockerfile
+    image: tasks-manager-server:latest
+
+    ports:
+      # Host port 3005 → container port 3000 (NestJS).
+      - "3005:3000"
+
+    env_file:
+      # Load backend environment variables.
+      - ./servers/server/.env
+
+    networks:
+      - tasks-manager-network
+
+    deploy:
+      replicas: 1
+      # You can scale this later (e.g., replicas: 3).
+      update_config:
+        # Rolling update strategy.
+        parallelism: 1
+        order: start-first
+      restart_policy:
+        condition: on-failure
+
+volumes:
+  tasks-data:
+    # Named volume for PostgreSQL persistence.
+    # Swarm manages this volume across the cluster (even if it's one node).
+
+networks:
+  tasks-manager-network:
+    # Overlay network is required for Swarm.
+    # It allows services to communicate across nodes.
+    driver: overlay
