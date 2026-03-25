@@ -160,7 +160,7 @@ pipeline {
                         sh '''
                             # Load the .env file into environment variables
                             set -a
-                            source "$DB_ENV"
+                            . "$DB_ENV"
                             set +a
                             # cat "$DB_ENV" > .env
                         '''
