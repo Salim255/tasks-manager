@@ -49,8 +49,6 @@ export const EditSprintForm = () => {
        dispatch(closeEditSprint());
     }
 
-
-
     return (
         <ModalOverlay onClose={closeModal}>
             <form  data-modal-body  className="form edit-sprint-form"  onSubmit={clickSubmit}>

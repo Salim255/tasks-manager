@@ -13,9 +13,10 @@ export function ModalOverlay({ children,  onClose }:{children: ReactNode;  onClo
         return () => unregister(ref);
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [register, unregister]);
+
     return (
         <section ref={ref} className="modal-overlay">
-        {children}
+            {children}
         </section>
     );
 }

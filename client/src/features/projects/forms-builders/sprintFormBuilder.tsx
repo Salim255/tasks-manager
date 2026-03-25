@@ -24,7 +24,6 @@ export const initialTaskFormState: SprintFormState = {
 };
 
 function reducer(state: SprintFormState, action: Action): SprintFormState {
-    console.log(state);
   switch (action.type) {
     case "SET_FIELD":
       return {

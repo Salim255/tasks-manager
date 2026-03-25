@@ -54,9 +54,8 @@ const projectSlice = createSlice({
         })
     },
     reducers: {
-        onAddMemberModal: (state, action: PayloadAction<{actionType: boolean}>) => {
-            const {actionType } = action.payload;
-            state.isAddMember = actionType;
+        onAddMemberModal: (state) => {
+            state.isAddMember = !state.isAddMember;
         },
         setActiveProjectId: (state, action: PayloadAction<{ projectId: string}>) => {
             const { projectId } = action.payload;

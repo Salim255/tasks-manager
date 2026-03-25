@@ -12,21 +12,21 @@ export const AddMemberForm = () => {
     const dispatch = useDispatch<AppDispatch>();
     const { isAddMember } = useSelectProjects();
     
-    const handleAddMemberModal = () => {
-        dispatch(onAddMemberModal({ actionType: !isAddMember}));
+    const onClose = () => {
+        dispatch(onAddMemberModal());
     }
 
     useEffect(() => {}, [isAddMember]);
 
     if (!isAddMember) {
-        return  <GoPersonAdd onClick={handleAddMemberModal}/> 
+        return  <GoPersonAdd onClick={onClose}/> 
     }
   
-    return <ModalOverlay onClose={handleAddMemberModal}>
-        <form  className="form add-member-form" data-modal-body>
+    return <ModalOverlay onClose={onClose}>
+        <form data-modal-body  className="form add-member-form" >
             <div className="from-row add-member-form__header">
                 <h6> Add people to My Scrum Space </h6>
-                <button onClick={handleAddMemberModal}><IoMdClose /></button>
+                <div> <button onClick={onClose}><IoMdClose /></button> </div>
             </div>
             <div className="form-row">
                 <label className="from-label">Member email</label>
@@ -39,7 +39,7 @@ export const AddMemberForm = () => {
                 <input className="form-input"></input>
             </div>
             <div className="form-row">
-                <button className="btn">cancel</button>
+                <button className="btn" onClick={onClose}>cancel</button>
                 <button className="btn btn-hero" type="submit">add</button>
             </div>
         </form>
