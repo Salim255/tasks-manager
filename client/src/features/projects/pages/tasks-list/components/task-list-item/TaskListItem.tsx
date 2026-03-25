@@ -9,7 +9,7 @@ import "./_task-list-item.scss";
 export const TaskListItem = ({task}:{task: Task}) => {
     return <div className="task-list-item task-grid">
         <div className="task-list-item__name">
-            <TaskLabel label={task.title} name={task.title} />
+            <TaskLabel  name={task.title} />
         </div>
         <div className="task-list-item__description">{task.description}</div>
         <div className="task-list-item__assignee">

@@ -2,7 +2,7 @@ import "./_tasks-list-header.scss";
 
 export const TasksListHeader = () => {
     return <div className="tasks-list-header task-grid">
-            <div className="task-list-item__name">Nam</div>
+            <div className="task-list-item__name">Work</div>
             <div className="task-list-item__description">Description</div>
             <div className="task-list-item__assignee">Assignee</div>
             <div className="task-list-item__reporter">Reporter</div>
