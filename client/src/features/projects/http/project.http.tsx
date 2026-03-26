@@ -3,6 +3,7 @@ import axios, { AxiosError } from "axios";
 import type { Project } from "../models/project.model";
 import { type ApiErrorDto } from "../../../shared/interfaces/shared.interfaces";
 import { setSprints } from "../states/sprintSlice";
+import { setTasks } from "../states/taskSlice";
 
 const apiUrl = `${import.meta.env.VITE_API_URL}/projects`;
 
@@ -37,9 +38,9 @@ export const fetchSingleProjectHttp = createAsyncThunk<
     async ({ projectId }: { projectId: string }, thunkApi) => {
         try {
             const response = await axios.get(`${apiUrl}/${projectId}`, { withCredentials: true });
-            const project  = response.data.data.project as Project;
-            console.log(project);
-            thunkApi.dispatch(setSprints({ sprints: project.sprints }))
+            const project  = (response.data.data.project) as Project;
+            thunkApi.dispatch(setSprints({ sprints: project.sprints }));
+            thunkApi.dispatch(setTasks({ tasks: project.tasks }));
             return response.data;
         } catch (error) {
             // Extract your backend error shape
