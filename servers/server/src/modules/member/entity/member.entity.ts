@@ -1,13 +1,13 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, Unique } from 'typeorm';
 
 type MemberRole = 'admin' | 'member';
-
 @Entity('members')
+@Unique(['userId', 'projectId']) 
 export class Member {
   @PrimaryGeneratedColumn('uuid')
   id: string;
   
-  @Column({ type: 'uuid' })
+  @Column()
   projectId: string; // FK → projects.id
 
   @Column({ type: 'uuid' })

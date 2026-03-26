@@ -8,7 +8,7 @@ const apiUrl = import.meta.env.VITE_API_URL;
 
 export type CreateMemberPayload = {
     projectId: string;
-    mail: string;
+    email: string;
     role: MemberRole
 }
 

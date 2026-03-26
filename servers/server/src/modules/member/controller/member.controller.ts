@@ -17,7 +17,7 @@ import { JwtAuthGuard } from 'src/modules/auth/guard/jwt-auth.guard';
 import { ApiErrorResponseDto } from 'src/common/interfaces/shared.interface';
 
 import { MemberService } from '../service/member.service';
-import { CreateMemberDto } from '../dto/member.dto';
+import { CreateMemberDto, CreateMemberResponse } from '../dto/member.dto';
 import { UserService } from 'src/modules/user/service/user.service';
 import { User } from 'src/modules/user/entity/user.entity';
 import { Member } from '../entity/member.entity';
@@ -66,7 +66,9 @@ export class MemberController {
     description: 'Internal server error.',
     type: ApiErrorResponseDto,
   })
-  async createProjectMember(@Body() dto: CreateMemberDto): Promise<Member> {
+  async createProjectMember(
+    @Body() dto: CreateMemberDto,
+  ): Promise<CreateMemberResponse> {
     const { email, projectId, role } = dto;
     if (!email || !projectId || !role) {
       throw new BadRequestException('Project member data  missing');
@@ -75,6 +77,17 @@ export class MemberController {
     if (!user) {
       throw new BadRequestException('User not exist with the given email');
     }
-    return this.memberService.create({ userId: user.id, projectId, role });
+    const member = await this.memberService.create({
+      userId: user.id,
+      projectId,
+      role,
+    });
+
+    return {
+      status: 'success',
+      data: {
+        member: member,
+      },
+    };
   }
 }

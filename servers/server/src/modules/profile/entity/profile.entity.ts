@@ -12,7 +12,7 @@ export class Profile {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({ type: 'uuid' })
   userId: string;
 
   @OneToOne(() => User, (user) => user.profile, { onDelete: 'CASCADE' })

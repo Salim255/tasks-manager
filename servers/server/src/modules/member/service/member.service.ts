@@ -17,11 +17,22 @@ export class MemberService {
   ): Promise<Member> {
     try {
       const query = `
-        INSERT INTO members ("projectId", "userId", role)
-        VALUES ($1, $2, $3)
-        RETURNING *;`;
+      WITH inserted AS (
+          INSERT INTO members ("projectId", "userId", role)
+          VALUES ($1, $2, $3)
+          RETURNING *
+      )
+      SELECT 
+          i.id,
+          i.role,
+          i."projectId",
+          to_jsonb(p.* ) AS profile
+      FROM inserted i
+      JOIN profiles p ON p."userId" = i."userId";`;
+
       const values = [payload.projectId, payload.userId, payload.role];
       const member: Member[] = await this.memberRepo.query(query, values);
+      console.log(member);
       return member[0];
     } catch (error) {
       this.logger.error(error);

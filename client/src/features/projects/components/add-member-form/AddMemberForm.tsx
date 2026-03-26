@@ -8,6 +8,7 @@ import { ModalOverlay } from "../../../../shared/components/modal-overlay/ModalO
 import { onAddMemberModal } from "../../states/projectSlice";
 import { IoMdClose } from "react-icons/io";
 import { useMemberForm } from "../../forms-builders/memberFormBuilder";
+import { addMemberHttp, type CreateMemberPayload } from "../../http/member.http";
 
 export const AddMemberForm = ({ projectId }:{ projectId: string }) => {
     const dispatch = useDispatch<AppDispatch>();
@@ -20,6 +21,13 @@ export const AddMemberForm = ({ projectId }:{ projectId: string }) => {
 
     const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
+        if (!state.memberEmail || !state.projectId || !state.role) return;
+        const payload: CreateMemberPayload  = {
+            email: state.memberEmail,
+            role: state.role,
+            projectId: state.projectId,
+        };
+        dispatch(addMemberHttp(payload));
         reset();
     }
 
