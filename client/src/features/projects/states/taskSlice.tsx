@@ -24,6 +24,10 @@ const taskSlice = createSlice({
     name: 'taskSlice',
     initialState,
     reducers: {
+        setTasks: (state, action: PayloadAction<{tasks: Task[]}>) => {
+            const {tasks} = action.payload;
+            state.tasks = tasks;
+        },
         isEditingTask: (state, action: PayloadAction<{taskId: string}>) => {
             const {taskId} = action.payload;
             if (taskId) return;
@@ -118,9 +122,13 @@ const taskSlice = createSlice({
     },
 })
 
-export const { isEditingTask } = taskSlice.actions;
-export const { setBackTaskToBacklog } = taskSlice.actions;
-export const { addToBacklogTask } = taskSlice.actions;
-export const { removeTask } = taskSlice.actions;
+export const {
+    isEditingTask,
+    setTasks,
+    setBackTaskToBacklog,
+    addToBacklogTask,
+    removeTask,
+} = taskSlice.actions;
+
 
 export default taskSlice.reducer;
