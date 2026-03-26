@@ -54,6 +54,7 @@ export const Backlog = () => {
     }
     
     useEffect(() => {
+         
     }, [tasks, isCreating, sprints, isOpen, projectId]);
 
     if (!projectId) return <Navigate to="/projects" replace />;

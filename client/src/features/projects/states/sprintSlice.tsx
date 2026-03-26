@@ -89,6 +89,10 @@ const sprintSlice = createSlice({
         })
     },
     reducers: {
+        setSprints: (state, action: PayloadAction<{sprints: Sprint[]}>) => {
+            const { sprints } = action.payload;
+            state.sprints = sprints;
+        },
         onUpdateSprintStatus: (state, action: PayloadAction<{ sprintId: string, status: SprintStatus }>) => {
             const { sprintId, status } = action.payload;
             const sprintIndex = state.sprints.findIndex(sprint => sprint.id === sprintId);
@@ -114,7 +118,7 @@ const sprintSlice = createSlice({
 })
 
 // Export other reducers
-export const { openEditSprint, closeEditSprint } = sprintSlice.actions;
+export const { openEditSprint, closeEditSprint, setSprints } = sprintSlice.actions;
 export const { onUpdateSprintStatus } = sprintSlice.actions;
 export const { addSprint } = sprintSlice.actions;
 //  Export reducer

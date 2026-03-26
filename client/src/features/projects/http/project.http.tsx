@@ -2,8 +2,9 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
 import type { Project } from "../models/project.model";
 import { type ApiErrorDto } from "../../../shared/interfaces/shared.interfaces";
+import { setSprints } from "../states/sprintSlice";
 
-const apiUrl = import.meta.env.VITE_API_URL;
+const apiUrl = `${import.meta.env.VITE_API_URL}/projects`;
 
 // 1 create project 
 export type CreateProjectPayload = {
@@ -35,7 +36,10 @@ export const fetchSingleProjectHttp = createAsyncThunk<
     'fetch/fetch-project',
     async ({ projectId }: { projectId: string }, thunkApi) => {
         try {
-            const response = await axios.get(`${apiUrl}/${projectId}`);
+            const response = await axios.get(`${apiUrl}/${projectId}`, { withCredentials: true });
+            const project  = response.data.data.project as Project;
+            console.log(project);
+            thunkApi.dispatch(setSprints({ sprints: project.sprints }))
             return response.data;
         } catch (error) {
             // Extract your backend error shape
@@ -66,7 +70,7 @@ export const createProjectHttp = createAsyncThunk<
     async (data:CreateProjectPayload, thunkApi ) => {
         try {
             const result = await axios.post<ProjectResponseDto>(
-                `${apiUrl}/projects`,
+                `${apiUrl}`,
                 data,
                 { withCredentials: true }
             );
@@ -102,7 +106,7 @@ export const fetchProjectsHttp = createAsyncThunk<
     async (_, thunkApi) => {
         try {
             const response = await axios.get(
-                `${apiUrl}/projects`,
+                `${apiUrl}`,
                 { withCredentials: true },
             );
             return response.data;

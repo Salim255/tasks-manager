@@ -22,6 +22,7 @@ import {
   CreateProjectDto,
   CreateProjectResponseDto,
   ProjectDto,
+  ProjectDtoResponse,
   ProjectsListResponseDto,
 } from '../dto/project.dto';
 import { Project } from '../entity/project.entity';
@@ -68,7 +69,7 @@ export class ProjectController {
   @ApiResponse({
     status: 200,
     description: 'Project successfully fetched',
-    type: ProjectDto,
+    type: ProjectDtoResponse,
   })
   @ApiResponse({
     status: 404,
@@ -78,17 +79,23 @@ export class ProjectController {
     @Param('projectId') projectId: string,
     @Req()
     req: Request & { user: { id: string }; refresh_token: { token: string } },
-  ): Promise<ProjectDto> {
+  ): Promise<ProjectDtoResponse> {
     const { id: userId } = req.user;
 
     if (!userId || !projectId) {
       throw new BadRequestException('Fetch project data required');
     }
-    const project = await this.projectService.getProjectById({
+    const project: ProjectDto = await this.projectService.getProjectById({
       projectId,
       userId,
     });
-    return project;
+
+    return {
+      status: 'success',
+      data: {
+        project: project,
+      },
+    };
   }
 
   @UseGuards(JwtAuthGuard)
@@ -275,6 +282,10 @@ export class ProjectController {
     req: Request & { user: { id: string }; refresh_token: { token: string } },
   ): Promise<TasksListResponseDto> {
     const { id: userId } = req.user;
+
+    if (!projectId) {
+      throw new BadRequestException('ProjectId needed to fetch project');
+    }
 
     const tasks = await this.taskService.getTasksByProject({ projectId });
 

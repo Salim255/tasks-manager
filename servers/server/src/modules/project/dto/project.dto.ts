@@ -5,6 +5,7 @@ import { Task } from 'src/modules/task/entity/task.entity';
 import { Sprint } from 'src/modules/sprint/entity/sprint.entity';
 import { Member } from 'src/modules/member/entity/member.entity';
 import { Profile } from 'src/modules/profile/entity/profile.entity';
+import { ApiResponseData } from 'src/common/interfaces/shared.interface';
 
 export enum ProjectStatus {
   ACTIVE = 'active',
@@ -45,6 +46,10 @@ export class ProjectDto {
   @ApiProperty({ type: () => Profile })
   owner: Profile;
 }
+
+export class ProjectDtoResponse extends ApiResponseData<{
+  project: ProjectDto;
+}> {}
 
 export class CreateProjectResponseDto {
   @ApiProperty({ example: 'success' })
