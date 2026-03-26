@@ -32,7 +32,7 @@ export class MemberService {
 
       const values = [payload.projectId, payload.userId, payload.role];
       const member: Member[] = await this.memberRepo.query(query, values);
-      console.log(member);
+
       return member[0];
     } catch (error) {
       this.logger.error(error);

@@ -81,7 +81,7 @@ export class ProjectService {
         WHERE project."ownerId" = $1;
       `;
       const rows: Project[] = await this.projectRepo.query(query, [ownerId]);
-      console.log(rows);
+
       return rows;
     } catch (error) {
       this.logger.error('Error to fetch user projects', error);
