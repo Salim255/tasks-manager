@@ -70,13 +70,18 @@ export class ProjectService {
                   WHERE sprint."projectId" = project.id
           ),
           '[]'::json
-          ) AS sprints
+          ) AS sprints,
+
+          to_jsonb(p.* ) AS profile
 
         FROM projects AS project
-        
+
+        JOIN profiles p ON p."userId" = project."ownerId"
+
         WHERE project."ownerId" = $1;
       `;
       const rows: Project[] = await this.projectRepo.query(query, [ownerId]);
+      console.log(rows);
       return rows;
     } catch (error) {
       this.logger.error('Error to fetch user projects', error);

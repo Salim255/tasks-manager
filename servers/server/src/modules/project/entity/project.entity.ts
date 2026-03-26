@@ -21,7 +21,7 @@ export class Project {
   @Column({ default: ProjectStatus.ACTIVE })
   status: ProjectStatus;
 
-  @Column()
+  @Column({ type: 'uuid' })
   ownerId: string;
 
   @CreateDateColumn()

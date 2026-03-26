@@ -7,7 +7,7 @@ export class Member {
   @PrimaryGeneratedColumn('uuid')
   id: string;
   
-  @Column()
+  @Column({ type: 'uuid' })
   projectId: string; // FK → projects.id
 
   @Column({ type: 'uuid' })
