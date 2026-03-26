@@ -17,7 +17,7 @@ export class ProjectService {
     @Inject(PROJECT_REPOSITORY) private projectRepo: Repository<Project>,
   ) {}
 
-  async getSingleProject({
+  async getProjectById({
     projectId,
     userId,
   }: {

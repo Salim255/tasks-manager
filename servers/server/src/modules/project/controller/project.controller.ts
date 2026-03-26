@@ -21,6 +21,7 @@ import {
 import {
   CreateProjectDto,
   CreateProjectResponseDto,
+  ProjectDto,
   ProjectsListResponseDto,
 } from '../dto/project.dto';
 import { Project } from '../entity/project.entity';
@@ -50,6 +51,45 @@ export class ProjectController {
     private taskService: TaskService,
     private projectService: ProjectService,
   ) {}
+
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  @Get(':projectId')
+  @ApiOperation({
+    summary: 'Fetch a single project',
+    description:
+      'Fetches a single project along with its tasks, sprints, members (with profile), and owner. Requires authentication via HttpOnly session cookie.',
+  })
+  @ApiParam({
+    name: 'projectId',
+    description: 'ID of the project to fetch',
+    example: '3d660f2d-5653-4b8c-9ecc-b4497ff64a06',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Project successfully fetched',
+    type: ProjectDto,
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Project not found',
+  })
+  async getProject(
+    @Param('projectId') projectId: string,
+    @Req()
+    req: Request & { user: { id: string }; refresh_token: { token: string } },
+  ): Promise<ProjectDto> {
+    const { id: userId } = req.user;
+
+    if (!userId || !projectId) {
+      throw new BadRequestException('Fetch project data required');
+    }
+    const project = await this.projectService.getProjectById({
+      projectId,
+      userId,
+    });
+    return project;
+  }
 
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
