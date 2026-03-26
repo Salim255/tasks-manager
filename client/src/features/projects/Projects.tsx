@@ -8,7 +8,8 @@ import type { RootState } from "../../redux/store";
 export const Projects = () => {
     const navigate = useNavigate();
     const {projects, isLoading } = useSelector((store:  RootState) => store.projectReducer);
-   
+    
+    console.log(projects);
     useEffect(() => {
         if (!isLoading && !projects.length){
             navigate("/create-project", { replace: true });

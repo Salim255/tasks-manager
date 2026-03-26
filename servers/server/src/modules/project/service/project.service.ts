@@ -52,36 +52,64 @@ export class ProjectService {
     try {
       const query = `
         SELECT *,
-
+          
+          -- Add project tasks
           COALESCE (
             (
-              SELECT json_agg ( task.* )
+              SELECT jsonb_agg ( task.* )
                 FROM tasks AS task
                   WHERE task."projectId" = project.id
             ),
-            '[]'::json
+            '[]'::jsonb
           ) AS tasks,
          
-
+          -- Add project sprints
           COALESCE (
             (
-              SELECT json_agg ( sprint.* )
+              SELECT jsonb_agg ( sprint.* )
                 FROM sprints AS sprint
                   WHERE sprint."projectId" = project.id
           ),
-          '[]'::json
+          '[]'::jsonb
           ) AS sprints,
 
-          to_jsonb(p.* ) AS profile
+          -- # Add project Members 
+          COALESCE (
+            (
+            SELECT jsonb_agg ( to_jsonb(m.*) ||
+              jsonb_build_object('profile', to_jsonb(pr))
+             )
+              FROM members AS m
+              JOIN profiles pr ON  pr."userId" = m."userId"
+                
+              WHERE m."projectId" = project.id
+               
+            ),
+            '[]'::jsonb
+          ) AS members,
 
-        FROM projects AS project
+          -- # Project Owner profile
+          COALESCE (
+            ( 
+              SELECT  to_jsonb ( profile.* ) 
+                FROM profiles AS profile
+                  WHERE profile."userId" = $1
+                LIMIT 1
+            ),
+            '{}'::jsonb
+          ) AS Owner
 
-        JOIN profiles p ON p."userId" = project."ownerId"
+        FROM projects AS project 
 
-        WHERE project."ownerId" = $1;
+        -- Owner profile
+        WHERE project."ownerId" = $1
+          OR EXISTS (
+            SELECT 1
+              FROM members AS mb
+                WHERE mb."projectId" = project.id
+          );
       `;
       const rows: Project[] = await this.projectRepo.query(query, [ownerId]);
-
       return rows;
     } catch (error) {
       this.logger.error('Error to fetch user projects', error);
