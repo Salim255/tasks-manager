@@ -88,8 +88,8 @@ export class ProjectService {
           );
       `;
 
-      const rows: ProjectDto = await this.projectRepo.query(query, [...values]);
-      return rows;
+      const rows: ProjectDto[] = await this.projectRepo.query(query, values);
+      return rows[0];
     } catch (error) {
       this.logger.error('Error to fetch single project', error);
       throw error;

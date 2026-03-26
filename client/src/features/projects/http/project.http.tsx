@@ -25,6 +25,38 @@ export type ProjectsResponseDto = {
     }
 }
 
+
+export const fetchSingleProjectHttp = createAsyncThunk<
+    ProjectResponseDto,
+        { projectId: string },
+    { rejectValue: ApiErrorDto }  // error type
+    >
+    (
+    'fetch/fetch-project',
+    async ({ projectId }: { projectId: string }, thunkApi) => {
+        try {
+            const response = await axios.get(`${apiUrl}/${projectId}`);
+            return response.data;
+        } catch (error) {
+            // Extract your backend error shape
+            if (error instanceof AxiosError) {
+                    const backendError: ApiErrorDto = error.response?.data || {
+                        status: "error",
+                        message: "Unknown error",
+                        data: null
+                    };
+
+                return thunkApi.rejectWithValue(backendError);
+            }
+            // fallback for non-Axios errors
+            return thunkApi.rejectWithValue({
+                status: "error",
+                message: "Unexpected error",
+                data: null
+            });
+        }
+    }
+)
 export const createProjectHttp = createAsyncThunk<
     ProjectResponseDto,  // success type
     CreateProjectPayload, // argument type
