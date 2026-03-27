@@ -12,7 +12,7 @@ export function corsConfig(app: INestApplication) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       if (!origin || allowedOrigins.includes(origin)) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-        callback(null, origin || true);
+        callback(null, origin);
       } else {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-call
         callback(new Error(`Origin not allowed by CORS: ${origin}`));
