@@ -2,7 +2,7 @@ import "./_create-project-form.scss";
 import { useEffect, type ChangeEvent } from "react";
 import { useProjectForm } from "../../forms-builders/projectFormBuilder"
 import { useDispatch } from "react-redux";
-import { createProjectHttp, type CreateProjectPayload} from "../../http/project.http";
+import { createProjectHttp, fetchSingleProjectHttp, type CreateProjectPayload} from "../../http/project.http";
 import { type AppDispatch } from "../../../../redux/store";
 import { useNavigate } from "react-router-dom";
 
@@ -27,7 +27,8 @@ export const CreateProjectForm = () => {
        
         if (createProjectHttp.fulfilled.match(result)) { 
             const project = result.payload.data.project;
-            navigate(`/projects/${project.id}/board`)
+            navigate(`/projects/${project.id}/board`);
+            dispatch(fetchSingleProjectHttp({projectId: project.id}));
         }
     }
 

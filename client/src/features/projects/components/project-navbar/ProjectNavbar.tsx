@@ -8,16 +8,21 @@ import { IoMdOptions } from "react-icons/io";
 import { AddMemberForm } from '../add-member-form/AddMemberForm';
 
 export const ProjectNavbar =() => {
-    const { activeProject} = useSelector((store:  RootState) => store.projectReducer);
-    const { id: projectId } = activeProject!;
- 
-    useEffect(() => {
-    }, [activeProject]);
+    const { activeProject, isFetchingProject} = useSelector((store:  RootState) => store.projectReducer);
+
+    const projectId  = activeProject?.id;
+    
+     useEffect(() => {
+    }, [activeProject, isFetchingProject]);
+
+    if (isFetchingProject){
+        return <h1>Loading...</h1>
+    }
 
     return (
         <header className="project-header">
             <h2 className='project-header__title'>
-                { activeProject?.name } <AddMemberForm projectId={projectId} />
+                { activeProject?.name } <AddMemberForm projectId={projectId!} />
             </h2>
             <nav className="project-header__links">
                 {
