@@ -1,10 +1,11 @@
 import './_task-item.scss';
+import { useState } from 'react';
 import type { Task } from "../../models/task.model";
 import { OptionsBtn } from '../../../../shared/components/options-btn/OptionsBtn';
-import { useState } from 'react';
 import { typeIcon } from '../../../../shared/utils/methods';
+import { AsidePopup } from '../../../../shared/kits/aside-popup/AsidePopup';
 
-export type TaskItemProps = { task: Task; } & React.HTMLAttributes<HTMLDivElement>; // <-- this is the magic
+export type TaskItemProps = { task: Task; } & React.HTMLAttributes<HTMLDivElement>;
 
 export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
     const [isOptionsOpen, setOptionsOpen ] = useState<string | null>(null);
@@ -31,10 +32,19 @@ export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
                     setOptionsOpen={setOptionsOpen}
                 >
                     <ul className='options-list'>
-                        <li className='options-list__item'>Assignee</li>
+                        <li className='options-list__item task-aside-container'>
+                            Assignee
+                            <AsidePopup >
+                                <ul className='task-aside-container__item-aside'>
+                                    <li>hello</li>
+                                </ul>
+                            </AsidePopup>
+                        </li>
                         <li className='options-list__item'>Delete Task</li>
+                        
                     </ul>
                 </OptionsBtn>
+              
             </section>
         </div>
     )
