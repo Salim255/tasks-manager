@@ -1,6 +1,6 @@
 import { projectLinks } from '../../../../shared/utils/links';
 import './_project-navbar.scss';
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import type { RootState } from '../../../../redux/store';
 import { useEffect } from 'react';
@@ -8,15 +8,17 @@ import { IoMdOptions } from "react-icons/io";
 import { AddMemberForm } from '../add-member-form/AddMemberForm';
 
 export const ProjectNavbar =() => {
-    const {projects, activeProjectId, activeProject} = useSelector((store:  RootState) => store.projectReducer);
-    const { projectId } = useParams();
-    const defaultProjectId =  projectId;
+    const { activeProject} = useSelector((store:  RootState) => store.projectReducer);
+    const { id: projectId } = activeProject!;
  
-    useEffect(() => {}, [projects,  activeProjectId, defaultProjectId]);
+    useEffect(() => {
+    }, [activeProject]);
 
     return (
         <header className="project-header">
-            <h2 className='project-header__title'> {activeProject?.name} <AddMemberForm projectId={projectId!} /></h2>
+            <h2 className='project-header__title'>
+                { activeProject?.name } <AddMemberForm projectId={projectId} />
+            </h2>
             <nav className="project-header__links">
                 {
                     projectLinks.map((link) => {

@@ -28,10 +28,9 @@ export const NavLinks = ({ toggleSidebar }: { toggleSidebar: () => void}) => {
                         >
                         <span className='icon'>  { icon } </span>
                         { text }
-                
                     </NavLink>
                     {   text==='Projects' && 
-                        <ul>
+                        <ul key={id}>
                             {
                                 projects.map((project) => {
                                     return(

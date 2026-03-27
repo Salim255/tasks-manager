@@ -80,11 +80,11 @@ export class ProjectService {
         FROM projects AS project 
 
         -- Owner profile
-        WHERE project.id = $1
-          OR EXISTS (
+        WHERE project.id = $1 AND project."ownerId" = $2
+          OR  project.id = $1 AND  EXISTS (
             SELECT 1
               FROM members AS mb
-                WHERE mb."projectId" = project.id
+                WHERE mb."projectId" = project.id AND mb."userId" = $2
           );
       `;
 

@@ -39,7 +39,7 @@ const projectSlice = createSlice({
         })
         .addCase(fetchSingleProjectHttp.fulfilled, (state, action) => {
             const { project } = action.payload.data;
-            state.activeProject = project;
+            //state.activeProject = project;
             state.isFetchingProject = false;
         })
         .addCase(fetchSingleProjectHttp.rejected, (state) => {
@@ -96,7 +96,6 @@ const projectSlice = createSlice({
             const project = state.projects.find((p) => p.id === projectId);
             state.activeProject = project;
             state.activeProjectId = projectId;
-            return state;
         }
     }
 });

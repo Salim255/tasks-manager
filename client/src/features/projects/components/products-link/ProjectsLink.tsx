@@ -4,9 +4,8 @@ import type { Project } from "../../models/project.model";
 import { useDispatch } from "react-redux";
 import { setActiveProjectId } from "../../states/projectSlice";
 import { SiCloudflareworkers } from "react-icons/si";
-import { useEffect } from 'react';
 import { type AppDispatch } from '../../../../redux/store';
-
+import { fetchSingleProjectHttp } from '../../http/project.http';
 
 
 export const ProjectsLinks = ({ project }: { project: Project }) => {
@@ -15,12 +14,10 @@ export const ProjectsLinks = ({ project }: { project: Project }) => {
 
   const isCurrentProject = projectId === project.id;
 
-  const updateActiveProjectId = () => {
-    dispatch(setActiveProjectId({ projectId: project.id }));
+  const updateActiveProjectId = async () => {
+      dispatch(setActiveProjectId({ projectId: project.id }));
+      dispatch(fetchSingleProjectHttp({projectId: project.id}));
   };
-
-  useEffect(() => {
-  }, [projectId])
   
   return (
     <li className="projects-item">
@@ -39,7 +36,7 @@ export const ProjectsLinks = ({ project }: { project: Project }) => {
         }
         to={`/projects/${project.id}/board`} 
       >
-        {project.name}
+        { project.name }
       </NavLink>
     </li>
   );

@@ -8,14 +8,11 @@ import { useDispatch } from 'react-redux';
 import { type AppDispatch } from '../../../../redux/store';
 import { BoardColumn } from './components/board-column/BoardColumn';
 import { useBoardData } from './board-hooks/boardData';
-import { fetchSingleProjectHttp } from '../../http/project.http';
-import { useParams } from 'react-router-dom';
 
 export const Board = () => { 
     const { sprints } = useSprintSelector();
     const { tasks } = useTasksSelector();
     const dispatch = useDispatch<AppDispatch>();
-     const { projectId } = useParams();
     const boardData = useBoardData(tasks, sprints);
 
     const onDragStart = (e: React.DragEvent<Element>, task: Task) => {
@@ -36,11 +33,7 @@ export const Board = () => {
     }
 
     useEffect(() => {
-        if (projectId) {
-            dispatch(fetchSingleProjectHttp({ projectId }))
-        }
-       
-    }, [projectId, dispatch]);
+    }, [tasks, sprints]);
 
     return (
         <section className="board">

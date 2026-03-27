@@ -5,7 +5,6 @@ import { Profile } from "../features/profile/Profile";
 import { Backlog } from "../features/projects/pages/backlog/Backlog";
 import { Board } from "../features/projects/pages/board/Board";
 import { CreateProject } from "../features/projects/pages/create-project/CreateProject";
-import { ProjectsIndexRedirect } from "./currentProjectId";
 import { Projects } from "../features/projects/Projects";
 import { EmptyProjects } from "../features/projects/pages/empty-projects/EmptyProjects";
 import { Auth } from "../features/auth/Auth";
@@ -30,7 +29,7 @@ const routes: RouteObject[] = [
                 path: 'projects/',
                 Component: Projects,
                  children: [
-                    { index: true, element:  <ProjectsIndexRedirect /> },
+                    { index: true, element:  <CreateProject /> },
                     {
                         path: 'empty',
                         Component: EmptyProjects
