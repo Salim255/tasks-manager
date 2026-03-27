@@ -15,14 +15,19 @@ export const ProjectNavbar =() => {
      useEffect(() => {
     }, [activeProject, isFetchingProject]);
 
-    if (isFetchingProject){
-        return <h1>Loading...</h1>
-    }
-
     return (
         <header className="project-header">
             <h2 className='project-header__title'>
-                { activeProject?.name } <AddMemberForm projectId={projectId!} />
+                {
+                    isFetchingProject 
+                    ? ("Loading") 
+                    : (
+                        <>
+                            {activeProject?.name}
+                            <AddMemberForm projectId={projectId!} />
+                        </>
+                    )
+                }
             </h2>
             <nav className="project-header__links">
                 {
