@@ -31,7 +31,7 @@ export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
                     setOptionsOpen={setOptionsOpen}
                 >
                     <ul className='options-list'>
-                        <li className='options-list__item'>Edit Task</li>
+                        <li className='options-list__item'>Assignee</li>
                         <li className='options-list__item'>Delete Task</li>
                     </ul>
                 </OptionsBtn>

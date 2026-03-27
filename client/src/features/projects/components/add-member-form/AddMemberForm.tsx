@@ -1,5 +1,5 @@
 import "./_add-member-form.scss";
-import { GoPersonAdd } from "react-icons/go";
+import { BsPersonAdd } from "react-icons/bs";
 import { useSelectProjects } from "../../states/projectsSelectors";
 import { useEffect, type ChangeEvent } from "react";
 import { useDispatch } from "react-redux";
@@ -40,7 +40,7 @@ export const AddMemberForm = ({ projectId }:{ projectId: string }) => {
     }, [isAddMember, projectId]);
 
     return <>
-        <GoPersonAdd onClick={onClose}/> 
+        <BsPersonAdd onClick={onClose}/> 
         {
             isAddMember &&
             <ModalOverlay onClose={onClose}>
