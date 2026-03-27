@@ -35,9 +35,16 @@ export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
                         <li className='options-list__item task-aside-container'>
                             Assignee
                             <AsidePopup >
-                                <ul className='task-aside-container__item-aside'>
-                                    <li>hello</li>
-                                </ul>
+                                <div className='task-aside-container__item-aside'>
+                                    <li> unassigned </li>
+                                    {
+                                        [1,2,3, 4, 5,6, 7, 8, 9, 10, 11, 12].map((m) => {
+                                            return <li key={m}>
+                                                 {m}
+                                            </li>
+                                        })
+                                    }
+                                </div>
                             </AsidePopup>
                         </li>
                         <li className='options-list__item'>Delete Task</li>

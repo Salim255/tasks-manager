@@ -46,8 +46,6 @@
             display: flex;
             flex-direction: column;
             margin: 0;
-            //gap: .5rem;
-            background-color: gold;
             .task-aside-container{
                 &__item-aside{
                     display: none;
@@ -55,7 +53,6 @@
                 }
             }
             &__item {
-                //border-radius: 4px;
                 min-width: 8rem;
                 padding: .5rem;
                 padding-left: 1rem;
@@ -63,11 +60,16 @@
                     background-color: var(--grey-100);
                     cursor: pointer;
                     .task-aside-container__item-aside {
-                        background-color: yellow;
-                        height: fit-content;
-                        display: block;
-                        min-width: 10rem;
+                        border-radius: .2rem;
+                        overflow-y: auto;
+                        display: flex;
+                        flex-direction: column;
                         height: 10rem;
+                        background-color: red;
+                        min-width: 10rem;
+                        li {
+                            margin: .4rem;
+                        }
                     }
                 }
             }
