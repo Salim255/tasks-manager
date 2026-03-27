@@ -11,8 +11,7 @@ type InitiateState = {
     isOpen: boolean;
 }
 
-
- const initialState: InitiateState = {
+const initialState: InitiateState = {
     tasks: [],
     isCreating: false,
     isLoading: false,

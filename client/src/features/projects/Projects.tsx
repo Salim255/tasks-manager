@@ -1,5 +1,5 @@
 import "./_projects.scss";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate, useParams } from "react-router-dom";
 import { ProjectNavbar } from "./components/project-navbar/ProjectNavbar";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -7,6 +7,7 @@ import type { RootState } from "../../redux/store";
 
 export const Projects = () => {
     const navigate = useNavigate();
+    const { projectId } = useParams();
     const {projects, isLoading } = useSelector((store:  RootState) => store.projectReducer);
     
     useEffect(() => {
@@ -18,7 +19,7 @@ export const Projects = () => {
 
     return  (
         <div className="projects-layout">
-            <ProjectNavbar />
+            { projectId && <ProjectNavbar /> }
             <div className="projects-content">
                 <Outlet />
             </div>

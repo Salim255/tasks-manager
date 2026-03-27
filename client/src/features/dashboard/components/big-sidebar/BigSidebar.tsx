@@ -1,18 +1,12 @@
 import "./_big-sidebar.scss";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import type { RootState } from "../../../../redux/store";
-import { updateSidebarOpenState } from "../../states/dashboardSlice";
 import { NavLinks } from "../nav-links/NavLinks";
 import { DiScrum } from "react-icons/di";
 
 export const BigSidebar = () => {
     const { isSideBarIsOpen } = useSelector((store: RootState) => store.dashboard);
-    const dispatch = useDispatch();
-    function toggle() {
-        //setSideBarIsOpen(isSideBarOpen);
-        dispatch(updateSidebarOpenState())
-    }
 
     useEffect(() => {
     }, [isSideBarIsOpen])
@@ -27,7 +21,7 @@ export const BigSidebar = () => {
                         {/* <img src="/img/logos/logo.png" alt="logo" className="bg-aside__logo"/> */}
 
                     </header>
-                    <NavLinks toggleSidebar={toggle} />
+                    <NavLinks/>
                 </div>
             </div> 
         </aside>

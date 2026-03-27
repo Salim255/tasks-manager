@@ -2,12 +2,21 @@ import { links } from '../../../../shared/utils/links';
 import './_nav-links.scss';
 import { NavLink } from "react-router-dom";
 import { ProjectsLinks } from '../../../projects/components/products-link/ProjectsLink';
-import { Fragment, useEffect } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import {useSelectProjects} from "../../../projects/states/projectsSelectors";
 
-export const NavLinks = ({ toggleSidebar }: { toggleSidebar: () => void}) => {
+export const NavLinks = ({ toggleSidebar }: { toggleSidebar?: () => void}) => {
     const { projects } = useSelectProjects();
-    
+    const [toggleProjects, setToggleProjects] = useState<boolean>(false);
+    const handleClick = (text: string) => {
+        if(text === 'Projects') {
+            setToggleProjects((prev) => !prev);
+        }
+
+        // To run on small bar
+        if (toggleSidebar) toggleSidebar();
+    }
+
     useEffect(() => {
     },[projects])
 
@@ -18,7 +27,7 @@ export const NavLinks = ({ toggleSidebar }: { toggleSidebar: () => void}) => {
                 const {id, text, path, icon} = link;
                 return <Fragment key={id}>
                     <NavLink
-                        onClick={toggleSidebar}
+                        onClick={() => handleClick(text)}
                         to={path}
                         className={({isActive}) => {
                             return isActive ? 
@@ -30,7 +39,8 @@ export const NavLinks = ({ toggleSidebar }: { toggleSidebar: () => void}) => {
                         { text }
                     </NavLink>
                     {   text==='Projects' && 
-                        <ul key={id}>
+                       
+                        <ul key={id}  className={`nav-links__projects ${toggleProjects ? 'nav-links__projects--active': ''} `}>
                             {
                                 projects.map((project) => {
                                     return(
@@ -39,6 +49,7 @@ export const NavLinks = ({ toggleSidebar }: { toggleSidebar: () => void}) => {
                                 })
                             }
                         </ul>
+                       
                     }
                 </Fragment>
             })

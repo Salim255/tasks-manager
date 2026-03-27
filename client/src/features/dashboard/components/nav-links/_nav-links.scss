@@ -26,6 +26,16 @@
             }
         }
     }
+    &__projects {
+        margin: 0;
+        max-height: 10rem;
+        overflow-y: auto;
+        overflow-x: hidden;
+        transition: all .2s ease-in;
+        &--active {
+            max-height: 0;
+        }
+    }
     .icon {
         font-size: 1.5rem;
         margin-right: 1rem;
@@ -35,9 +45,3 @@
     }
 }
 
-ul {
-    margin: 0;
-    max-height: 10rem;
-    overflow-y: auto;
-    overflow-x: hidden;
-}
