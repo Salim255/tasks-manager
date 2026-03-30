@@ -12,6 +12,8 @@ export type UpdateTaskPayload = {
   title?: string;
   status?: TaskStatus;
   taskType?: TaskType;
+  assigneeId?: string;
+  dueAt?: string;
   priority?: 'low' | 'medium' | 'high';
   sprintId?: string 
   description?: string;

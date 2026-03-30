@@ -9,6 +9,9 @@ import { MemberItem } from '../member-item/MemberItem';
 export type TaskItemProps = { task: Task; } & React.HTMLAttributes<HTMLDivElement>;
 
 export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
+   
+    
+
     const [isOptionsOpen, setOptionsOpen ] = useState<string | null>(null);
     return (
         <div className="task-item" {...props} >
@@ -37,8 +40,7 @@ export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
                             Assignee
                             <AsidePopup >
                                 <div className='task-aside-container__item-aside'>
-                                    <li> unassigned </li>
-                                    < MemberItem />
+                                    < MemberItem key={task.id} task={task} />
                                 </div>
                             </AsidePopup>
                         </li>

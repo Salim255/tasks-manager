@@ -6,11 +6,10 @@ import { TasksListHeader } from "./components/tasks-list-header/TasksListHeader"
 export const TasksList = () => {
     const { tasks } = useTasksSelector();
     return <div className="tasks-list">
-          
         <TasksListHeader/>
         {
             tasks.map((task) => {
-                return  <TaskListItem task={task}/>
+                return  <TaskListItem key={task.id} task={task}/>
             })
         }        
     </div>
