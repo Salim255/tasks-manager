@@ -27,7 +27,7 @@ export const CreateProjectForm = () => {
        
         if (createProjectHttp.fulfilled.match(result)) { 
             const project = result.payload.data.project;
-            navigate(`/projects/${project.id}/board`);
+            navigate(`/dashboard/projects/${project.id}/board`);
             dispatch(fetchSingleProjectHttp({projectId: project.id}));
         }
     }

@@ -10,51 +10,59 @@ import { EmptyProjects } from "../features/projects/pages/empty-projects/EmptyPr
 import { Auth } from "../features/auth/Auth";
 import { TasksList } from "../features/projects/pages/tasks-list/TasksList";
 import { Statistics } from "../features/projects/pages/statistics/Statistics";
+import { ProtectedRoutes } from "../features/auth/guard/ProtectedRoutes ";
 
 
 const routes: RouteObject[] = [
     {
         path: '/',
-        Component:  Dashboard,
-        children: [
+        Component: ProtectedRoutes,
+        children:
+        [
             {   
-              path: 'profile',
-              Component: Profile
+                path: 'profile',
+                Component: Profile
             },
             {
-                path: 'create-project',
-                Component: CreateProject
+                path: '/dashboard',
+                Component:  Dashboard,
+                children: [
+                    {
+                        path: 'create-project',
+                        Component: CreateProject
+                    },
+                    {
+                        path: 'projects/',
+                        Component: Projects,
+                        children: [
+                            { index: true, element:  <CreateProject /> },
+                            {
+                                path: 'empty',
+                                Component: EmptyProjects
+                            },
+                            {
+                                path: ':projectId/board',
+                                Component: Board
+                            },
+                            {
+                                path: ':projectId/backlog',
+                                Component: Backlog
+                            },
+                            {
+                                path: ':projectId/tasks',
+                                Component: TasksList
+                            }
+                            , 
+                            {
+                                path: ':projectId/statistics',
+                                Component: Statistics
+                            }
+                        ]
+                    },
+                ],
+                
             },
-            {
-                path: 'projects/',
-                Component: Projects,
-                 children: [
-                    { index: true, element:  <CreateProject /> },
-                    {
-                        path: 'empty',
-                        Component: EmptyProjects
-                    },
-                    {
-                        path: ':projectId/board',
-                        Component: Board
-                    },
-                    {
-                        path: ':projectId/backlog',
-                        Component: Backlog
-                    },
-                    {
-                        path: ':projectId/tasks',
-                        Component: TasksList
-                    }
-                    , 
-                    {
-                        path: ':projectId/statistics',
-                        Component: Statistics
-                    }
-                ]
-            },
-        ],
-        
+        ]
     },
     // Public routes
     {

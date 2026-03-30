@@ -12,7 +12,7 @@ export const Projects = () => {
     
     useEffect(() => {
         if (!isLoading && !projects.length){
-            navigate("/create-project", { replace: true });
+            navigate("/dashboard/create-project", { replace: true });
             return;
         }       
     }, [projects, navigate, isLoading]);

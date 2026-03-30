@@ -1,12 +1,33 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import { useIsAuthenticated } from "../states/authSelectors";
+import { useEffect } from "react";
+import { useProfileSelector } from "../../profile/states/profileSelectors";
 
 export const ProtectedRoutes = () => {
-  const isAuthenticated = useIsAuthenticated();
+    const isAuthenticated = useIsAuthenticated();
+    const { profile, isProfileLoading } = useProfileSelector();
+    const navigate = useNavigate();
 
-  if (!isAuthenticated) {
-    return <Navigate to="/auth" replace />;
-  }
+    // Dynamic redirects after mount
+    useEffect(() => {
+        if (!isAuthenticated) {
+            navigate("/auth", { replace: true });
+            return;
+        }
 
-  return <Outlet />;
+      /*   if(!isProfileLoading && !profile) {
+            navigate("/profile", { replace: true });
+        } */
+        
+    },[ isAuthenticated, profile, navigate, isProfileLoading ]);
+
+    // Render-time guards
+    if (!isAuthenticated) {
+        return <Navigate to="/auth" replace />;
+    }
+  /*   if (!isProfileLoading && !profile) {
+        return <Navigate to="/profile" replace />;
+    }
+ */
+    return <Outlet />;
 };
