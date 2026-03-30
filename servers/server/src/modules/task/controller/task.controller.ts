@@ -144,6 +144,7 @@ export class TaskController {
     const { id: userId } = req.user;
     const { title, description, priority, status } = dto;
     const task = await this.taskService.updateTask({
+      assigneeId: dto.assigneeId,
       title,
       description,
       priority,

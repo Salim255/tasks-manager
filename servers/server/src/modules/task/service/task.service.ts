@@ -1,4 +1,9 @@
-import { BadRequestException, Inject, Injectable, Logger } from '@nestjs/common';
+import {
+  BadRequestException,
+  Inject,
+  Injectable,
+  Logger,
+} from '@nestjs/common';
 import { TASK_REPOSITORY } from 'src/common/constants/constants';
 import { Repository } from 'typeorm';
 import { Task } from '../entity/task.entity';
@@ -16,6 +21,9 @@ export class TaskService {
       const values: string[] = [];
       let index = 1;
 
+      this.logger.debug(
+        `Updating task with payload: ${JSON.stringify(payload)}`,
+      );
       for (const column of Object.keys(payload)) {
         if (column === 'taskId') continue; // skip primary key
 

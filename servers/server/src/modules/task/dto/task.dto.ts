@@ -40,6 +40,14 @@ export class UpdateTaskDto {
   sprintId?: string | null;
 
   @ApiPropertyOptional({
+    example: '1960e80a-fb58-40fe-aa22-cbe6e2edf5bc',
+    description: 'The user ID of the new assignee. Use null to unassign.',
+    nullable: true,
+  })
+  @IsOptional()
+  assigneeId?: string | null;
+
+  @ApiPropertyOptional({
     example: 'User forgot password on login page',
     description: 'Optional description of the task',
   })

@@ -39,7 +39,7 @@ export const MemberItem = ({ task }: { task: Task }) => {
             case "unassigned":
                 dispatch(updateTasHttp({
                     taskId: task.id,
-                    assigneeId: undefined
+                    assigneeId: "undefined",
                 }));
                 return;
             default:
