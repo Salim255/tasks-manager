@@ -1,7 +1,9 @@
+import './_profile.scss';
 import { useNavigate } from "react-router-dom";
 import { useProfileSelector } from "../../states/profileSelectors";
 import { ProfileForm } from "../../components/ProfileForm";
 import { useEffect } from "react";
+import { ProfileHero } from './components/hero/ProfileHero';
 
 export const Profile = () => {
     const { isProfileLoading, profile } = useProfileSelector();
@@ -22,11 +24,9 @@ export const Profile = () => {
     
     
     return <section className="profile">
-        <img 
-            className='profile__hero'
-            src='/assets/images/default-profile.jpg' alt='hero'/>
+        <ProfileHero profile={profile!} />
         <div>
-            { profile!.firstName } { profile!.lastName }
+           <button >Manage Profile</button>
         </div>
     </section>
 }
