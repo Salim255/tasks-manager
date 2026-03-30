@@ -18,6 +18,7 @@ export const Dashboard = () => {
             navigate("/auth", { replace: true });
             return;
         }
+        
     },[isAuthenticated, profile, navigate, isProfileLoading])
 
     if (!isAuthenticated) return <Navigate to="/auth" replace />;

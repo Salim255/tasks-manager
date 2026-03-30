@@ -52,15 +52,19 @@ export class ProjectService {
           -- # Add project Members 
           COALESCE (
             (
-            SELECT jsonb_agg ( 
-                to_jsonb(m.*) 
-                || jsonb_build_object('profile', to_jsonb(pr)
+              SELECT jsonb_agg (
+                jsonb_build_object(
+                  'id', m.id,
+                  'role', m.role,
+                  'projectId', m."projectId",
+                  'createdAt', m."createdAt",
+                  'profile', to_jsonb(pr.*)
                 )
-              )
+              ) 
+                  
               FROM members AS m
               JOIN profiles pr ON  pr."userId" = m."userId"
-                
-              WHERE m."projectId" = project.id
+              WHERE m."projectId" = $1
                
             ),
             '[]'::jsonb

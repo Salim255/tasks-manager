@@ -90,8 +90,6 @@ export class TaskController {
       taskId,
       sprintId,
     });
-
-    this.logger.debug(updatedTask, dto);
     return {
       status: 'success',
       data: { task: updatedTask },

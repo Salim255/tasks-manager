@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { Member } from "../models/member.model";
 
 
@@ -14,19 +14,19 @@ const initialState:  InitialState = {
 
 const memberSlice = createSlice(
     {
-        name: '',
+        name: 'memberSlice',
         initialState,
         reducers: {
-            setProjectMembers: (state, action) => {
+            setMembers: (state, action: PayloadAction<{ members: Member[] }>) => {
                 state.isLoading = true;
-                const {members} = action.payload;
+                const { members } = action.payload;
+                console.log(members);
                 state.members = members ?? [];
                 state.isLoading = false;
-
             }
         }
     }
 );
 
-export const { setProjectMembers } = memberSlice.actions;
+export const { setMembers } = memberSlice.actions;
 export default memberSlice.reducer;

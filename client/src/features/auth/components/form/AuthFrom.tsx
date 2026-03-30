@@ -12,7 +12,7 @@ export const AuthForm = () => {
     const { state, setField } = useAuthForm();
     const submit = (e: ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if(!state.email || !state.password) return;
+        if(!state.email || !state.password || (!iSLogin && !state.confirmPassword)) return;
         const payload: LoginPayload = {email: state.email, password: state.password, authType: iSLogin ? 'login' :'register'};
         dispatch(authUser(payload));
     }

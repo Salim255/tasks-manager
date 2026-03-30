@@ -4,6 +4,7 @@ import type { Task } from "../../models/task.model";
 import { OptionsBtn } from '../../../../shared/components/options-btn/OptionsBtn';
 import { typeIcon } from '../../../../shared/utils/methods';
 import { AsidePopup } from '../../../../shared/kits/aside-popup/AsidePopup';
+import { MemberItem } from '../member-item/MemberItem';
 
 export type TaskItemProps = { task: Task; } & React.HTMLAttributes<HTMLDivElement>;
 
@@ -37,13 +38,7 @@ export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
                             <AsidePopup >
                                 <div className='task-aside-container__item-aside'>
                                     <li> unassigned </li>
-                                    {
-                                        [1,2,3, 4, 5,6, 7, 8, 9, 10, 11, 12].map((m) => {
-                                            return <li key={m}>
-                                                 {m}
-                                            </li>
-                                        })
-                                    }
+                                    < MemberItem />
                                 </div>
                             </AsidePopup>
                         </li>
