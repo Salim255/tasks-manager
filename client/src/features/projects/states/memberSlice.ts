@@ -20,7 +20,6 @@ const memberSlice = createSlice(
             setMembers: (state, action: PayloadAction<{ members: Member[] }>) => {
                 state.isLoading = true;
                 const { members } = action.payload;
-                console.log(members);
                 state.members = members ?? [];
                 state.isLoading = false;
             }

@@ -40,7 +40,6 @@ export const fetchSingleProjectHttp = createAsyncThunk<
         try {
             const response = await axios.get(`${apiUrl}/${projectId}`, { withCredentials: true });
             const project  = (response.data.data.project) as Project;
-            console.log(project.members, project);
             thunkApi.dispatch(setSprints({ sprints: project.sprints }));
             thunkApi.dispatch(setTasks({ tasks: project.tasks }));
             thunkApi.dispatch(setMembers({ members: project.members }))
