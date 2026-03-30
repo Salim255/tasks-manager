@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import type { RouteObject } from "react-router-dom";
 import { Dashboard } from "../features/dashboard/Dashboard";
-import { Profile } from "../features/profile/Profile";
+import { ProfileLayout } from "../features/profile/ProfileLayout";
 import { Backlog } from "../features/projects/pages/backlog/Backlog";
 import { Board } from "../features/projects/pages/board/Board";
 import { CreateProject } from "../features/projects/pages/create-project/CreateProject";
@@ -11,6 +11,7 @@ import { Auth } from "../features/auth/Auth";
 import { TasksList } from "../features/projects/pages/tasks-list/TasksList";
 import { Statistics } from "../features/projects/pages/statistics/Statistics";
 import { ProtectedRoutes } from "../features/auth/guard/ProtectedRoutes ";
+import { Profile } from "../features/profile/pages/profile/Profile";
 
 
 const routes: RouteObject[] = [
@@ -21,7 +22,13 @@ const routes: RouteObject[] = [
         [
             {   
                 path: 'profile',
-                Component: Profile
+                Component: ProfileLayout,
+                children: [
+                    {
+                        index: true,
+                        element: <Profile />
+                    }
+                ]
             },
             {
                 path: '/dashboard',

@@ -8,6 +8,8 @@ import { fetchProjectsHttp } from '../projects/http/project.http';
 import { useProfileSelector } from '../profile/states/profileSelectors';
 import type { AppDispatch } from '../../redux/store';
 import { useDispatch } from 'react-redux';
+import { DiScrum } from 'react-icons/di';
+import { NavLinks } from './components/nav-links/NavLinks';
 
 export const Dashboard = () => { 
     const dispatch = useDispatch<AppDispatch>();
@@ -21,7 +23,12 @@ export const Dashboard = () => {
        <section className='shared-layout'>
             <main className='shared-layout__dashboard'>
                 <SmallSidebar />
-                <BigSidebar />
+                <BigSidebar>
+                    <header>
+                        <DiScrum/>
+                    </header>
+                    <NavLinks/>
+                </BigSidebar>
                 <div>
                     <Navbar />
                     <div className='shared-layout__dashboard-page'>
