@@ -5,6 +5,7 @@ import { OptionsBtn } from '../../../../shared/components/options-btn/OptionsBtn
 import { typeIcon } from '../../../../shared/utils/methods';
 import { AsidePopup } from '../../../../shared/kits/aside-popup/AsidePopup';
 import { MemberItem } from '../member-item/MemberItem';
+import { Assignee } from '../../../../shared/components/assignee/Assignee';
 
 export type TaskItemProps = { task: Task; } & React.HTMLAttributes<HTMLDivElement>;
 
@@ -27,7 +28,7 @@ export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
                 {task.status}
             </section>
             <section className='task-item__assignee'>
-                {task.assigneeId}
+                <Assignee assigneeId={task.assigneeId} />
             </section>
             <section className='task-item__actions'>
                 <OptionsBtn 
