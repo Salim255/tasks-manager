@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import type { ApiErrorDto } from "../../../shared/interfaces/shared.interfaces";
 import type { MemberRole } from "../forms-builders/memberFormBuilder";
-import type { Member } from "../models/project.model";
+import type { Member } from "../models/member.model";
 import axios, { AxiosError } from "axios";
 
 const apiUrl = import.meta.env.VITE_API_URL;
