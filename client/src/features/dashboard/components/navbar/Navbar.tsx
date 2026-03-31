@@ -18,6 +18,7 @@ export const Navbar = () => {
     const dispatch = useDispatch<AppDispatch>();
 
     const handleLogout = () => {
+        console.log('logout', profile);
         logout(dispatch);
     }
 
@@ -46,12 +47,10 @@ export const Navbar = () => {
                 <button
                     type='button'
                     className='btn'
-                    onClick={() => setShowLogout(!showLogout)}
-                >
+                    onClick={() => (profile ? setShowLogout(!showLogout) : handleLogout())}>
                     <FaUserCircle />
-                    {/* {user?.name} */}
-                     {profile?.firstName}
-                    <FaCaretDown />
+                    { profile ? profile?.firstName: 'logout'}
+                    {profile && <FaCaretDown />}
                 </button>
                 <div  className={showLogout ? 'dropdown show-dropdown' : 'dropdown'}>
                     <button
