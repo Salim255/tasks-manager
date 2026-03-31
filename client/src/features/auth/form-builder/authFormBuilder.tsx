@@ -5,7 +5,7 @@ export type AuthFormState = {
     email: string;
     password: string;
     confirmPassword: string;
-    errors: Partial<Record<"email" | "password", string>>
+    errors: Partial<Record<"email" | "password" | "confirmPassword", string>>
 }
 
 
@@ -35,7 +35,7 @@ const reducer = (state:AuthFormState , action: Action) => {
         case "SET_ERROR":
             return {
                 ...state,
-                [action.field]: action.message
+                errors: {...state.errors, [action.field]: action.message}
             }
         case "CLEAR_ERRORS":
             return {

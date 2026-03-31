@@ -212,6 +212,9 @@ ul {
 .alert-danger {
   color: var(--red-dark);
   background: var(--red-light);
+  padding: 0rem 1rem;
+  font-family: var(--small-text);
+  font-size: var(--extra-small-text);
 }
 .alert-success {
   color: var(--green-dark);

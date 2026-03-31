@@ -10,9 +10,21 @@ export const AuthForm = () => {
     const [iSLogin, setAuthMode] = useState<boolean>(true);
 
     const dispatch = useDispatch<AppDispatch>();
-    const { state, setField } = useAuthForm();
+    const { state, setField, setError } = useAuthForm();
     const onSubmit = (e: ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
+        // Password length rule
+        if (state.password.length < 8) {
+            console.log(state.errors.password);
+            setError("password", "Password must be at least 8 characters");
+            return;
+        }
+
+        if (state.password !== state.confirmPassword && !iSLogin) {
+            setError("confirmPassword", "Passwords do not match");
+            return;
+        }
+        if(state)
         if(!state.email || !state.password || (!iSLogin && !state.confirmPassword)) {
             //toast.success("User created!");
             toast.error("Please fill all the fields");
@@ -23,7 +35,7 @@ export const AuthForm = () => {
     }
 
     const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
-        setField(e.target.name as "password" | "email", e.target.value);
+        setField(e.target.name as "password" | "email" | "confirmPassword", e.target.value);
     }
 
     const handleAutMode = () => {
@@ -53,6 +65,9 @@ export const AuthForm = () => {
                 value={state.password}
                 placeholder="password">
             </input>
+             {state.errors.password && (
+                <p className="alert-danger">{state.errors.password}</p>
+            )}
         </div>
         {
             !iSLogin && <div className="form-row ">
@@ -64,6 +79,9 @@ export const AuthForm = () => {
                     value={state.confirmPassword}
                     placeholder="confirm password">
                 </input>
+                 {state.errors.confirmPassword && (
+                <p className="alert-danger">{state.errors.confirmPassword}</p>
+            )}
             </div>
         }
        <div className="form-row auth-form__btns">

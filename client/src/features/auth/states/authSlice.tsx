@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { authUser, refreshToken } from "../http/auth.http";
+import { toast } from "react-toastify";
 
 type  InitiateState = {
     user?: { 
@@ -31,18 +32,22 @@ const authSlice = createSlice({
         .addCase(authUser .pending, (state) => {
             state.isLoading = true;
         })
-        .addCase(refreshToken.pending, (state) => {
-            state.isLoading = true;
-        })
         .addCase(authUser.fulfilled, (state, action) => {
             state.user = action.payload.data.data.user;
             state.isLoading = false;
+            toast.success("Authentication successful");
+        })
+        .addCase(authUser .rejected, (state, action) => {
+            console.log(action);
+            state.isLoading = false;
+            toast.error("Authentication failed");
+        })
+        .addCase(refreshToken.pending, (state) => {
+            state.isLoading = true;
         })
         .addCase(refreshToken.fulfilled, (state) => {
             state.isLoading = false;
-        })
-        .addCase(authUser .rejected, (state) => {
-            state.isLoading = false;
+            
         })
         .addCase(refreshToken.rejected, (state) => {
             state.isLoading = false;
