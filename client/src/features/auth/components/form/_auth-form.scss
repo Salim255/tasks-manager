@@ -1,7 +1,13 @@
 .auth-form {
     &__btns {
         display: flex;
+        flex-direction: column;
         justify-content: center;
-        gap: 2rem;
+        .member-btn {
+            background: transparent;
+            border: none;
+            color: var(--primary-500);
+            cursor: pointer;
+        }
     }
 }

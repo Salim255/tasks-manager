@@ -27,7 +27,7 @@ export const AuthForm = () => {
 
 
     return <>
-    <form onSubmit={submit} className="form auth-form">
+    <form onSubmit={submit} className="form ">
         <div className="form-row">
             <label className="form-label">Email</label>
             <input 
@@ -62,13 +62,15 @@ export const AuthForm = () => {
             </div>
         }
        <div className="form-row auth-form__btns">
-            <button type="submit" className="btn btn-hero ">
+            <button type="submit" className="btn btn-block">
                { !iSLogin ? 'Signup' : 'Login'}
             </button>
 
-            <button onClick={handleAutMode} className="btn btn-hero">
+            <p>{iSLogin ? "Don't have an account?" : "Already have an account?"}
+                    <button onClick={handleAutMode} className="member-btn">
                 {iSLogin ? 'Switch to Signup' : 'Switch to Login'}
             </button>
+            </p>
        </div>
     </form>
     </>
