@@ -3,7 +3,7 @@ import { useState, type ChangeEvent } from "react";
 import { useAuthForm } from "../../form-builder/authFormBuilder";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../../../redux/store";
-import { authUser, type LoginPayload } from "../../http/auth.http";
+import { authUser, type AuthPayload } from "../../http/auth.http";
 import { toast } from "react-toastify";
 
 export const AuthForm = () => {
@@ -30,7 +30,7 @@ export const AuthForm = () => {
             toast.error("Please fill all the fields");
             return
         };
-        const payload: LoginPayload = {email: state.email, password: state.password, authType: iSLogin ? 'login' :'register'};
+        const payload: AuthPayload = {email: state.email, password: state.password, authType: iSLogin ? 'login' :'register'};
         dispatch(authUser(payload));
     }
 
