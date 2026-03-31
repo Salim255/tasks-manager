@@ -12,6 +12,7 @@ import { TasksList } from "../features/projects/pages/tasks-list/TasksList";
 import { Statistics } from "../features/projects/pages/statistics/Statistics";
 import { ProtectedRoutes } from "../features/auth/guard/ProtectedRoutes ";
 import { Profile } from "../features/profile/pages/profile/Profile";
+import { NotFoundPage } from "../shared/pages/not-found/NotFoundPage";
 
 
 const routes: RouteObject[] = [
@@ -76,6 +77,10 @@ const routes: RouteObject[] = [
         path: "/auth",
         Component: Auth,
     },
+    {
+        path: "*",
+        Component: NotFoundPage
+    }
 ]
 
 const AppRoutes  = createBrowserRouter(routes);
