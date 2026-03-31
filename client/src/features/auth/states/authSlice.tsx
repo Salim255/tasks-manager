@@ -34,7 +34,7 @@ const authSlice = createSlice({
         .addCase(authUser.fulfilled, (state, action) => {
             state.user = action.payload.data.user;
             state.isLoading = false;
-            toast.success("Authentication successful");
+            toast.success("Welcome back!");
         })
         .addCase(authUser .rejected, (state, action) => {
             const { message } = action.payload || { message: "Authentication failed" };
