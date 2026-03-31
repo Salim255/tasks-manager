@@ -1,29 +1,29 @@
-import type { Task, TaskStatus } from "../../../../models/task.model";
+import type { TaskStatus } from "../../../../models/task.model";
 import { CircleLegend } from "../circle-legend/CircleLegend";
 import "./_circle-chart.scss";
 
 
 export const CircleChart = ({
-    tasksByStatus,
     circleChartDataPercentage,
 }: {
-    tasksByStatus: Record<TaskStatus, Task[ ]>;
     circleChartDataPercentage: Record<TaskStatus, { label: string; nb: number; value: number }>;
 }) => {
+    const p1 = circleChartDataPercentage.in_progress.value;
+    const p2 = circleChartDataPercentage.todo.value;
+    const p3 = circleChartDataPercentage.done.value;
+
+    const e1 = p1;
+    const e2 = p1 + p2;
+    const e3 = p1 + p2 + p3;
     const countStyle = {
-    background: `conic-gradient(
-        #357DE8 
-            0% 
-            ${circleChartDataPercentage.in_progress.value}%,
-        #BF63F3 
-            ${circleChartDataPercentage.in_progress.value}% 
-            ${circleChartDataPercentage.todo.value}%,
-        #82B536
-             ${circleChartDataPercentage.todo.value}%
-              ${circleChartDataPercentage.done.value}%
+        background: `conic-gradient(
+            #357DE8 0% ${e1}%,
+            #BF63F3 ${e1}% ${e2}%,
+            #82B536 ${e2}% ${e3}%
         )`
     }
 
+    console.log(circleChartDataPercentage);
     const isEmptyProject =():boolean => {
         return !circleChartDataPercentage.done.value
         && !circleChartDataPercentage.in_progress.value
@@ -41,7 +41,7 @@ export const CircleChart = ({
                 <div className="circle-chart__circle-container">
                     <div className="circle-chart__chart" style={countStyle}></div>
                 </div>
-                <CircleLegend  tasksByStatus={tasksByStatus} />
+                <CircleLegend  circleChartDataPercentage={circleChartDataPercentage} />
             </section>
         }
     </>
