@@ -23,7 +23,6 @@ export const CircleChart = ({
         )`
     }
 
-    console.log(circleChartDataPercentage);
     const isEmptyProject =():boolean => {
         return !circleChartDataPercentage.done.value
         && !circleChartDataPercentage.in_progress.value
