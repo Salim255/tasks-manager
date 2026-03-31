@@ -18,7 +18,6 @@ export const Navbar = () => {
     const dispatch = useDispatch<AppDispatch>();
 
     const handleLogout = () => {
-        console.log('logout', profile);
         logout(dispatch);
     }
 

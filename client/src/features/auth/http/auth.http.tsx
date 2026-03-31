@@ -1,25 +1,55 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { getUserProfileHttp } from "../../profile/http/profileHttp";
+import type { ApiErrorDto } from "../../../shared/interfaces/shared.interfaces";
 
 export type AuthType = "login" | "register";
-export type LoginPayload = { password: string; email: string, authType: AuthType };
-
+export type AuthPayload = { password: string; email: string, authType: AuthType };
+export type AuthResponseDto = {
+    status: string;
+    data: {
+        user: {
+            id: string,
+            email : string;
+            emailVerified: boolean;
+            createdAt: string;
+        }
+    }
+}
 const apiUrl = import.meta.env.VITE_API_URL;
     
-export const authUser = createAsyncThunk(
+export const authUser = createAsyncThunk<
+    AuthResponseDto,
+    AuthPayload,
+    { rejectValue: ApiErrorDto }
+    >(
     'post/authUser',
-    async (data: LoginPayload, thunkAPI) => {
+    async (data: AuthPayload, thunkApi) => {
         try {
             const response = await axios.post(
                 `${apiUrl}/auth/${data.authType}`,
                 { email: data.email, password: data.password },
                 { withCredentials: true }
             )
-            thunkAPI.dispatch(getUserProfileHttp());
-            return response;
+            thunkApi.dispatch(getUserProfileHttp());
+            return response.data;
         } catch (error) {
-            return thunkAPI.rejectWithValue(error);
+            // Extract your backend error shape
+            if (error instanceof AxiosError) {
+                const backendError: ApiErrorDto = error.response?.data || {
+                    status: "error",
+                    message: "Unknown error",
+                    data: null
+                };
+
+                return thunkApi.rejectWithValue(backendError);
+            }
+            // fallback for non-Axios errors
+            return thunkApi.rejectWithValue({
+                status: "error",
+                message: "Unexpected error",
+                data: null
+            });
         }
     }
 )

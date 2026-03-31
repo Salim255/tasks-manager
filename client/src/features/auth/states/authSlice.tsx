@@ -7,7 +7,6 @@ type  InitiateState = {
         email : string;
         emailVerified: boolean;
         createdAt: string;
-        role: string;
         id: string,
     }
     isLoading: boolean;
@@ -33,14 +32,14 @@ const authSlice = createSlice({
             state.isLoading = true;
         })
         .addCase(authUser.fulfilled, (state, action) => {
-            state.user = action.payload.data.data.user;
+            state.user = action.payload.data.user;
             state.isLoading = false;
             toast.success("Authentication successful");
         })
         .addCase(authUser .rejected, (state, action) => {
-            console.log(action);
+            const { message } = action.payload || { message: "Authentication failed" };
             state.isLoading = false;
-            toast.error("Authentication failed");
+            toast.error(message);
         })
         .addCase(refreshToken.pending, (state) => {
             state.isLoading = true;
