@@ -4,15 +4,20 @@ import { useAuthForm } from "../../form-builder/authFormBuilder";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../../../redux/store";
 import { authUser, type LoginPayload } from "../../http/auth.http";
+import { toast } from "react-toastify";
 
 export const AuthForm = () => {
     const [iSLogin, setAuthMode] = useState<boolean>(true);
 
     const dispatch = useDispatch<AppDispatch>();
     const { state, setField } = useAuthForm();
-    const submit = (e: ChangeEvent<HTMLFormElement>) => {
+    const onSubmit = (e: ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if(!state.email || !state.password || (!iSLogin && !state.confirmPassword)) return;
+        if(!state.email || !state.password || (!iSLogin && !state.confirmPassword)) {
+            //toast.success("User created!");
+            toast.error("Please fill all the fields");
+            return
+        };
         const payload: LoginPayload = {email: state.email, password: state.password, authType: iSLogin ? 'login' :'register'};
         dispatch(authUser(payload));
     }
@@ -27,7 +32,7 @@ export const AuthForm = () => {
 
 
     return <>
-    <form onSubmit={submit} className="form ">
+    <form onSubmit={onSubmit} className="form ">
         <div className="form-row">
             <label className="form-label">Email</label>
             <input 
@@ -67,7 +72,7 @@ export const AuthForm = () => {
             </button>
 
             <p>{iSLogin ? "Don't have an account?" : "Already have an account?"}
-                    <button onClick={handleAutMode} className="member-btn">
+                    <button type="button" onClick={handleAutMode} className="member-btn">
                 {iSLogin ? 'Switch to Signup' : 'Switch to Login'}
             </button>
             </p>
