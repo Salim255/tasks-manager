@@ -165,6 +165,12 @@ ul {
   text-transform: capitalize;
   display: inline-block;
 }
+.member-btn {
+  background: transparent;
+  border: none;
+  color: var(--primary-500);
+  cursor: pointer;
+}
 .btn:hover {
   background: var(--primary-700);
   box-shadow: var(--shadow-3);
