@@ -88,6 +88,11 @@ const projectSlice = createSlice({
         })
     },
     reducers: {
+        clearProjects: (state) => {
+            state.projects = [];
+            state.activeProject = undefined;
+            state.activeProjectId = undefined;
+        },
         onAddMemberModal: (state) => {
             state.isAddMember = !state.isAddMember;
         },
@@ -100,5 +105,5 @@ const projectSlice = createSlice({
     }
 });
 
-export const { setActiveProjectId, onAddMemberModal } = projectSlice.actions;
+export const { setActiveProjectId, onAddMemberModal, clearProjects } = projectSlice.actions;
 export default projectSlice.reducer;

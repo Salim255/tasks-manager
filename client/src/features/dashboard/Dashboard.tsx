@@ -1,5 +1,5 @@
 import './_dashboard.scss';
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import { SmallSidebar } from './components/small-sidebar/SmallSidebar';
 import { BigSidebar } from './components/big-sidebar/BigSidebar';
 import { Navbar } from './components/navbar/Navbar';
@@ -19,6 +19,9 @@ export const Dashboard = () => {
             dispatch(fetchProjectsHttp());
         }
     }, [profile, dispatch]);
+    if (!profile) {
+        return <Navigate to="/profile" replace />; // Redirect to login if not authenticated
+    }
     return(
        <section className='shared-layout'>
             <main className='shared-layout__dashboard'>

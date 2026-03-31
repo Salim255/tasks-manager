@@ -4,10 +4,10 @@ import { FaAlignLeft, FaUserCircle, FaCaretDown } from 'react-icons/fa';
 import { useEffect, useRef, useState } from 'react';
 import { updateSidebarOpenState } from '../../states/dashboardSlice';
 import { type AppDispatch, type RootState } from '../../../../redux/store';
-import { clearUser } from '../../../auth/states/authSlice';
 import { NavLink } from 'react-router-dom';
 import { useProfileSelector } from '../../../profile/states/profileSelectors';
 import { useClickOutside } from '../../../../shared/hooks/useClickOutside';
+import { logout } from '../../../auth/states/logout';
 
 
 export const Navbar = () => {
@@ -18,7 +18,7 @@ export const Navbar = () => {
     const dispatch = useDispatch<AppDispatch>();
 
     const handleLogout = () => {
-        dispatch(clearUser());
+        logout(dispatch);
     }
 
     const toggle =  () =>  {

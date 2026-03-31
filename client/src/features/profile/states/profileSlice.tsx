@@ -16,7 +16,11 @@ const initiateState: InitiateState = {
 const profileSlice = createSlice({
     name: 'profileSlice',
     initialState: initiateState,
-    reducers: {},
+    reducers: {
+        clearProfile: (state) => {
+            state.profile = undefined;
+        }
+    },
     extraReducers: (builder) => {
         builder
         .addCase(getUserProfileHttp.pending, (state)=> {
@@ -47,4 +51,5 @@ const profileSlice = createSlice({
     } 
 )
 
+export const { clearProfile } = profileSlice.actions;
 export default profileSlice.reducer;
