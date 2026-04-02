@@ -14,7 +14,7 @@ export const TaskListItem = ({task}:{task: Task}) => {
         </div>
         <div className="task-list-item__description">{task.description}</div>
         <div className="task-list-item__assignee">
-            <Assignee assigneeId={task.assigneeId } />
+            <Assignee assigneeId={task.assigneeId } pageName={"task-list-item"} />
         </div>
         <div className="task-list-item__reporter">
             <Reporter reporterId={task.ownerId!}/>

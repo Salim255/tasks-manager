@@ -1,10 +1,17 @@
+import './_assignee.scss';
 import { useMemo } from "react";
 import { GoPerson } from "react-icons/go";
 import { useProfileSelector } from "../../../features/profile/states/profileSelectors";
 import { useMemberSelector } from "../../../features/projects/states/memberSelectors";
 import { getInitialsFromProfile } from "../../utils/methods";
 
-export const Assignee = ({assigneeId}: { assigneeId: string | undefined}) => {
+export const Assignee = ({
+    assigneeId,
+    pageName,
+}: { 
+    assigneeId: string | undefined;
+    pageName?: string 
+}) => {
     const { profile } = useProfileSelector();
     const { members } =  useMemberSelector();
   
@@ -15,6 +22,24 @@ export const Assignee = ({assigneeId}: { assigneeId: string | undefined}) => {
     }, [assigneeId, members, profile]);
 
     return <div className="assignee">
-        <GoPerson /> { assignedProfile ? getInitialsFromProfile(assignedProfile) : 'unassigned' }
+       <div className="assignee__initials-container">
+            { 
+                assignedProfile 
+                ? 
+                <span className='assignee__initial'> { getInitialsFromProfile(assignedProfile) } </span> 
+                : <GoPerson className='assignee__icon'/> 
+            }
+           
+        </div> 
+        {
+            pageName &&  
+            <div className={`assignee__name`}>
+                { 
+                    assignedProfile 
+                    ? `${assignedProfile.firstName} ${assignedProfile.lastName}` 
+                    : 'unassigned'
+                }
+            </div>
+        }
     </div>
 }
