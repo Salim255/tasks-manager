@@ -5,7 +5,7 @@ import type { Profile } from "../../../features/profile/model/profile.model";
 
 export const MemberInitial = ({ profile }: {profile?: Profile}) => {
     return(
-        <div className="member-initial">
+        <div className={`member-initial ${profile ? 'member-initial--with-profile' : ''}`}>
             { 
                 profile
                 ? 

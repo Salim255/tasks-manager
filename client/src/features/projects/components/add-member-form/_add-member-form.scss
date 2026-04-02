@@ -1,6 +1,14 @@
-.add-member-form {
-    &__header {
-        display: flex;
-        justify-content: space-between;
+.add-member-form-container {
+    display: flex;
+    &__icon {
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: var(--primary-500);
+    }
+    .add-member-form {
+        &__header {
+            display: flex;
+            justify-content: space-between;
+        }
     }
 }

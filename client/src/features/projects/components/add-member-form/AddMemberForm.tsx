@@ -39,8 +39,8 @@ export const AddMemberForm = ({ projectId }:{ projectId: string }) => {
     useEffect(() => {
     }, [isAddMember, projectId]);
 
-    return <>
-        <BsPersonAdd onClick={onClose}/> 
+    return <div className="add-member-form-container">
+        <BsPersonAdd  className="add-member-form-container__icon" onClick={onClose}/> 
         {
             isAddMember &&
             <ModalOverlay onClose={onClose}>
@@ -55,7 +55,9 @@ export const AddMemberForm = ({ projectId }:{ projectId: string }) => {
                 <div className="form-row">
                     <label
                         htmlFor={state.memberEmail} 
-                        className="from-label">Member email</label>
+                        className="from-label">
+                        Member email
+                    </label>
                     <input
                         name="memberEmail"
                         value={state.memberEmail}
@@ -86,5 +88,5 @@ export const AddMemberForm = ({ projectId }:{ projectId: string }) => {
             </form>
         </ModalOverlay>
         }
-    </>   
+    </div>   
 }

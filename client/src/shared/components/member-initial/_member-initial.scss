@@ -1,10 +1,14 @@
 .member-initial {
-     display: block;
-        position: relative;
-        height: 1.8rem;
-        width: 1.8rem;
-        background-color: var(--primary-50);
-        border-radius: 50%;
+    display: block;
+    position: relative;
+    height: 1.8rem;
+    width: 1.8rem;
+    background-color: var(--primary-50);
+    border-radius: 50%;
+    &--with-profile {
+        color: var(--grey-50);
+        background-color: var(--bug-color);
+    }
     &__icon,
     &__initial{
        position: absolute;
