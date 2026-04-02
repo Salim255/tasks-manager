@@ -3,6 +3,7 @@ import { useMemo } from "react";
 import { useProfileSelector } from "../../../features/profile/states/profileSelectors";
 import { useMemberSelector } from "../../../features/projects/states/memberSelectors";
 import { MemberInitial } from '../member-initial/MemberInitial';
+import { MemberName } from '../member-name/MemberName';
 
 export const Assignee = ({
     assigneeId,
@@ -22,15 +23,15 @@ export const Assignee = ({
 
     return <div className="assignee">
         <MemberInitial profile={assignedProfile}/>
-        {
-            pageName &&  
-            <div className={`assignee__name`}>
-                { 
-                    assignedProfile 
-                    ? `${assignedProfile.firstName} ${assignedProfile.lastName}` 
-                    : 'unassigned'
-                }
-            </div>
+        
+        {  pageName &&
+            ( 
+                assignedProfile 
+
+                ?   <MemberName profile={assignedProfile}/> 
+                : 'unassigned'
+            )
         }
+       
     </div>
 }

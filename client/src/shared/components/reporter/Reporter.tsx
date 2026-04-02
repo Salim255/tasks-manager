@@ -3,6 +3,7 @@ import { useMemo } from "react";
 import { useProfileSelector } from "../../../features/profile/states/profileSelectors";
 import { useMemberSelector } from "../../../features/projects/states/memberSelectors";
 import { MemberInitial } from "../member-initial/MemberInitial";
+import { MemberName } from '../member-name/MemberName';
 
 export const Reporter = ({ reporterId }:{ reporterId: string }) => {
     const {profile} = useProfileSelector();
@@ -17,8 +18,6 @@ export const Reporter = ({ reporterId }:{ reporterId: string }) => {
 
     return <div className="reporter">
         <MemberInitial profile={reporterProfile}/>
-        <div className="reporter__name">
-            {reporterProfile?.firstName} {reporterProfile?.lastName}
-        </div>
+        <MemberName profile={reporterProfile!}/>
     </div>
 }
