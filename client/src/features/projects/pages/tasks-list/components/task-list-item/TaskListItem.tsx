@@ -12,7 +12,9 @@ export const TaskListItem = ({task}:{task: Task}) => {
         <div className="task-list-item__name">
             <TaskLabel  name={task.title} />
         </div>
-        <div className="task-list-item__description">{task.description}</div>
+        <div className="task-list-item__description">
+            {task.description}
+        </div>
         <div className="task-list-item__assignee">
             <Assignee assigneeId={task.assigneeId } pageName={"task-list-item"} />
         </div>
@@ -25,10 +27,17 @@ export const TaskListItem = ({task}:{task: Task}) => {
         <div className="task-list-item__status">
             <Status status={task.status} />
         </div>
-        <div className="task-list-item__resolution"> {task.status=== "done" ? "done" : "unresolved"}</div>
-        <div className="task-list-item__updated"> {formatDate(task.updatedAt)}</div>
-        <div className="task-list-item__due-date"> {task.dueAt && formatDate(task.dueAt )} </div>
-        <div className="task-list-item__created-at">{formatDate(task.createdAt)}</div>
-     
+        <div className="task-list-item__resolution">
+            {task.status=== "done" ? "done" : "unresolved"}
+        </div>
+        <div className="task-list-item__updated">
+            { formatDate(task.updatedAt) }
+        </div>
+        <div className="task-list-item__due-date">
+            { task.dueAt && formatDate(task.dueAt) }
+        </div>
+        <div className="task-list-item__created-at">
+            { formatDate(task.createdAt) }
+        </div>
     </div>
 }
