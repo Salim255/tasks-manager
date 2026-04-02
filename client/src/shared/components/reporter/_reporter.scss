@@ -1,0 +1,11 @@
+.reporter {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+     &__name {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        flex: 1;
+    }
+}

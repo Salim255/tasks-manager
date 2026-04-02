@@ -1,7 +1,8 @@
+import './_reporter.scss';
 import { useMemo } from "react";
 import { useProfileSelector } from "../../../features/profile/states/profileSelectors";
 import { useMemberSelector } from "../../../features/projects/states/memberSelectors";
-import { getInitialsFromProfile } from "../../utils/methods";
+import { MemberInitial } from "../member-initial/MemberInitial";
 
 export const Reporter = ({ reporterId }:{ reporterId: string }) => {
     const {profile} = useProfileSelector();
@@ -14,8 +15,10 @@ export const Reporter = ({ reporterId }:{ reporterId: string }) => {
         return members.find(m => m.userId === reporterId)?.profile;
     }, [isReporter, profile, members, reporterId]);
 
-    return <div>
-        <span>{ getInitialsFromProfile(reporterProfile) }</span>
-        {reporterProfile?.firstName} {reporterProfile?.lastName}
+    return <div className="reporter">
+        <MemberInitial profile={reporterProfile}/>
+        <div className="reporter__name">
+            {reporterProfile?.firstName} {reporterProfile?.lastName}
+        </div>
     </div>
 }

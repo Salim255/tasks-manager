@@ -2,27 +2,6 @@
     display: flex;
     align-items: center;
     gap: .5rem;
-    &__icon,
-    &__initial{
-       position: absolute;
-       top: 50%;
-       left: 50%;
-       transform: translate(-50%, -50%);
-    }
-    &__initials-container {
-        display: block;
-        position: relative;
-        height: 1.8rem;
-        width: 1.8rem;
-        background-color: var(--primary-50);
-        border-radius: 50%;
-    }
-    &__icon {
-        font-size: 1rem;
-    }
-    &__initial {
-        font-size: .8rem;
-    }
     &__name {
         overflow: hidden;
         text-overflow: ellipsis;
