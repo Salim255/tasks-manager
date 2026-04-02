@@ -23,11 +23,9 @@ export const Assignee = ({
 
     return <div className="assignee">
         <MemberInitial profile={assignedProfile}/>
-        
         {  pageName &&
             ( 
                 assignedProfile 
-
                 ?   <MemberName profile={assignedProfile}/> 
                 : 'unassigned'
             )
