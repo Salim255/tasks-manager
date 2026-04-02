@@ -6,13 +6,11 @@ import { typeIcon } from '../../../../shared/utils/methods';
 import { AsidePopup } from '../../../../shared/kits/aside-popup/AsidePopup';
 import { MemberItem } from '../member-item/MemberItem';
 import { Assignee } from '../../../../shared/components/assignee/Assignee';
+import { Status } from '../../../../shared/components/task-status/TaskStatus';
 
 export type TaskItemProps = { task: Task; } & React.HTMLAttributes<HTMLDivElement>;
 
 export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
-   
-    
-
     const [isOptionsOpen, setOptionsOpen ] = useState<string | null>(null);
     return (
         <div className="task-item" {...props} >
@@ -25,7 +23,7 @@ export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
                 </div>
             </section>
             <section className='task-item__status'>
-                {task.status}
+                <Status status={task.status} />
             </section>
             <section className='task-item__assignee'>
                 <Assignee assigneeId={task.assigneeId} />

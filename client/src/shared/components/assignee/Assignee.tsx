@@ -5,8 +5,8 @@ import { useMemberSelector } from "../../../features/projects/states/memberSelec
 import { getInitialsFromProfile } from "../../utils/methods";
 
 export const Assignee = ({assigneeId}: { assigneeId: string | undefined}) => {
-    const {profile} = useProfileSelector();
-    const {members} =  useMemberSelector();
+    const { profile } = useProfileSelector();
+    const { members } =  useMemberSelector();
   
     const assignedProfile  = useMemo(() => {
         if (!assigneeId) return undefined;

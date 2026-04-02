@@ -7,10 +7,11 @@ export const Status = ( { status }:{ status: TaskStatus}) => {
             case "in_progress":
                return "in progress"
             default:
-               return status
+               return "to do"
         }
     }
-    return <div className="task-status">
-        {normalizeStatus()}
+ 
+    return <div className={`task-status task-status--${status}`}>
+        { normalizeStatus() }
     </div>
 }
