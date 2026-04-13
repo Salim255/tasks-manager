@@ -18,7 +18,7 @@ services:
       - tasks-manager-network
     
   tasks-manager-client: 
-    image: tasks-manager-client:latest
+    image: crawan/tasks-manager-client:latest
 
     ports:
       - "3004:80"
@@ -35,7 +35,7 @@ services:
     depends_on:
       -  tasks-manager-db
     
-    image: tasks-manager-server:latest
+    image: crawan/tasks-manager-server:latest
 
     ports:
       - "3005:3000"
