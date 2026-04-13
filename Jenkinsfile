@@ -119,8 +119,8 @@ pipeline {
                 sh """
                     cd ${CLIENT_DIR}
                     docker build \
-                        -t ${CLIENT_IMAGE}:${BUILD_NUMBER} \
-                        -t ${CLIENT_IMAGE}:latest \
+                        -t ${ CLIENT_IMAGE_NAME}:${BUILD_NUMBER} \
+                        -t ${ CLIENT_IMAGE_NAME}:latest \
                         .
                 """
             }
@@ -146,8 +146,8 @@ pipeline {
                 sh """
                     cd ${SERVER_DIR}
                     docker build \
-                        -t ${SERVER_IMAGE}:${BUILD_NUMBER} \
-                        -t ${SERVER_IMAGE}:latest \
+                        -t ${SERVER_IMAGE_NAME}:${BUILD_NUMBER} \
+                        -t ${SERVER_IMAGE_NAME}:latest \
                         .
                 """
             }
@@ -194,16 +194,16 @@ pipeline {
                     if (env.CLIENT_CHANGED != "") {
                         echo "📤 Pushing CLIENT image..."
                         sh """
-                            docker push ${CLIENT_IMAGE}:${BUILD_NUMBER}
-                            docker push ${CLIENT_IMAGE}:latest
+                            docker push ${CLIENT_IMAGE_NAME}:${BUILD_NUMBER}
+                            docker push ${CLIENT_IMAGE_NAME}:latest
                         """
                     }
 
                     if (env.SERVER_CHANGED != "") {
                         echo "📤 Pushing SERVER image..."
                         sh """
-                            docker push ${SERVER_IMAGE}:${BUILD_NUMBER}
-                            docker push ${SERVER_IMAGE}:latest
+                            docker push ${SERVER_IMAGE_NAME}:${BUILD_NUMBER}
+                            docker push ${SERVER_IMAGE_NAME}:latest
                         """
                     }
                 }
