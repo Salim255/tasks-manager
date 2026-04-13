@@ -1,7 +1,7 @@
 version: "3.9"
+name: tasks-manager
 services:
   tasks-manager-db:
-    container_name: tasks-manager-db
     image: postgres:16
     restart: always
 
@@ -17,8 +17,6 @@ services:
       - tasks-manager-network
     
   tasks-manager-client:
-    container_name: tasks-manager-client
-
     build:
       context: ./client
       dockerfile: Dockerfile
@@ -37,7 +35,6 @@ services:
       - ./client/.env
   
   tasks-manager-server:
-    container_name: tasks-manager-server
     depends_on:
       -  tasks-manager-db
     build:
