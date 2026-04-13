@@ -17,9 +17,7 @@ services:
     networks:
       - tasks-manager-network
     
-  tasks-manager-client:
-    container_name: tasks-manager-client
-    
+  tasks-manager-client: 
     image: tasks-manager-client:latest
 
     ports:

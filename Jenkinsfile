@@ -31,6 +31,11 @@ pipeline {
      ****************************************************************************************/
     agent any
 
+    environment {
+        CLIENT_IMAGE_NAME = "crawan/tasks-manager-client"
+        SERVER_IMAGE_NAME = "crawan/tasks-manager-server" 
+        CLIENT_DIR = "portfolio-v3"
+    }
 
     stages {
 
@@ -43,7 +48,7 @@ pipeline {
         stage('Checkout Source') {
             steps {
                 script {
-                    echo "📥 Checking out source code..."
+                    echo "Checking out source code..."
                     checkout scm
                 }
             }
@@ -107,7 +112,7 @@ pipeline {
 
                         sh """
                             cd client
-                            docker build -t tasks-manager-client:latest .
+                            docker build -t ${CLIENT_IMAGE_NAME}:${BUILD_NUMBER} -t ${CLIENT_IMAGE_NAME}:latest .
                         """
                     } else {
                         echo "⏭ No client changes detected → Skipping client build."
@@ -131,7 +136,7 @@ pipeline {
 
                         sh """
                             cd servers/server
-                            docker build -t tasks-manager-server:latest .
+                            docker build -t ${SERVER_IMAGE_NAME}:${BUILD_NUMBER} -t ${SERVER_IMAGE_NAME}:latest .
                         """
                     } else {
                         echo "⏭ No server changes detected → Skipping server build."
@@ -206,11 +211,18 @@ pipeline {
      * Useful for notifications, cleanup, or debugging.
      ****************************************************************************************/
     post {
+        always {
+            echo "Cleaning Jenkins Docker engine..."
+            sh "docker system prune -af"
+
+            echo "Cleaning workspace..."
+            cleanWs()
+        }
         success {
-            echo "🎉 Deployment completed successfully."
+            echo "Deployment completed successfully."
         }
         failure {
-            echo "❌ Deployment failed — check logs above."
+            echo "Deployment failed."
         }
     }
 }
