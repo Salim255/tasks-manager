@@ -227,7 +227,7 @@ pipeline {
 
                     withCredentials([file(credentialsId: 'tasksmanager-db.env', variable: 'DB_ENV')]) {
                         sh '''
-                            cat "$DB_ENV" > .env
+                            cp "$DB_ENV" .env
                         '''
                     }
                 } 
@@ -280,6 +280,13 @@ pipeline {
             echo "🧹 Cleaning Docker..."
             sh "docker system prune -af || true"
 
+            echo "🧹 Check .env Docker..."
+            sh '''
+                pwd
+                ls -la
+                ls -la .env
+                docker compose config | head -50
+            '''
             echo "🧹 Cleaning workspace..."
             cleanWs()
         }
