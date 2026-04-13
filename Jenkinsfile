@@ -285,7 +285,7 @@ pipeline {
                 pwd
                 ls -la
                 ls -la .env
-                docker compose config | head -50
+                docker-compose config | head -50
             '''
             echo "🧹 Cleaning workspace..."
             cleanWs()
