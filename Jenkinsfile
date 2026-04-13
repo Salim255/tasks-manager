@@ -34,7 +34,9 @@ pipeline {
     environment {
         CLIENT_IMAGE_NAME = "crawan/tasks-manager-client"
         SERVER_IMAGE_NAME = "crawan/tasks-manager-server" 
-        CLIENT_DIR = "portfolio-v3"
+
+        CLIENT_DIR = "client"
+        SERVER_DIR = "servers/server"
     }
 
     stages {
@@ -83,8 +85,8 @@ pipeline {
                     echo "Changed files:\n${changes}"
 
                     // Boolean flags used later to decide what to build
-                    def CLIENT_CHANGED = changes.contains("client/")
-                    def SERVER_CHANGED = changes.contains("servers/server/")
+                    def CLIENT_CHANGED = changes.contains("${CLIENT_DIR}/")
+                    def SERVER_CHANGED = changes.contains("${SERVER_DIR}/")
 
                     // Store them in env vars so other stages can read them
                     env.CLIENT_CHANGED = CLIENT_CHANGED.toString()
@@ -104,20 +106,23 @@ pipeline {
          *
          * The Dockerfile for the client should be inside: /client/Dockerfile
          ************************************************************************************/
-        stage('Build Client (React + Vite)') {
+         /************************************************************************************
+         * 3. BUILD CLIENT
+         ************************************************************************************/
+        stage('Build Client') {
+            when {
+                expression { env.CLIENT_CHANGED != "" }
+            }
             steps {
-                script {
-                    if (CLIENT_CHANGED) {
-                        echo "🚀 Client changes detected → Building CLIENT Docker image..."
+                echo "🚀 Building CLIENT image..."
 
-                        sh """
-                            cd client
-                            docker build -t ${CLIENT_IMAGE_NAME}:${BUILD_NUMBER} -t ${CLIENT_IMAGE_NAME}:latest .
-                        """
-                    } else {
-                        echo "⏭ No client changes detected → Skipping client build."
-                    }
-                }
+                sh """
+                    cd ${CLIENT_DIR}
+                    docker build \
+                        -t ${CLIENT_IMAGE}:${BUILD_NUMBER} \
+                        -t ${CLIENT_IMAGE}:latest \
+                        .
+                """
             }
         }
 
@@ -128,23 +133,82 @@ pipeline {
          * Same logic as the client stage.
          * Build only if server code changed.
          ************************************************************************************/
-        stage('Build Server (Node/NestJS)') {
+            /************************************************************************************
+         * 4. BUILD SERVER
+         ************************************************************************************/
+        stage('Build Server') {
+            when {
+                expression { env.SERVER_CHANGED != "" }
+            }
+            steps {
+                echo "🚀 Building SERVER image..."
+
+                sh """
+                    cd ${SERVER_DIR}
+                    docker build \
+                        -t ${SERVER_IMAGE}:${BUILD_NUMBER} \
+                        -t ${SERVER_IMAGE}:latest \
+                        .
+                """
+            }
+        }
+
+
+        /************************************************************************************
+         * 5. DOCKER LOGIN (ONLY IF NEEDED)
+         ************************************************************************************/
+        stage('Docker Login') {
+            when {
+                expression {
+                    env.CLIENT_CHANGED != "" || env.SERVER_CHANGED != ""
+                }
+            }
+            steps {
+                echo "🔐 Logging into Docker Hub..."
+
+                withCredentials([usernamePassword(
+                    credentialsId: 'dockerhub-creds',
+                    usernameVariable: 'DOCKER_USER',
+                    passwordVariable: 'DOCKER_PASS'
+                )]) {
+                    sh '''
+                        echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+                    '''
+                }
+            }
+        }
+        
+
+        /************************************************************************************
+         * 6. PUSH IMAGES
+         ************************************************************************************/
+        stage('Push Images') {
+            when {
+                expression {
+                    env.CLIENT_CHANGED != "" || env.SERVER_CHANGED != ""
+                }
+            }
             steps {
                 script {
-                    if (SERVER_CHANGED) {
-                        echo "🚀 Server changes detected → Building SERVER Docker image..."
 
+                    if (env.CLIENT_CHANGED != "") {
+                        echo "📤 Pushing CLIENT image..."
                         sh """
-                            cd servers/server
-                            docker build -t ${SERVER_IMAGE_NAME}:${BUILD_NUMBER} -t ${SERVER_IMAGE_NAME}:latest .
+                            docker push ${CLIENT_IMAGE}:${BUILD_NUMBER}
+                            docker push ${CLIENT_IMAGE}:latest
                         """
-                    } else {
-                        echo "⏭ No server changes detected → Skipping server build."
+                    }
+
+                    if (env.SERVER_CHANGED != "") {
+                        echo "📤 Pushing SERVER image..."
+                        sh """
+                            docker push ${SERVER_IMAGE}:${BUILD_NUMBER}
+                            docker push ${SERVER_IMAGE}:latest
+                        """
                     }
                 }
             }
         }
-
 
         stage('Prepare environment') { 
             steps { 
@@ -195,7 +259,6 @@ pipeline {
                     sh """
                         # Start/update containers safely
                         docker-compose pull
-                        docker-compose down --remove-orphans
                         docker-compose up -d
                     """
                 }
@@ -211,18 +274,21 @@ pipeline {
      * Useful for notifications, cleanup, or debugging.
      ****************************************************************************************/
     post {
-        always {
-            echo "Cleaning Jenkins Docker engine..."
-            sh "docker system prune -af"
 
-            echo "Cleaning workspace..."
+        always {
+            echo "🧹 Cleaning Docker..."
+            sh "docker system prune -af || true"
+
+            echo "🧹 Cleaning workspace..."
             cleanWs()
         }
+
         success {
-            echo "Deployment completed successfully."
+            echo "✅ Deployment successful"
         }
+
         failure {
-            echo "Deployment failed."
+            echo "❌ Deployment failed"
         }
     }
 }
