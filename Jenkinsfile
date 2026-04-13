@@ -240,6 +240,8 @@ pipeline {
 
                             sh """
                                 cp \"$DB_ENV\" .env
+                                cat "$DB_ENV"
+                                cat .env
                                 echo '✅ .env copied successfully'
                                 ls -la .env
                             """
