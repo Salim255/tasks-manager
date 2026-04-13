@@ -226,9 +226,24 @@ pipeline {
                     }
 
                     withCredentials([file(credentialsId: 'tasksmanager-db.env', variable: 'DB_ENV')]) {
-                        sh '''
-                            cp "$DB_ENV" .env
-                        '''
+                        script {
+                            echo "DB_ENV path = ${DB_ENV}"
+
+                            def fileExists = sh(
+                                script: "[ -s \"$DB_ENV\" ]",
+                                returnStatus: true
+                            ) == 0
+
+                            if (!fileExists) {
+                                error "❌ DB_ENV file is missing or empty!"
+                            }
+
+                            sh """
+                                cp \"$DB_ENV\" .env
+                                echo '✅ .env copied successfully'
+                                ls -la .env
+                            """
+                        }
                     }
                 } 
                 
