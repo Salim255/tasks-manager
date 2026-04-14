@@ -239,18 +239,12 @@ pipeline {
                             }
 
                             sh """
-                                cp \"$DB_ENV\" .env
-                                cat "$DB_ENV"
-                                cat .env
+                                cat "$DB_ENV" > .env
                                 echo '✅ .env copied successfully'
-                                ls -la .env
                             """
                         }
                     }
-                } 
-                
-                sh 'ls -la servers/server'
-               
+                }  
             } 
         }
 
@@ -276,7 +270,6 @@ pipeline {
                     sh """
                         # Start/update containers safely
                         docker-compose pull
-                        docker compose down -v
                         docker-compose up -d
                     """
                 }
