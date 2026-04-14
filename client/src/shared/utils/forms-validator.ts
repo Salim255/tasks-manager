@@ -1,4 +1,6 @@
 import type { AuthFormState } from "../../features/auth/form-builder/authFormBuilder";
+import type { ProjectFormState } from "../../features/projects/forms-builders/projectFormBuilder";
+import type { ProjectFormState } from "../../features/projects/forms-builders/projectFormBuilder";
 
  const Validators = {
   required: (value: string) =>
@@ -17,7 +19,7 @@ import type { AuthFormState } from "../../features/auth/form-builder/authFormBui
     a === b ? undefined : "Passwords do not match"
 };
 
-export const validateForm = (state: AuthFormState, isLogin: boolean) => {
+export const validateAuthForm = (state: AuthFormState, isLogin: boolean) => {
   const errors: AuthFormState["errors"] = {};
 
   errors.email =
@@ -37,3 +39,14 @@ export const validateForm = (state: AuthFormState, isLogin: boolean) => {
 
   return errors;
 };
+
+export const validateProjectForm = (state: ProjectFormState) => {
+  const errors: ProjectFormState["errors"] = {};
+
+  errors.name =
+    Validators.required(state.name) ||
+    Validators.minLength(3, "Name")(state.name) ||
+    Validators.maxLength(100, "Name")(state.name);
+  return errors;
+};
+

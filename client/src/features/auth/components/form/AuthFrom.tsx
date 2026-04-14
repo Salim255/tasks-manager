@@ -4,7 +4,7 @@ import { useAuthForm } from "../../form-builder/authFormBuilder";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../../../redux/store";
 import { authUser, type AuthPayload } from "../../http/auth.http";
-import { validateForm } from "../../../../shared/utils/forms-validator";
+import { validateAuthForm } from "../../../../shared/utils/forms-validator";
 
 export const AuthForm = () => {
     const [iSLogin, setAuthMode] = useState<boolean>(true);
@@ -13,8 +13,8 @@ export const AuthForm = () => {
     const { state, setField, setError } = useAuthForm();
     const onSubmit = (e: ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const errors = validateForm(state, iSLogin);
-        console.log(errors);
+        const errors = validateAuthForm(state, iSLogin);
+
         if (Object.values(errors).some(Boolean)) {
             // push errors into reducer
             Object.entries(errors).forEach(([field, message]) => {
