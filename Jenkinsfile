@@ -115,6 +115,13 @@ pipeline {
             }
             steps {
                 echo "🚀 Building CLIENT image..."
+                withCredentials([file(credentialsId: 'tasks-client-env', variable: 'FRONTEND_ENV')]) {
+                    sh '''
+                        echo '📦 Injecting frontend .env file...'
+                        cd ${CLIENT_DIR}
+                        cat "$FRONTEND_ENV" > .env
+                    '''
+                }
 
                 sh """
                     cd ${CLIENT_DIR}
@@ -216,12 +223,6 @@ pipeline {
                     withCredentials([file(credentialsId: 'tasks-server-env', variable: 'BACKEND_ENV')]) {
                         sh '''
                             cat "$BACKEND_ENV" > servers/server/.env
-                        '''
-                    }
-
-                    withCredentials([file(credentialsId: 'tasks-client-env', variable: 'FRONTEND_ENV')]) {
-                        sh '''
-                            cat "$FRONTEND_ENV" > client/.env
                         '''
                     }
 

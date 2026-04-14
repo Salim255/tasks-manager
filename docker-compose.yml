@@ -27,9 +27,6 @@ services:
     networks:
       - tasks-manager-network
       
-    env_file:
-      - ./client/.env
-  
   tasks-manager-server:
     depends_on:
       -  tasks-manager-db
