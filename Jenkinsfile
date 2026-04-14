@@ -299,7 +299,7 @@ pipeline {
                 docker-compose config | head -50
             '''
             echo "🧹 Cleaning workspace..."
-            cleanWs()
+            //cleanWs()
         }
 
         success {
