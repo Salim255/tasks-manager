@@ -290,16 +290,6 @@ pipeline {
         always {
             echo "🧹 Cleaning Docker..."
             sh "docker system prune -af || true"
-
-            echo "🧹 Check .env Docker..."
-            sh '''
-                pwd
-                ls -la
-                ls -la .env
-                docker-compose config | head -50
-            '''
-            echo "🧹 Cleaning workspace..."
-            //cleanWs()
         }
 
         success {

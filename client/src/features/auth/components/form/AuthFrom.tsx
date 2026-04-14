@@ -20,11 +20,25 @@ export const AuthForm = () => {
             return;
         }
 
+        if (state.email.length < 5) {
+            setError("email", "Email must be at least 5 characters");
+            return;
+        }
+        if (state.password.length < 8) {
+            setError("password", "Password must be at least 8 characters");
+            return;
+        }
+
+        if(state.password.length > 20) {
+            setError("password", "Password must be less than 20 characters");
+            return;
+        }
+
         if (state.password !== state.confirmPassword && !iSLogin) {
             setError("confirmPassword", "Passwords do not match");
             return;
         }
-        if(state)
+        
         if(!state.email || !state.password || (!iSLogin && !state.confirmPassword)) {
             //toast.success("User created!");
             toast.error("Please fill all the fields");
@@ -41,7 +55,6 @@ export const AuthForm = () => {
     const handleAutMode = () => {
         setAuthMode((prev) => !prev);
     }
-
 
     return <>
     <form onSubmit={onSubmit} className="form ">
