@@ -1,14 +1,14 @@
 import type { AuthFormState } from "../../features/auth/form-builder/authFormBuilder";
 
-export const Validators = {
+ const Validators = {
   required: (value: string) =>
     !value ? "This field is required" : undefined,
 
-  minLength: (min: number) => (value: string) =>
-    value.length < min ? `Minimum length is ${min}` : undefined,
+  minLength: (min: number, field: string) => (value: string) =>
+    value.length < min ? `${field} must be at least ${min} characters` : undefined,
 
-  maxLength: (max: number) => (value: string) =>
-    value.length > max ? `Maximum length is ${max}` : undefined,
+  maxLength: (max: number, field: string) => (value: string) =>
+    value.length > max ? `${field} must be less than ${max} characters` : undefined,
 
   email: (value: string) =>
     /^\S+@\S+\.\S+$/.test(value) ? undefined : "Invalid email",
@@ -26,8 +26,8 @@ export const validateForm = (state: AuthFormState, isLogin: boolean) => {
 
   errors.password =
     Validators.required(state.password) ||
-    Validators.minLength(8)(state.password) ||
-    Validators.maxLength(20)(state.password);
+    Validators.minLength(8, "Password")(state.password) ||
+    Validators.maxLength(20, "Password")(state.password);
 
   if (!isLogin) {
     errors.confirmPassword =
