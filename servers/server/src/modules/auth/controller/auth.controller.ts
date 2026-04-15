@@ -61,6 +61,9 @@ export class AuthController {
     //Sanitize and validate input
     const { id: userId } = req.user;
     const { token } = req.refresh_token;
+    if (!userId || !token) {
+      throw new BadRequestException('Missing user ID or refresh token');
+    }
     //Get user
     const result: DataDto = await this.authService.validateSession({
       userId,
@@ -155,11 +158,11 @@ export class AuthController {
     const result = await this.authService.register({ email, password });
 
     // Cookie expiration value
-    const JWT_COOKIE_EXPIRE_IN = parseInt(
-      this.configService.get<string>('JWT_COOKIE_EXPIRE_IN') || '90',
-      10, // Base
+    const accessCookieOptions = parseInt(
+      this.getValue('JWT_COOKIE_EXPIRE_IN', '90'),
+      10,
     );
-
+  
     // Built cookie options
     const cookieOptions = cookieOption(JWT_COOKIE_EXPIRE_IN);
 
@@ -169,5 +172,9 @@ export class AuthController {
       status: 'success',
       data: result,
     };
+  }
+
+  private getValue<T>(key: string, fb: T): T {
+    return this.configService.get<T>(key) ?? fb;
   }
 }
