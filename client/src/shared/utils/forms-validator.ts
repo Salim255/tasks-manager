@@ -47,7 +47,7 @@ export const validateProjectForm = (state: ProjectFormState) => {
   errors.name =
     Validators.required(state.name, "Project Name") ||
     Validators.minLength(3, "Project Name")(state.name) ||
-    Validators.maxLength(100, "Project Name")(state.name);
+    Validators.maxLength(20, "Project Name")(state.name);
   return errors;
 };
 
