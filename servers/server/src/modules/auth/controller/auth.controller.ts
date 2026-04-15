@@ -37,6 +37,7 @@ export class AuthController {
     private authService: AuthService,
   ) {}
 
+  @Public()
   @Post('refresh-token')
   @ApiOperation({
     summary: 'Restore user session',
@@ -119,6 +120,7 @@ export class AuthController {
     };
   }
 
+  @Public()
   @Post('register')
   @ApiOperation({
     summary: 'Register a new user',
