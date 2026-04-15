@@ -61,15 +61,21 @@
                     background-color: var(--grey-100);
                     cursor: pointer;
                     .task-aside-container__item-aside {
-                        border-radius: .2rem;
                         overflow-y: auto;
                         display: flex;
                         flex-direction: column;
                         height: 10rem;
-                        background-color: var(--grey-300);
                         min-width: 10rem;
+                        background: var(--white);
+                        border-radius: var(--borderRadius);
+                        border: 1px solid var(--primary-300);
+                        box-shadow: var(--shadow-2);
                         li {
-                            margin: .4rem;
+                            padding: .4rem;
+                            &:hover {
+                                background-color: var(--grey-100);
+                                cursor: pointer;
+                            }
                         }
                     }
                 }
