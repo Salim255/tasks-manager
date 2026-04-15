@@ -112,8 +112,11 @@ export class AuthController {
       10, // Base
     );
 
+    // Determine if we're in production environment
+    const isProd = this.configService.get<string>('NODE_ENV') === 'production';
+
     // Built cookie options
-    const cookieOptions = cookieOption(JWT_COOKIE_EXPIRE_IN);
+    const cookieOptions = cookieOption(JWT_COOKIE_EXPIRE_IN, isProd);
     // Attach a cookie to an outgoing response
     response.cookie('task_m_jwt', result.tokens.accessToken, cookieOptions);
 
@@ -158,13 +161,16 @@ export class AuthController {
     const result = await this.authService.register({ email, password });
 
     // Access token cookie (short-lived)
+    const isProd = this.configService.get<string>('NODE_ENV') === 'production';
     const accessCookieOptions = cookieOption(
       parseInt(this.getValue('JWT_ACCESS_COOKIE_EXPIRE_IN', '15'), 10),
+      isProd,
     );
 
     // Refresh token cookie (long-lived)
     const refreshCookieOptions = cookieOption(
       parseInt(this.getValue('JWT_REFRESH_COOKIE_EXPIRE_IN', '10080'), 10),
+      isProd,
     );
 
     // Attach a cookie to an outgoing response
