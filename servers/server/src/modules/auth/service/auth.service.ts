@@ -44,7 +44,15 @@ export class AuthService {
           throw new UnauthorizedException('Session token mismatch');
         }
       }
-      const accessToken = this.jwtService.createToken(user.id);
+
+      // Generate new tokens
+      const accessToken = this.jwtService.generateAccessToken(user.id);
+      const refreshToken = this.jwtService.generateRefreshToken(user.id);
+
+      // Update stored refresh token hash
+      const refreshTokenHash = await bcrypt.hash(refreshToken, 10);
+      await this.userRepo.update(user.id, { refreshTokenHash });
+
       return {
         user: {
           id: user.id,
@@ -54,7 +62,7 @@ export class AuthService {
         },
         tokens: {
           accessToken: accessToken,
-          refreshToken: accessToken,
+          refreshToken: refreshToken,
         },
       };
     } catch (error) {
@@ -125,9 +133,14 @@ export class AuthService {
       const values = [dto.email, hashedPassword];
       const user: User = await this.userRepo.query(query, values);
 
-      const tokens = this.jwtService.createToken(user?.id);
+      const accessToken = this.jwtService.generateAccessToken(user?.id);
+      const refreshToken = this.jwtService.generateRefreshToken(user?.id);
 
-      return { user, tokens: { accessToken: tokens, refreshToken: tokens } };
+      // Store hashed refresh token in DB
+      const refreshTokenHash = await bcrypt.hash(refreshToken, 10);
+      await this.userRepo.update(user.id, { refreshTokenHash });
+
+      return { user, tokens: { accessToken, refreshToken } };
     } catch (error) {
       this.logger.error('Failed to register user', error);
 
