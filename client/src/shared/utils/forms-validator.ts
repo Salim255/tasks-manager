@@ -1,7 +1,6 @@
 import type { AuthFormState } from "../../features/auth/form-builder/authFormBuilder";
 import type { ProjectFormState } from "../../features/projects/forms-builders/projectFormBuilder";
-import type { ProjectFormState } from "../../features/projects/forms-builders/projectFormBuilder";
-
+;
  const Validators = {
   required: (value: string) =>
     !value ? "This field is required" : undefined,
@@ -16,7 +15,7 @@ import type { ProjectFormState } from "../../features/projects/forms-builders/pr
     /^\S+@\S+\.\S+$/.test(value) ? undefined : "Invalid email",
 
   match: (a: string, b: string) =>
-    a === b ? undefined : "Passwords do not match"
+    a === b ? undefined : "Passwords do not match",
 };
 
 export const validateAuthForm = (state: AuthFormState, isLogin: boolean) => {
