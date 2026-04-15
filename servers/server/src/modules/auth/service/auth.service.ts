@@ -46,12 +46,8 @@ export class AuthService {
       }
 
       // Generate new tokens
-      const accessToken = this.jwtService.generateAccessToken(user.id);
-      const refreshToken = this.jwtService.generateRefreshToken(user.id);
-
-      // Update stored refresh token hash
-      const refreshTokenHash = await bcrypt.hash(refreshToken, 10);
-      await this.userRepo.update(user.id, { refreshTokenHash });
+      const { accessToken, refreshToken } =
+        await this.generateAndStoreTokens(user);
 
       return {
         user: {
@@ -87,12 +83,8 @@ export class AuthService {
         throw new UnauthorizedException('Invalid email or password');
       }
 
-      const accessToken = this.jwtService.generateAccessToken(user.id);
-      const refreshToken = this.jwtService.generateRefreshToken(user.id);
-
-      // Store hashed refresh token in DB
-      const refreshTokenHash = await bcrypt.hash(refreshToken, 10);
-      await this.userRepo.update(user.id, { refreshTokenHash });
+      const { accessToken, refreshToken } =
+        await this.generateAndStoreTokens(user);
 
       return {
         user: {
@@ -133,12 +125,8 @@ export class AuthService {
       const values = [dto.email, hashedPassword];
       const user: User = await this.userRepo.query(query, values);
 
-      const accessToken = this.jwtService.generateAccessToken(user?.id);
-      const refreshToken = this.jwtService.generateRefreshToken(user?.id);
-
-      // Store hashed refresh token in DB
-      const refreshTokenHash = await bcrypt.hash(refreshToken, 10);
-      await this.userRepo.update(user.id, { refreshTokenHash });
+      const { accessToken, refreshToken } =
+        await this.generateAndStoreTokens(user);
 
       return { user, tokens: { accessToken, refreshToken } };
     } catch (error) {
@@ -146,5 +134,21 @@ export class AuthService {
 
       throw error;
     }
+  }
+
+  private async generateAndStoreTokens(user: User) {
+    const accessToken = this.jwtService.generateAccessToken(user.id);
+    const refreshToken = this.jwtService.generateRefreshToken(user.id);
+
+    // Hash refresh token
+    const refreshTokenHash = await bcrypt.hash(refreshToken, 10);
+
+    // Store hash in DB
+    await this.userRepo.update(user.id, { refreshTokenHash });
+
+    return {
+      accessToken,
+      refreshToken,
+    };
   }
 }

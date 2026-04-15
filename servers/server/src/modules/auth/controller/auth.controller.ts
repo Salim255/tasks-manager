@@ -23,7 +23,6 @@ import {
 import { AuthService } from '../service/auth.service';
 import express from 'express';
 import { ConfigService } from '@nestjs/config';
-import { cookieOption } from 'src/config/cookie-options.config';
 import { Logger } from '@nestjs/common';
 import { Public } from 'src/common/decorators/public.decorator';
 import { TokenCookieService } from '../service/token.cookie.service';
@@ -57,12 +56,14 @@ export class AuthController {
     description: 'Invalid or expired session cookie.',
   })
   async refreshSession(
+    @Res({ passthrough: true }) response: express.Response,
     @Req()
     req: Request & { user: { id: string }; refresh_token: { token: string } },
   ) {
     //Sanitize and validate input
     const { id: userId } = req.user;
     const { token } = req.refresh_token;
+
     if (!userId || !token) {
       throw new BadRequestException('Missing user ID or refresh token');
     }
@@ -71,6 +72,14 @@ export class AuthController {
       userId,
       refreshToken: token,
     });
+
+    // Cookie expiration value
+    // Set HttpOnly cookies for access and refresh tokens
+    this.tokenCookieService.setAuthCookies(
+      response,
+      result.tokens.accessToken,
+      result.tokens.refreshToken,
+    );
 
     return {
       status: 'success',

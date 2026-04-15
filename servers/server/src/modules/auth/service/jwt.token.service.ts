@@ -19,6 +19,7 @@ export class JwtTokenService {
   private getValue<T>(key: string, fb: T): T {
     return this.configService.get<T>(key) ?? fb;
   }
+
   generateAccessToken(userId: string) {
     const jwtSecret = this.getValue('JWT_SECRET', '');
     const jwtExpiration = this.getValue('JWT_ACCESS_EXPIRATION', '15m');
