@@ -1,19 +1,11 @@
 import { CookieOptions } from 'express';
 
-export const cookieOption = (JWT_COOKIE_EXPIRE_IN: number): CookieOptions => {
-  // Cookie expiration date
-  const expires = Date.now() + JWT_COOKIE_EXPIRE_IN * 24 * 60 * 60 * 1000;
-
-  // Save the token in cookies
-  const cookieOptions = {
-    expires: new Date(expires),
-    sameSite: 'lax' as const,
-    //sameSite: 'none' as const, // allows cross-site requests
-    secure: false, // The cookie will only be sent in encrypted connection Only https
-    httpOnly: true, // So cookie can't be access or modify by browser
-    path: '/', // cookie valid for all backend routes
-    //partitioned: true, // This for Firefox warning,
+export const cookieOption = (minutes: number): CookieOptions => {
+  return {
+    httpOnly: true,
+    secure: false, // true in production
+    sameSite: 'lax',
+    maxAge: minutes * 60 * 1000, // minutes → ms
+    path: '/',
   };
-
-  return cookieOptions;
 };
