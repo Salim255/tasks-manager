@@ -10,6 +10,8 @@ import { TaskModule } from './modules/task/task.module';
 import { ConfigModule } from '@nestjs/config';
 import { DatabaseModule } from './database/database.module';
 import { MemberModule } from './modules/member/Member.module';
+import { APP_GUARD } from '@nestjs/core/constants';
+import { JwtAuthGuard } from './modules/auth/guard/jwt-auth.guard';
 //
 @Module({
   imports: [
@@ -24,6 +26,12 @@ import { MemberModule } from './modules/member/Member.module';
     ConfigModule.forRoot({ isGlobal: true }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
+    AppService,
+  ],
 })
 export class AppModule {}
