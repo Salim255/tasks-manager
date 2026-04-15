@@ -60,6 +60,20 @@ export class JwtTokenService {
     }
   }
 
+  verifyRefreshToken(token: string): JwtTokenPayload | null {
+    try {
+      const result: JwtTokenPayload = this.jwtService.verify(token);
+      return result;
+    } catch (err: any) {
+      if (err instanceof Error) {
+        this.logger.error('[JWT] Invalid refresh token:', err.message);
+      } else {
+        this.logger.error('[JWT] Unknown JWT error');
+      }
+      return null;
+    }
+  }
+
   decodedToken(token: string): JwtTokenPayload {
     return this.jwtService.decode(token);
   }
