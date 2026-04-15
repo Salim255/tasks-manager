@@ -106,21 +106,18 @@ export class AuthController {
     @Res({ passthrough: true }) response: express.Response,
   ): Promise<LoginResponseDto> {
     const { email, password } = body;
+    if (!email || !password) {
+      throw new BadRequestException('Email and password are required');
+    }
     const result = await this.authService.login({ email, password });
 
     // Cookie expiration value
-    const JWT_COOKIE_EXPIRE_IN = parseInt(
-      this.configService.get<string>('JWT_COOKIE_EXPIRE_IN') || '90',
-      10, // Base
+    // Set HttpOnly cookies for access and refresh tokens
+    this.tokenCookieService.setAuthCookies(
+      response,
+      result.tokens.accessToken,
+      result.tokens.refreshToken,
     );
-
-    // Determine if we're in production environment
-    const isProd = this.configService.get<string>('NODE_ENV') === 'production';
-
-    // Built cookie options
-    const cookieOptions = cookieOption(JWT_COOKIE_EXPIRE_IN, isProd);
-    // Attach a cookie to an outgoing response
-    response.cookie('task_m_jwt', result.tokens.accessToken, cookieOptions);
 
     return {
       status: 'success',
