@@ -16,6 +16,35 @@ export class JwtTokenService {
     private jwtService: JwtService,
   ) {}
 
+  private getValue<T>(key: string, fb: T): T {
+    return this.configService.get<T>(key) ?? fb;
+  }
+  generateAccessToken(userId: string, email: string) {
+    const jwtSecret = this.getValue('JWT_SECRET', '');
+    const jwtExpiration = this.getValue('JWT_ACCESS_EXPIRATION', '15m');
+
+    return this.jwtService.sign(
+      { sub: userId, email },
+      {
+        secret: jwtSecret,
+        expiresIn: jwtExpiration,
+      },
+    );
+  }
+
+  generateRefreshToken(userId: string, email: string) {
+    const jwtSecret = this.getValue('JWT_SECRET', '');
+    const jwtExpiration = this.getValue('JWT_REFRESH_EXPIRATION', '7d');
+
+    return this.jwtService.sign(
+      { sub: userId, email },
+      {
+        secret: jwtSecret,
+        expiresIn: jwtExpiration,
+      },
+    );
+  }
+
   createToken(userId: string): string {
     return this.jwtService.sign({ id: userId });
   }
