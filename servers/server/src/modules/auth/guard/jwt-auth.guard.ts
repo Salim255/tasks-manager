@@ -33,6 +33,11 @@ export class JwtAuthGuard implements CanActivate {
       context.getClass(),
     ]);
 
+    const allowRefresh = this.reflector.getAllAndOverride<boolean>(
+      'allowRefresh',
+      [context.getHandler(), context.getClass()],
+    );
+
     if (isPublic) {
       return true; // If the route is marked as public, allow access without authentication
     }

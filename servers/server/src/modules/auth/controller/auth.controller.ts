@@ -26,6 +26,7 @@ import { ConfigService } from '@nestjs/config';
 import { Logger } from '@nestjs/common';
 import { Public } from 'src/common/decorators/public.decorator';
 import { TokenCookieService } from '../service/token.cookie.service';
+import { AllowRefresh } from 'src/common/decorators/allow-refresh.decorator';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -39,6 +40,7 @@ export class AuthController {
   ) {}
 
   @Public()
+  @AllowRefresh()
   @Post('refresh-token')
   @ApiOperation({
     summary: 'Restore user session',
@@ -63,9 +65,7 @@ export class AuthController {
     //Sanitize and validate input
     const { id: userId } = req.user;
     const { token } = req.refresh_token;
-    const refreshToken = req.cookie as
-      | { task_m_refresh_jwt?: string }
-      | undefined;
+    const refreshToken = req.cookies ?.task_m_refresh_jwt;
 
     if (!userId || !token) {
       throw new BadRequestException('Missing user ID or refresh token');

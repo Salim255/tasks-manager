@@ -1,3 +1,4 @@
+export const ALLOW_REFRESH = 'allowRefresh';
 export const IS_PUBLIC_KEY = 'isPublic';
 export const DATA_SOURCE = 'DATA_SOURCE';
 export const DB_OPTIONS = 'DB_OPTIONS';
