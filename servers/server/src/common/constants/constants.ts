@@ -1,3 +1,4 @@
+export const IS_PUBLIC_KEY = 'isPublic';
 export const DATA_SOURCE = 'DATA_SOURCE';
 export const DB_OPTIONS = 'DB_OPTIONS';
 export const USER_REPOSITORY = 'USER_REPOSITORY';

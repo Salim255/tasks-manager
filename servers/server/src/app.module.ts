@@ -12,7 +12,7 @@ import { DatabaseModule } from './database/database.module';
 import { MemberModule } from './modules/member/Member.module';
 import { APP_GUARD } from '@nestjs/core/constants';
 import { JwtAuthGuard } from './modules/auth/guard/jwt-auth.guard';
-//
+
 @Module({
   imports: [
     MemberModule,
