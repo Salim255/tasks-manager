@@ -26,6 +26,7 @@ import { ConfigService } from '@nestjs/config';
 import { cookieOption } from 'src/config/cookie-options.config';
 import { Logger } from '@nestjs/common';
 import { Public } from 'src/common/decorators/public.decorator';
+import { TokenCookieService } from '../service/token.cookie.service';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -33,6 +34,7 @@ export class AuthController {
   private logger = new Logger(AuthController.name);
 
   constructor(
+    private tokenCookieService: TokenCookieService,
     private configService: ConfigService,
     private authService: AuthService,
   ) {}
@@ -160,38 +162,16 @@ export class AuthController {
     }
     const result = await this.authService.register({ email, password });
 
-    // Access token cookie (short-lived)
-    const isProd = this.configService.get<string>('NODE_ENV') === 'production';
-    const accessCookieOptions = cookieOption(
-      parseInt(this.getValue('JWT_ACCESS_COOKIE_EXPIRE_IN', '15'), 10),
-      isProd,
-    );
-
-    // Refresh token cookie (long-lived)
-    const refreshCookieOptions = cookieOption(
-      parseInt(this.getValue('JWT_REFRESH_COOKIE_EXPIRE_IN', '10080'), 10),
-      isProd,
-    );
-
-    // Attach a cookie to an outgoing response
-    // Set cookies with appropriate options
-    response.cookie(
-      'task_m_access_jwt',
+    // Set HttpOnly cookies for access and refresh tokens
+    this.tokenCookieService.setAuthCookies(
+      response,
       result.tokens.accessToken,
-      accessCookieOptions,
-    );
-    response.cookie(
-      'task_m_refresh_jwt',
       result.tokens.refreshToken,
-      refreshCookieOptions,
     );
+
     return {
       status: 'success',
       data: result,
     };
-  }
-
-  private getValue<T>(key: string, fb: T): T {
-    return this.configService.get<T>(key) ?? fb;
   }
 }

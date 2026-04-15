@@ -7,11 +7,18 @@ import { UserRepository } from '../user/repository/user.repository';
 import { DatabaseModule } from 'src/database/database.module';
 import { AuthService } from './service/auth.service';
 import { JwtAuthGuard } from './guard/jwt-auth.guard';
+import { TokenCookieService } from './service/token.cookie.service';
 
 @Module({
   controllers: [AuthController],
-  providers: [JwtTokenService, AuthService, UserRepository, JwtAuthGuard],
-  exports: [JwtAuthGuard, JwtTokenService],
+  providers: [
+    JwtTokenService,
+    AuthService,
+    UserRepository,
+    JwtAuthGuard,
+    TokenCookieService,
+  ],
+  exports: [JwtAuthGuard, JwtTokenService, TokenCookieService],
   imports: [
     DatabaseModule,
     JwtModule.registerAsync({
