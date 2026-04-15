@@ -2,9 +2,10 @@ import { createProfileHttp, type CreateProfilePayload } from '../http/profileHtt
 import { useDispatch } from 'react-redux';
 import { type AppDispatch } from '../../../redux/store';
 import { useProfileForm } from '../form-builder/profileFormBuilder';
+import { validateProfileForm } from '../../../shared/utils/forms-validator';
 
 export const ProfileForm = () => {
-  const {setField, reset, state } = useProfileForm();
+  const {setField, reset, state, setError } = useProfileForm();
   const dispatcher = useDispatch<AppDispatch>();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -12,6 +13,14 @@ export const ProfileForm = () => {
   }
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const errors = validateProfileForm(state);
+    if (Object.values(errors).some(Boolean)) {
+      // push errors into reducer
+      Object.entries(errors).forEach(([field, message]) => {
+          if (message) setError(field as "firstName" | "lastName", message);
+      });
+      return;
+    }
     if (!state.firstName.trim() || ! state.lastName.trim()) return;
 
     const payload: CreateProfilePayload = {firstName: state.firstName, lastName: state.lastName};
@@ -36,6 +45,11 @@ export const ProfileForm = () => {
                 placeholder="Your first name"
                 className='form-input'
             />
+            { 
+              state.errors.firstName && (
+                <p className="alert-danger">{state.errors.firstName}</p>
+              )
+            }
         </div>
         <div className="form-row">
             <label
@@ -48,6 +62,11 @@ export const ProfileForm = () => {
                 onChange={handleChange}
                 placeholder="Your last name"
             />
+            { 
+              state.errors.lastName && (
+                  <p className="alert-danger">{state.errors.lastName}</p>
+              )
+            }
         </div> 
 
 

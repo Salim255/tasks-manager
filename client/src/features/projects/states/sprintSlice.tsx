@@ -3,6 +3,7 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { Sprint, SprintStatus } from "../models/sprint.model";
 import type { AppDispatch, RootState } from "../../../redux/store";
 import { createSprint, fetchSprintsHttp, updateSprintHttp } from "../http/sprint.http";
+import { toast } from "react-toastify";
 
 
 // 2 initial state
@@ -62,7 +63,8 @@ const sprintSlice = createSlice({
             state.isUpdating = false;
         })
         .addCase(updateSprintHttp.rejected, (state) => {
-            state.isUpdating = false
+            state.isUpdating = false;
+            toast.error("Failed to update sprint. Please try again.");
         })
         .addCase(fetchSprintsHttp.pending, (state) => {
             state.isLoading = true;
@@ -86,6 +88,7 @@ const sprintSlice = createSlice({
         })
         .addCase(createSprint.rejected, (state) => {
             state.isCreating = false;
+            toast.error("Failed to create sprint. Please try again.");
         })
     },
     reducers: {

@@ -4,7 +4,7 @@ export type MemberRole = 'admin' | 'member';
 
 export type MemberFormState = {
     projectId?: string;
-    memberEmail?: string;
+    memberEmail: string;
     role:  MemberRole;
     errors: Partial<Record<"projectId" | "memberEmail" | "role", string>>;
 }

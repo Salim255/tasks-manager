@@ -2,6 +2,7 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { Project } from "../models/project.model";
 import { fetchProjectsHttp, createProjectHttp, fetchSingleProjectHttp } from "../http/project.http";
 import { addMemberHttp } from "../http/member.http";
+import { toast } from "react-toastify";
 
 type InitialState = {
     projects: Project[];
@@ -62,6 +63,7 @@ const projectSlice = createSlice({
         })
         .addCase(addMemberHttp.rejected, (state) => {
             state.isLoadingMember = false;
+            toast.error("Failed to add member. Please try again.");
         })
         .addCase(createProjectHttp.pending, (state) => {
             state.isCreating = true;
@@ -74,6 +76,7 @@ const projectSlice = createSlice({
         })
         .addCase(createProjectHttp.rejected, (state) => {
             state.isCreating = false;
+            toast.error("Failed to create project. Please try again.");
         })
         .addCase(fetchProjectsHttp.fulfilled, (state, action) => {
             const { projects } = action.payload.data;

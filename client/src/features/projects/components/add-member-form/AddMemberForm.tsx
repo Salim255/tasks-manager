@@ -9,10 +9,11 @@ import { onAddMemberModal } from "../../states/projectSlice";
 import { IoMdClose } from "react-icons/io";
 import { useMemberForm } from "../../forms-builders/memberFormBuilder";
 import { addMemberHttp, type CreateMemberPayload } from "../../http/member.http";
+import { validateMemberForm } from "../../../../shared/utils/forms-validator";
 
 export const AddMemberForm = ({ projectId }:{ projectId: string }) => {
     const dispatch = useDispatch<AppDispatch>();
-    const { state, setField, reset } =  useMemberForm(projectId);
+    const { state, setField, reset, setError } =  useMemberForm(projectId);
     const { isAddMember } = useSelectProjects();
     
     const onClose = () => {
@@ -21,6 +22,15 @@ export const AddMemberForm = ({ projectId }:{ projectId: string }) => {
 
     const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        const errors = validateMemberForm(state);
+        if (Object.values(errors).some(Boolean)) {
+            Object.entries(errors).forEach(([field, message]) => {
+                if (message) setError(field as "memberEmail" | "role", message);
+            });
+            return;
+        }
+
         if (!state.memberEmail || !state.projectId || !state.role) return;
         const payload: CreateMemberPayload  = {
             email: state.memberEmail,
@@ -65,6 +75,11 @@ export const AddMemberForm = ({ projectId }:{ projectId: string }) => {
                         className="form-input"
                         placeholder="salim@gmail.com">
                         </input>
+                        { 
+                            state.errors.memberEmail && (
+                                <p className="alert-danger">{state.errors.memberEmail}</p>
+                            )
+                        }
                 </div>
                 <div className="form-row">
                     <label

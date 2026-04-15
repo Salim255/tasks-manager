@@ -1,6 +1,7 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { Task  } from "../models/task.model";
 import { createTaskHttp, getTasksHttp, updateTasHttp, updateTaskSprintHttp } from "../http/task.http";
+import { toast } from "react-toastify";
 
 type InitiateState = {
     tasks: Task [];
@@ -83,6 +84,7 @@ const taskSlice = createSlice({
         })
         .addCase(updateTasHttp.rejected, (state) => {
             state.isUpdating = false;
+            toast.error("Failed to update task. Please try again.");
         })
         .addCase(updateTaskSprintHttp.pending, (state) => {
             state.isUpdating = true; 
@@ -95,7 +97,8 @@ const taskSlice = createSlice({
             state.isUpdating = false;
         })
         .addCase(updateTaskSprintHttp.rejected, (state) => {
-            state.isUpdating = false
+            state.isUpdating = false;
+            toast.error("Failed to update task sprint. Please try again.");
         })
         .addCase(getTasksHttp.pending, (state) => {
            state.isLoading = true;
@@ -105,8 +108,7 @@ const taskSlice = createSlice({
            state.tasks = [...tasks];
            state.isLoading = false;
         })
-        .addCase(getTasksHttp.rejected, (state, action) => {
-            console.log(action.error);
+        .addCase(getTasksHttp.rejected, (state) => {
             state.isLoading = false
         })
         .addCase(createTaskHttp.pending, (state) => {
@@ -119,6 +121,7 @@ const taskSlice = createSlice({
         })
         .addCase(createTaskHttp.rejected, (state) => {
             state.isCreating = false;
+            toast.error("Failed to create task. Please try again.");
         })
 
     },

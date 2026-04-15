@@ -56,9 +56,11 @@ export const CreateProjectForm = () => {
                     onChange={handleInput}
                     placeholder="project name"
                 />
-                { state.errors.name && (
-                <p className="alert-danger">{state.errors.name}</p>
-            )}
+                { 
+                    state.errors.name && (
+                        <p className="alert-danger">{state.errors.name}</p>
+                    )
+                }
             </div>
 
             <div className="form-row">

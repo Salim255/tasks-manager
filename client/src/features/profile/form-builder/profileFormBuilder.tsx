@@ -1,10 +1,10 @@
 import { useReducer } from "react";
 
-type ProfileFormState = {
+export type ProfileFormState = {
   firstName: string;
   lastName: string;
   avatarUrl?: string;
-  errors: Record<string, string>;
+  errors: Partial<Record<"firstName" | "lastName", string>>;
 };
 
 type Action = { type: "SET_FIELD"; field: string; value: string } | 
