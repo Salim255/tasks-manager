@@ -63,6 +63,9 @@ export class AuthController {
     //Sanitize and validate input
     const { id: userId } = req.user;
     const { token } = req.refresh_token;
+    const refreshToken = req.cookie as
+      | { task_m_refresh_jwt?: string }
+      | undefined;
 
     if (!userId || !token) {
       throw new BadRequestException('Missing user ID or refresh token');
