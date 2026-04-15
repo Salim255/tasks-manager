@@ -25,6 +25,7 @@ import express from 'express';
 import { ConfigService } from '@nestjs/config';
 import { cookieOption } from 'src/config/cookie-options.config';
 import { Logger } from '@nestjs/common';
+import { Public } from 'src/common/decorators/public.decorator';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -71,6 +72,7 @@ export class AuthController {
     };
   }
 
+  @Public()
   @Post('login')
   @ApiOperation({
     summary: 'Login user',
