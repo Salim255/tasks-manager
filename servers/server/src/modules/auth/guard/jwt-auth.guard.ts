@@ -3,6 +3,7 @@ import {
   ExecutionContext,
   Injectable,
   Logger,
+  UnauthorizedException,
 } from '@nestjs/common';
 
 import { Request } from 'express';
@@ -17,36 +18,28 @@ interface AuthenticatedRequest extends Request {
 export class JwtAuthGuard implements CanActivate {
   private logger = new Logger(JwtAuthGuard.name);
   constructor(private jwtTokenService: JwtTokenService) {}
+
   canActivate(context: ExecutionContext): boolean {
     const request = context.switchToHttp().getRequest<AuthenticatedRequest>();
 
-    let token: string | undefined;
+    const token: string | undefined = this.extractTokenFromCookies(request);
 
-    // 1 First check Authorization header (native apps)
-    const authHeader = request.headers.authorization;
-    if (authHeader || authHeader?.startsWith('Bearer ')) {
-      token = authHeader.split(' ')[1];
+    if (!token) {
+      throw new UnauthorizedException('No token provided');
     }
-
-    // 2 Fallback: check cookies (web apps)
-    if (!token && this.extractTokenFromCookies(request)) {
-      token = this.extractTokenFromCookies(request);
-    }
-
-    if (!token) return false;
 
     try {
       const decoded: JwtTokenPayload | null =
         this.jwtTokenService.verifyToken(token);
       // 4 Set decode as user in request
-      if (!decoded) return false;
+      if (!decoded) throw new UnauthorizedException('Invalid token');
 
       request.user = { id: decoded.id };
       request.refresh_token = { token };
-      return true;
     } catch {
-      return false;
+      throw new UnauthorizedException('Invalid or expired token');
     }
+    return true;
   }
 
   private extractTokenFromCookies(request: Request): string | undefined {
