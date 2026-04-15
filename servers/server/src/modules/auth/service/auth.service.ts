@@ -79,7 +79,12 @@ export class AuthService {
         throw new UnauthorizedException('Invalid email or password');
       }
 
-      const accessToken = this.jwtService.createToken(user.id);
+      const accessToken = this.jwtService.generateAccessToken(user.id);
+      const refreshToken = this.jwtService.generateRefreshToken(user.id);
+
+      // Store hashed refresh token in DB
+      const refreshTokenHash = await bcrypt.hash(refreshToken, 10);
+      await this.userRepo.update(user.id, { refreshTokenHash });
 
       return {
         user: {
@@ -90,7 +95,7 @@ export class AuthService {
         },
         tokens: {
           accessToken: accessToken,
-          refreshToken: accessToken,
+          refreshToken: refreshToken,
         },
       };
     } catch (error) {

@@ -19,12 +19,12 @@ export class JwtTokenService {
   private getValue<T>(key: string, fb: T): T {
     return this.configService.get<T>(key) ?? fb;
   }
-  generateAccessToken(userId: string, email: string) {
+  generateAccessToken(userId: string) {
     const jwtSecret = this.getValue('JWT_SECRET', '');
     const jwtExpiration = this.getValue('JWT_ACCESS_EXPIRATION', '15m');
 
     return this.jwtService.sign(
-      { sub: userId, email },
+      { sub: userId },
       {
         secret: jwtSecret,
         expiresIn: jwtExpiration,
@@ -32,21 +32,17 @@ export class JwtTokenService {
     );
   }
 
-  generateRefreshToken(userId: string, email: string) {
+  generateRefreshToken(userId: string) {
     const jwtSecret = this.getValue('JWT_SECRET', '');
     const jwtExpiration = this.getValue('JWT_REFRESH_EXPIRATION', '7d');
 
     return this.jwtService.sign(
-      { sub: userId, email },
+      { sub: userId },
       {
         secret: jwtSecret,
         expiresIn: jwtExpiration,
       },
     );
-  }
-
-  createToken(userId: string): string {
-    return this.jwtService.sign({ id: userId });
   }
 
   verifyToken(token: string): JwtTokenPayload | null {
@@ -65,14 +61,5 @@ export class JwtTokenService {
 
   decodedToken(token: string): JwtTokenPayload {
     return this.jwtService.decode(token);
-  }
-
-  prepareToken(userId: string): JwtTokenPayload & { token: string } {
-    const token = this.createToken(userId);
-    const tokenDetails: JwtTokenPayload | null = this.verifyToken(token);
-    if (!tokenDetails) {
-      throw new UnauthorizedException('Invalid or expired token');
-    }
-    return { token, ...tokenDetails };
   }
 }
