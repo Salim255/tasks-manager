@@ -55,14 +55,30 @@ export const authUser = createAsyncThunk<
     }
 )
 
-export const refreshToken = createAsyncThunk(
-    'auth/refresh-token',
-    async (_, thunkApi) => {
-        try {
-            const res = await api.get(`/auth/refresh-token`);
-            return res ;
-        } catch (error) {
-            return thunkApi.rejectWithValue(error);
+export const loadUser = createAsyncThunk(
+  'auth/loadUser',
+  async (_, thunkApi) => {
+    try {
+      const res = await api.get('/auth/me');
+      return res.data;
+    } catch (error) {
+        // Extract your backend error shape
+        if (error instanceof AxiosError) {
+            const backendError: ApiErrorDto = error.response?.data || {
+                status: "error",
+                message: "Unknown error",
+                data: null
+            };
+
+            return thunkApi.rejectWithValue(backendError);
         }
+        // fallback for non-Axios errors
+        return thunkApi.rejectWithValue({
+            status: "error",
+            message: "Unexpected error",
+            data: null
+        });
     }
-)
+  }
+);
+
