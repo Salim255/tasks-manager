@@ -55,7 +55,7 @@ export const authUser = createAsyncThunk<
     }
 )
 
-export const loadUser = createAsyncThunk(
+export const loadUserHttp = createAsyncThunk(
   'auth/loadUser',
   async (_, thunkApi) => {
     try {
