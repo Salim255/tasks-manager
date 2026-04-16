@@ -56,10 +56,11 @@ export const authUser = createAsyncThunk<
 )
 
 export const loadUserHttp = createAsyncThunk(
-  'auth/loadUser',
+  'users/loadUser',
   async (_, thunkApi) => {
     try {
-      const res = await api.get('/auth/me');
+      const res = await api.get('/users/me');
+      await thunkApi.dispatch(getUserProfileHttp());
       return res.data;
     } catch (error) {
         // Extract your backend error shape
