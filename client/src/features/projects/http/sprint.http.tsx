@@ -1,9 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import type { Sprint, SprintStatus } from "../models/sprint.model";
 import type { ApiErrorDto } from "../../../shared/interfaces/shared.interfaces";
-
-const apiUrl = import.meta.env.VITE_API_URL;
+import api from "../../../api/axios";
 
 export type UpdateSprintPayload = {
   name?: string;
@@ -42,8 +41,8 @@ export const updateSprintHttp = createAsyncThunk<
     async (data: UpdateSprintPayload & { sprintId: string} , thunkApi) => {
         try {
             const { sprintId, ...rest } = data;
-            const response = await axios.patch(
-                `${apiUrl}/sprints/${sprintId}`,
+            const response = await api.patch(
+                `sprints/${sprintId}`,
                 rest,
                 { withCredentials: true },
             )
@@ -78,8 +77,8 @@ export const fetchSprintsHttp =  createAsyncThunk<
         'get/fetchSprintsByProject',
         async (data: {projectId: string}, thunkApi) => {
             try {
-                const response = await axios.get(
-                    `${apiUrl}/projects/${data.projectId}/sprints`,
+                const response = await api.get(
+                    `projects/${data.projectId}/sprints`,
                     { withCredentials: true }
                 );
                 return response.data;
@@ -111,7 +110,7 @@ export const createSprint = createAsyncThunk<
     'post/createSprint',
     async (data:CreateSprintPayload , thunkApi) => {
         try {
-            const response = await axios.post(`${apiUrl}/projects/${data.projectId}/sprints`, 
+            const response = await api.post(`projects/${data.projectId}/sprints`, 
                 {},
                 { withCredentials: true },
             );

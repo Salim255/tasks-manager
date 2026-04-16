@@ -1,12 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import { type ApiErrorDto } from "../../../shared/interfaces/shared.interfaces";
 import type { TaskStatus } from "../forms-builders/taskFormBuilder";
 import type { Task, TaskType } from "../models/task.model";
-
-
-const apiUrl = import.meta.env.VITE_API_URL;
-
+import api from "../../../api/axios";
 
 export type UpdateTaskPayload = {
   title?: string;
@@ -58,8 +55,8 @@ export const updateTasHttp = createAsyncThunk<
         async (data: UpdateTaskPayload & { taskId: string }, thunkApi) => {
             try {
                 const {taskId, ...rest} = data;
-                const response = await axios.patch(
-                    `${apiUrl}/tasks/${taskId}`,
+                const response = await api.patch(
+                    `tasks/${taskId}`,
                     rest,
                     { withCredentials: true }
                 );
@@ -91,8 +88,8 @@ export const updateTaskSprintHttp = createAsyncThunk<
         'update/task-sprint',
         async (data: UpdateTaskSprintPayload , thunkApi) => {
             try {
-                const response = await axios.patch(
-                    `${apiUrl}/tasks/${data.taskId}/sprint`, 
+                const response = await api.patch(
+                    `tasks/${data.taskId}/sprint`, 
                     { sprintId: data.sprintId },
                     { withCredentials: true }
                 );
@@ -126,8 +123,8 @@ export const  createTaskHttp = createAsyncThunk<
     async (data: CreateTaskPayload, thunkApi) => {
         try {
             console.log(data);
-            const response = await axios.post(
-               `${apiUrl}/projects/${data.projectId}/tasks`, 
+            const response = await api.post(
+               `projects/${data.projectId}/tasks`, 
                 data,
                 { withCredentials: true }
             );
@@ -162,8 +159,8 @@ export const getTasksHttp = createAsyncThunk<
     'get/getTasks',
     async (projectId : {projectId: string}, thunkApi) => {
         try {
-            const response = await axios.get(
-                `${apiUrl}/projects/${projectId.projectId}/tasks`,
+            const response = await api.get(
+                `projects/${projectId.projectId}/tasks`,
                 { withCredentials: true },
             );
             return response.data;
