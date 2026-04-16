@@ -1,9 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import type { ApiErrorDto } from "../../../shared/interfaces/shared.interfaces";
 import type { Profile } from "../model/profile.model";
+import api from "../../../api/axios";
 
-const apiUrl = import.meta.env.VITE_API_URL;
 
 export type CreateProfilePayload = {
     firstName: string;
@@ -22,7 +22,7 @@ export const getUserProfileHttp = createAsyncThunk(
     'get/userProfile',
     async (_, thunkApi) => {
         try {
-            const response = await axios.get(`${apiUrl}/profiles`, { withCredentials: true});
+            const response = await api.get(`/profiles`, { withCredentials: true});
             return response.data;
         } catch (error) {
              // Extract your backend error shape
@@ -53,8 +53,8 @@ export const createProfileHttp = createAsyncThunk<
     'post/createProfile',
     async (data: CreateProfilePayload, thunkApi) => {
         try {
-            const response = await axios.post<ProfileResponseDto>(
-                `${apiUrl}/profiles`,
+            const response = await api.post<ProfileResponseDto>(
+                `/profiles`,
                 data,
                 { withCredentials: true }
             );
