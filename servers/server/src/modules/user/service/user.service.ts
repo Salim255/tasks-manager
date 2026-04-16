@@ -22,4 +22,13 @@ export class UserService {
       throw error;
     }
   }
+
+  findById(id: string): Promise<User | null> {
+    try {
+      return this.userRepo.findOne({ where: { id } });
+    } catch (error) {
+      this.logger.error('Error fetching user by ID', error);
+      throw error;
+    }
+  }
 }

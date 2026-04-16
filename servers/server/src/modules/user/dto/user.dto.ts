@@ -10,7 +10,7 @@ export class MeResponseDto {
       id: string;
       email: string;
       emailVerified: boolean;
-      createdAt: string;
+      createdAt: Date;
     };
   };
 }
