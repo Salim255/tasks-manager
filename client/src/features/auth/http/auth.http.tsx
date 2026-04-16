@@ -1,5 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
+import api from "../../../api/axios";
+
 import { getUserProfileHttp } from "../../profile/http/profileHttp";
 import type { ApiErrorDto } from "../../../shared/interfaces/shared.interfaces";
 
@@ -16,7 +18,6 @@ export type AuthResponseDto = {
         }
     }
 }
-const apiUrl = import.meta.env.VITE_API_URL;
     
 export const authUser = createAsyncThunk<
     AuthResponseDto,
@@ -26,8 +27,8 @@ export const authUser = createAsyncThunk<
     'post/authUser',
     async (data: AuthPayload, thunkApi) => {
         try {
-            const response = await axios.post(
-                `${apiUrl}/auth/${data.authType}`,
+            const response = await api.post(
+                `/auth/${data.authType}`,
                 { email: data.email, password: data.password },
                 { withCredentials: true }
             )
@@ -58,7 +59,7 @@ export const refreshToken = createAsyncThunk(
     'auth/refresh-token',
     async (_, thunkApi) => {
         try {
-            const res = await axios.get(`${apiUrl}/auth/refresh-token`);
+            const res = await api.get(`/auth/refresh-token`);
             return res ;
         } catch (error) {
             return thunkApi.rejectWithValue(error);
