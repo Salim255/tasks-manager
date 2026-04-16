@@ -3,9 +3,14 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 
 export type JwtTokenPayload = {
-  id: string;
-  exp: number;
+  sub: string; // user ID
+  exp: number; // expiration timestamp (auto-added by JWT library)
 };
+
+export interface AuthCookies {
+  task_m_access_jwt?: string;
+  task_m_refresh_jwt?: string;
+}
 
 @Injectable()
 export class JwtTokenService {
@@ -60,18 +65,12 @@ export class JwtTokenService {
     }
   }
 
+  verifyAccessToken(token: string): JwtTokenPayload | null {
+    return this.verifyToken(token);
+  }
+
   verifyRefreshToken(token: string): JwtTokenPayload | null {
-    try {
-      const result: JwtTokenPayload = this.jwtService.verify(token);
-      return result;
-    } catch (err: any) {
-      if (err instanceof Error) {
-        this.logger.error('[JWT] Invalid refresh token:', err.message);
-      } else {
-        this.logger.error('[JWT] Unknown JWT error');
-      }
-      return null;
-    }
+    return this.verifyToken(token);
   }
 
   decodedToken(token: string): JwtTokenPayload {

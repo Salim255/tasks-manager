@@ -5,6 +5,7 @@ import {
   Post,
   Req,
   Res,
+  UnauthorizedException,
 } from '@nestjs/common';
 import {
   ApiCookieAuth,
@@ -27,6 +28,7 @@ import { Logger } from '@nestjs/common';
 import { Public } from 'src/common/decorators/public.decorator';
 import { TokenCookieService } from '../service/token.cookie.service';
 import { AllowRefresh } from 'src/common/decorators/allow-refresh.decorator';
+import { AuthCookies } from '../service/jwt.token.service';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -60,20 +62,23 @@ export class AuthController {
   async refreshSession(
     @Res({ passthrough: true }) response: express.Response,
     @Req()
-    req: Request & { user: { id: string }; refresh_token: { token: string } },
+    req: Request & { user: { id: string }; cookies: { cookies: AuthCookies } },
   ) {
     //Sanitize and validate input
     const { id: userId } = req.user;
-    const { token } = req.refresh_token;
-    const refreshToken = req.cookies ?.task_m_refresh_jwt;
+    const cookies = req.cookies as AuthCookies;
+    const refreshToken = cookies.task_m_refresh_jwt;
 
-    if (!userId || !token) {
+    if (!refreshToken) throw new UnauthorizedException('No refresh token');
+    if (!userId) throw new UnauthorizedException('Invalid refresh token');
+
+    if (!userId || !refreshToken) {
       throw new BadRequestException('Missing user ID or refresh token');
     }
     //Get user
     const result: DataDto = await this.authService.validateSession({
       userId,
-      refreshToken: token,
+      refreshToken: refreshToken,
     });
 
     // Cookie expiration value
