@@ -17,18 +17,12 @@ export const ProjectNavbar =() => {
 
     return (
         <header className="project-header">
-            <h2 className='project-header__title'>
-                {
-                    isFetchingProject 
-                    ? ("Loading") 
-                    : (
-                        <>
-                            {activeProject?.name}
-                            <AddMemberForm projectId={projectId!} />
-                        </>
-                    )
-                }
-            </h2>
+            <div className='project-header__title'>
+                <h2> {activeProject?.name} </h2>
+                <div>
+                    <AddMemberForm projectId={projectId!} />
+                </div>
+            </div>
             <nav className="project-header__links">
                 {
                     projectLinks.map((link) => {

@@ -50,58 +50,56 @@ export const AddMemberForm = ({ projectId }:{ projectId: string }) => {
     }, [isAddMember, projectId]);
 
     return <div className="add-member-form-container">
-        <BsPersonAdd  className="add-member-form-container__icon" onClick={onClose}/> 
+        <BsPersonAdd  className="add-member-form-container__close-icon" onClick={onClose}/> 
         {
             isAddMember &&
             <ModalOverlay onClose={onClose}>
-            <form 
-                onSubmit={handleSubmit}
-                data-modal-body 
-                className="form add-member-form" >
-                <div className="from-row add-member-form__header">
-                    <h6> Add people to My Scrum Space </h6>
-                    <div> <button onClick={onClose}><IoMdClose /></button> </div>
-                </div>
-                <div className="form-row">
-                    <label
-                        htmlFor={state.memberEmail} 
-                        className="from-label">
-                        Member email
-                    </label>
-                    <input
-                        name="memberEmail"
-                        value={state.memberEmail}
-                        onChange={handleChange}
-                        className="form-input"
-                        placeholder="salim@gmail.com">
-                        </input>
-                        { 
-                            state.errors.memberEmail && (
-                                <p className="alert-danger">{state.errors.memberEmail}</p>
-                            )
-                        }
-                </div>
-                <div className="form-row">
-                    <label
-                        htmlFor={state.role}
-                        className="from-label">
-                        role
-                    </label>
-                    <select 
-                        name="role"
-                        value={state.role}
-                        onChange={handleChange}
-                        className="form-input">
-                            <option value="admin">admin</option>
-                            <option value="member">member</option>
-                    </select>
-                </div>
-                <div className="form-row">
-                    <button className="btn" onClick={onClose}>cancel</button>
-                    <button className="btn btn-hero" type="submit">add</button>
-                </div>
-            </form>
-        </ModalOverlay>
+                <form 
+                    onSubmit={handleSubmit}
+                    data-modal-body 
+                    className="form add-member-form" >
+                    <div className="from-row add-member-form__header">
+                        <h5> Add people to My Scrum Space </h5>
+                        <div> <IoMdClose onClick={onClose} /> </div>
+                    </div>
+                    <div className="form-row">
+                        <label
+                            htmlFor={state.memberEmail} 
+                            className="from-label">
+                            Member email
+                        </label>
+                        <input
+                            name="memberEmail"
+                            value={state.memberEmail}
+                            onChange={handleChange}
+                            className="form-input"
+                            placeholder="salim@gmail.com">
+                            </input>
+                            { 
+                                state.errors.memberEmail && (
+                                    <p className="alert-danger">{state.errors.memberEmail}</p>
+                                )
+                            }
+                    </div>
+                    <div className="form-row">
+                        <label
+                            htmlFor={state.role}
+                            className="from-label">
+                            Member Role
+                        </label>
+                        <select 
+                            name="role"
+                            value={state.role}
+                            onChange={handleChange}
+                            className="form-input">
+                                <option value="admin">admin</option>
+                                <option value="member">member</option>
+                        </select>
+                    </div>
+                
+                    <button className="btn btn-hero form-row" type="submit">add</button>
+                </form>
+            </ModalOverlay>
         }
     </div>   
 }

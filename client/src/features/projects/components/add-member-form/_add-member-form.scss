@@ -1,6 +1,6 @@
 .add-member-form-container {
     display: flex;
-    &__icon {
+    &__close-icon {
         font-size: 1.5rem;
         cursor: pointer;
         color: var(--primary-500);
@@ -9,6 +9,14 @@
         &__header {
             display: flex;
             justify-content: space-between;
+            div {
+                font-size: 1.5rem;
+                transition: all .2s ease-in;
+                &:hover {
+                    cursor: pointer;
+                    color: var(--primary-500);
+                }
+            }
         }
     }
 }

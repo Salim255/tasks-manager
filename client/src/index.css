@@ -211,8 +211,6 @@ ul {
 
 .alert-danger {
   color: var(--red-dark);
-  background: var(--red-light);
-  padding: 0rem 1rem;
   font-family: var(--small-text);
   font-size: var(--extra-small-text);
 }
@@ -227,13 +225,13 @@ ul {
   max-width: var(--fixed-width);
   background: var(--white);
   border-radius: var(--borderRadius);
-  box-shadow: var(--shadow-2);
+  /*  box-shadow: var(--shadow-2); */
   padding: 2rem 2.5rem;
   margin: 3rem auto;
   transition: var(--transition);
 }
 .form:hover {
-  box-shadow: var(--shadow-4);
+  /* box-shadow: var(--shadow-4); */
 }
 .form-label {
   display: block;

@@ -48,7 +48,7 @@ export const AuthForm = () => {
                 name="email"
                 onChange={handleInput}
                 value={state.email}
-                placeholder="enter your email">
+                placeholder="Enter your email">
 
             </input>
             { state.errors.email && (
@@ -62,7 +62,7 @@ export const AuthForm = () => {
                 name="password"
                 onChange={handleInput}
                 value={state.password}
-                placeholder="password">
+                placeholder="Password">
             </input>
              {state.errors.password && (
                 <p className="alert-danger">{state.errors.password}</p>
@@ -76,7 +76,7 @@ export const AuthForm = () => {
                     name="confirmPassword"
                     onChange={handleInput}
                     value={state.confirmPassword}
-                    placeholder="confirm password">
+                    placeholder="Confirm password">
                 </input>
                  {state.errors.confirmPassword && (
                 <p className="alert-danger">{state.errors.confirmPassword}</p>

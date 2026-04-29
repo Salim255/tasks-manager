@@ -2,11 +2,14 @@
     border-bottom: 2px solid var(--grey-50);
     margin-bottom: 1rem;
     &__title {
-      font-size: 1.5rem;
-      font-weight: 600;
-      display: flex;
-      width: fit-content;
-      align-items: center;
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        display: flex;
+        width: fit-content;
+        justify-content: center;
+        justify-items: center;
     }
     .icon {
         font-size: 1rem;
