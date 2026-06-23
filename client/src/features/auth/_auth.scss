@@ -1,48 +1,71 @@
 /* ============================================
-   AUTH PAGE — BFM PREMIUM STYLE
+   AUTH PAGE
 ============================================ */
 
 .app-auth {
-  height: 100vh;
-  width: 100vw;
+  min-height: 100vh;
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: var(--grey-50);
-  padding: 2rem;
 
-  /* Subtle gradient for premium feel */
-  background: linear-gradient(
-    135deg,
-    var(--grey-50) 0%,
-    var(--grey-100) 100%
-  );
+  padding: var(--space-6);
 
-  /* HEADER */
+  background: var(--backgroundColor);
+
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+
+    position: absolute;
+
+    width: 600px;
+    height: 600px;
+
+    top: -250px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    border-radius: 50%;
+
+    background: radial-gradient(
+      circle,
+      rgba(59, 130, 246, 0.08) 0%,
+      rgba(59, 130, 246, 0.04) 35%,
+      transparent 70%
+    );
+
+    pointer-events: none;
+  }
+
   &__header {
-    margin-bottom: 2rem;
+    margin-bottom: var(--space-8);
+
     text-align: center;
   }
 
-  &__title {
-    font-family: var(--headingFont);
-    font-size: 2.8rem;
-    font-weight: 700;
-    color: var(--grey-900);
-    letter-spacing: -0.5px;
-    margin-bottom: 0.5rem;
-    position: relative;
+  &__logo {
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    letter-spacing: -0.08em;
 
-    /* underline premium */
-    &::after {
-      content: "";
-      display: block;
-      width: 60px;
-      height: 4px;
-      background: var(--primary-500);
-      margin: 0.75rem auto 0 auto;
-      border-radius: 2px;
-    }
+    line-height: 1;
+
+    background: linear-gradient(
+        135deg,
+        var(--primary-400),
+        var(--primary-600),
+        var(--primary-800)
+    );
+
+    background-clip: text;
+    -webkit-background-clip: text;
+
+    color: transparent;
+    -webkit-text-fill-color: transparent;
   }
+
 }

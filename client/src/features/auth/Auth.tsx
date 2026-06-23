@@ -18,10 +18,15 @@ export const Auth = () => {
         return <Navigate to="/profile" replace />;
     }
 
-    return <section className="app-auth">
-        <div className="app-auth__header">
-            <h1 className="title-underline"> FlowBoard </h1>
-        </div>
-        <AuthForm/>
-    </section>
+    return (
+        <section className="app-auth">
+            <div className="app-auth__header">
+                <h1 className="app-auth__logo">
+                     FlowBoard
+                </h1>
+            </div>
+
+            <AuthForm />
+        </section>
+    );
 }
