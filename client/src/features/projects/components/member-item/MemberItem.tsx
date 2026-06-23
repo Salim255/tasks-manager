@@ -53,7 +53,7 @@ export const MemberItem = ({ task }: { task: Task }) => {
     useEffect(() => {}, [members, profile]);
     
     return (
-        <ul>
+        <ul className="member-item">
             <li 
                 onClick={() => handleAssignMember({
                     member: undefined,

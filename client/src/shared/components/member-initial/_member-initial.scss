@@ -1,25 +1,40 @@
 .member-initial {
-    display: block;
-    position: relative;
-    height: 1.8rem;
-    width: 1.8rem;
-    background-color: var(--primary-50);
-    border-radius: 50%;
-    &--with-profile {
-        color: var(--grey-50);
-        background-color: var(--bug-color);
-    }
-    &__icon,
-    &__initial{
-       position: absolute;
-       top: 50%;
-       left: 50%;
-       transform: translate(-50%, -50%);
-    }
-    &__icon {
-        font-size: 1rem;
-    }
-    &__initial {
-        font-size: .8rem;
-    }
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 28px;
+  height: 28px;
+
+  border-radius: 50%;
+
+  background: var(--grey-100);
+
+  color: var(--grey-700);
+
+  font-size: 0.75rem;
+
+  font-weight: 600;
+
+  user-select: none;
+
+  flex-shrink: 0;
+}
+
+/* has profile (real user) */
+.member-initial--with-profile {
+  background: var(--primary-100);
+  color: var(--primary-700);
+}
+
+/* icon fallback */
+.member-initial__icon {
+  font-size: 1rem;
+  color: var(--grey-600);
+}
+
+/* initials text */
+.member-initial__initial {
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
 }

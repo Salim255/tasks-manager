@@ -1,22 +1,40 @@
 .tasks-list {
-    height: 30rem;
+    //height: 30rem;
     width: 100%;
     overflow: auto;
     padding-bottom: 1rem;
     border-radius: .2rem;
 }
 
-.task-grid {
-  display: grid;
-  grid-template-columns:
-    minmax(250px, 1fr)
-    minmax(250px, 2fr)
-    minmax(250px, 1fr)
-    minmax(250px, 1fr)
-    minmax(250px, 1fr)
-    minmax(250px, 1fr)
-    minmax(250px, 1fr)
-    minmax(250px, 1fr)
-    minmax(250px, 1fr)
-    minmax(250px, 1fr);
+
+.task-grid__separator {
+  position: relative;
+
+  width: 6px;
+
+  background: transparent;
+
+  cursor: col-resize;
+
+  transition: background 0.2s ease;
+
+  &:hover {
+    background: var(--primary-100);
+  }
+
+  &::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    bottom: 0;
+    left: 50%;
+
+    width: 1px;
+
+    transform: translateX(-50%);
+
+    background: var(--grey-100);
+  }
 }

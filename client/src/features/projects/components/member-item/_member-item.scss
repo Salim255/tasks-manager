@@ -1,0 +1,66 @@
+.member-item {
+  margin: 0;
+
+  padding: 0.35rem;
+
+  list-style: none;
+
+  min-width: 200px;
+
+  background: var(--white);
+
+  border: 1px solid var(--grey-100);
+
+  border-radius: 12px;
+
+  box-shadow: var(--shadow-2);
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 0.2rem;
+}
+
+/* ITEM */
+.member-item li {
+  display: flex;
+  align-items: center;
+
+  gap: 0.5rem;
+
+  padding: 0.6rem 0.75rem;
+
+  border-radius: 10px;
+
+  font-size: 0.9rem;
+
+  font-weight: 500;
+
+  color: var(--grey-800);
+
+  cursor: pointer;
+
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+/* HOVER */
+.member-item li:hover {
+  background: var(--grey-50);
+  color: var(--grey-900);
+}
+
+/* UNASSIGNED */
+.member-item li:first-child {
+  color: var(--grey-600);
+}
+
+/* ASSIGN TO ME (highlight but readable) */
+.member-item li:nth-child(2) {
+  color: var(--primary-600);
+  font-weight: 600;
+}
+
+.member-item li:nth-child(2):hover {
+  background: rgba(59, 130, 246, 0.08);
+}
