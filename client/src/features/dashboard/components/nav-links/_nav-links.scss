@@ -1,47 +1,147 @@
+/* ============================================
+   NAVIGATION LINKS
+============================================ */
+
 .nav-links {
-    padding-top: 2rem;
+  display: flex;
+  flex-direction: column;
+
+  gap: 0.35rem;
+
+  padding-top: 1.5rem;
+
+  /* ============================================
+     LINK
+  ============================================ */
+
+  &__nav-link {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0.9rem 1.25rem;
+
+    border-radius: 12px;
+
+    color: var(--grey-600);
+
+    text-decoration: none;
+
+    font-size: 0.95rem;
+    font-weight: 500;
+
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease,
+      transform 0.2s ease;
+
+    /* Active indicator */
+
+    &::before {
+      content: "";
+
+      position: absolute;
+
+      left: 0;
+      top: 8px;
+      bottom: 8px;
+
+      width: 3px;
+
+      border-radius: 999px;
+
+      background: var(--primary-500);
+
+      opacity: 0;
+
+      transform: scaleY(0.5);
+
+      transition:
+        opacity 0.2s ease,
+        transform 0.2s ease;
+    }
+
+    &:hover {
+      background: var(--grey-50);
+
+      color: var(--grey-900);
+
+      transform: translateX(4px);
+
+      .icon {
+        color: var(--primary-500);
+
+        transform: scale(1.05);
+      }
+    }
+
+    &--active {
+      background: var(--primary-50);
+
+      color: var(--primary-700);
+
+      font-weight: 600;
+
+      &::before {
+        opacity: 1;
+
+        transform: scaleY(1);
+      }
+
+      .icon {
+        color: var(--primary-600);
+      }
+    }
+  }
+
+  /* ============================================
+     ICON
+  ============================================ */
+
+  .icon {
+    flex-shrink: 0;
+
+    width: 20px;
+
+    font-size: 1.2rem;
+
+    margin-right: 0.9rem;
+
+    display: grid;
+    place-items: center;
+
+    color: var(--grey-400);
+
+    transition:
+      color 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  /* ============================================
+     PROJECTS GROUP
+  ============================================ */
+
+  &__projects {
+    overflow: hidden;
+
     display: flex;
     flex-direction: column;
 
-    &__nav-link {
-        display: flex;
-        color: var(--grey-500);
-        padding: 1rem 0;
-        padding-left: 2.5rem;
-        text-transform: capitalize;
-        transition: var(--transition);
+    gap: 0.25rem;
 
-        &--active {
-            color: var(--grey-900);
-            .icon {
-                color: var(--primary-500);
-            }
-        }
-        &:hover {
-            background: var(--grey-50);
-            padding-left: 3rem;
-            color: var(--grey-900);
-            .icon {
-                color: var(--primary-500);
-            }
-        }
-    }
-    &__projects {
-        margin: 0;
-        max-height: 10rem;
-        overflow-y: auto;
-        overflow-x: hidden;
-        transition: all .2s ease-in;
-        &--active {
-            max-height: 0;
-        }
-    }
-    .icon {
-        font-size: 1.5rem;
-        margin-right: 1rem;
-        display: grid;
-        place-items: center;
-        transition: var(--transition);
-    }
+    max-height: 500px;
+
+    opacity: 1;
+
+    transition:
+      max-height 0.3s ease,
+      opacity 0.2s ease;
+  }
+
+  &__projects--active {
+    max-height: 0;
+
+    opacity: 0;
+  }
 }
-
