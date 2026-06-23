@@ -106,9 +106,9 @@ export const Backlog = () => {
                <section 
                 className='backlog__header'>
                     <div>
-                        Backlog { countWorkItem() } works item
+                        Backlog <span className="work-count">{countWorkItem()}</span> works item
                     </div>
-
+                    
                     <button onClick={createSprintHandler}>create sprint</button>
                </section>
                 {/* Content */}
