@@ -1,0 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
+
+/* ============================================
+   TYPOGRAPHY
+============================================ */
+
+:root {
+  --headingFont: 'Cabin', sans-serif;
+  --bodyFont: 'Cabin', sans-serif;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-md: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+
+  --letterSpacing: -0.02em;
+}

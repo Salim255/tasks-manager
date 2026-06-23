@@ -40,60 +40,70 @@ export const AuthForm = () => {
     }
 
     return <>
-    <form onSubmit={onSubmit} className="form ">
-        <div className="form-row">
-            <label className="form-label">Email</label>
-            <input 
-                className="form-input"
-                name="email"
-                onChange={handleInput}
-                value={state.email}
-                placeholder="Enter your email">
+    <form onSubmit={onSubmit} className="auth-form">
+    
+    <div className="auth-form__group">
+        <label className="auth-form__label">Email</label>
+        <input 
+        className="auth-form__input"
+        name="email"
+        onChange={handleInput}
+        value={state.email}
+        placeholder="Enter your email"
+        />
+        {state.errors.email && (
+        <p className="auth-form__error">{state.errors.email}</p>
+        )}
+    </div>
 
-            </input>
-            { state.errors.email && (
-                <p className="alert-danger">{state.errors.email}</p>
-            )}
-        </div>
-        <div className="form-row">
-            <label className="form-label">password</label>
-            <input 
-                className="form-input"
-                name="password"
-                onChange={handleInput}
-                value={state.password}
-                placeholder="Password">
-            </input>
-             {state.errors.password && (
-                <p className="alert-danger">{state.errors.password}</p>
-            )}
-        </div>
-        {
-            !iSLogin && <div className="form-row ">
-                <label className="form-label">confirm password</label>
-                <input 
-                    className="form-input"
-                    name="confirmPassword"
-                    onChange={handleInput}
-                    value={state.confirmPassword}
-                    placeholder="Confirm password">
-                </input>
-                 {state.errors.confirmPassword && (
-                <p className="alert-danger">{state.errors.confirmPassword}</p>
-            )}
-            </div>
-        }
-       <div className="form-row auth-form__btns">
-            <button type="submit" className="btn btn-block">
-               { !iSLogin ? 'Signup' : 'Login'}
-            </button>
+    <div className="auth-form__group">
+        <label className="auth-form__label">Password</label>
+        <input 
+        className="auth-form__input"
+        name="password"
+        onChange={handleInput}
+        value={state.password}
+        placeholder="Password"
+        />
+        {state.errors.password && (
+        <p className="auth-form__error">{state.errors.password}</p>
+        )}
+    </div>
 
-            <p>{iSLogin ? "Don't have an account?" : "Already have an account?"}
-                <button type="button" onClick={handleAutMode} className="member-btn">
-                    {iSLogin ? 'Switch to Signup' : 'Switch to Login'}
-                </button>
-            </p>
-       </div>
+    {!iSLogin && (
+        <div className="auth-form__group">
+        <label className="auth-form__label">Confirm password</label>
+        <input 
+            className="auth-form__input"
+            name="confirmPassword"
+            onChange={handleInput}
+            value={state.confirmPassword}
+            placeholder="Confirm password"
+        />
+        {state.errors.confirmPassword && (
+            <p className="auth-form__error">{state.errors.confirmPassword}</p>
+        )}
+        </div>
+    )}
+
+    <div className="auth-form__actions">
+        <button type="submit" className="auth-form__btn">
+        {iSLogin ? "Login" : "Signup"}
+        </button>
+
+        <p className="auth-form__switch">
+        {iSLogin ? "Don't have an account?" : "Already have an account?"}
+        <button 
+            type="button" 
+            onClick={handleAutMode} 
+            className="auth-form__switch-btn"
+        >
+            {iSLogin ? "Switch to Signup" : "Switch to Login"}
+        </button>
+        </p>
+    </div>
+
     </form>
+
     </>
 }
