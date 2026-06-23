@@ -64,6 +64,8 @@
     color: var(--danger);
 
     font-size: var(--text-sm);
+
+    text-transform: lowercase;
   }
 
   &__actions {

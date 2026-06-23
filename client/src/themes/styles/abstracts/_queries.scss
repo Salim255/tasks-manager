@@ -1,53 +1,54 @@
-/*
-Desktop First (max-width)
 
-1920px+     Ultra-wide
-1536px      Large desktop
-1280px      Desktop / Laptop
-1024px      Tablet landscape
-768px       Tablet portrait
-640px       Large phones
-480px       Small phones
-*/
+/* ============================================
+   BREAKPOINT SYSTEM — DESKTOP FIRST
+============================================ */
 
 @mixin respond($breakpoint) {
-  @if $breakpoint == desktop-xl {
+
+  /* 1920px+ (Ultra-wide screens) */
+  @if $breakpoint == xl {
     @media (max-width: 120em) { // 1920px
       @content;
     }
   }
 
-  @if $breakpoint == desktop {
+  /* 1536px (Large desktop) */
+  @if $breakpoint == lg {
     @media (max-width: 96em) { // 1536px
       @content;
     }
   }
 
-  @if $breakpoint == laptop {
+  /* 1280px (Standard desktop / laptop) */
+  @if $breakpoint == md {
     @media (max-width: 80em) { // 1280px
       @content;
     }
   }
 
-  @if $breakpoint == tablet-land {
+  /* 1024px (Tablet landscape) */
+  @if $breakpoint == sm {
     @media (max-width: 64em) { // 1024px
       @content;
     }
   }
 
-  @if $breakpoint == tablet {
+  /* 768px (Tablet portrait) */
+  @if $breakpoint == xs {
     @media (max-width: 48em) { // 768px
       @content;
     }
   }
 
-  @if $breakpoint == phone {
+  /* 640px (Large phones) */
+  @if $breakpoint == xxs {
     @media (max-width: 40em) { // 640px
       @content;
     }
   }
 
-  @if $breakpoint == phone-sm {
+  /* 480px (Small phones) */
+  @if $breakpoint == mobile {
     @media (max-width: 30em) { // 480px
       @content;
     }

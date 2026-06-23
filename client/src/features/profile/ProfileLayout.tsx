@@ -1,7 +1,6 @@
 import './_profile.scss';
 import { Outlet } from 'react-router-dom';
 import { BigSidebar } from '../dashboard/components/big-sidebar/BigSidebar';
-import { NavLinks } from '../dashboard/components/nav-links/NavLinks';
 import { DiScrum } from 'react-icons/di';
 import { SmallSidebar } from '../dashboard/components/small-sidebar/SmallSidebar';
 import { Navbar } from '../dashboard/components/navbar/Navbar';
@@ -15,7 +14,6 @@ export const ProfileLayout = () => {
                 <header>
                     <DiScrum/>
                 </header>
-                <NavLinks/>
             </BigSidebar>
 
             <div>

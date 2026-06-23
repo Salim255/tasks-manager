@@ -29,24 +29,23 @@ export const ProfileForm = () => {
     reset();
   };
 return (
-  <section className="profile-setup">
+ <section className="profile-setup">
+  <div className="container">
 
     <div className="profile-setup__content">
 
       <div className="profile-setup__header">
         <h1 className="profile-setup__title">
-          Profile Setup
+          Let’s set up your profile
         </h1>
 
         <p className="profile-setup__subtitle">
-          Tell us a little about yourself to personalize your experience.
+          This helps us personalize your experience.
         </p>
       </div>
 
-      <form
-        onSubmit={handleSubmit}
-        className="form"
-      >
+      <form onSubmit={handleSubmit} className="card form">
+
         {/* First Name */}
         <div className="form__group">
           <label htmlFor="firstName" className="form__label">
@@ -54,11 +53,11 @@ return (
           </label>
 
           <input
-            type="text"
             name="firstName"
             value={state.firstName}
             onChange={handleChange}
             className="form__input"
+            placeholder="John"
           />
 
           {state.errors.firstName && (
@@ -75,11 +74,11 @@ return (
           </label>
 
           <input
-            type="text"
             name="lastName"
             value={state.lastName}
             onChange={handleChange}
             className="form__input"
+            placeholder="Doe"
           />
 
           {state.errors.lastName && (
@@ -94,9 +93,11 @@ return (
             Continue
           </button>
         </div>
+
       </form>
 
     </div>
-  </section>
+  </div>
+</section>
 );
 };
