@@ -7,6 +7,7 @@ import { typeIcon } from '../../../../../../shared/utils/methods';
 
 export const BoardTaskItem =  ({ task, ...props }: TaskItemProps) => {
     const [isOptionsOpen, setOptionsOpen ] = useState<string | null>(null);
+
     return (
         <div className="board-task-item" {...props} >
             <section className='board-task-item__content'>
@@ -30,7 +31,7 @@ export const BoardTaskItem =  ({ task, ...props }: TaskItemProps) => {
                 <div className={`board-task-item__checkbox board-task-item__checkbox--${task.taskType}`}>
                     <span>
                         { typeIcon(task.taskType) }
-                    </span> sprint name
+                    </span>  {task.taskType}
                 </div>
                 <div className='board-task-item__assignee'>
                     {/* {task.assigneeId} */}

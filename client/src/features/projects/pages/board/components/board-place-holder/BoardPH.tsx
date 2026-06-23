@@ -1,18 +1,19 @@
+import "./_board-ph.scss";
 import { DiScrum } from "react-icons/di";
 import { NavLink } from "react-router-dom";
 
 export const  BoardPH = ({projectId}: {projectId: string} ) => {
     return (
-        <div className='todo__empty'>
-            <DiScrum className='icon'/>
+        <div className='board-place-holder'>
+            <DiScrum />
             <h3>
-                Get started in backlog
+                No Active Sprint
             </h3>
             <p>
-                Plan and star a sprint to see work here
+                Move tasks from your backlog into a sprint
+                to start tracking progress on your board.
             </p>
             <NavLink 
-                className="btn btn--primary"
                 to={`/projects/${projectId}/backlog`}>
                 Go to backlog
             </NavLink>
