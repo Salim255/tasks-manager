@@ -1,7 +1,49 @@
+
+/* ============================================
+   PROFILE HERO — MODERN IDENTITY BLOCK
+============================================ */
+
 .profile-hero {
-    img {
-        height: 10rem;
-        width: 10rem;
-        border-radius: 50%;
-    }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  text-align: center;
+
+  gap: var(--space-3);
+}
+
+/* ============================================
+   AVATAR
+============================================ */
+
+.profile-hero img {
+  width: 88px;
+  height: 88px;
+
+  border-radius: 50%;
+
+  object-fit: cover;
+
+  /* soft premium border */
+  border: 2px solid var(--grey-100);
+
+  /* subtle depth */
+  box-shadow: var(--shadow-1);
+}
+
+/* ============================================
+   NAME
+============================================ */
+
+.profile-hero__name {
+  margin-top: var(--space-2);
+
+  font-size: 1.1rem;
+
+  font-weight: 600;
+
+  color: var(--grey-900);
+
+  letter-spacing: -0.02em;
 }

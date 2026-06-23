@@ -7,7 +7,7 @@ export const ProfileHero = ({ profile }: { profile: Profile }) => {
         src='/assets/images/default-profile.jpg' 
         alt='hero'/>
 
-        <div>
+        <div className='profile-hero__name'>
              { profile!.firstName } { profile!.lastName }
         </div>
     </div>
