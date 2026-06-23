@@ -1,62 +1,210 @@
-.create-task-form {
+
+/* ============================================
+   CREATE BUTTON (COLLAPSED STATE)
+============================================ */
+
+.create-btn {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 0.5rem;
+
+  padding: 0.55rem 0.85rem;
+
+  border-radius: 999px;
+
+  border: 1px solid var(--grey-100);
+
+  background: var(--white);
+
+  color: var(--grey-700);
+
+  font-size: 0.9rem;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+
+  box-shadow: var(--shadow-1);
+
+  &:hover {
+    transform: translateY(-1px);
+
+    border-color: var(--grey-200);
+
+    box-shadow: var(--shadow-2);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &__icon {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    border: 2px solid var(--primary-500);
-    padding: .4rem;
-    padding-left: 1rem;
-    background-color: var(--white);
-    &__form-group-title {
-        flex: 1;
-        display: flex;
-        gap: .5rem;
-        div {
-            display: flex;
-            align-items: center;
-            font-size: 1.2rem;
-            color: var(--primary-500);
-        }
-        input {
-            width: 100%;
-            border: unset;
-            background-color: unset;
-            outline: unset;
-        }
-    }
-    &__form-group-date {
-        input {
-            border: unset;
-            background-color: unset;
-            outline: unset;
-            color: var(--textColor);
-        }
-    }
-    &__btn {
-      
-    }
+
+    font-size: 1.3rem;
+
+    color: var(--primary-600);
+  }
+
+  span {
+    font-size: 0.9rem;
+  }
 }
-.create-btn {
+
+/* ============================================
+   CREATE TASK FORM (EXPANDED INLINE COMPOSER)
+============================================ */
+
+.create-task-form {
+  display: flex;
+  align-items: center;
+
+  gap: 0.75rem;
+
+  padding: 0.75rem;
+
+  background: var(--white);
+
+  border: 1px solid var(--grey-100);
+
+  border-radius: 14px;
+
+  box-shadow: var(--shadow-1);
+
+  transition: all 0.2s ease;
+
+  &:focus-within {
+    border-color: var(--primary-200);
+
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.08);
+  }
+
+  /* ============================================
+     TITLE GROUP (MAIN INPUT AREA)
+  ============================================ */
+
+  &__form-group-title {
+    flex: 1;
+
     display: flex;
-    justify-items: center;
+
+    align-items: center;
+
+    gap: 0.75rem;
+
+    min-width: 0;
+  }
+
+  /* task type icon */
+  &__form-group-title div {
+    display: flex;
+    align-items: center;
+
+    font-size: 1.2rem;
+
+    color: var(--primary-500);
+  }
+
+  /* input */
+  input[type="text"] {
+    flex: 1;
+
     border: none;
-    background-color: unset;
-    font-size: 1rem;
-    text-transform: capitalize;
-    gap: .2rem;
-    color: var(--grey-700);
-    transition: all .1s ease-in-out;
-    &__icon {
-        display: flex;
-        justify-items: center;
-        align-self: center;
-        font-size: 1.5rem;
-        color: var(--grey-700);
+
+    outline: none;
+
+    background: transparent;
+
+    font-size: 0.95rem;
+
+    color: var(--grey-900);
+
+    &::placeholder {
+      color: var(--grey-400);
     }
-    span {
-        align-self: center;
+  }
+
+  /* ============================================
+     DATE PICKER
+  ============================================ */
+
+  &__form-group-date {
+    display: flex;
+    align-items: center;
+
+    input {
+      border: none;
+
+      outline: none;
+
+      background: var(--grey-50);
+
+      padding: 0.4rem 0.6rem;
+
+      border-radius: 10px;
+
+      font-size: 0.85rem;
+
+      color: var(--grey-700);
+
+      cursor: pointer;
+
+      transition: background 0.2s ease;
+
+      &:hover {
+        background: var(--grey-100);
+      }
     }
+  }
+
+  /* ============================================
+     SUBMIT BUTTON
+  ============================================ */
+
+  &__btn {
+    padding: 0.55rem 0.9rem;
+
+    border-radius: 10px;
+
+    border: none;
+
+    background: var(--primary-600);
+
+    color: var(--white);
+
+    font-size: 0.85rem;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+      transform 0.2s ease,
+      background-color 0.2s ease,
+      box-shadow 0.2s ease;
 
     &:hover {
-        transform: scale(1.02);
+      background: var(--primary-700);
+
+      transform: translateY(-1px);
+
+      box-shadow: var(--shadow-2);
     }
+
+    &:disabled {
+      opacity: 0.5;
+
+      cursor: not-allowed;
+
+      transform: none;
+    }
+  }
 }
