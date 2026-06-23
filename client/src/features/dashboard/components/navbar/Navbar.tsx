@@ -30,11 +30,11 @@ export const Navbar = () => {
             className="navbar__toggle"
             onClick={toggle}
             >
-            <FaAlignLeft />
+                <FaAlignLeft />
             </button>
 
             <h1 className="navbar__logo">
-            FlowBoard
+                FlowBoard
             </h1>
             <UserMenu profile={profile}/>
         </div>

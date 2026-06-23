@@ -8,15 +8,20 @@ export const BigSidebar = ({ children }: { children: React.ReactNode }) => {
 
     useEffect(() => {
     }, [isSideBarIsOpen])
+
     return (
-        <aside className="bg-aside" >
-             <div className={ isSideBarIsOpen ? 
-                "bg-aside__sidebar-container bg-aside--show-sidebar"
-                : "bg-aside__sidebar-container" }>
-                <div className='bg-aside__content'>
-                    {children}
+        <aside
+            className={
+                isSideBarIsOpen
+                ? "bg-aside bg-aside--show-sidebar"
+                : "bg-aside"
+            }
+            >
+            <div className="bg-aside__sidebar-container">
+                <div className="bg-aside__content">
+                {children}
                 </div>
-            </div> 
-        </aside>
+            </div>
+       </aside>
     )
 }
