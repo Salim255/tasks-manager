@@ -1,19 +1,64 @@
 .options-btn {
-    &__modal {
-        position: absolute;
-        top: 100%;
-        right: 0;
-        background-color: var(--white);
-        border: 1px solid var(--primary-300);
-        border-radius: .2rem;
-        display: none;
-        z-index: 1;
-        &--active {
-            display: block;
-        }
-    }
+  position: relative;
 
-    &:hover{
-        cursor: pointer;
-    }
+  cursor: pointer;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  /* icon */
+  svg {
+    font-size: 1.1rem;
+    color: var(--grey-600);
+    transition: color 0.2s ease;
+  }
+
+  &:hover svg {
+    color: var(--grey-900);
+  }
+
+  /* ============================================
+     DROPDOWN
+  ============================================ */
+
+  &__modal {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+
+    min-width: 160px;
+
+    background: var(--white);
+
+    border: 1px solid var(--grey-100);
+
+    border-radius: 12px;
+
+    box-shadow: var(--shadow-3);
+
+    //padding: 0.4rem;
+
+    z-index: 50;
+
+    /* animation base */
+    opacity: 0;
+    transform: translateY(-6px);
+
+    visibility: hidden;
+
+    pointer-events: none;
+
+    transition: all 0.2s ease;
+  }
+
+  &__modal--active {
+    opacity: 1;
+
+    transform: translateY(0);
+
+    visibility: visible;
+
+    pointer-events: auto;
+  }
 }
