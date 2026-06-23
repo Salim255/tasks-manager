@@ -1,0 +1,22 @@
+:root {
+
+  /* text */
+  --text-primary: var(--grey-900);
+  --text-secondary: var(--grey-600);
+
+  /* surfaces */
+  --surface-primary: var(--white);
+  --surface-muted: var(--grey-50);
+
+  /* borders */
+  --border-default: var(--grey-200);
+
+  /* actions */
+  --action-primary: var(--primary-600);
+  --action-primary-hover: var(--primary-700);
+
+  /* statuses (IMPORTANT) */
+  --success: var(--green-500);
+  --warning: var(--yellow-500);
+  --danger: var(--red-500);
+}
