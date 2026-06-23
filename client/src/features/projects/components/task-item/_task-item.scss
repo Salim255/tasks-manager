@@ -1,85 +1,228 @@
+
+/* ============================================
+   TASK ITEM — PREMIUM ROW
+============================================ */
+
 .task-item {
+  display: flex;
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 1rem;
+
+  padding: 0.75rem 1rem;
+
+  background: var(--white);
+
+  border: 1px solid var(--grey-100);
+
+  border-radius: 14px;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+
+  position: relative;
+
+  &:hover {
+    transform: translateY(-1px);
+
+    border-color: var(--grey-200);
+
+    box-shadow: var(--shadow-1);
+
+    background: var(--grey-50);
+  }
+
+  /* ============================================
+     CONTENT (ICON + TITLE)
+  ============================================ */
+
+  &__content {
+    flex: 1;
+
     display: flex;
-    justify-content: space-between;
+
     align-items: center;
-    padding: 4px;
-    border-radius: 3px;
-    //margin: 1rem 0;
-    border: 1px solid var(--primary-100);
-    padding: .5rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    background-color: var(--white);
-    gap: 1rem;
-   
-    &__content {
-        flex: 1;
-        display: flex;
-        justify-items: center;
-        gap: .5rem;
-        .task-item__checkbox{
-            align-self: center;
-            display: flex;
-            justify-content: center;       
-            font-size: 1.2rem;
-            &--task {
-              color: var(--primary-500);
-            }
-            &--story{
-                color: var(--story-color);
-            }
-            &--bug {
-                color: var(--bug-color);
-            }
-        }
+
+    gap: 0.75rem;
+
+    min-width: 0;
+  }
+
+  /* ICON / CHECKBOX */
+
+  &__checkbox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 1.1rem;
+
+    width: 28px;
+    height: 28px;
+
+    border-radius: 8px;
+
+    background: var(--grey-50);
+
+    flex-shrink: 0;
+
+    &--task {
+      color: var(--primary-600);
     }
-    &__status{
-        flex: .3;
+
+    &--story {
+      color: var(--story-color);
     }
-    &__actions {
-        align-self: center;
-        display: flex;
-        justify-content: center;       
-        font-size: .8rem;
-        position: relative;
-      
-        .options-list {
-            display: flex;
-            flex-direction: column;
-            margin: 0;
-            .task-aside-container{
-                &__item-aside{
-                    display: none;
-                    height: 0;
-                }
-            }
-            &__item {
-                min-width: 8rem;
-                padding: .5rem;
-                padding-left: 1rem;
-                &:hover {
-                    background-color: var(--grey-100);
-                    cursor: pointer;
-                    .task-aside-container__item-aside {
-                        overflow-y: auto;
-                        display: flex;
-                        flex-direction: column;
-                        height: 10rem;
-                        min-width: 10rem;
-                        background: var(--white);
-                        border-radius: var(--borderRadius);
-                        border: 1px solid var(--primary-300);
-                        box-shadow: var(--shadow-2);
-                        li {
-                            padding: .4rem;
-                            &:hover {
-                                background-color: var(--grey-100);
-                                cursor: pointer;
-                            }
-                        }
-                    }
-                }
-            }
-        }
+
+    &--bug {
+      color: var(--bug-color);
     }
+  }
+
+  /* TITLE */
+
+  &__title {
+    font-size: 0.95rem;
+
+    font-weight: 500;
+
+    color: var(--grey-900);
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+  }
+
+  /* ============================================
+     STATUS
+  ============================================ */
+
+  &__status {
+    flex: 0.3;
+
+    display: flex;
+    justify-content: center;
+  }
+
+  /* ============================================
+     ASSIGNEE
+  ============================================ */
+
+  &__assignee {
+    flex: 0.2;
+
+    display: flex;
+    justify-content: center;
+
+    opacity: 0.85;
+
+    transition: opacity 0.2s ease;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  /* ============================================
+     ACTIONS
+  ============================================ */
+
+  &__actions {
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+
+    opacity: 0.7;
+
+    transition: opacity 0.2s ease;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    .options-list {
+      display: flex;
+      flex-direction: column;
+
+      margin: 0;
+
+      padding: 0.4rem;
+
+      min-width: 160px;
+
+      background: var(--white);
+
+      border: 1px solid var(--grey-100);
+
+      border-radius: 14px;
+
+      box-shadow: var(--shadow-3);
+
+      list-style: none;
+    }
+
+    .options-list__item {
+      padding: 0.65rem 0.85rem;
+
+      border-radius: 10px;
+
+      font-size: 0.9rem;
+
+      color: var(--grey-700);
+
+      cursor: pointer;
+
+      transition: background 0.15s ease;
+
+      &:hover {
+        background: var(--grey-50);
+
+        color: var(--grey-900);
+      }
+    }
+
+    /* ============================================
+       ASIDE POPOVER (FIXED UX)
+    ============================================ */
+
+    .task-aside-container__item-aside {
+      display: none;
+    }
+
+    .options-list__item:hover .task-aside-container__item-aside {
+      display: flex;
+
+      flex-direction: column;
+
+      position: absolute;
+
+      right: 100%;
+
+      top: 0;
+
+      min-width: 200px;
+
+      max-height: 240px;
+
+      overflow-y: auto;
+
+      background: var(--white);
+
+      border: 1px solid var(--grey-100);
+
+      border-radius: 14px;
+
+      box-shadow: var(--shadow-3);
+
+      padding: 0.5rem;
+    }
+  }
 }
