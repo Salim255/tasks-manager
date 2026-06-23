@@ -1,22 +1,202 @@
+@use "../../../../themes/styles/abstracts/queries" as *;
+/* ============================================
+   ADD MEMBER
+============================================ */
+
 .add-member-form-container {
-    display: flex;
-    &__close-icon {
-        font-size: 1.5rem;
-        cursor: pointer;
-        color: var(--primary-500);
+  display: flex;
+  align-items: center;
+
+  /* ============================================
+     TRIGGER BUTTON
+  ============================================ */
+
+  &__close-icon {
+    width: 40px;
+    height: 40px;
+
+    padding: 0.65rem;
+
+    border-radius: 12px;
+
+    background: var(--white);
+
+    border: 1px solid var(--grey-100);
+
+    color: var(--primary-600);
+
+    cursor: pointer;
+
+    transition:
+      transform 0.2s ease,
+      background-color 0.2s ease,
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+
+    &:hover {
+      background: var(--primary-50);
+
+      border-color: var(--primary-100);
+
+      transform: translateY(-1px);
+
+      box-shadow: var(--shadow-1);
     }
-    .add-member-form {
-        &__header {
-            display: flex;
-            justify-content: space-between;
-            div {
-                font-size: 1.5rem;
-                transition: all .2s ease-in;
-                &:hover {
-                    cursor: pointer;
-                    color: var(--primary-500);
-                }
-            }
-        }
+
+    &:active {
+      transform: translateY(0);
     }
+  }
+}
+
+/* ============================================
+   INVITE MEMBER MODAL
+============================================ */
+
+.add-member-form {
+  width: 100%;
+  max-width: 480px;
+
+  padding: 1.75rem;
+
+  background: var(--white);
+
+  border-radius: 24px;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 1.5rem;
+}
+
+/* ============================================
+   HEADER
+============================================ */
+
+.add-member-form__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  gap: 1rem;
+}
+
+/* ============================================
+   TITLE
+============================================ */
+
+.add-member-form__title {
+  margin: 0;
+
+  font-size: 1.35rem;
+
+  font-weight: 700;
+
+  letter-spacing: -0.02em;
+
+  color: var(--grey-900);
+}
+
+/* ============================================
+   SUBTITLE
+============================================ */
+
+.add-member-form__subtitle {
+  margin-top: 0.35rem;
+
+  color: var(--grey-500);
+
+  font-size: 0.92rem;
+
+  line-height: 1.6;
+}
+
+/* ============================================
+   CLOSE BUTTON
+============================================ */
+
+.add-member-form__close {
+  width: 36px;
+  height: 36px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+
+  border-radius: 10px;
+
+  background: transparent;
+
+  color: var(--grey-500);
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+
+  &:hover {
+    background: var(--grey-50);
+
+    color: var(--grey-900);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  svg {
+    font-size: 1.25rem;
+  }
+}
+
+/* ============================================
+   SELECT IMPROVEMENT
+============================================ */
+
+.add-member-form select.form__input {
+  cursor: pointer;
+
+  appearance: none;
+
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--grey-500) 50%),
+    linear-gradient(135deg, var(--grey-500) 50%, transparent 50%);
+
+  background-position:
+    calc(100% - 18px) calc(50% - 3px),
+    calc(100% - 12px) calc(50% - 3px);
+
+  background-size: 6px 6px;
+
+  background-repeat: no-repeat;
+}
+
+/* ============================================
+   FORM ACTIONS
+============================================ */
+
+.add-member-form .form__actions {
+  margin-top: 0.5rem;
+}
+
+/* ============================================
+   RESPONSIVE
+============================================ */
+
+@include respond(phone) {
+  .add-member-form {
+    padding: 1.5rem;
+  }
+
+  .add-member-form__title {
+    font-size: 1.2rem;
+  }
+
+  .add-member-form__subtitle {
+    font-size: 0.875rem;
+  }
 }

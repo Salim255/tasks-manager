@@ -54,51 +54,78 @@ export const AddMemberForm = ({ projectId }:{ projectId: string }) => {
         {
             isAddMember &&
             <ModalOverlay onClose={onClose}>
-                <form 
+                <form
                     onSubmit={handleSubmit}
-                    data-modal-body 
-                    className="form add-member-form" >
-                    <div className="from-row add-member-form__header">
-                        <h5> Add people to My Scrum Space </h5>
-                        <div> <IoMdClose onClick={onClose} /> </div>
+                    data-modal-body
+                    className="add-member-form"
+                    >
+                    <div className="add-member-form__header">
+
+                        <div>
+                        <h3 className="add-member-form__title">
+                            Invite Member
+                        </h3>
+
+                        <p className="add-member-form__subtitle">
+                            Add a teammate to collaborate on this project.
+                        </p>
+                        </div>
+
+                        <button
+                        type="button"
+                        className="add-member-form__close"
+                        onClick={onClose}
+                        >
+                        <IoMdClose />
+                        </button>
+
                     </div>
-                    <div className="form-row">
-                        <label
-                            htmlFor={state.memberEmail} 
-                            className="from-label">
-                            Member email
+
+                    <div className="form__group">
+                        <label className="form__label">
+                        Email Address
                         </label>
+
                         <input
-                            name="memberEmail"
-                            value={state.memberEmail}
-                            onChange={handleChange}
-                            className="form-input"
-                            placeholder="salim@gmail.com">
-                            </input>
-                            { 
-                                state.errors.memberEmail && (
-                                    <p className="alert-danger">{state.errors.memberEmail}</p>
-                                )
-                            }
+                        name="memberEmail"
+                        value={state.memberEmail}
+                        onChange={handleChange}
+                        className="form__input"
+                        placeholder="john@company.com"
+                        />
+
+                        {state.errors.memberEmail && (
+                        <p className="form__error">
+                            {state.errors.memberEmail}
+                        </p>
+                        )}
                     </div>
-                    <div className="form-row">
-                        <label
-                            htmlFor={state.role}
-                            className="from-label">
-                            Member Role
+
+                    <div className="form__group">
+                        <label className="form__label">
+                        Role
                         </label>
-                        <select 
-                            name="role"
-                            value={state.role}
-                            onChange={handleChange}
-                            className="form-input">
-                                <option value="admin">admin</option>
-                                <option value="member">member</option>
+
+                        <select
+                        name="role"
+                        value={state.role}
+                        onChange={handleChange}
+                        className="form__input"
+                        >
+                        <option value="member">Member</option>
+                        <option value="admin">Admin</option>
                         </select>
                     </div>
-                
-                    <button className="btn btn-hero form-row" type="submit">add</button>
-                </form>
+
+                    <div className="form__actions">
+                        <button
+                        type="submit"
+                        className="btn btn--primary"
+                        >
+                        Send Invitation
+                        </button>
+                    </div>
+                    </form>
             </ModalOverlay>
         }
     </div>   
