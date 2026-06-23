@@ -12,7 +12,6 @@ export const NavLinks = ({ toggleSidebar }: { toggleSidebar?: () => void}) => {
         if(text === 'Projects') {
             setToggleProjects((prev) => !prev);
         }
-
         // To run on small bar
         if (toggleSidebar) toggleSidebar();
     }
