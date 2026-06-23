@@ -1,3 +1,4 @@
+import "./_profile_form.scss";
 import { createProfileHttp, type CreateProfilePayload } from '../http/profileHttp';
 import { useDispatch } from 'react-redux';
 import { type AppDispatch } from '../../../redux/store';
@@ -28,53 +29,75 @@ export const ProfileForm = () => {
     reset();
   };
 
-  return (
-    <form onSubmit={handleSubmit} className='form'>
-        <h3> Profile Setup </h3>
-        <div className="form-row">
-            <label 
-              className='form-label'
-              htmlFor="firstName">
-                Your first name
-              </label>
-            <input
-                type="text"
-                name="firstName"
-                value={state.firstName}
-                onChange={handleChange}
-                placeholder="Your first name"
-                className='form-input'
-            />
-            { 
-              state.errors.firstName && (
-                <p className="alert-danger">{state.errors.firstName}</p>
-              )
-            }
-        </div>
-        <div className="form-row">
-            <label
-              className='form-label'
-              htmlFor="lastName">Your last name</label>
-            <input
-                className='form-input'
-                name="lastName"
-                value={state.lastName}
-                onChange={handleChange}
-                placeholder="Your last name"
-            />
-            { 
-              state.errors.lastName && (
-                  <p className="alert-danger">{state.errors.lastName}</p>
-              )
-            }
-        </div> 
+ return (
+  <form
+    onSubmit={handleSubmit}
+    className="profile-setup"
+  >
+    <div className="profile-setup__header">
+      <h1 className="profile-setup__title">
+        Profile Setup
+      </h1>
 
+      <p className="profile-setup__subtitle">
+        Tell us a little about yourself to get started.
+      </p>
+    </div>
 
-        <button
-          type="submit"
-          className="btn btn-hero">
-            Submit
-        </button>
-    </form>
-  );
+    <div className="profile-setup__group">
+      <label
+        htmlFor="firstName"
+        className="profile-setup__label"
+      >
+        First name
+      </label>
+
+      <input
+        type="text"
+        name="firstName"
+        value={state.firstName}
+        onChange={handleChange}
+        placeholder="Enter your first name"
+        className="profile-setup__input"
+      />
+
+      {state.errors.firstName && (
+        <p className="profile-setup__error">
+          {state.errors.firstName}
+        </p>
+      )}
+    </div>
+
+    <div className="profile-setup__group">
+      <label
+        htmlFor="lastName"
+        className="profile-setup__label"
+      >
+        Last name
+      </label>
+
+      <input
+        type="text"
+        name="lastName"
+        value={state.lastName}
+        onChange={handleChange}
+        placeholder="Enter your last name"
+        className="profile-setup__input"
+      />
+
+      {state.errors.lastName && (
+        <p className="profile-setup__error">
+          {state.errors.lastName}
+        </p>
+      )}
+    </div>
+
+    <button
+      type="submit"
+      className="profile-setup__submit"
+    >
+      Continue
+    </button>
+  </form>
+);
 };
