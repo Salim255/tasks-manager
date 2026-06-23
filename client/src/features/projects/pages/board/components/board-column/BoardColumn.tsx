@@ -29,32 +29,38 @@ export const BoardColumn = ({
     const { projectId }  = useParams<string>();
 
     return (
-        <div 
-            className={`board-column ${status}`}
-            onDrop={(e) => onDrop(e, status)}
-            onDragOver={onDragOver}
-        >
-            <div className='todo__header'>
-                { title } { tasks.length > 0 ? tasks.length: null }
-            </div>
+        <div
+  className={`board-column board-column--${status}`}
+  onDrop={(e) => onDrop(e, status)}
+  onDragOver={onDragOver}
+>
+  <div className="board-column__header">
 
-            {
-                tasks?.length 
-                ?   
-                tasks.map((task: Task) => {
-                    return (
-                        <BoardTaskItem 
-                            key={task.id} 
-                            task={task} 
-                            draggable
-                            onDragStart={(e) => onDragStart(e, task)}
-                        /> 
-                    )
-                })
-                : (status === 'todo' && sprintsSize === 0) 
-                    &&  
-                    <BoardPH projectId={projectId!} />                      
-            }
-        </div>  
+    <h3 className="board-column__title">
+      {title}
+    </h3>
+
+    <span className="board-column__count">
+      {tasks.length}
+    </span>
+
+  </div>
+
+  <div className="board-column__body">
+
+    {tasks?.length
+      ? tasks.map((task: Task) => (
+          <BoardTaskItem
+            key={task.id}
+            task={task}
+            draggable
+            onDragStart={(e) => onDragStart(e, task)}
+          />
+        ))
+      : status === "todo" && sprintsSize === 0 && (
+          <BoardPH projectId={projectId!} />
+        )}
+  </div>
+</div>
     ) 
 }
