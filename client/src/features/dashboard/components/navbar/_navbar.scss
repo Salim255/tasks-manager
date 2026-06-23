@@ -1,82 +1,77 @@
-/* same as Wrapper itself */
+/* ============================================
+   NAVBAR
+============================================ */
+
 .navbar {
-  height: var(--nav-height);
+  height: 72px;
+
+  background: var(--white);
+
+  border-bottom: 1px solid var(--grey-100);
+
+  position: sticky;
+  top: 0;
+
+  z-index: 100;
+}
+
+.navbar__container {
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 2rem;
+}
+
+/* ============================================
+   TOGGLE
+============================================ */
+
+.navbar__toggle {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 1px 0px 0px rgba(0, 0, 0, 0.1);
-  background: var(--white);
-  z-index: 2;
-  &__nav-center {
-    display: flex;
-    width: 90vw;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .logo {
-    display: flex;
-    align-items: center;
-    width: 100px;
-  }
 
-  .toggle-btn {
-    background: transparent;
-    border-color: transparent;
-    font-size: 1.75rem;
-    color: var(--primary-500);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-  }
-  .btn-container {
-    position: relative;
-    display: flex;
-  
-  }
-  .btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0 0.5rem;
-    position: relative;
-    box-shadow: var(--shadow-2);
-  }
-  .dropdown {
-    position: absolute;
-    top: 40px;
-    left: 0;
-    width: 100%;
-    background: var(--primary-100);
-    box-shadow: var(--shadow-2);
-    padding: 0.5rem;
-    text-align: center;
-    visibility: hidden;
-    border-radius: var(--borderRadius);
+  background: transparent;
+  border: none;
 
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-  .show-dropdown {
-    visibility: visible;
-   }
+  cursor: pointer;
 
-   .dropdown-btn {
-        background: transparent;
-        border-color: transparent;
-        color: var(--primary-500);
-        letter-spacing: var(--letterSpacing);
-        text-transform: capitalize;
-        cursor: pointer;
-    }
-    .logo-text {
-        display: none;
-        margin: 0;
-    }
+  font-size: 1.2rem;
+
+  color: var(--grey-700);
+
+  transition: var(--transition);
+
+  &:hover {
+    color: var(--primary-600);
+  }
 }
 
+/* ============================================
+   LOGO
+============================================ */
 
+.navbar__logo {
+  margin: 0;
+
+  font-size: 1.4rem;
+
+  font-weight: 700;
+
+  letter-spacing: -0.03em;
+
+  background: linear-gradient(
+    135deg,
+    var(--primary-700),
+    var(--primary-500)
+  );
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
 /* correct media query equivalent */
 @media (min-width: 992px) {
