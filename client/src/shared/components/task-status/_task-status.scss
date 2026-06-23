@@ -1,16 +1,34 @@
 .task-status {
-    padding: 0 4px;
-    width: fit-content;
-    border-radius: 2px;
-    text-transform: uppercase;
-    font-size: .8rem;
-    font-weight: 900;
-    &--todo {
-        background-color: var(--grey-100);
-    }
-    &--in_progress {
-        background-color: var(--primary-500) }
-    &--done {
-        background-color: var(--story-color);
-    }
+  display: inline-flex;
+  align-items: center;
+
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+
+  font-size: 0.75rem;
+  font-weight: 600;
+
+  text-transform: none;
+  line-height: 1;
+
+  border: 1px solid transparent;
+}
+
+/* TODO */
+.task-status--todo {
+  background: var(--grey-50);
+  color: var(--grey-600);
+  border-color: var(--grey-100);
+}
+
+/* IN PROGRESS */
+.task-status--in_progress {
+  background: rgba(59, 130, 246, 0.12);
+  color: var(--primary-600);
+}
+
+/* DONE */
+.task-status--done {
+  background: rgba(16, 185, 129, 0.12);
+  color: var(--story-color);
 }
