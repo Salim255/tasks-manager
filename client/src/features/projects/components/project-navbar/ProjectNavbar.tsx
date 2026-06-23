@@ -19,7 +19,7 @@ export const ProjectNavbar =() => {
         <header className="project-header">
             <div className='project-header__title'>
                 <h2> {activeProject?.name} </h2>
-                <div>
+                <div className="project-header__actions">
                     <AddMemberForm projectId={projectId!} />
                 </div>
             </div>
