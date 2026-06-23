@@ -32,7 +32,7 @@ export const ProfileForm = () => {
  return (
   <form
     onSubmit={handleSubmit}
-    className="profile-setup"
+    className="profile-setup card form"
   >
     <div className="profile-setup__header">
       <h1 className="profile-setup__title">
@@ -44,10 +44,11 @@ export const ProfileForm = () => {
       </p>
     </div>
 
-    <div className="profile-setup__group">
+    {/* First Name */}
+    <div className="form__group">
       <label
         htmlFor="firstName"
-        className="profile-setup__label"
+        className="form__label"
       >
         First name
       </label>
@@ -58,20 +59,21 @@ export const ProfileForm = () => {
         value={state.firstName}
         onChange={handleChange}
         placeholder="Enter your first name"
-        className="profile-setup__input"
+        className="form__input"
       />
 
       {state.errors.firstName && (
-        <p className="profile-setup__error">
+        <p className="form__error">
           {state.errors.firstName}
         </p>
       )}
     </div>
 
-    <div className="profile-setup__group">
+    {/* Last Name */}
+    <div className="form__group">
       <label
         htmlFor="lastName"
-        className="profile-setup__label"
+        className="form__label"
       >
         Last name
       </label>
@@ -82,22 +84,24 @@ export const ProfileForm = () => {
         value={state.lastName}
         onChange={handleChange}
         placeholder="Enter your last name"
-        className="profile-setup__input"
+        className="form__input"
       />
 
       {state.errors.lastName && (
-        <p className="profile-setup__error">
+        <p className="form__error">
           {state.errors.lastName}
         </p>
       )}
     </div>
 
-    <button
-      type="submit"
-      className="profile-setup__submit"
-    >
-      Continue
-    </button>
+    <div className="form__actions">
+      <button
+        type="submit"
+        className="btn btn--primary"
+      >
+        Continue
+      </button>
+    </div>
   </form>
 );
 };
