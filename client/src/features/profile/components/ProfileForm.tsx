@@ -28,80 +28,75 @@ export const ProfileForm = () => {
     dispatcher(createProfileHttp(payload));
     reset();
   };
+return (
+  <section className="profile-setup">
 
- return (
-  <form
-    onSubmit={handleSubmit}
-    className="profile-setup card form"
-  >
-    <div className="profile-setup__header">
-      <h1 className="profile-setup__title">
-        Profile Setup
-      </h1>
+    <div className="profile-setup__content">
 
-      <p className="profile-setup__subtitle">
-        Tell us a little about yourself to get started.
-      </p>
-    </div>
+      <div className="profile-setup__header">
+        <h1 className="profile-setup__title">
+          Profile Setup
+        </h1>
 
-    {/* First Name */}
-    <div className="form__group">
-      <label
-        htmlFor="firstName"
-        className="form__label"
-      >
-        First name
-      </label>
-
-      <input
-        type="text"
-        name="firstName"
-        value={state.firstName}
-        onChange={handleChange}
-        placeholder="Enter your first name"
-        className="form__input"
-      />
-
-      {state.errors.firstName && (
-        <p className="form__error">
-          {state.errors.firstName}
+        <p className="profile-setup__subtitle">
+          Tell us a little about yourself to personalize your experience.
         </p>
-      )}
-    </div>
+      </div>
 
-    {/* Last Name */}
-    <div className="form__group">
-      <label
-        htmlFor="lastName"
-        className="form__label"
+      <form
+        onSubmit={handleSubmit}
+        className="form"
       >
-        Last name
-      </label>
+        {/* First Name */}
+        <div className="form__group">
+          <label htmlFor="firstName" className="form__label">
+            First name
+          </label>
 
-      <input
-        type="text"
-        name="lastName"
-        value={state.lastName}
-        onChange={handleChange}
-        placeholder="Enter your last name"
-        className="form__input"
-      />
+          <input
+            type="text"
+            name="firstName"
+            value={state.firstName}
+            onChange={handleChange}
+            className="form__input"
+          />
 
-      {state.errors.lastName && (
-        <p className="form__error">
-          {state.errors.lastName}
-        </p>
-      )}
+          {state.errors.firstName && (
+            <p className="form__error">
+              {state.errors.firstName}
+            </p>
+          )}
+        </div>
+
+        {/* Last Name */}
+        <div className="form__group">
+          <label htmlFor="lastName" className="form__label">
+            Last name
+          </label>
+
+          <input
+            type="text"
+            name="lastName"
+            value={state.lastName}
+            onChange={handleChange}
+            className="form__input"
+          />
+
+          {state.errors.lastName && (
+            <p className="form__error">
+              {state.errors.lastName}
+            </p>
+          )}
+        </div>
+
+        <div className="form__actions">
+          <button className="btn btn--primary">
+            Continue
+          </button>
+        </div>
+      </form>
+
     </div>
-
-    <div className="form__actions">
-      <button
-        type="submit"
-        className="btn btn--primary"
-      >
-        Continue
-      </button>
-    </div>
-  </form>
+  </section>
 );
 };
