@@ -1,3 +1,64 @@
-.create-project-form {
-    background-color: red;
+/* ============================================
+   CREATE PROJECT
+============================================ */
+
+.project-create {
+  width: 100%;
+
+  max-width: 50rem;
+
+  margin: 0 auto;
+
+  padding: 2rem 1.5rem;
+}
+
+/* ============================================
+   HEADER
+============================================ */
+
+.project-create__header {
+  margin-bottom: 2rem;
+}
+
+.project-create__title {
+  margin: 0;
+
+  font-size: 1.875rem;
+
+  font-weight: 700;
+
+  letter-spacing: -0.03em;
+
+  color: var(--grey-900);
+}
+
+.project-create__subtitle {
+  margin-top: 0.5rem;
+
+  color: var(--grey-500);
+
+  font-size: 0.95rem;
+
+  line-height: 1.6;
+}
+
+/* ============================================
+   FORM
+============================================ */
+
+.project-create__form {
+  display: flex;
+  flex-direction: column;
+
+  gap: 1.5rem;
+
+  padding: 1.75rem;
+
+  background: var(--white);
+
+  border: 1px solid var(--grey-100);
+
+  border-radius: 20px;
+
+  box-shadow: var(--shadow-1);
 }

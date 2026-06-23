@@ -45,37 +45,65 @@ export const CreateProjectForm = () => {
     }, [state])
 
     return (
-        <form onSubmit={handleSubmit} className="form">
-            <div className="form-row">
-                <label className="form-label">Name your project</label>
-                <input 
-                    className="form-input"
-                    name="name"
-                    value={state.name}
-                    type="text" 
-                    onChange={handleInput}
-                    placeholder="project name"
-                />
-                { 
-                    state.errors.name && (
-                        <p className="alert-danger">{state.errors.name}</p>
-                    )
-                }
-            </div>
+     <section className="project-create">
 
-            <div className="form-row">
-                <label className="form-label">Describe your project</label>
-                <textarea
-                    className="form-textarea"
-                    value={state.description}
-                    onChange={handleInput}
-                    name="description"
-                    placeholder="project description"
-                    />
-            </div>
-            <button type="submit" className="btn btn-hero form-row">
-                create
-            </button>
-        </form>
-    )
+  <div className="project-create__header">
+    <h1 className="project-create__title">
+      New Project
+    </h1>
+
+    <p className="project-create__subtitle">
+      Create a workspace for your tasks and planning.
+    </p>
+  </div>
+
+  <form
+    onSubmit={handleSubmit}
+    className="project-create__form form"
+  >
+    <div className="form__group">
+      <label className="form__label">
+        Project name
+      </label>
+
+      <input
+        className="form__input"
+        name="name"
+        value={state.name}
+        onChange={handleInput}
+        placeholder="FlowBoard Mobile App"
+      />
+
+      {state.errors.name && (
+        <p className="form__error">
+          {state.errors.name}
+        </p>
+      )}
+    </div>
+
+    <div className="form__group">
+      <label className="form__label">
+        Description
+      </label>
+
+      <textarea
+        className="form__textarea"
+        value={state.description}
+        onChange={handleInput}
+        name="description"
+        placeholder="What is this project about?"
+      />
+    </div>
+
+    <div className="form__actions">
+      <button
+        type="submit"
+        className="btn btn--primary"
+      >
+        Create Project
+      </button>
+    </div>
+  </form>
+
+</section>)
 } 
