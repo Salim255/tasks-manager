@@ -4,7 +4,7 @@ import type { Sprint, SprintStatus } from "../../../projects/models/sprint.model
 import { EditSprintDate } from "../edit-sprint-date/EditSprintDate";
 import { useDispatch, useSelector } from 'react-redux';
 import { type AppDispatch, type RootState } from '../../../../redux/store';
-import { updateSprintHttp } from '../../../projects/http/sprint.http';
+import { updateSprintHttp } from '../../http/sprint.http';
 
 import { useMemo } from 'react';
 import { openEditSprint } from '../../states/sprintSlice';

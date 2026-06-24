@@ -2,10 +2,10 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
 import type { Project } from "../models/project.model";
 import { type ApiErrorDto } from "../../../shared/interfaces/shared.interfaces";
-import { setSprints } from "../states/sprintSlice";
-import { setTasks } from "../states/taskSlice";
-import { setMembers } from "../states/memberSlice";
 import api from "../../../api/axios";
+import { setSprints } from "../../sprints/states/sprintSlice";
+import { setTasks } from "../../tasks/states/taskSlice";
+import { setMembers } from "../../members/states/memberSlice";
 
 // 1 create project 
 export type CreateProjectPayload = {

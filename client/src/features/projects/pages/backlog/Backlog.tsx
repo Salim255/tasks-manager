@@ -7,9 +7,9 @@ import { TaskItem } from '../../../tasks/components/task-item/TaskItem';
 import type { Task } from '../../models/task.model';
 import { SprintHeader } from '../../../sprints/components/sprint-header/SprintHeader';
 import { Navigate, useParams } from 'react-router-dom';
-import { createSprint } from '../../http/sprint.http';
 import { useSprintSelector } from '../../../sprints/states/sprintSelectors';
 import { updateTaskSprintHttp } from '../../../tasks/http/task.http';
+import { createSprint } from '../../../sprints/http/sprint.http';
 
 export const Backlog = () => {
     const dispatch = useDispatch<AppDispatch>();

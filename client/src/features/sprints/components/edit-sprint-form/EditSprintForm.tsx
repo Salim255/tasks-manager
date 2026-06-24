@@ -3,7 +3,7 @@ import { IoMdClose } from "react-icons/io";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../../../redux/store";
 import { type ChangeEvent } from "react";
-import { updateSprintHttp, type UpdateSprintPayload } from "../../../projects/http/sprint.http";
+import { updateSprintHttp, type UpdateSprintPayload } from "../../http/sprint.http";
 
 import { ModalOverlay } from "../../../../shared/components/modal-overlay/ModalOverlay";
 import { useSprintForm } from "../../form-builder/sprintFormBuilder";

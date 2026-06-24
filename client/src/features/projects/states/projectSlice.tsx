@@ -1,8 +1,8 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { Project } from "../models/project.model";
 import { fetchProjectsHttp, createProjectHttp, fetchSingleProjectHttp } from "../http/project.http";
-import { addMemberHttp } from "../http/member.http";
 import { toast } from "react-toastify";
+import { addMemberHttp } from "../../members/http/member.http";
 
 type InitialState = {
     projects: Project[];

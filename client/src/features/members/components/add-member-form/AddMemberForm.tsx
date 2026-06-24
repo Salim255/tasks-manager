@@ -8,7 +8,7 @@ import { ModalOverlay } from "../../../../shared/components/modal-overlay/ModalO
 import { onAddMemberModal } from "../../../projects/states/projectSlice";
 import { IoMdClose } from "react-icons/io";
 import { useMemberForm } from "../../form-builder/memberFormBuilder";
-import { addMemberHttp, type CreateMemberPayload } from "../../../projects/http/member.http";
+import { addMemberHttp, type CreateMemberPayload } from "../../http/member.http";
 import { validateMemberForm } from "../../../../shared/utils/forms-validator";
 
 export const AddMemberForm = ({ projectId }:{ projectId: string }) => {

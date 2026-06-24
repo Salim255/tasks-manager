@@ -3,7 +3,7 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { AppDispatch, RootState } from "../../../redux/store";
 import { toast } from "react-toastify";
 import type { Sprint, SprintStatus } from "../../projects/models/sprint.model";
-import { createSprint, fetchSprintsHttp, updateSprintHttp } from "../../projects/http/sprint.http";
+import { createSprint, fetchSprintsHttp, updateSprintHttp } from "../http/sprint.http";
 
 
 // 2 initial state

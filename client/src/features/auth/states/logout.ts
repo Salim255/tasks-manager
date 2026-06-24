@@ -1,7 +1,7 @@
 import type { AppDispatch } from "../../../redux/store";
 import { clearProfile } from "../../profile/states/profileSlice";
 import { clearProjects } from "../../projects/states/projectSlice";
-import { clearTasks } from "../../projects/states/taskSlice";
+import { clearTasks } from "../../tasks/states/taskSlice";
 import { clearUser } from "./authSlice";
 
 export const logout = (dispatch: AppDispatch) => {
