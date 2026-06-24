@@ -1,12 +1,12 @@
 import './_create-task.scss';
 import { useState, type ChangeEvent } from "react";
-import { useTaskForm } from "../../forms-builders/taskFormBuilder";
 import { BiPlus } from "react-icons/bi";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../../../redux/store";
 import { TaskTypeDropdown } from '../../../../shared/components/task-type-dropdown/TaskTypeDropdown';
-import { createTaskHttp, type CreateTaskPayload } from '../../http/task.http';
+import { createTaskHttp, type CreateTaskPayload } from '../../../projects/http/task.http';
 import { typeIcon } from '../../../../shared/utils/methods';
+import { useTaskForm } from '../../form-builder/taskFormBuilder';
 
 export const CreateTask = ( { projectId }: { projectId: string}) => {
   const [isCreateBtn, setCreateBtn] = useState<boolean>(true);

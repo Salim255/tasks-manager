@@ -1,7 +1,7 @@
 import './_board-task-item.scss';
 import { useState } from "react";
 import { OptionsBtn } from "../../../../../../shared/components/options-btn/OptionsBtn";
-import type { TaskItemProps } from "../../../../components/task-item/TaskItem";
+import type { TaskItemProps } from "../../../../../tasks/components/task-item/TaskItem";
 import { GoPerson } from "react-icons/go";
 import { typeIcon } from '../../../../../../shared/utils/methods';
 

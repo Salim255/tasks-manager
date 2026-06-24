@@ -1,11 +1,11 @@
 import "./_edit-sprint-date.scss";
 import { useEffect } from "react";
 import { EditSprintForm } from "../edit-sprint-form/EditSprintForm";
-import type { Sprint } from "../../models/sprint.model";
+import type { Sprint } from "../../../projects/models/sprint.model";
 import { FaRegEdit } from "react-icons/fa";
 import { formatDate } from "../../../../shared/utils/methods";
-import { useSprintSelector } from "../../states/sprintSelectors";
-import { openEditSprint } from "../../states/sprintSlice";
+import { useSprintSelector } from "../../../projects/states/sprintSelectors";
+import { openEditSprint } from "../../../projects/states/sprintSlice";
 import { useDispatch } from "react-redux";
 import { type AppDispatch } from "../../../../redux/store";
 

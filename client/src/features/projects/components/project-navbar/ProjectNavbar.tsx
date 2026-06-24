@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import type { RootState } from '../../../../redux/store';
 import { useEffect } from 'react';
 import { IoMdOptions } from "react-icons/io";
-import { AddMemberForm } from '../add-member-form/AddMemberForm';
+import { AddMemberForm } from '../../../members/components/add-member-form/AddMemberForm';
 
 export const ProjectNavbar =() => {
     const { activeProject, isFetchingProject} = useSelector((store:  RootState) => store.projectReducer);

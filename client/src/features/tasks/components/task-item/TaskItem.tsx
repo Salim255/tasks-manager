@@ -1,12 +1,12 @@
 import './_task-item.scss';
 import { useState } from 'react';
-import type { Task } from "../../models/task.model";
+import type { Task } from "../../../projects/models/task.model";
 import { OptionsBtn } from '../../../../shared/components/options-btn/OptionsBtn';
 import { typeIcon } from '../../../../shared/utils/methods';
 import { AsidePopup } from '../../../../shared/kits/aside-popup/AsidePopup';
-import { MemberItem } from '../member-item/MemberItem';
 import { Assignee } from '../../../../shared/components/assignee/Assignee';
 import { Status } from '../../../../shared/components/task-status/TaskStatus';
+import { MemberItem } from '../../../members/components/member-item/MemberItem';
 
 export type TaskItemProps = { task: Task; } & React.HTMLAttributes<HTMLDivElement>;
 

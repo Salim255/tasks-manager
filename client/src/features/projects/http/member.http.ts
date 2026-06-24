@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import type { ApiErrorDto } from "../../../shared/interfaces/shared.interfaces";
-import type { MemberRole } from "../forms-builders/memberFormBuilder";
+import type { MemberRole } from "../../members/form-builder/memberFormBuilder";
 import type { Member } from "../models/member.model";
 import { AxiosError } from "axios";
 import api from "../../../api/axios";

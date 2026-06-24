@@ -1,6 +1,6 @@
 import type { AuthFormState } from "../../features/auth/form-builder/authFormBuilder";
 import type { ProfileFormState } from "../../features/profile/form-builder/profileFormBuilder";
-import type { MemberFormState } from "../../features/projects/forms-builders/memberFormBuilder";
+import type { MemberFormState } from "../../features/members/form-builder/memberFormBuilder";
 import type { ProjectFormState } from "../../features/projects/forms-builders/projectFormBuilder";
 ;
  const Validators = {

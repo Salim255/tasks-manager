@@ -1,14 +1,14 @@
 import "./_add-member-form.scss";
 import { BsPersonAdd } from "react-icons/bs";
-import { useSelectProjects } from "../../states/projectsSelectors";
+import { useSelectProjects } from "../../../projects/states/projectsSelectors";
 import { useEffect, type ChangeEvent } from "react";
 import { useDispatch } from "react-redux";
 import { type AppDispatch } from "../../../../redux/store";
 import { ModalOverlay } from "../../../../shared/components/modal-overlay/ModalOverlay";
-import { onAddMemberModal } from "../../states/projectSlice";
+import { onAddMemberModal } from "../../../projects/states/projectSlice";
 import { IoMdClose } from "react-icons/io";
-import { useMemberForm } from "../../forms-builders/memberFormBuilder";
-import { addMemberHttp, type CreateMemberPayload } from "../../http/member.http";
+import { useMemberForm } from "../../form-builder/memberFormBuilder";
+import { addMemberHttp, type CreateMemberPayload } from "../../../projects/http/member.http";
 import { validateMemberForm } from "../../../../shared/utils/forms-validator";
 
 export const AddMemberForm = ({ projectId }:{ projectId: string }) => {
