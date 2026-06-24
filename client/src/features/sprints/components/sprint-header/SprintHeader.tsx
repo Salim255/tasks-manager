@@ -11,8 +11,8 @@ import { openEditSprintModal } from '../../states/sprintSlice';
 
 export const SprintHeader = ({sprint}: { sprint: Sprint}) => {
         const [isOptionsOpen, setOptionsOpen ] = useState<string | null>(null);
-      
         const { tasks } = useSelector((store: RootState) => store.taskSlice);
+        
         const dispatch = useDispatch<AppDispatch>();
 
         const updateSprintStatus = () => { 

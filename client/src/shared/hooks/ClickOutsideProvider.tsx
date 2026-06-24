@@ -7,7 +7,7 @@ import {
 import { ClickOutsideContext } from "./ClickOutsideContext";
 import { useDispatch } from "react-redux";
 import { type AppDispatch } from "../../redux/store";
-import { openEditSprint } from "../../features/sprints/states/sprintSlice";
+import { openEditSprintModal } from "../../features/sprints/states/sprintSlice";
 
 export type ActionType = 'edit-sprint' | 'delete-sprint' | 'edit-task' | 'delete-task';
 
@@ -24,7 +24,7 @@ export const ClickOutsideProvider = ({ children }: PropsWithChildren) => {
     // Update store
       switch(type){
         case 'edit-sprint':
-          dispatch(openEditSprint({ sprintId: itemId}));
+          dispatch(openEditSprintModal({ sprintId: itemId}));
           return;
         case 'delete-sprint':
           return;

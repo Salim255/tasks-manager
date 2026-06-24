@@ -7,17 +7,18 @@ import { TaskItem } from '../../../tasks/components/task-item/TaskItem';
 import type { Task } from '../../models/task.model';
 import { SprintHeader } from '../../../sprints/components/sprint-header/SprintHeader';
 import { Navigate, useParams } from 'react-router-dom';
-import { useSprintSelector } from '../../../sprints/states/sprintSelectors';
+import { useSprintModalOpen, useSprints } from '../../../sprints/states/sprintSelectors';
 import { updateTaskSprintHttp } from '../../../tasks/http/task.http';
 import { createSprint } from '../../../sprints/http/sprint.http';
+import { EditSprintForm } from '../../../sprints/components/edit-sprint-form/EditSprintForm';
 
 export const Backlog = () => {
     const dispatch = useDispatch<AppDispatch>();
     const { isCreating, tasks } = useSelector((store: RootState) => store.taskSlice);
-    const { sprints } = useSprintSelector();
+    const isOpenModal = useSprintModalOpen();
+    const sprints = useSprints();
     const { projectId }  = useParams();
     
-    console.log("Hello from baclog")
     const onDragStart = (task: Task, e: React.DragEvent<HTMLDivElement>) => {
         e.dataTransfer.setData("text/plain", JSON.stringify(task)); // Any payload
     };
@@ -132,6 +133,7 @@ export const Backlog = () => {
                 </section>
             </section>
         </section>
+        { isOpenModal && <EditSprintForm/> }
        </>
     )
 }
