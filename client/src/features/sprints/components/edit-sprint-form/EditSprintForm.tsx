@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../../../redux/store";
 import { type ChangeEvent } from "react";
 import { updateSprintHttp, type UpdateSprintPayload } from "../../../projects/http/sprint.http";
-import { useSprintSelector } from "../../../projects/states/sprintSelectors";
+import { useSprintSelector } from "../../states/sprintSelectors";
 import { closeEditSprint } from "../../../projects/states/sprintSlice";
 import { ModalOverlay } from "../../../../shared/components/modal-overlay/ModalOverlay";
 import { useSprintForm } from "../../form-builder/sprintFormBuilder";

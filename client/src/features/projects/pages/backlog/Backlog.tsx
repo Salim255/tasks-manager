@@ -8,7 +8,7 @@ import type { Task } from '../../models/task.model';
 import { SprintHeader } from '../../../sprints/components/sprint-header/SprintHeader';
 import { Navigate, useParams } from 'react-router-dom';
 import { createSprint } from '../../http/sprint.http';
-import { useSprintSelector } from '../../states/sprintSelectors';
+import { useSprintSelector } from '../../../sprints/states/sprintSelectors';
 import { updateTaskSprintHttp } from '../../http/task.http';
 
 export const Backlog = () => {
