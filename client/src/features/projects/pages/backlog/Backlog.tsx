@@ -9,7 +9,7 @@ import { SprintHeader } from '../../../sprints/components/sprint-header/SprintHe
 import { Navigate, useParams } from 'react-router-dom';
 import { createSprint } from '../../http/sprint.http';
 import { useSprintSelector } from '../../../sprints/states/sprintSelectors';
-import { updateTaskSprintHttp } from '../../http/task.http';
+import { updateTaskSprintHttp } from '../../../tasks/http/task.http';
 
 export const Backlog = () => {
     const dispatch = useDispatch<AppDispatch>();

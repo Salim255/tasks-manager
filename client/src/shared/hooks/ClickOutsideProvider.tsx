@@ -5,9 +5,9 @@ import {
   type RefObject,
 } from "react";
 import { ClickOutsideContext } from "./ClickOutsideContext";
-import { openEditSprint } from "../../features/projects/states/sprintSlice";
 import { useDispatch } from "react-redux";
 import { type AppDispatch } from "../../redux/store";
+import { openEditSprint } from "../../features/sprints/states/sprintSlice";
 
 export type ActionType = 'edit-sprint' | 'delete-sprint' | 'edit-task' | 'delete-task';
 

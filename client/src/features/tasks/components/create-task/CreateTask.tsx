@@ -4,7 +4,7 @@ import { BiPlus } from "react-icons/bi";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../../../redux/store";
 import { TaskTypeDropdown } from '../../../../shared/components/task-type-dropdown/TaskTypeDropdown';
-import { createTaskHttp, type CreateTaskPayload } from '../../../projects/http/task.http';
+import { createTaskHttp, type CreateTaskPayload } from '../../http/task.http';
 import { typeIcon } from '../../../../shared/utils/methods';
 import { useTaskForm } from '../../form-builder/taskFormBuilder';
 

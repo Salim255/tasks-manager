@@ -5,8 +5,9 @@ import { EditSprintDate } from "../edit-sprint-date/EditSprintDate";
 import { useDispatch, useSelector } from 'react-redux';
 import { type AppDispatch, type RootState } from '../../../../redux/store';
 import { updateSprintHttp } from '../../../projects/http/sprint.http';
-import { openEditSprint } from '../../../projects/states/sprintSlice';
+
 import { useMemo } from 'react';
+import { openEditSprint } from '../../states/sprintSlice';
 
 export const SprintHeader = ({
         sprint,

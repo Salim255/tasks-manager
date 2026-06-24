@@ -5,9 +5,9 @@ import type { Sprint } from "../../../projects/models/sprint.model";
 import { FaRegEdit } from "react-icons/fa";
 import { formatDate } from "../../../../shared/utils/methods";
 import { useSprintSelector } from "../../states/sprintSelectors";
-import { openEditSprint } from "../../../projects/states/sprintSlice";
 import { useDispatch } from "react-redux";
 import { type AppDispatch } from "../../../../redux/store";
+import { openEditSprint } from "../../states/sprintSlice";
 
 export const EditSprintDate = ({sprint}: { sprint: Sprint }) => {
         const dispatch = useDispatch<AppDispatch>();
