@@ -1,9 +1,13 @@
-@import './themes/styles/abstracts/_colors.scss';
-@import './themes/styles/abstracts/_variables.scss';
-@import './themes//styles/abstracts/_typography.scss';
-@import './themes/styles/base/_base.scss';
-@import './themes//styles/abstracts/reset';
-@import "./themes/styles/components/form";
-@import "./themes/styles/components/buttons";
-@import "./themes/styles/abstracts/semantic";
-@import "./themes/styles/abstracts/queries";
+@use './themes//styles/abstracts/_reset.scss' as *;
+@use "./themes/styles/components/form" as *;
+@use "./themes/styles/components/buttons" as *;
+@use "./themes/styles/abstracts/semantic" as *;
+@use "./themes/styles/abstracts/queries" as *;
+@use './themes/styles/abstracts/_colors.scss' as *;
+@use './themes/styles/abstracts/_variables.scss' as *;
+@use './themes//styles/abstracts/_typography.scss' as *;
+@use './themes/styles/base/_base.scss' as *;
+
+
+
+

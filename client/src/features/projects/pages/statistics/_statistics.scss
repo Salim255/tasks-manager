@@ -1,6 +1,8 @@
 .statistics {
     display: flex;
     gap: 2rem;
+    height: 100%;
+    min-height: 30rem;
     &__status,
     &__work-types {
         flex: 1;
