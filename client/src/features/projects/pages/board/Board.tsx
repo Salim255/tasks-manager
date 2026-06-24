@@ -2,7 +2,7 @@ import './_board.scss';
 import { useEffect } from 'react';
 import type { Task, TaskStatus } from '../../models/task.model';
 import { useSprintSelector } from '../../states/sprintSelectors';
-import { useTasksSelector } from '../../states/taskSelectors';
+import { useTasksSelector } from '../../../tasks/states/taskSelectors';
 import { updateTasHttp } from '../../http/task.http';
 import { useDispatch } from 'react-redux';
 import { type AppDispatch } from '../../../../redux/store';

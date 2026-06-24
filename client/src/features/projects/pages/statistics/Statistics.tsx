@@ -1,6 +1,6 @@
 import "./_statistics.scss";
 import { useEffect } from "react";
-import { useTasksSelector } from "../../states/taskSelectors";
+import { useTasksSelector } from "../../../tasks/states/taskSelectors";
 import { useStatisticsData } from "./hooks/statisticsHooks";
 import { useSprintSelector } from "../../states/sprintSelectors";
 import { TypeWorkChart } from "./components/type-work-chart/TypeWorkChart";

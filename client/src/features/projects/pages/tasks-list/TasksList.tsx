@@ -1,4 +1,4 @@
-import { useTasksSelector } from "../../states/taskSelectors";
+import { useTasksSelector } from "../../../tasks/states/taskSelectors";
 import "./_tasks-list.scss";
 import {
   PieChart,
