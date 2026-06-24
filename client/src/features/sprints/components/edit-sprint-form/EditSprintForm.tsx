@@ -123,7 +123,6 @@ export const EditSprintForm = () => {
 
                 <div className="form__group">
                     <label htmlFor="endDate" className="form__label">End Date</label>
-
                     <input
                     id="endDate"
                     type="date"
@@ -133,7 +132,6 @@ export const EditSprintForm = () => {
                     className="form__input"
                     />
                 </div>
-
                 </div>
 
             </div>

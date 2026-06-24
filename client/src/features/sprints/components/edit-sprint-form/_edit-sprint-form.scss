@@ -106,27 +106,29 @@
     border-top: 1px solid var(--grey-100);
   }
 
-  &__cancel {
+  &__cancel,
+  &__submit {
     padding: 0.75rem 1rem;
 
     border: 1px solid var(--grey-200);
 
     border-radius: 12px;
-
-    background: var(--white);
-
     color: var(--grey-700);
 
     transition: var(--transition);
 
+    
+  }
+
+  &__cancel{
+    background: var(--white);
     &:hover {
       cursor: pointer;
-
       background: var(--grey-50);
     }
   }
-
   &__submit {
     min-width: 140px;
+    color: var(--white);
   }
 }

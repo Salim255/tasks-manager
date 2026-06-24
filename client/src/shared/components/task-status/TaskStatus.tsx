@@ -6,6 +6,8 @@ export const Status = ( { status }:{ status: TaskStatus}) => {
         switch(status){
             case "in_progress":
                return "in progress"
+            case "done":
+               return "done"
             default:
                return "to do"
         }

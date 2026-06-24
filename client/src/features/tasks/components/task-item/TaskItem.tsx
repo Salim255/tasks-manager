@@ -13,7 +13,12 @@ export type TaskItemProps = { task: Task; } & React.HTMLAttributes<HTMLDivElemen
 export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
     const [isOptionsOpen, setOptionsOpen ] = useState<string | null>(null);
     return (
-        <div className="task-item" {...props} >
+        <div 
+            className={`task-item ${
+                isOptionsOpen === task.id
+                ? "task-item--menu-open"
+                : ""
+            }`} {...props} >
             <section className='task-item__content'>
                 <div className={`task-item__checkbox task-item__checkbox--${task.taskType}`}>
                     {typeIcon(task.taskType)}

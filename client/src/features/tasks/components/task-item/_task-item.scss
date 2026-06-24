@@ -1,12 +1,12 @@
-
 /* ============================================
    TASK ITEM — PREMIUM ROW
 ============================================ */
 
 .task-item {
+  position: relative;
+
   display: flex;
   align-items: center;
-
   justify-content: space-between;
 
   gap: 1rem;
@@ -25,8 +25,6 @@
     border-color 0.2s ease,
     background-color 0.2s ease;
 
-  position: relative;
-
   &:hover {
     transform: translateY(-1px);
 
@@ -37,15 +35,18 @@
     background: var(--grey-50);
   }
 
+  &--menu-open {
+    z-index: 20;
+  }
+
   /* ============================================
-     CONTENT (ICON + TITLE)
+     CONTENT
   ============================================ */
 
   &__content {
     flex: 1;
 
     display: flex;
-
     align-items: center;
 
     gap: 0.75rem;
@@ -53,23 +54,25 @@
     min-width: 0;
   }
 
-  /* ICON / CHECKBOX */
+  /* ============================================
+     TYPE ICON
+  ============================================ */
 
   &__checkbox {
     display: flex;
     align-items: center;
     justify-content: center;
 
-    font-size: 1.1rem;
-
     width: 28px;
     height: 28px;
+
+    flex-shrink: 0;
+
+    font-size: 1.1rem;
 
     border-radius: 8px;
 
     background: var(--grey-50);
-
-    flex-shrink: 0;
 
     &--task {
       color: var(--primary-600);
@@ -84,20 +87,22 @@
     }
   }
 
-  /* TITLE */
+  /* ============================================
+     TITLE
+  ============================================ */
 
   &__title {
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
     font-size: 0.95rem;
 
     font-weight: 500;
 
     color: var(--grey-900);
-
-    white-space: nowrap;
-
-    overflow: hidden;
-
-    text-overflow: ellipsis;
   }
 
   /* ============================================
@@ -135,94 +140,102 @@
   ============================================ */
 
   &__actions {
-    position: relative;
-
     display: flex;
     justify-content: center;
-
-    opacity: 0.7;
-
-    transition: opacity 0.2s ease;
-
-    &:hover {
-      opacity: 1;
-    }
-
-    .options-list {
-      display: flex;
-      flex-direction: column;
-
-      margin: 0;
-
-      padding: 0.4rem;
-
-      min-width: 160px;
-
-      background: var(--white);
-
-      border: 1px solid var(--grey-100);
-
-      border-radius: 14px;
-
-      box-shadow: var(--shadow-3);
-
-      list-style: none;
-    }
-
-    .options-list__item {
-      padding: 0.65rem 0.85rem;
-
-      border-radius: 10px;
-
-      font-size: 0.9rem;
-
-      color: var(--grey-700);
-
-      cursor: pointer;
-
-      transition: background 0.15s ease;
-
-      &:hover {
-        background: var(--grey-50);
-
-        color: var(--grey-900);
-      }
-    }
-
-    /* ============================================
-       ASIDE POPOVER (FIXED UX)
-    ============================================ */
-
-    .task-aside-container__item-aside {
-      display: none;
-    }
-
-    .options-list__item:hover .task-aside-container__item-aside {
-      display: flex;
-
-      flex-direction: column;
-
-      position: absolute;
-
-      right: 100%;
-
-      top: 0;
-
-      min-width: 200px;
-
-      max-height: 240px;
-
-      overflow-y: auto;
-
-      background: var(--white);
-
-      border: 1px solid var(--grey-100);
-
-      border-radius: 14px;
-
-      box-shadow: var(--shadow-3);
-
-      padding: 0.5rem;
-    }
   }
+}
+
+/* ============================================
+   OPTIONS MENU
+============================================ */
+
+.options-list {
+  position: absolute;
+
+  top: calc(100% + 0.5rem);
+  right: 1rem;
+
+  z-index: 100;
+
+  display: flex;
+  flex-direction: column;
+
+  min-width: 180px;
+
+  margin: 0;
+  padding: 0.4rem;
+
+  list-style: none;
+
+  background: var(--white);
+
+  border: 1px solid var(--grey-100);
+
+  border-radius: 14px;
+
+  box-shadow: var(--shadow-3);
+}
+
+/* ============================================
+   MENU ITEM
+============================================ */
+
+.options-list__item {
+  position: relative;
+
+  padding: 0.65rem 0.85rem;
+
+  border-radius: 10px;
+
+  font-size: 0.9rem;
+
+  color: var(--grey-700);
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+
+  &:hover {
+    background: var(--grey-50);
+
+    color: var(--grey-900);
+  }
+}
+
+/* ============================================
+   SUB MENU
+============================================ */
+
+.task-aside-container__item-aside {
+  display: none;
+}
+
+.options-list__item:hover .task-aside-container__item-aside {
+  position: absolute;
+
+  top: 0;
+  left: calc(100% + 0.5rem);
+
+  z-index: 101;
+
+  display: flex;
+  flex-direction: column;
+
+  min-width: 220px;
+
+  max-height: 260px;
+
+  overflow-y: auto;
+
+  padding: 0.5rem;
+
+  background: var(--white);
+
+  border: 1px solid var(--grey-100);
+
+  border-radius: 14px;
+
+  box-shadow: var(--shadow-3);
 }
