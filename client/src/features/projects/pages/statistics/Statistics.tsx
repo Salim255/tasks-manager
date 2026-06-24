@@ -13,7 +13,7 @@ export const  Statistics = () => {
 
     useEffect(() => {}, [tasks, sprints])
     return <section className="statistics">
-        <div className="statistics__status">
+        <div className="statistics__work-status">
             <TypeTasksChart circleChartDataPercentage={circleChartDataPercentage}/>
         </div>
         <div className="statistics__work-types">

@@ -34,10 +34,10 @@ export const PieChart = () => {
         cornerRadius={2}
         activeOuterRadiusOffset={8}
         arcLinkLabelsSkipAngle={10}
-        arcLinkLabelsTextColor="#144f8e"
+       
         arcLinkLabelsThickness={2}
         arcLinkLabelsColor={{ from: 'color' }}
         arcLabelsSkipAngle={10}
-        arcLabelsTextColor={{ from: 'color', modifiers: [['brighter', 10]] }}
+        arcLabelsTextColor={{ from: 'color', modifiers: [['brighter', 3]] }}
         />
 }
