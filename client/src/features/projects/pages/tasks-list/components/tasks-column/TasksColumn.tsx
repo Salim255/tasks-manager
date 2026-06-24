@@ -1,23 +1,29 @@
-import "./_tasks-column.scss"
+import type { ReactNode } from "react";
+import type { Task } from "../../../../models/task.model";
 
-export const TasksColumn =({title, tasks}: {
+export const TasksColumn = ({
+  title,
+  tasks,
+  renderCell,
+}: {
   title: string;
-  tasks: string[];
-}) =>  {
+  tasks: Task[];
+  renderCell: (task: Task) => ReactNode;
+}) => {
   return (
     <div className="tasks-column">
       <div className="tasks-column__header">
         {title}
       </div>
 
-      {tasks.map((value, index) => (
+      {tasks.map((task) => (
         <div
-          key={index}
+          key={task.id}
           className="tasks-column__cell"
         >
-          {value}
+          {renderCell(task)}
         </div>
       ))}
     </div>
   );
-}
+};

@@ -23,10 +23,107 @@ import { Group, Panel, Separator } from "react-resizable-panels";
 
 import { ResponsivePie } from '@nivo/pie'
 import JiraDemo from "./JiraDemo";
+import { TasksColumn } from "./components/tasks-column/TasksColumn";
+import { TaskLabel } from "../../../../shared/components/task-label/TaskLabel";
+import type { Task } from "../../models/task.model";
+import { Reporter } from "../../../../shared/components/reporter/Reporter";
+import { Priority } from "../../../../shared/components/priority/Priority";
+import { Status } from "../../../../shared/components/task-status/TaskStatus";
+import { formatDate } from "../../../../shared/utils/methods";
+import { Assignee } from "../../../../shared/components/assignee/Assignee";
+import { Fragment } from "react/jsx-runtime";
 
 export const TasksList = () => {
     const { tasks } = useTasksSelector();
-     return <JiraDemo />
+    const columns = [
+    {
+        title: "Work",
+        size: 25,
+        render: (task: Task) => (
+        <TaskLabel name={task.title} />
+        ),
+    },
+    {
+        title: "Description",
+        size: 35,
+        render: (task: Task) => task.description || "-",
+    },
+    {
+        title: "Assignee",
+        size: 15,
+        render: (task: Task) => (
+        <Assignee
+            assigneeId={task.assigneeId}
+            pageName="task-list-item"
+        />
+        ),
+    },
+    {
+        title: "Reporter",
+        size: 15,
+        render: (task: Task) => (
+        <Reporter reporterId={task.ownerId!} />
+        ),
+    },
+    {
+        title: "Priority",
+        size: 12,
+        render: (task: Task) => (
+        <Priority priority={task.priority} />
+        ),
+    },
+    {
+        title: "Status",
+        size: 12,
+        render: (task: Task) => (
+        <Status status={task.status} />
+        ),
+    },
+    {
+        title: "Resolution",
+        size: 14,
+        render: (task: Task) =>
+        task.status === "done"
+            ? "Done"
+            : "Unresolved",
+    },
+    {
+        title: "Updated",
+        size: 16,
+        render: (task: Task) =>
+        formatDate(task.updatedAt),
+    },
+    {
+        title: "Due Date",
+        size: 16,
+        render: (task: Task) =>
+        task.dueAt
+            ? formatDate(task.dueAt)
+            : "-",
+    },
+    {
+        title: "Created At",
+        size: 16,
+        render: (task: Task) =>
+        formatDate(task.createdAt),
+    },
+    ];
+
+     return  <Group orientation="horizontal">
+        {columns.map((column, index) => (
+            <Fragment key={column.title}>
+            <Panel defaultSize={column.size}>
+                <TasksColumn
+                title={column.title}
+                tasks={tasks}
+                renderCell={column.render}
+                />
+            </Panel>
+
+            {index < columns.length - 1 && <Separator />}
+            </Fragment>
+        ))}
+        </Group>
       {/* <div className="tasks-list">
         <TasksListHeader/>
         {
