@@ -8,10 +8,10 @@ import { updateSprintHttp, type UpdateSprintPayload } from "../../http/sprint.ht
 import { ModalOverlay } from "../../../../shared/components/modal-overlay/ModalOverlay";
 import { useSprintForm } from "../../form-builder/sprintFormBuilder";
 import { closeEditSprint } from "../../states/sprintSlice";
-import { useSprintSelector } from "../../states/sprintSelectors";
+import { useSelectedSprint } from "../../states/sprintSelectors";
 
 export const EditSprintForm = () => {
-   const { sprint } = useSprintSelector();
+   const sprint  = useSelectedSprint();
    const { state, setField, reset } = useSprintForm(sprint);
    const dispatch = useDispatch<AppDispatch>();
  

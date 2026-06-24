@@ -7,7 +7,7 @@ import { type AppDispatch, type RootState } from '../../../../redux/store';
 import { updateSprintHttp } from '../../http/sprint.http';
 
 import { useMemo, useState } from 'react';
-import { openEditSprint } from '../../states/sprintSlice';
+import { openEditSprintModal } from '../../states/sprintSlice';
 
 export const SprintHeader = ({sprint}: { sprint: Sprint}) => {
         const [isOptionsOpen, setOptionsOpen ] = useState<string | null>(null);
@@ -19,7 +19,7 @@ export const SprintHeader = ({sprint}: { sprint: Sprint}) => {
             if(!sprint?.id) return;
             
             if (sprint.status === "planned" && !(sprint.startDate && sprint.endDate)) {
-                dispatch(openEditSprint({ sprintId: sprint.id}));
+                dispatch(openEditSprintModal({ sprintId: sprint.id}));
                 return;
             }
             const status: SprintStatus = sprint.status === 'planned' ? 'active': 'completed';
@@ -31,7 +31,6 @@ export const SprintHeader = ({sprint}: { sprint: Sprint}) => {
             };
             dispatch(updateSprintHttp(payload));
         }
-
 
         const getActionText = ( status: SprintStatus ) => {
             switch (status) {

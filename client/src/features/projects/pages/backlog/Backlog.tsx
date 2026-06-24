@@ -17,6 +17,7 @@ export const Backlog = () => {
     const { sprints } = useSprintSelector();
     const { projectId }  = useParams();
     
+    console.log("Hello from baclog")
     const onDragStart = (task: Task, e: React.DragEvent<HTMLDivElement>) => {
         e.dataTransfer.setData("text/plain", JSON.stringify(task)); // Any payload
     };

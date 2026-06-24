@@ -13,7 +13,8 @@ type StateType  = {
     isCreating: boolean;
     isUpdating: boolean;
 
-    isOpen: boolean;
+    isOpenModal: boolean;
+    
     sprint?: Sprint;
 }
 const initialState: StateType = {
@@ -22,7 +23,7 @@ const initialState: StateType = {
     isCreating: false,
     isUpdating: false,
 
-    isOpen: false
+    isOpenModal: false
     
 };
 
@@ -106,14 +107,14 @@ const sprintSlice = createSlice({
         addSprint: (state, action: PayloadAction<Sprint> ) => {
             state.sprints = [...state.sprints , action.payload]
         },
-        openEditSprint: (state, action:  PayloadAction<{ sprintId: string }>) => {
+        openEditSprintModal: (state, action:  PayloadAction<{ sprintId: string }>) => {
             const { sprintId } = action.payload;
             const candidateSprint = state.sprints.find((spr) => spr.id === sprintId);
             state.sprint = candidateSprint;
-            state.isOpen = true;
+            state.isOpenModal = true;
         },
         closeEditSprint: (state) => {
-            state.isOpen = false;
+            state.isOpenModal = false;
             state.sprint = undefined;
         }
     },
@@ -121,7 +122,7 @@ const sprintSlice = createSlice({
 })
 
 // Export other reducers
-export const { openEditSprint, closeEditSprint, setSprints } = sprintSlice.actions;
+export const { openEditSprintModal, closeEditSprint, setSprints } = sprintSlice.actions;
 export const { onUpdateSprintStatus } = sprintSlice.actions;
 export const { addSprint } = sprintSlice.actions;
 //  Export reducer

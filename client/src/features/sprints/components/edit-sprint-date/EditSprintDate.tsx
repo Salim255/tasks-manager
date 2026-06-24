@@ -7,16 +7,16 @@ import { formatDate } from "../../../../shared/utils/methods";
 import { useSprintSelector } from "../../states/sprintSelectors";
 import { useDispatch } from "react-redux";
 import { type AppDispatch } from "../../../../redux/store";
-import { openEditSprint } from "../../states/sprintSlice";
+import { openEditSprintModal } from "../../states/sprintSlice";
 
 export const EditSprintDate = ({sprint}: { sprint: Sprint }) => {
         const dispatch = useDispatch<AppDispatch>();
-        const { isOpen } = useSprintSelector();
+        const { isOpenModal } = useSprintSelector();
 
         const onEditSprintDate = (sprint: Sprint) => {
-            dispatch(openEditSprint({ sprintId: sprint.id}));
+            dispatch(openEditSprintModal({ sprintId: sprint.id}));
         }
-        
+        console.log("isOpenModal")
         useEffect(() => {
             
         }, [sprint]);
@@ -24,7 +24,7 @@ export const EditSprintDate = ({sprint}: { sprint: Sprint }) => {
         return (
         <>
             {
-                !isOpen  ?
+                !isOpenModal  ?
                 <section className="edit-sprint-header">
                     <span> 
                         {
