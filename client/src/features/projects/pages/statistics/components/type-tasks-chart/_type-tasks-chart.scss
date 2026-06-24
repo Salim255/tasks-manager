@@ -1,3 +1,27 @@
-.type-tasks-chart{
-    
+.type-tasks-chart {
+  display: flex;
+  flex-direction: column;
+
+  height: 50%;
+
+  padding: 1.25rem;
+
+  background: var(--white);
+
+  border: 1px solid var(--grey-100);
+
+  border-radius: 16px;
+
+  box-shadow: var(--shadow-1);
+
+  &__title {
+    margin-bottom: 1rem;
+
+    color: var(--grey-900);
+
+    font-size: 1rem;
+    font-weight: 700;
+
+    letter-spacing: -0.02em;
+  }
 }
