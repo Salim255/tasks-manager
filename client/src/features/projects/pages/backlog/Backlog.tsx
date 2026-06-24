@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import './_backlog.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { type AppDispatch, type RootState } from '../../../../redux/store';
@@ -15,10 +15,7 @@ export const Backlog = () => {
     const dispatch = useDispatch<AppDispatch>();
     const { isCreating, tasks } = useSelector((store: RootState) => store.taskSlice);
     const { sprints } = useSprintSelector();
-    const { isOpen } = useSelector((store: RootState) => store.sprintReducer);
     const { projectId }  = useParams();
-
-    const [isOptionsOpen, setOptionsOpen ] = useState<string | null>(null);
     
     const onDragStart = (task: Task, e: React.DragEvent<HTMLDivElement>) => {
         e.dataTransfer.setData("text/plain", JSON.stringify(task)); // Any payload
@@ -55,7 +52,7 @@ export const Backlog = () => {
     
     useEffect(() => {
          
-    }, [tasks, isCreating, sprints, isOpen, projectId]);
+    }, [tasks, isCreating, sprints, projectId]);
 
     if (!projectId) return <Navigate to="/projects" replace />;
 
@@ -74,9 +71,7 @@ export const Backlog = () => {
                         <section className="sprint" >
                             <SprintHeader 
                                 sprint={sprint} 
-                                isOptionsOpen={isOptionsOpen} 
-                                setOptionsOpen={setOptionsOpen}
-                                />
+                            />
                             <div className='sprint__tasks'> 
                                 { tasks?.length ? 
                                     tasks.map((task: Task) => {

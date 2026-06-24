@@ -6,18 +6,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { type AppDispatch, type RootState } from '../../../../redux/store';
 import { updateSprintHttp } from '../../http/sprint.http';
 
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { openEditSprint } from '../../states/sprintSlice';
 
-export const SprintHeader = ({
-        sprint,
-        isOptionsOpen,
-        setOptionsOpen,
-    }: { 
-        sprint: Sprint,
-        isOptionsOpen: string | null, 
-        setOptionsOpen: (sprintId: string | null) => void ,
-    }) => {
+export const SprintHeader = ({sprint}: { sprint: Sprint}) => {
+        const [isOptionsOpen, setOptionsOpen ] = useState<string | null>(null);
+      
         const { tasks } = useSelector((store: RootState) => store.taskSlice);
         const dispatch = useDispatch<AppDispatch>();
 
