@@ -27,6 +27,10 @@ const taskSlice = createSlice({
         clearTasks: (state) => {
             state.tasks = [];
         },
+        closeEditTaskModal: (state) => {
+            state.isOpenTaskModal = false;
+            state.task = undefined;
+        },
         setIsOpenTaskModal:  (state) => {
             state.isOpenTaskModal = !state.isOpenTaskModal;
         },
@@ -131,6 +135,7 @@ const taskSlice = createSlice({
 })
 
 export const {
+    closeEditTaskModal,
     setIsOpenTaskModal,
     isEditingTask,
     setTasks,

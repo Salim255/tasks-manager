@@ -2,7 +2,7 @@ import './_board.scss';
 import { useEffect } from 'react';
 import type { Task, TaskStatus } from '../../../tasks/models/task.model';
 import { useSprints } from '../../../sprints/states/sprintSelectors';
-import { useTasksSelector } from '../../../tasks/states/taskSelectors';
+import { useTasks } from '../../../tasks/states/taskSelectors';
 import { updateTasHttp } from '../../../tasks/http/task.http';
 import { useDispatch } from 'react-redux';
 import { type AppDispatch } from '../../../../redux/store';
@@ -11,7 +11,7 @@ import { useBoardData } from './board-hooks/boardData';
 
 export const Board = () => { 
     const sprints = useSprints();
-    const { tasks } = useTasksSelector();
+    const tasks = useTasks();
     const dispatch = useDispatch<AppDispatch>();
     const boardData = useBoardData(tasks, sprints);
 

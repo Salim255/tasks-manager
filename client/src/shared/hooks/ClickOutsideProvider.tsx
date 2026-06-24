@@ -22,19 +22,19 @@ export const ClickOutsideProvider = ({ children }: PropsWithChildren) => {
   const updateStore = ({ type, itemId }: { type: ActionType; itemId: string }) => {
 
     // Update store
-      switch(type){
-        case 'edit-sprint':
-          dispatch(openEditSprintModal({ sprintId: itemId}));
-          return;
-        case 'delete-sprint':
-          return;
-        case 'edit-task':
-          return;
-        case 'delete-task':
-          return;
-        default:
-          return;
-      }
+    switch(type){
+      case 'edit-sprint':
+        dispatch(openEditSprintModal({ sprintId: itemId}));
+        return;
+      case 'delete-sprint':
+        return;
+      case 'edit-task':
+        return;
+      case 'delete-task':
+        return;
+      default:
+        return;
+    }
   }
 
   useEffect(() => {

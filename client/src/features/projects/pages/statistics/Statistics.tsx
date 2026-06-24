@@ -1,13 +1,13 @@
 import "./_statistics.scss";
 import { useEffect } from "react";
-import { useTasksSelector } from "../../../tasks/states/taskSelectors";
+import { useTasks } from "../../../tasks/states/taskSelectors";
 import { useStatisticsData } from "./hooks/statisticsHooks";
 import { useSprints } from "../../../sprints/states/sprintSelectors";
 import { TypeWorkChart } from "./components/type-work-chart/TypeWorkChart";
 import { WorkStatusChart } from "./components/work-status-chart/WorkStatusChart";
 
 export const  Statistics = () => {
-    const { tasks } = useTasksSelector();
+    const tasks = useTasks();
     const sprints  = useSprints();
     const { barChartDataPercentage, circleChartDataPercentage } = useStatisticsData(tasks);
 

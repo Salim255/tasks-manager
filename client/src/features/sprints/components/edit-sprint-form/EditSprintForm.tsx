@@ -14,8 +14,7 @@ export const EditSprintForm = () => {
    const sprint  = useSelectedSprint();
    const { state, setField, reset } = useSprintForm(sprint);
    const dispatch = useDispatch<AppDispatch>();
- 
-    console.log("Hello from edit sprint")
+
    const handleChange = (
     event: ChangeEvent<
         HTMLInputElement |
@@ -41,7 +40,6 @@ export const EditSprintForm = () => {
             ...((state.completeDate !== undefined  && state.completeDate !== sprint.completeDate) && { completeDate: state.completeDate }),
         }
 
-        console.log(payload);
         dispatch(updateSprintHttp({...payload, sprintId: sprint.id}))
         reset();
     }
@@ -53,9 +51,9 @@ export const EditSprintForm = () => {
     return (
         <ModalOverlay onClose={closeModal}>
             <form
-            data-modal-body
-            className="edit-sprint-form"
-            onSubmit={clickSubmit}
+             data-modal-body
+             className="edit-sprint-form"
+             onSubmit={clickSubmit}
             >
             {/* Header */}
             <div className="edit-sprint-form__header">

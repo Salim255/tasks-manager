@@ -1,4 +1,4 @@
-import { useTasksSelector } from "../../../tasks/states/taskSelectors";
+import { useTasks } from "../../../tasks/states/taskSelectors";
 import "./_tasks-list.scss";
 import {
   PieChart,
@@ -31,7 +31,7 @@ import { Assignee } from "../../../../shared/components/assignee/Assignee";
 import { Fragment } from "react/jsx-runtime";
 
 export const TasksList = () => {
-    const { tasks } = useTasksSelector();
+    const tasks = useTasks();
     const columns = [
     {
         title: "Work",

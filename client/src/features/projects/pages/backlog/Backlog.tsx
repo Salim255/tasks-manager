@@ -11,13 +11,15 @@ import { useSprintModalOpen, useSprints } from '../../../sprints/states/sprintSe
 import { updateTaskSprintHttp } from '../../../tasks/http/task.http';
 import { createSprint } from '../../../sprints/http/sprint.http';
 import { EditSprintForm } from '../../../sprints/components/edit-sprint-form/EditSprintForm';
-import { useTaskCreating, useTasks } from '../../../tasks/states/taskSelectors';
+import { useTaskCreating, useTaskModalOpen, useTasks } from '../../../tasks/states/taskSelectors';
+import { UpdateTask } from '../../../tasks/components/update-task/UpdateTask';
 
 export const Backlog = () => {
     const dispatch = useDispatch<AppDispatch>();
     const tasks = useTasks();
     const isCreating = useTaskCreating()
     const isOpenModal = useSprintModalOpen();
+    const isOpenTaskModal = useTaskModalOpen();
     const sprints = useSprints();
     const { projectId }  = useParams();
     
@@ -136,6 +138,7 @@ export const Backlog = () => {
             </section>
         </section>
         { isOpenModal && <EditSprintForm/> }
+        { isOpenTaskModal && <UpdateTask/> }
        </>
     )
 }
