@@ -6,14 +6,16 @@ import { Navbar } from './components/navbar/Navbar';
 import { useEffect } from 'react';
 import { fetchProjectsHttp } from '../projects/http/project.http';
 import { useProfileSelector } from '../profile/states/profileSelectors';
-import type { AppDispatch } from '../../redux/store';
-import { useDispatch } from 'react-redux';
+import type { AppDispatch, RootState } from '../../redux/store';
+import { useDispatch, useSelector } from 'react-redux';
 import { DiScrum } from 'react-icons/di';
 import { NavLinks } from './components/nav-links/NavLinks';
 
 export const Dashboard = () => { 
     const dispatch = useDispatch<AppDispatch>();
     const { profile } = useProfileSelector();
+    const { isSideBarIsOpen } = useSelector((store: RootState) => store.dashboard);
+
     useEffect(() => {
         if (profile) {
             dispatch(fetchProjectsHttp());
@@ -23,22 +25,29 @@ export const Dashboard = () => {
         return <Navigate to="/profile" replace />; // Redirect to login if not authenticated
     }
     return(
-       <section className='shared-layout'>
-            <main className='shared-layout__dashboard'>
-                <SmallSidebar />
-                <BigSidebar>
-                    <header>
-                        <DiScrum/>
-                    </header>
-                    <NavLinks/>
-                </BigSidebar>
-                <div>
-                    <Navbar />
-                    <div className='shared-layout__dashboard-page'>
-                        <Outlet />
-                    </div>
+        <main className={`dashboard ${
+            isSideBarIsOpen ? "dashboard--sidebar-open" : "dashboard--sidebar-closed"
+        }`}>
+            <div className="dashboard__aside">
+                <div className='dashboard__sm-bar'>
+                    <SmallSidebar />
                 </div>
-            </main>
-       </section>
+                <div className='dashboard__bg-bar'>
+                    <BigSidebar>
+                        <header>
+                            <DiScrum/>
+                        </header>
+                        <NavLinks/>
+                    </BigSidebar>
+                </div>
+            </div>
+
+            <div className="dashboard__content">
+                <Navbar />
+                <div className='shared-layout__outlet'>
+                    <Outlet />
+                </div>
+            </div>
+        </main>
     )
 }

@@ -19,7 +19,7 @@ export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
     const openEditTaskModal =() => {
       dispatch(setIsOpenTaskModal())
     }
-    
+
     return (
         <div 
             className={`task-item ${
@@ -51,7 +51,7 @@ export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
                         <li 
                             onClick={() =>openEditTaskModal()}
                             className='options-list__item task-aside-container'>
-                            Assignee
+                            Edit Task
                            {/*  <AsidePopup >
                                 <div className='task-aside-container__item-aside'>
                                     < MemberItem key={task.id} task={task} />

@@ -1,21 +1,97 @@
-.shared-layout {
- 
-  &__dashboard {
-    background: var(--white);
-    display: grid;
-    grid-template-columns: 1fr;
-    @media (min-width: 992px) {
-      grid-template-columns: auto minmax(0, 1fr);
+@use "../../themes/styles/abstracts/queries" as *;
+
+.dashboard {
+  display: grid;
+
+  grid-template-columns: 0 1fr;
+
+  width: 100vw;
+  height: 100dvh;
+
+  overflow: hidden;
+
+  transition: grid-template-columns 0.28s ease;
+
+  /* ============================================
+     SIDEBAR OPEN
+  ============================================ */
+
+  &--sidebar-open {
+    grid-template-columns: 16rem 1fr;
+  }
+
+  /* ============================================
+     SIDEBAR
+  ============================================ */
+
+  &__aside {
+    position: sticky;
+
+    top: 0;
+
+    width: 16rem;
+    height: 100dvh;
+
+    overflow: hidden;
+
+    z-index: 10;
+
+    transition:
+      width 0.28s ease,
+      opacity 0.2s ease,
+      transform 0.28s ease;
+
+    will-change: width, transform;
+  }
+
+  /* ============================================
+     SIDEBAR CLOSED
+  ============================================ */
+
+  &:not(&--sidebar-open) {
+    .dashboard__aside {
+      width: 0;
+
+      opacity: 0;
+
+      transform: translateX(-12px);
+
+      pointer-events: none;
     }
   }
-  &__dashboard-page {
-    width: 100%;
-    margin: 0 auto;
-    padding: 2rem 0;
-    overflow: hidden; 
-    @media (min-width: 992px) {
-      width: 90%;
+
+  /* ============================================
+     MAIN CONTENT
+  ============================================ */
+
+  &__main {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    overflow: hidden;
+  }
+
+  /* ============================================
+     MOBILE
+  ============================================ */
+
+  @include respond("sm") {
+    grid-template-columns: 0 1fr;
+
+    &__aside {
+      width: 0;
+
+      opacity: 0;
+
+      transform: translateX(-12px);
+
+      pointer-events: none;
+    }
+
+    &__bg-bar {
+      display: none;
     }
   }
 }
- 
