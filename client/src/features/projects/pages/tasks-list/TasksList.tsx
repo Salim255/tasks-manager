@@ -1,7 +1,5 @@
 import { useTasksSelector } from "../../states/taskSelectors";
 import "./_tasks-list.scss";
-import { TaskListItem } from "./components/task-list-item/TaskListItem";
-import { TasksListHeader } from "./components/tasks-list-header/TasksListHeader";
 import {
   PieChart,
   Pie,
@@ -22,7 +20,6 @@ import {
 import { Group, Panel, Separator } from "react-resizable-panels";
 
 import { ResponsivePie } from '@nivo/pie'
-import JiraDemo from "./JiraDemo";
 import { TasksColumn } from "./components/tasks-column/TasksColumn";
 import { TaskLabel } from "../../../../shared/components/task-label/TaskLabel";
 import type { Task } from "../../models/task.model";
@@ -109,29 +106,26 @@ export const TasksList = () => {
     },
     ];
 
-     return  <Group orientation="horizontal">
-        {columns.map((column, index) => (
+     return  <div className="tasks-table">
+        <Group orientation="horizontal">
+            {columns.map((column, index) => (
             <Fragment key={column.title}>
-            <Panel defaultSize={column.size}>
+                <Panel defaultSize={column.size}>
                 <TasksColumn
-                title={column.title}
-                tasks={tasks}
-                renderCell={column.render}
+                    title={column.title}
+                    tasks={tasks}
+                    renderCell={column.render}
                 />
-            </Panel>
+                </Panel>
 
-            {index < columns.length - 1 && <Separator />}
+                {index < columns.length - 1 && (
+                <Separator className="tasks-table__separator" />
+                )}
             </Fragment>
-        ))}
+            ))}
         </Group>
-      {/* <div className="tasks-list">
-        <TasksListHeader/>
-        {
-            tasks.map((task) => {
-                 return  <TaskListItem key={task.id} task={task}/> 
-            })
-        }        
-    </div>  */}
+        </div>
+
       const data = [
   { name: "Jan", uv: 400, pv: 240, amt: 240 },
   { name: "Feb", uv: 300, pv: 139, amt: 221 },

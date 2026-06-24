@@ -1,3 +1,44 @@
 .tasks-column {
-    
+  display: flex;
+  flex-direction: column;
+
+  &__header {
+    display: flex;
+    align-items: center;
+
+    height: 3rem;
+    min-width: 10rem;
+    padding: 0 1rem;
+
+    //background: var(--grey-50);
+
+    border-bottom: 1px solid var(--grey-100);
+
+    color: var(--grey-800);
+
+    font-size: 0.8rem;
+    font-weight: 700;
+
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  &__cell {
+    display: flex;
+    align-items: center;
+
+    min-height: 3.5rem;
+    min-width: 10rem;
+    padding: 0.75rem 1rem;
+
+    border-bottom: 1px solid var(--grey-100);
+
+    color: var(--grey-700);
+
+    transition: background 0.15s ease;
+
+    &:hover {
+      background: var(--grey-50);
+    }
+  }
 }

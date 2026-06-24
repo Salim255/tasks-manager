@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import type { Task } from "../../../../models/task.model";
+import "./_tasks-column.scss"
 
 export const TasksColumn = ({
   title,
@@ -17,6 +18,22 @@ export const TasksColumn = ({
       </div>
 
       {tasks.map((task) => (
+        <div
+          key={task.id}
+          className="tasks-column__cell"
+        >
+          {renderCell(task)}
+        </div>
+      ))}
+       {tasks.map((task) => (
+        <div
+          key={task.id}
+          className="tasks-column__cell"
+        >
+          {renderCell(task)}
+        </div>
+      ))}
+       {tasks.map((task) => (
         <div
           key={task.id}
           className="tasks-column__cell"
