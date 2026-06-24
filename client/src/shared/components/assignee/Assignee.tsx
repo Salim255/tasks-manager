@@ -1,7 +1,7 @@
 import './_assignee.scss';
 import { useMemo } from "react";
 import { useProfileSelector } from "../../../features/profile/states/profileSelectors";
-import { useMemberSelector } from "../../../features/projects/states/memberSelectors";
+import { useMemberSelector } from "../../../features/members/states/memberSelectors";
 import { MemberInitial } from '../member-initial/MemberInitial';
 import { MemberName } from '../member-name/MemberName';
 
