@@ -1,15 +1,15 @@
-import "./_type-tasks-chart.scss";
+import "./_work-tasks-chart.scss";
 import type { TaskStatus } from "../../../../models/task.model";
 import { PieChart } from "../../../../../../shared/kits/pie-chart/PieChart";
 
 
-export const TypeTasksChart = ({
+export const WorkStatusChart = ({
     circleChartDataPercentage,
 }: { 
     circleChartDataPercentage: Record<TaskStatus, { label: TaskStatus; nb: number; value: number }>;
 } ) => {
-    return <div className="type-tasks-chart" >
-        <h4 className="type-tasks-chart__title">Work Status</h4>
+    return <div className="work-status-chart" >
+        <h4 className="work-status-chart__title">Work Status</h4>
         <PieChart /> 
     </div>
 }

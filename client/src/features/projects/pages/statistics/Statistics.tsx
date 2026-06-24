@@ -3,8 +3,8 @@ import { useEffect } from "react";
 import { useTasksSelector } from "../../states/taskSelectors";
 import { useStatisticsData } from "./hooks/statisticsHooks";
 import { useSprintSelector } from "../../states/sprintSelectors";
-import { TasksStatusChart } from "./components/tasks-status-chart/TasksStatusChart";
-import { TypeTasksChart } from "./components/type-tasks-chart/TypeTasksChart";
+import { TypeWorkChart } from "./components/type-work-chart/TypeWorkChart";
+import { WorkStatusChart } from "./components/work-status-chart/WorkStatusChart";
 
 export const  Statistics = () => {
     const { tasks } = useTasksSelector();
@@ -14,10 +14,10 @@ export const  Statistics = () => {
     useEffect(() => {}, [tasks, sprints])
     return <section className="statistics">
         <div className="statistics__work-status">
-            <TypeTasksChart circleChartDataPercentage={circleChartDataPercentage}/>
+            <WorkStatusChart circleChartDataPercentage={circleChartDataPercentage}/>
         </div>
         <div className="statistics__work-types">
-            <TasksStatusChart barChartDataPercentage={barChartDataPercentage} />
+            <TypeWorkChart barChartDataPercentage={barChartDataPercentage} />
         </div>
     </section>
 }
