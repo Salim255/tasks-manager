@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import type { Sprint } from '../../../features/projects/models/sprint.model';
-import type { Task } from '../../../features/projects/models/task.model';
+import type { Task } from '../../../features/tasks/models/task.model';
 import './_option-btn.scss';
 import { SlOptions } from "react-icons/sl";
 import { useClickOutside } from '../../hooks/useClickOutside';

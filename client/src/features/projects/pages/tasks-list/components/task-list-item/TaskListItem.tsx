@@ -4,7 +4,7 @@ import { Reporter } from "../../../../../../shared/components/reporter/Reporter"
 import { TaskLabel } from "../../../../../../shared/components/task-label/TaskLabel";
 import { Status } from "../../../../../../shared/components/task-status/TaskStatus";
 import { formatDate } from "../../../../../../shared/utils/methods";
-import type { Task } from "../../../../models/task.model";
+import type { Task } from "../../../../../tasks/models/task.model";
 import "./_task-list-item.scss";
 import { Group, Panel, Separator } from "react-resizable-panels";
 

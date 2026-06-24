@@ -1,6 +1,6 @@
 //import type { Task } from "./task.model";
 
-import type { Task } from "./task.model";
+import type { Task } from "../../tasks/models/task.model";
 
 export type SprintStatus = "active" | "completed" | "planned";
 

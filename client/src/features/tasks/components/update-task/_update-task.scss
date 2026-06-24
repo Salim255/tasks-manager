@@ -1,0 +1,104 @@
+/* ============================================
+   UPDATE TASK — PREMIUM SYSTEM STYLE
+============================================ */
+
+.update-task {
+  display: flex;
+  flex-direction: column;
+
+  gap: 1rem;
+
+  max-width: 720px;
+  width: 100%;
+
+  margin: 0 auto;
+
+  padding: 1.5rem;
+
+  background: var(--white);
+
+  border: 1px solid var(--grey-100);
+
+  border-radius: 18px;
+
+  box-shadow: var(--shadow-1);
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:hover {
+    border-color: var(--grey-200);
+    box-shadow: var(--shadow-2);
+  }
+
+  /* ============================================
+     HEADER
+  ============================================ */
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding-bottom: 0.75rem;
+
+    border-bottom: 1px solid var(--grey-100);
+  }
+
+  &__title {
+    font-size: 1rem;
+    font-weight: 600;
+
+    color: var(--grey-900);
+    letter-spacing: 0.2px;
+  }
+
+  /* ============================================
+     FORM LAYOUT
+  ============================================ */
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+
+    gap: 1rem;
+  }
+
+  /* ============================================
+     GRID SECTIONS
+  ============================================ */
+
+  &__grid {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 1rem;
+  }
+
+  /* ============================================
+     RESPONSIVE BEHAVIOR
+  ============================================ */
+
+  @media (max-width: 900px) {
+    &__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* ============================================
+     ACTIONS
+  ============================================ */
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+
+    gap: 0.75rem;
+
+    padding-top: 0.5rem;
+
+    border-top: 1px solid var(--grey-100);
+  }
+}

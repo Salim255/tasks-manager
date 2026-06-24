@@ -1,4 +1,4 @@
-import type { Task } from "../../features/projects/models/task.model";
+import type { Task } from "../../features/tasks/models/task.model";
 
 
 export const tasks: Task[] = [

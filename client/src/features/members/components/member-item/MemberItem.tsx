@@ -8,7 +8,7 @@ import type { Profile } from "../../../profile/model/profile.model";
 import { useDispatch } from "react-redux";
 
 import type { AppDispatch } from "../../../../redux/store";
-import type { Task } from "../../../projects/models/task.model";
+import type { Task } from "../../../tasks/models/task.model";
 import { updateTasHttp } from "../../../tasks/http/task.http";
 
 export const MemberItem = ({ task }: { task: Task }) => {

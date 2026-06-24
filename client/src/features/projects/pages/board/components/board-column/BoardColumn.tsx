@@ -1,6 +1,6 @@
 import "./_board-column.scss";
 import { BoardTaskItem } from "../board-task-item/BoardTaskItem";
-import type { Task, TaskStatus } from "../../../../models/task.model";
+import type { Task, TaskStatus } from "../../../../../tasks/models/task.model";
 import { useParams } from "react-router-dom";
 import { type DragEvent } from "react";
 import { BoardPH } from "../board-place-holder/BoardPH";

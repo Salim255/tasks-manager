@@ -1,5 +1,5 @@
 import "./_work-tasks-chart.scss";
-import type { TaskStatus } from "../../../../models/task.model";
+import type { TaskStatus } from "../../../../../tasks/models/task.model";
 import { PieChart } from "../../../../../../shared/kits/pie-chart/PieChart";
 
 

@@ -22,7 +22,7 @@ import { Group, Panel, Separator } from "react-resizable-panels";
 import { ResponsivePie } from '@nivo/pie'
 import { TasksColumn } from "./components/tasks-column/TasksColumn";
 import { TaskLabel } from "../../../../shared/components/task-label/TaskLabel";
-import type { Task } from "../../models/task.model";
+import type { Task } from "../../../tasks/models/task.model";
 import { Reporter } from "../../../../shared/components/reporter/Reporter";
 import { Priority } from "../../../../shared/components/priority/Priority";
 import { Status } from "../../../../shared/components/task-status/TaskStatus";

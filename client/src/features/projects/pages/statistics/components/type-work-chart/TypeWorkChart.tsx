@@ -1,4 +1,4 @@
-import type { TaskType } from "../../../../models/task.model";
+import type { TaskType } from "../../../../../tasks/models/task.model";
 import { BarChart } from "../../../../../../shared/kits/bar-chart/BarChart";
 import "./_type-work-chart.scss";
 

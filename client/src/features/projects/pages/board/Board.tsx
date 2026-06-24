@@ -1,6 +1,6 @@
 import './_board.scss';
 import { useEffect } from 'react';
-import type { Task, TaskStatus } from '../../models/task.model';
+import type { Task, TaskStatus } from '../../../tasks/models/task.model';
 import { useSprints } from '../../../sprints/states/sprintSelectors';
 import { useTasksSelector } from '../../../tasks/states/taskSelectors';
 import { updateTasHttp } from '../../../tasks/http/task.http';

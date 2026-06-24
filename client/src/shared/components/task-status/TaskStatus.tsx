@@ -1,4 +1,4 @@
-import type { TaskStatus } from "../../../features/projects/models/task.model";
+import type { TaskStatus } from "../../../features/tasks/models/task.model";
 import "./_task-status.scss";
 
 export const Status = ( { status }:{ status: TaskStatus}) => {

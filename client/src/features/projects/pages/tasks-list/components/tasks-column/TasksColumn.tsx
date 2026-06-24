@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import type { Task } from "../../../../models/task.model";
+import type { Task } from "../../../../../tasks/models/task.model";
 import "./_tasks-column.scss"
 
 export const TasksColumn = ({

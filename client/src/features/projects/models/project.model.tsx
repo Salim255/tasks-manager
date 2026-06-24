@@ -1,6 +1,6 @@
 import type { Member } from "./member.model";
 import type { Sprint } from "./sprint.model";
-import type { Task } from "./task.model";
+import type { Task } from "../../tasks/models/task.model";
 
 export interface Project {
   id: string;

@@ -9,7 +9,7 @@ type InitiateState = {
     isCreating: boolean;
     isLoading: boolean;
     isUpdating: boolean;
-    isOpen: boolean;
+    isOpenTaskModal: boolean;
 }
 
 const initialState: InitiateState = {
@@ -17,7 +17,7 @@ const initialState: InitiateState = {
     isCreating: false,
     isLoading: false,
     isUpdating: false,
-    isOpen: false,
+    isOpenTaskModal: false,
 }
 
 const taskSlice = createSlice({
@@ -26,6 +26,9 @@ const taskSlice = createSlice({
     reducers: {
         clearTasks: (state) => {
             state.tasks = [];
+        },
+        setIsOpenTaskModal:  (state) => {
+            state.isOpenTaskModal = !state.isOpenTaskModal;
         },
         setTasks: (state, action: PayloadAction<{tasks: Task[]}>) => {
             const { tasks } = action.payload;
@@ -128,6 +131,7 @@ const taskSlice = createSlice({
 })
 
 export const {
+    setIsOpenTaskModal,
     isEditingTask,
     setTasks,
     setBackTaskToBacklog,

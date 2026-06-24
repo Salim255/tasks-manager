@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { type AppDispatch, type RootState } from '../../../../redux/store';
 import { CreateTask } from '../../../tasks/components/create-task/CreateTask';
 import { TaskItem } from '../../../tasks/components/task-item/TaskItem';
-import type { Task } from '../../models/task.model';
+import type { Task } from '../../../tasks/models/task.model';
 import { SprintHeader } from '../../../sprints/components/sprint-header/SprintHeader';
 import { Navigate, useParams } from 'react-router-dom';
 import { useSprintModalOpen, useSprints } from '../../../sprints/states/sprintSelectors';

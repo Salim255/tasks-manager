@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import type { Sprint } from "../../../models/sprint.model";
-import type { Task, TaskStatus } from "../../../models/task.model";
+import type { Task, TaskStatus } from "../../../../tasks/models/task.model";
 
 export const useBoardData = (tasks: Task[], sprints: Sprint[]) => {
   return useMemo(() => {
