@@ -12,7 +12,7 @@ const reducers = {
     authReducer: authReducer,
     projectReducer: projectReducer,
     sprintReducer: sprintReducer,
-    taskSlice: taskReducer,
+    taskReducer: taskReducer,
     dashboard: reducer,
 }
   

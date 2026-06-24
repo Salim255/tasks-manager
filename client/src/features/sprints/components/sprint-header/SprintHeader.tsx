@@ -2,17 +2,18 @@ import './_sprint-header.scss';
 import { OptionsBtn } from "../../../../shared/components/options-btn/OptionsBtn";
 import type { Sprint, SprintStatus } from "../../../projects/models/sprint.model";
 import { EditSprintDate } from "../edit-sprint-date/EditSprintDate";
-import { useDispatch, useSelector } from 'react-redux';
-import { type AppDispatch, type RootState } from '../../../../redux/store';
+import { useDispatch } from 'react-redux';
+import { type AppDispatch } from '../../../../redux/store';
 import { updateSprintHttp } from '../../http/sprint.http';
 
 import { useMemo, useState } from 'react';
 import { openEditSprintModal } from '../../states/sprintSlice';
+import { useTasks } from '../../../tasks/states/taskSelectors';
 
 export const SprintHeader = ({sprint}: { sprint: Sprint}) => {
         const [isOptionsOpen, setOptionsOpen ] = useState<string | null>(null);
-        const { tasks } = useSelector((store: RootState) => store.taskSlice);
-        
+        const tasks = useTasks();
+
         const dispatch = useDispatch<AppDispatch>();
 
         const updateSprintStatus = () => { 

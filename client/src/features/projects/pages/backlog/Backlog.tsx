@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import './_backlog.scss';
-import { useDispatch, useSelector } from 'react-redux';
-import { type AppDispatch, type RootState } from '../../../../redux/store';
+import { useDispatch } from 'react-redux';
+import { type AppDispatch } from '../../../../redux/store';
 import { CreateTask } from '../../../tasks/components/create-task/CreateTask';
 import { TaskItem } from '../../../tasks/components/task-item/TaskItem';
 import type { Task } from '../../../tasks/models/task.model';
@@ -11,10 +11,12 @@ import { useSprintModalOpen, useSprints } from '../../../sprints/states/sprintSe
 import { updateTaskSprintHttp } from '../../../tasks/http/task.http';
 import { createSprint } from '../../../sprints/http/sprint.http';
 import { EditSprintForm } from '../../../sprints/components/edit-sprint-form/EditSprintForm';
+import { useTaskCreating, useTasks } from '../../../tasks/states/taskSelectors';
 
 export const Backlog = () => {
     const dispatch = useDispatch<AppDispatch>();
-    const { isCreating, tasks } = useSelector((store: RootState) => store.taskSlice);
+    const tasks = useTasks();
+    const isCreating = useTaskCreating()
     const isOpenModal = useSprintModalOpen();
     const sprints = useSprints();
     const { projectId }  = useParams();

@@ -1,6 +1,46 @@
 import { useSelector } from "react-redux";
 import type { RootState } from "../../../redux/store";
 
+/* ============================================
+   TASK SELECTORS
+============================================ */
 
-export const selectTasks = (store: RootState) => store.taskSlice;
-export const useTasksSelector = () => useSelector(selectTasks);
+const selectTasks = (state: RootState) =>
+  state.taskReducer.tasks;
+
+const selectTaskLoading = (state: RootState) =>
+  state.taskReducer.isLoading;
+
+const selectTaskCreating = (state: RootState) =>
+  state.taskReducer.isCreating;
+
+const selectTaskUpdating = (state: RootState) =>
+  state.taskReducer.isUpdating;
+
+const selectTaskModalOpen = (state: RootState) =>
+  state.taskReducer.isOpenTaskModal;
+
+const selectSelectedTask = (state: RootState) =>
+  state.taskReducer.task;
+
+/* ============================================
+   TASK HOOKS
+============================================ */
+
+export const useTasks = () =>
+  useSelector(selectTasks);
+
+export const useTaskLoading = () =>
+  useSelector(selectTaskLoading);
+
+export const useTaskCreating = () =>
+  useSelector(selectTaskCreating);
+
+export const useTaskUpdating = () =>
+  useSelector(selectTaskUpdating);
+
+export const useTaskModalOpen = () =>
+  useSelector(selectTaskModalOpen);
+
+export const useSelectedTask = () =>
+  useSelector(selectSelectedTask);
