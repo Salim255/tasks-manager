@@ -13,7 +13,14 @@ export const Status = ( { status }:{ status: TaskStatus}) => {
         }
     }
  
-    return <div className={`task-status task-status--${status}`}>
-        { normalizeStatus() }
-    </div>
+   return (
+    <span
+        className={`task-status task-status--${status}`}
+    >
+        <span className="task-status__indicator" />
+        <span className="task-status__label">
+        {normalizeStatus()}
+        </span>
+    </span>
+    );
 }

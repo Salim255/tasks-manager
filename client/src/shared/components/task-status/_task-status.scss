@@ -1,34 +1,76 @@
 .task-status {
   display: inline-flex;
   align-items: center;
+  gap: 0.35rem;
 
-  padding: 0.25rem 0.65rem;
+  padding: 0.3rem 0.6rem;
+
   border-radius: 999px;
 
-  font-size: 0.75rem;
+  border: 1px solid transparent;
+
+  font-size: 0.7rem;
   font-weight: 600;
 
-  text-transform: none;
   line-height: 1;
 
-  border: 1px solid transparent;
-}
+  white-space: nowrap;
 
-/* TODO */
-.task-status--todo {
-  background: var(--grey-50);
-  color: var(--grey-600);
-  border-color: var(--grey-100);
-}
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
 
-/* IN PROGRESS */
-.task-status--in_progress {
-  background: rgba(59, 130, 246, 0.12);
-  color: var(--primary-600);
-}
+  &__indicator {
+    width: 0.4rem;
+    height: 0.4rem;
 
-/* DONE */
-.task-status--done {
-  background: rgba(16, 185, 129, 0.12);
-  color: var(--story-color);
+    border-radius: 50%;
+
+    flex-shrink: 0;
+
+    background: currentColor;
+  }
+
+  &__label {
+    display: block;
+
+    letter-spacing: 0.01em;
+  }
+
+  /* ============================================
+     TODO
+  ============================================ */
+
+  &--todo {
+    background: var(--grey-50);
+
+    border-color: var(--grey-100);
+
+    color: var(--grey-600);
+  }
+
+  /* ============================================
+     IN PROGRESS
+  ============================================ */
+
+  &--in_progress {
+    background: rgba(59, 130, 246, 0.08);
+
+    border-color: rgba(59, 130, 246, 0.15);
+
+    color: var(--primary-600);
+  }
+
+  /* ============================================
+     DONE
+  ============================================ */
+
+  &--done {
+    background: rgba(16, 185, 129, 0.08);
+
+    border-color: rgba(16, 185, 129, 0.15);
+
+    color: var(--story-color);
+  }
 }
