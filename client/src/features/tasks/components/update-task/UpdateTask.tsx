@@ -23,13 +23,16 @@ export const UpdateTask = () => {
           HTMLSelectElement |
           HTMLTextAreaElement
           >) => {
-          setField(
-              event.target.name as
-              "taskType" | "title" | "description" | "status" | "priority" | "dueAt",
-              event.target.value,
-          );
 
-          console.log(event.target.value)
+          if (event.target.name==="dueAt") {
+            setField("dueAt", new Date(event.target.value).toISOString());
+          } else {
+            setField(
+                event.target.name as
+                "taskType" | "title" | "description" | "status" | "priority" | "dueAt",
+                event.target.value,
+            );
+          }
       }
 
       const triggerSubmit = () => {
@@ -38,13 +41,14 @@ export const UpdateTask = () => {
 
       const clickSubmit = (e: ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
-        alert("Hello from ");
-        console.log(e);
-        //if (!task?.id) return;
+        if (!task?.id) return;
         
-        //const payload = {...removedUnchangedField(state, task), taskId: task.id};
-        //dispatch(updateTasHttp(payload));
-        reset();
+        const payload = {...removedUnchangedField(state, task), taskId: task.id};
+
+        console.log(payload, "hello paylod");
+        dispatch(updateTasHttp(payload));
+
+        //reset();
       }
 
     const closeModal = () => {
@@ -183,7 +187,7 @@ export const UpdateTask = () => {
               type="date"
               name="dueAt"
               className="form__input"
-              value={state.dueAt}
+              value={state.dueAt?.split("T")[0] ?? ""}
               onChange={handleChange}
             />
           </div>

@@ -31,16 +31,22 @@ const taskSlice = createSlice({
             state.isOpenTaskModal = false;
             state.task = undefined;
         },
-        setIsOpenTaskModal:  (state) => {
-            state.isOpenTaskModal = !state.isOpenTaskModal;
+        setIsOpenTaskModal:  (state, action: PayloadAction<{taskId: string}>) => {
+            const {taskId} = action.payload;
+            if (!taskId) return;
+            const task = state.tasks.find((ts) => ts.id === taskId);
+            state.task = task;
+            state.isUpdating = true;
+            state.isOpenTaskModal = true;
         },
+
         setTasks: (state, action: PayloadAction<{tasks: Task[]}>) => {
             const { tasks } = action.payload;
             state.tasks = tasks;
         },
         isEditingTask: (state, action: PayloadAction<{taskId: string}>) => {
             const {taskId} = action.payload;
-            if (taskId) return;
+            if (!taskId) return;
             const task = state.tasks.find((ts) => ts.id === taskId);
             state.task = task;
             state.isUpdating = true;

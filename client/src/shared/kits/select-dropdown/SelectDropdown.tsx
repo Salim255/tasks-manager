@@ -32,6 +32,8 @@ export const SelectDropdown = ({
     onChange(option.value);
 
     setIsOpen(false);
+
+    console.log("Hello from update")
   };
 
  return (

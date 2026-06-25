@@ -37,7 +37,7 @@ export class UpdateTaskDto {
     description: 'The sprint ID to assign the task to. Use null to remove.',
   })
   @IsOptional()
-  sprintId?: string | null;
+  sprintId?: string | undefined;
 
   @ApiPropertyOptional({
     example: '1960e80a-fb58-40fe-aa22-cbe6e2edf5bc',
@@ -49,11 +49,19 @@ export class UpdateTaskDto {
 
   @ApiPropertyOptional({
     example: 'User forgot password on login page',
-    description: 'Optional description of the task',
+    description: 'Detailed description providing additional context about the task.',
   })
   @IsOptional()
   @IsString()
   description?: string;
+
+  @ApiPropertyOptional({
+    example: '2026-08-15T00:00:00.000Z',
+    description: 'Due date and time by which the task should be completed (ISO 8601 format).',
+  })
+  @IsOptional()
+  @IsString()
+  dueAt?: string;
 }
 
 export class UpdateTaskSprintResponseDto {
@@ -77,12 +85,12 @@ export class UpdateTaskSprintDto {
   })
   @IsOptional()
   @IsString()
-  sprintId: string | null;
+  sprintId?: string | null;
 }
 
 export class TasksListResponseDto {
   @ApiProperty({ example: 'success' })
-  status: 'success';
+  status?: 'success';
 
   @ApiProperty({
     description: 'List of tasks',
@@ -156,6 +164,11 @@ export class CreateTaskDto {
   @IsString()
   @IsOptional()
   projectId?: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  @IsOptional()
+  dueAt?: string;
 }
 
 export class CreateTaskResponseDto {
