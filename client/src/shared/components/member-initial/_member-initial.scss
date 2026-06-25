@@ -9,12 +9,11 @@
 
   flex-shrink: 0;
 
-  border-radius: 999px;
+  border-radius: 50%;
 
   background: var(--grey-100);
 
   color: var(--grey-600);
-
   user-select: none;
 
   &--assigned {

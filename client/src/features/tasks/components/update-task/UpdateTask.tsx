@@ -11,6 +11,32 @@ export const UpdateTask = () => {
         dispatch(closeEditTaskModal());
     }
 
+
+    const taskTypes = [
+  { value: "task", label: "Task" },
+  { value: "story", label: "Story" },
+  { value: "bug", label: "Bug" },
+];
+
+const taskStatuses = [
+  { value: "todo", label: "To Do" },
+  { value: "in_progress", label: "In Progress" },
+  { value: "done", label: "Done" },
+];
+
+const taskPriorities = [
+  { value: "low", label: "Low" },
+  { value: "medium", label: "Medium" },
+  { value: "high", label: "High" },
+  { value: "critical", label: "Critical" },
+];
+
+const members = [
+  { id: "1", name: "John Smith" },
+  { id: "2", name: "Sarah Johnson" },
+  { id: "3", name: "David Brown" },
+  { id: "4", name: "Emma Wilson" },
+];
     return (
     <ModalOverlay onClose={closeModal}>
   <div
@@ -57,24 +83,68 @@ export const UpdateTask = () => {
         <div className="update-task__grid">
           <div className="update-task__field">
             <label>Type</label>
-            <select className="form__input" />
+            <select className="form__select" >
+              {
+                taskTypes.map(type => (
+                  <option
+                    key={type.value}
+                    value={type.value}
+                  >
+                    {type.label}
+                  </option>
+                ))
+              }
+            </select>
           </div>
 
           <div className="update-task__field">
             <label>Status</label>
-            <select className="form__input" />
+            <select className="form__select" >
+               {
+                taskStatuses.map(status => (
+                  <option
+                    key={status.value}
+                    value={status.value}
+                  >
+                    {status.label}
+                  </option>
+                ))
+                }
+            </select>
           </div>
 
           <div className="update-task__field">
             <label>Priority</label>
-            <select className="form__input" />
+            <select className="form__select" >
+                {
+                  taskPriorities.map(priority => (
+                  <option
+                    key={priority.value}
+                    value={priority.value}
+                  >
+                    {priority.label}
+                  </option>
+                ))
+              }
+            </select>
           </div>
         </div>
 
         <div className="update-task__grid">
           <div className="update-task__field">
             <label>Assignee</label>
-            <select className="form__input" />
+            <select className="form__select">
+              {
+                members.map(member => (
+                  <option
+                    key={member.id}
+                    value={member.id}
+                  >
+                    {member.name}
+                  </option>
+                ))
+              }
+            </select>
           </div>
 
           <div className="update-task__field">
