@@ -29,6 +29,8 @@ import { Status } from "../../../../shared/components/task-status/TaskStatus";
 import { formatDate } from "../../../../shared/utils/methods";
 import { Assignee } from "../../../../shared/components/assignee/Assignee";
 import { Fragment } from "react/jsx-runtime";
+import { Resolution } from "../../../../shared/components/resolution/Resolution";
+import { DateItem } from "../../../../shared/components/date-item/DateItem";
 
 export const TasksList = () => {
     const tasks = useTasks();
@@ -80,29 +82,25 @@ export const TasksList = () => {
         title: "Resolution",
         size: 14,
         render: (task: Task) =>
-        task.status === "done"
-            ? "Done"
-            : "Unresolved",
+        <Resolution status={task.status}/>
     },
     {
         title: "Updated",
         size: 16,
         render: (task: Task) =>
-        formatDate(task.updatedAt),
+        <DateItem date={task.updatedAt}/>
     },
     {
         title: "Due Date",
         size: 16,
         render: (task: Task) =>
-        task.dueAt
-            ? formatDate(task.dueAt)
-            : "-",
+        <DateItem date={task.dueAt}/>
     },
     {
         title: "Created At",
         size: 16,
         render: (task: Task) =>
-        formatDate(task.createdAt),
+        <DateItem date={task.createdAt}/>
     },
     ];
 

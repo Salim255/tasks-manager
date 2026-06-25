@@ -1,0 +1,20 @@
+.resolution {
+  display: inline-flex;
+  align-items: center;
+
+  font-size: 0.75rem;
+
+  font-weight: 500;
+
+  line-height: 1.2;
+
+  white-space: nowrap;
+
+  &--resolved {
+    color: var(--success-600);
+  }
+
+  &--unresolved {
+    color: var(--grey-500);
+  }
+}
