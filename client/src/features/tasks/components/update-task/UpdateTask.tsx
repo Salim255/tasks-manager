@@ -1,21 +1,18 @@
-import { useState, type ChangeEvent } from "react";
+import { useRef, useState, type ChangeEvent } from "react";
 import { useDispatch } from "react-redux";
-import { IoMdClose } from "react-icons/io";
-
-import { ModalOverlay } from "../../../../shared/components/modal-overlay/ModalOverlay";
 import { SelectDropdown } from "../../../../shared/kits/select-dropdown/SelectDropdown";
 import { EntityModal } from "../../../../shared/modals/entity-modal/EntityModal";
 import { closeEditTaskModal } from "../../states/taskSlice";
 
 import "./_update-task.scss";
-
-import type { AppDispatch } from "recharts/types/state/store";
 import { useTaskForm } from "../../form-builder/taskFormBuilder";
 import { useSelectedTask } from "../../states/taskSelectors";
-import type { UpdateTaskPayload } from "../../http/task.http";
-import { addIfChanged } from "../../../../shared/utils/detect-field-change";
+import { updateTasHttp } from "../../http/task.http";
+import { removedUnchangedField } from "../../../../shared/utils/detect-field-change";
+import type { AppDispatch } from "../../../../redux/store";
 
 export const UpdateTask = () => {
+    const formRef = useRef<HTMLFormElement | null>(null);
     const dispatch = useDispatch<AppDispatch>();
     const task  = useSelectedTask();
     const { state, setField, reset } = useTaskForm(task);
@@ -31,36 +28,28 @@ export const UpdateTask = () => {
               "taskType" | "title" | "description" | "status" | "priority" | "dueAt",
               event.target.value,
           );
+
+          console.log(event.target.value)
       }
 
+      const triggerSubmit = () => {
+        formRef?.current?.requestSubmit();
+      };
+
       const clickSubmit = (e: ChangeEvent<HTMLFormElement>) => {
-          e.preventDefault();
-  
-          if (!sprint) return;
-          
-          const payload: UpdateTaskPayload = {
-            ...addIfChanged("title", state.title, task?.title),
-            ...addIfChanged("status", state.status, task?.status),
-            ...addIfChanged("taskType", state.taskType, task?.taskType),
-            ...addIfChanged("priority", state.priority, task?.priority),
-            ...addIfChanged("assigneeId", state.assigneeId, task?.assigneeId),
-            ...addIfChanged("dueAt", state.dueAt, task?.dueAt),
-            ...addIfChanged("sprintId", state.sprintId, task?.sprintId),
-            ...addIfChanged("description", state.description, task?.description),
-          };
-  
-          dispatch(updateSprintHttp({...payload, sprintId: sprint.id}))
-          reset();
+        e.preventDefault();
+        alert("Hello from ");
+        console.log(e);
+        //if (!task?.id) return;
+        
+        //const payload = {...removedUnchangedField(state, task), taskId: task.id};
+        //dispatch(updateTasHttp(payload));
+        reset();
       }
 
     const closeModal = () => {
       dispatch(closeEditTaskModal());
     };
-
-    const [taskType, setTaskType] = useState("task");
-    const [taskStatus, setTaskStatus] = useState("todo");
-    const [taskPriority, setTaskPriority] = useState("medium");
-    const [assigneeId, setAssigneeId] = useState("1");
 
     const taskTypes = [
         { value: "task", label: "Task" },
@@ -94,11 +83,19 @@ export const UpdateTask = () => {
       description="Modify task details, assignment and workflow status."
       onClose={closeModal}
       actions={{
-          cancel: { label: "Cancel", onClick: closeModal },
-          submit: { label: "Save Changes", type: "submit" }
-        }}
+        cancel: { label: "Cancel", onClick: closeModal },
+        submit: { 
+          label: "Save Changes", 
+          type: "submit", onClick: triggerSubmit, 
+          loading: false 
+        }
+      }}
     >
-      <form className="form update-task__form">
+      <form
+        ref={formRef}
+        className="form update-task__form"
+        onSubmit={clickSubmit}
+        >
         <div className="form__group">
           <label className="form__label" htmlFor="title">
             Title
@@ -106,8 +103,11 @@ export const UpdateTask = () => {
 
           <input
             id="title"
+            name="title"
             className="form__input"
             placeholder="Enter task title"
+            value={state.title}
+            onChange={handleChange}
           />
         </div>
 
@@ -118,8 +118,11 @@ export const UpdateTask = () => {
 
           <textarea
             id="description"
+            name="description"
             className="form__textarea"
             placeholder="Describe the task..."
+            value={state.description}
+            onChange={handleChange}
           />
         </div>
 
@@ -129,27 +132,33 @@ export const UpdateTask = () => {
           <div className="form__group">
             <label className="form__label">Type</label>
             <SelectDropdown
-              value={taskType}
+              value={state.taskType}
               options={taskTypes}
-              onChange={setTaskType}
+              onChange={(val) =>
+                setField("taskType", val)
+              }
             />
           </div>
 
           <div className="form__group">
             <label className="form__label">Status</label>
             <SelectDropdown
-              value={taskStatus}
+              value={state.status}
               options={taskStatuses}
-              onChange={setTaskStatus}
+              onChange={(val) =>
+                setField("status", val)
+              }
             />
           </div>
 
           <div className="form__group">
             <label className="form__label">Priority</label>
             <SelectDropdown
-              value={taskPriority}
+              value={state.priority}
               options={taskPriorities}
-              onChange={setTaskPriority}
+              onChange={(val) =>
+                setField("priority", val)
+              }
             />
           </div>
 
@@ -160,9 +169,11 @@ export const UpdateTask = () => {
           <div className="form__group">
             <label className="form__label">Assignee</label>
             <SelectDropdown
-              value={assigneeId}
+              value={state.assigneeId}
               options={memberOptions}
-              onChange={setAssigneeId}
+              onChange={(val) =>
+                setField("assigneeId", val)
+              }
             />
           </div>
 
@@ -170,7 +181,10 @@ export const UpdateTask = () => {
             <label className="form__label">Due Date</label>
             <input
               type="date"
+              name="dueAt"
               className="form__input"
+              value={state.dueAt}
+              onChange={handleChange}
             />
           </div>
 

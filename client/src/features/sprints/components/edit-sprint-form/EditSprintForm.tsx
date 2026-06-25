@@ -9,6 +9,7 @@ import { ModalOverlay } from "../../../../shared/components/modal-overlay/ModalO
 import { useSprintForm } from "../../form-builder/sprintFormBuilder";
 import { closeEditSprint } from "../../states/sprintSlice";
 import { useSelectedSprint } from "../../states/sprintSelectors";
+import { removedUnchangedField } from "../../../../shared/utils/detect-field-change";
 
 export const EditSprintForm = () => {
    const sprint  = useSelectedSprint();
@@ -32,13 +33,7 @@ export const EditSprintForm = () => {
 
         if (!sprint) return;
         
-        const payload: UpdateSprintPayload = {
-            ...( (state.name !== undefined && state.name !== sprint.name) && { name: state.name } ),
-            ...( (state.status !== undefined  &&  state.status !== sprint.status) && { status: state.status } ),
-            ...( (state.startDate !== undefined  && state.startDate !== sprint.startDate) && { startDate: state.startDate } ),
-            ...( (state.endDate  !== undefined  &&  state.endDate !== sprint.endDate) && { endDate: state.endDate } ),
-            ...((state.completeDate !== undefined  && state.completeDate !== sprint.completeDate) && { completeDate: state.completeDate }),
-        }
+       const payload: UpdateSprintPayload = removedUnchangedField(state, sprint);
 
         dispatch(updateSprintHttp({...payload, sprintId: sprint.id}))
         reset();

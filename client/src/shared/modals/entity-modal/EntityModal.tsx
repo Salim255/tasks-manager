@@ -17,6 +17,7 @@ type Props = {
       label?: string;
       type?: "button" | "submit";
       loading?: boolean;
+      onClick: () => void;
     };
   };
 
@@ -85,6 +86,7 @@ export const EntityModal = ({
                         <button
                             type={actions.submit.type ?? "submit"}
                             className="btn btn-hero entity-modal__submit"
+                            onClick={actions.submit.onClick}
                         >
                             {actions.submit.label ?? "Save"}
                         </button>)

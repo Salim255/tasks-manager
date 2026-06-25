@@ -1,10 +1,20 @@
-export const addIfChanged = <T, K extends keyof T>(
-  key: K,
-  value: T[K] | undefined,
-  original: T[K] | undefined
+export const removedUnchangedField = <T extends Record<string, any>>(
+  state: Partial<T>,
+  original: T
 ): Partial<T> => {
-  if (value === undefined) return {};
-  if (value === original) return {};
+  const payload: Partial<T> = {};
 
-  return { [key]: value } as Partial<T>;
-};
+  Object.keys(state).forEach((key) => {
+    const k = key as keyof T;
+
+    const newValue = state[k];
+    const oldValue = original[k];
+
+    // only include changed + defined values
+    if (newValue !== undefined && newValue !== oldValue) {
+      payload[k] = newValue;
+    }
+  });
+
+  return payload;
+}
