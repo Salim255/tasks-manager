@@ -4,7 +4,7 @@ import { IoMdClose } from "react-icons/io";
 
 import { ModalOverlay } from "../../../../shared/components/modal-overlay/ModalOverlay";
 import { SelectDropdown } from "../../../../shared/kits/select-dropdown/SelectDropdown";
-
+import { EntityModal } from "../../../../shared/modals/entity-modal/EntityModal";
 import { closeEditTaskModal } from "../../states/taskSlice";
 
 import "./_update-task.scss";
@@ -50,141 +50,104 @@ export const UpdateTask = () => {
     ];
 
    return (
-  <ModalOverlay onClose={closeModal}>
-    <div data-modal-body className="update-task">
 
-      {/* ============================================
-          HEADER (OUTSIDE FORM)
-      ============================================ */}
-      <div className="update-task__header">
-        <div>
-          <h2>Update Task</h2>
-          <p>Modify task details, assignment and workflow status.</p>
-        </div>
+   <EntityModal
+    title="Update Task"
+    description="Modify task details, assignment and workflow status."
+    onClose={closeModal}
+    actions={{
+        cancel: { label: "Cancel", onClick: closeModal },
+        submit: { label: "Save Changes", type: "submit" }
+      }}
+  >
+  {/* BODY ONLY (NO MODAL WRAPPER) */}
+  <form className="form update-task__form">
 
-        <button
-          type="button"
-          className="update-task__close"
-          onClick={closeModal}
-        >
-          <IoMdClose />
-        </button>
+    {/* ============================================
+        SCROLLABLE CONTENT (HANDLED BY MODAL BODY)
+    ============================================ */}
+
+    {/* TITLE */}
+    <div className="form__group">
+      <label className="form__label" htmlFor="title">
+        Title
+      </label>
+
+      <input
+        id="title"
+        className="form__input"
+        placeholder="Enter task title"
+      />
+    </div>
+
+    {/* DESCRIPTION */}
+    <div className="form__group">
+      <label className="form__label" htmlFor="description">
+        Description
+      </label>
+
+      <textarea
+        id="description"
+        className="form__textarea"
+        placeholder="Describe the task..."
+      />
+    </div>
+
+    {/* TYPE / STATUS / PRIORITY */}
+    <div className="update-task__grid">
+
+      <div className="form__group">
+        <label className="form__label">Type</label>
+        <SelectDropdown
+          value={taskType}
+          options={taskTypes}
+          onChange={setTaskType}
+        />
       </div>
 
-      {/* ============================================
-          FORM WRAPPER
-      ============================================ */}
-      <form className="form update-task__form">
+      <div className="form__group">
+        <label className="form__label">Status</label>
+        <SelectDropdown
+          value={taskStatus}
+          options={taskStatuses}
+          onChange={setTaskStatus}
+        />
+      </div>
 
-        {/* SCROLLABLE BODY */}
-        <div className="update-task__body">
+      <div className="form__group">
+        <label className="form__label">Priority</label>
+        <SelectDropdown
+          value={taskPriority}
+          options={taskPriorities}
+          onChange={setTaskPriority}
+        />
+      </div>
 
-          {/* TITLE */}
-          <div className="form__group">
-            <label className="form__label" htmlFor="title">
-              Title
-            </label>
-
-            <input
-              id="title"
-              className="form__input"
-              placeholder="Enter task title"
-            />
-          </div>
-
-          {/* DESCRIPTION */}
-          <div className="form__group">
-            <label className="form__label" htmlFor="description">
-              Description
-            </label>
-
-            <textarea
-              id="description"
-              className="form__textarea"
-              placeholder="Describe the task..."
-            />
-          </div>
-
-          {/* TYPE / STATUS / PRIORITY */}
-          <div className="update-task__grid">
-
-            <div className="form__group">
-              <label className="form__label">Type</label>
-              <SelectDropdown
-                value={taskType}
-                options={taskTypes}
-                onChange={setTaskType}
-              />
-            </div>
-
-            <div className="form__group">
-              <label className="form__label">Status</label>
-              <SelectDropdown
-                value={taskStatus}
-                options={taskStatuses}
-                onChange={setTaskStatus}
-              />
-            </div>
-
-            <div className="form__group">
-              <label className="form__label">Priority</label>
-              <SelectDropdown
-                value={taskPriority}
-                options={taskPriorities}
-                onChange={setTaskPriority}
-              />
-            </div>
-
-          </div>
-
-          {/* ASSIGNEE / DUE DATE */}
-          <div className="update-task__grid">
-
-            <div className="form__group">
-              <label className="form__label">Assignee</label>
-              <SelectDropdown
-                value={assigneeId}
-                options={memberOptions}
-                onChange={setAssigneeId}
-              />
-            </div>
-
-            <div className="form__group">
-              <label className="form__label">Due Date</label>
-              <input
-                type="date"
-                className="form__input"
-              />
-            </div>
-
-          </div>
-
-        </div>
-
-        {/* ============================================
-            FOOTER (FIXED UX ACTION BAR)
-        ============================================ */}
-        <div className="update-task__footer">
-
-          <button
-            type="button"
-            className="update-task__cancel"
-            onClick={closeModal}
-          >
-            Cancel
-          </button>
-
-          <button
-            type="submit"
-            className="btn btn-hero update-task__submit"
-          >
-            Save Changes
-          </button>
-
-        </div>
-
-      </form>
     </div>
-  </ModalOverlay>
+
+    {/* ASSIGNEE / DUE DATE */}
+    <div className="update-task__grid">
+
+      <div className="form__group">
+        <label className="form__label">Assignee</label>
+        <SelectDropdown
+          value={assigneeId}
+          options={memberOptions}
+          onChange={setAssigneeId}
+        />
+      </div>
+
+      <div className="form__group">
+        <label className="form__label">Due Date</label>
+        <input
+          type="date"
+          className="form__input"
+        />
+      </div>
+
+    </div>
+
+  </form>
+</EntityModal>
 );
 };

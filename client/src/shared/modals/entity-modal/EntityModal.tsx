@@ -1,59 +1,100 @@
 import { ModalOverlay } from "../../../shared/components/modal-overlay/ModalOverlay";
 import { IoMdClose } from "react-icons/io";
+import "./_entity-modal.scss";
 
 type Props = {
   title: string;
   description?: string;
   onClose: () => void;
+
+  actions?: {
+    cancel?: {
+      label?: string;
+      onClick: () => void;
+    };
+
+    submit?: {
+      label?: string;
+      type?: "button" | "submit";
+      loading?: boolean;
+    };
+  };
+
   children: React.ReactNode;
-  footer?: React.ReactNode;
 };
 
 export const EntityModal = ({
   title,
   description,
   onClose,
-  children,
-  footer,
+  actions,
+  children
 }: Props) => {
   return (
     <ModalOverlay onClose={onClose}>
-      <div data-modal-body className="entity-modal">
+  <div data-modal-body className="entity-modal">
 
-        {/* HEADER */}
-        <div className="entity-modal__header">
-          <div>
-            <h2 className="entity-modal__title">{title}</h2>
+    {/* ============================================
+        HEADER (SYSTEM STYLE: SAME AS UPDATE TASK)
+    ============================================ */}
+    <div className="entity-modal__header">
 
-            {description && (
-              <p className="entity-modal__description">
-                {description}
-              </p>
-            )}
-          </div>
+      <div className="entity-modal__header-content">
+        <h2>{title}</h2>
 
-          <button
-            type="button"
-            className="entity-modal__close"
-            onClick={onClose}
-          >
-            <IoMdClose />
-          </button>
-        </div>
-
-        {/* BODY (FORM CONTENT) */}
-        <div className="entity-modal__body">
-          {children}
-        </div>
-
-        {/* FOOTER (ACTIONS) */}
-        {footer && (
-          <div className="entity-modal__footer">
-            {footer}
-          </div>
+        {description && (
+          <p>{description}</p>
         )}
-
       </div>
-    </ModalOverlay>
+
+      <button
+        type="button"
+        className="entity-modal__close"
+        onClick={onClose}
+      >
+        <IoMdClose />
+      </button>
+
+    </div>
+
+    {/* ============================================
+        BODY (SCROLLABLE FORM AREA)
+    ============================================ */}
+    <div className="entity-modal__body">
+      {children}
+    </div>
+
+    {/* ============================================
+        FOOTER (FIXED ACTION ZONE)
+    ============================================ */}
+    {
+        actions 
+        && (
+        <div className="entity-modal__footer">
+
+            {
+                actions.cancel && (
+                <button
+                    type="button"
+                    className="btn btn--secondary entity-modal__cancel"
+                    onClick={actions.cancel.onClick}
+                >
+                    {actions.cancel.label ?? "Cancel"}
+                </button>
+                )}
+
+                {actions.submit && (
+                <button
+                    type={actions.submit.type ?? "submit"}
+                    className="btn btn-hero entity-modal__submit"
+                >
+                    {actions.submit.label ?? "Save"}
+                </button>)
+            }
+
+        </div>
+    )}
+  </div>
+</ModalOverlay>
   );
 };

@@ -1,113 +1,23 @@
 /* ============================================
-   UPDATE TASK — PREMIUM RESPONSIVE UX
+   UPDATE TASK — FORM ONLY (CLEAN SYSTEM)
 ============================================ */
 @use "./../../../../themes/styles/abstracts/queries" as *;
 
-/* ============================================
-   UPDATE TASK — PREMIUM RESPONSIVE UX
-============================================ */
 .update-task {
-  width: min(720px, 92vw);
-
-  max-height: 85vh;
-
   display: flex;
   flex-direction: column;
 
-  background: var(--white);
-
-  border: 1px solid var(--grey-100);
-
-  border-radius: 20px;
-
-  box-shadow: var(--shadow-3);
-
-  overflow: hidden;
-
-  animation: modalIn 0.2s ease-out;
+  gap: 1.5rem;
 
   /* ============================================
-     HEADER
-  ============================================ */
-
-  &__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-
-    padding: 1.5rem 1.5rem 1rem;
-
-    border-bottom: 1px solid var(--grey-100);
-
-    h2 {
-      margin: 0;
-
-      font-size: 1.35rem;
-
-      font-weight: 700;
-
-      color: var(--grey-900);
-    }
-
-    p {
-      margin-top: 0.35rem;
-
-      font-size: 0.9rem;
-
-      color: var(--grey-500);
-    }
-  }
-
-  &__close {
-    width: 2.2rem;
-    height: 2.2rem;
-
-    display: grid;
-    place-items: center;
-
-    border-radius: 10px;
-
-    background: transparent;
-
-    border: none;
-
-    color: var(--grey-500);
-
-    transition: all 0.2s ease;
-
-    &:hover {
-      background: var(--grey-100);
-
-      color: var(--grey-900);
-
-      cursor: pointer;
-    }
-  }
-
-  /* ============================================
-     FORM SCROLL SYSTEM (IMPORTANT)
+     FORM WRAPPER (NO MODAL RESPONSIBILITY ANYMORE)
   ============================================ */
 
   &__form {
     display: flex;
     flex-direction: column;
 
-    flex: 1;
-
-    overflow: hidden;
-  }
-
-  &__body {
-    flex: 1;
-
-    overflow-y: auto;
-
-    padding: 1.5rem;
-
-    display: flex;
-    flex-direction: column;
-
-    gap: 1.25rem;
+    gap: 1.5rem;
   }
 
   /* ============================================
@@ -121,133 +31,29 @@
 
     gap: 1rem;
 
-    /* tablet */
     @include respond(sm) {
       grid-template-columns: 1fr;
     }
   }
 
   /* ============================================
-     FOOTER — ALWAYS VISIBLE + SINGLE LINE UX
+     BODY SECTION GROUPING (OPTIONAL STRUCTURE)
   ============================================ */
 
-  &__footer {
+  &__section {
     display: flex;
+    flex-direction: column;
 
-    justify-content: flex-end;
-
-    align-items: center;
-
-    gap: 0.75rem;
-
-    padding: 1rem 1.5rem;
-
-    border-top: 1px solid var(--grey-100);
-
-    background: var(--white);
-
-    /* prevents overflow issues */
-    flex-shrink: 0;
+    gap: 1.25rem;
   }
 
   /* ============================================
-     RESPONSIVE FOOTER (KEY UX FIX)
+     RESPONSIVE GRID SAFETY
   ============================================ */
 
   @include respond(xs) {
-    &__footer {
-      flex-direction: row;
-
-      justify-content: space-between;
-
-      gap: 0.5rem;
-    }
-
-    &__cancel {
-      flex: 1;
-    }
-
-    &__submit {
-      flex: 2;
-    }
-  }
-
-  @include respond(mobile) {
-    &__footer {
-      flex-direction: column;
-
-      align-items: stretch;
-    }
-
-    &__cancel,
-    &__submit {
-      width: 100%;
-    }
-  }
-
-  /* ============================================
-     BUTTONS
-  ============================================ */
-
-  &__cancel {
-    padding: 0.75rem 1rem;
-
-    border-radius: 12px;
-
-    border: 1px solid var(--grey-200);
-
-    background: var(--white);
-
-    color: var(--grey-700);
-
-    font-weight: 600;
-
-    transition: all 0.2s ease;
-
-    &:hover {
-      background: var(--grey-100);
-
-      color: var(--grey-900);
-
-      cursor: pointer;
-    }
-  }
-
-  &__submit {
-    padding: 0.75rem 1.2rem;
-
-    border-radius: 12px;
-
-    font-weight: 600;
-
-    min-width: 150px;
-
-    box-shadow: var(--shadow-1);
-
-    transition: all 0.2s ease;
-
-    &:hover {
-      transform: translateY(-1px);
-
-      box-shadow: var(--shadow-2);
-    }
-  }
-
-  /* ============================================
-     ANIMATION
-  ============================================ */
-
-  @keyframes modalIn {
-    from {
-      opacity: 0;
-
-      transform: translateY(10px) scale(0.98);
-    }
-
-    to {
-      opacity: 1;
-
-      transform: translateY(0) scale(1);
+    &__grid {
+      grid-template-columns: 1fr;
     }
   }
 }
