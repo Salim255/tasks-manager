@@ -4,22 +4,24 @@
 
   &__header {
     display: flex;
-    align-items: center;
 
-    height: 2.5rem;
+  align-items: center;
 
-    padding: 0 0.75rem;
+  min-height: 2.5rem;
 
-    border-bottom: 1px solid var(--grey-100);
+  padding: 0 0.75rem;
 
-    color: var(--grey-700);
+  border-bottom: 1px solid var(--grey-100);
 
-    font-size: 0.75rem;
-    font-weight: 600;
+  color: var(--grey-500);
 
-    text-transform: uppercase;
+  font-size: 0.75rem;
 
-    letter-spacing: 0.03em;
+  font-weight: 600;
+
+  letter-spacing: 0.01em;
+
+  user-select: none;
   }
 
   &__cell {
