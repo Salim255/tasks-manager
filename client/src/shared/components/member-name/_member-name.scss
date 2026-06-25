@@ -1,6 +1,17 @@
 .member-name {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    flex: 1;
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+
+  min-width: 0;
+
+  font-size: 0.75rem;
+
+  font-weight: 500;
+
+  line-height: 1.2;
+
+  color: var(--grey-600);
 }

@@ -21,15 +21,19 @@ export const Assignee = ({
         return members.find(member => member.userId === assigneeId)?.profile;
     }, [assigneeId, members, profile]);
 
-    return <div className="assignee">
-        <MemberInitial profile={assignedProfile}/>
-        {  pageName &&
-            ( 
-                assignedProfile 
-                ?   <MemberName profile={assignedProfile}/> 
-                : 'unassigned'
-            )
-        }
-       
-    </div>
+    return (
+        <div className="assignee">
+            <MemberInitial profile={assignedProfile} />
+
+            {pageName && (
+            <span className="assignee__name">
+                {assignedProfile ? (
+                <MemberName profile={assignedProfile} />
+                ) : (
+                "Unassigned"
+                )}
+            </span>
+            )}
+        </div>
+    );
 }
