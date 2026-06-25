@@ -140,23 +140,26 @@ export const TasksList = () => {
       }
     ];
     
-    return  <div className="tasks-table">
+    return <div className="tasks-table">
         <Group orientation="horizontal">
-            {columns.map((column, index) => (
-            <Fragment key={column.title}>
-                <Panel defaultSize={column.size}>
-                <TasksColumn
-                    title={column.title}
-                    tasks={tasks}
-                    renderCell={column.render}
-                />
-                </Panel>
+            {
+              columns
+              ?.map((column, index) => (
+                <Fragment key={column.title}>
+                    <Panel defaultSize={column.size}>
+                    <TasksColumn
+                        title={column.title}
+                        tasks={tasks}
+                        renderCell={column.render}
+                    />
+                    </Panel>
 
-                {index < columns.length - 1 && (
-                <Separator className="tasks-table__separator" />
-                )}
-            </Fragment>
-            ))}
+                    {index < columns.length - 1 && (
+                    <Separator className="tasks-table__separator" />
+                    )}
+                </Fragment>
+              ))
+            }
         </Group>
         </div>
 

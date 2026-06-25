@@ -1,3 +1,25 @@
 .task-label {
-    
+  display: inline-block;
+
+  max-width: 100%;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+
+  font-size: 0.875rem;
+
+  font-weight: 500;
+
+  line-height: 1.4;
+
+  color: var(--grey-900);
+
+  transition: color 0.15s ease;
+
+  &:hover {
+    color: var(--primary-700);
+  }
 }

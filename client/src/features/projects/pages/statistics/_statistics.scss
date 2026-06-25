@@ -1,8 +1,11 @@
 .statistics {
     display: flex;
+    justify-content: center;
     gap: 2rem;
+    padding: 1.5rem;
+    
     &__work-status,
     &__work-types {
-        flex: .5;
+     flex: 1;
     }
 }
