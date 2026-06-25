@@ -1,24 +1,41 @@
-.update-task {
-  width: min(800px, 92vw);
+/* ============================================
+   UPDATE TASK — PREMIUM RESPONSIVE UX
+============================================ */
+@use "./../../../../themes/styles/abstracts/queries" as *;
 
-  padding: 1.5rem;
+/* ============================================
+   UPDATE TASK — PREMIUM RESPONSIVE UX
+============================================ */
+.update-task {
+  width: min(720px, 92vw);
+
+  max-height: 85vh;
+
+  display: flex;
+  flex-direction: column;
 
   background: var(--white);
 
-  border-radius: 20px;
-
   border: 1px solid var(--grey-100);
 
+  border-radius: 20px;
+
   box-shadow: var(--shadow-3);
+
+  overflow: hidden;
+
+  animation: modalIn 0.2s ease-out;
+
+  /* ============================================
+     HEADER
+  ============================================ */
 
   &__header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
 
-    padding-bottom: 1rem;
-
-    margin-bottom: 1.5rem;
+    padding: 1.5rem 1.5rem 1rem;
 
     border-bottom: 1px solid var(--grey-100);
 
@@ -26,6 +43,7 @@
       margin: 0;
 
       font-size: 1.35rem;
+
       font-weight: 700;
 
       color: var(--grey-900);
@@ -41,56 +59,60 @@
   }
 
   &__close {
+    width: 2.2rem;
+    height: 2.2rem;
+
     display: grid;
     place-items: center;
-
-    width: 2rem;
-    height: 2rem;
-
-    border: none;
 
     border-radius: 10px;
 
     background: transparent;
 
+    border: none;
+
     color: var(--grey-500);
 
-    transition: var(--transition);
+    transition: all 0.2s ease;
 
     &:hover {
-      cursor: pointer;
-
       background: var(--grey-100);
 
       color: var(--grey-900);
+
+      cursor: pointer;
     }
   }
+
+  /* ============================================
+     FORM SCROLL SYSTEM (IMPORTANT)
+  ============================================ */
 
   &__form {
     display: flex;
     flex-direction: column;
+
+    flex: 1;
+
+    overflow: hidden;
   }
 
   &__body {
+    flex: 1;
+
+    overflow-y: auto;
+
+    padding: 1.5rem;
+
     display: flex;
     flex-direction: column;
 
     gap: 1.25rem;
   }
 
-  &__field {
-    display: flex;
-    flex-direction: column;
-
-    gap: 0.5rem;
-
-    label {
-      font-size: 0.875rem;
-      font-weight: 600;
-
-      color: var(--grey-700);
-    }
-  }
+  /* ============================================
+     GRID SYSTEM
+  ============================================ */
 
   &__grid {
     display: grid;
@@ -98,55 +120,134 @@
     grid-template-columns: repeat(3, 1fr);
 
     gap: 1rem;
+
+    /* tablet */
+    @include respond(sm) {
+      grid-template-columns: 1fr;
+    }
   }
 
-  &__grid--two {
-    display: grid;
-
-    grid-template-columns: repeat(2, 1fr);
-
-    gap: 1rem;
-  }
+  /* ============================================
+     FOOTER — ALWAYS VISIBLE + SINGLE LINE UX
+  ============================================ */
 
   &__footer {
     display: flex;
+
     justify-content: flex-end;
+
+    align-items: center;
 
     gap: 0.75rem;
 
-    margin-top: 2rem;
-
-    padding-top: 1rem;
+    padding: 1rem 1.5rem;
 
     border-top: 1px solid var(--grey-100);
+
+    background: var(--white);
+
+    /* prevents overflow issues */
+    flex-shrink: 0;
   }
 
-  &__cancel,
-  &__submit {
+  /* ============================================
+     RESPONSIVE FOOTER (KEY UX FIX)
+  ============================================ */
+
+  @include respond(xs) {
+    &__footer {
+      flex-direction: row;
+
+      justify-content: space-between;
+
+      gap: 0.5rem;
+    }
+
+    &__cancel {
+      flex: 1;
+    }
+
+    &__submit {
+      flex: 2;
+    }
+  }
+
+  @include respond(mobile) {
+    &__footer {
+      flex-direction: column;
+
+      align-items: stretch;
+    }
+
+    &__cancel,
+    &__submit {
+      width: 100%;
+    }
+  }
+
+  /* ============================================
+     BUTTONS
+  ============================================ */
+
+  &__cancel {
     padding: 0.75rem 1rem;
 
     border-radius: 12px;
 
     border: 1px solid var(--grey-200);
 
-    transition: var(--transition);
-  }
-
-  &__cancel {
     background: var(--white);
 
     color: var(--grey-700);
 
-    &:hover {
-      cursor: pointer;
+    font-weight: 600;
 
-      background: var(--grey-50);
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: var(--grey-100);
+
+      color: var(--grey-900);
+
+      cursor: pointer;
     }
   }
 
   &__submit {
-    min-width: 140px;
+    padding: 0.75rem 1.2rem;
 
-    color: var(--white);
+    border-radius: 12px;
+
+    font-weight: 600;
+
+    min-width: 150px;
+
+    box-shadow: var(--shadow-1);
+
+    transition: all 0.2s ease;
+
+    &:hover {
+      transform: translateY(-1px);
+
+      box-shadow: var(--shadow-2);
+    }
+  }
+
+  /* ============================================
+     ANIMATION
+  ============================================ */
+
+  @keyframes modalIn {
+    from {
+      opacity: 0;
+
+      transform: translateY(10px) scale(0.98);
+    }
+
+    to {
+      opacity: 1;
+
+      transform: translateY(0) scale(1);
+    }
   }
 }

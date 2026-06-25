@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { IoChevronDown } from "react-icons/io5";
+import "./_select-dropdown.scss";
 
 export type SelectOption = {
   value: string;
