@@ -14,7 +14,7 @@ export type TaskFormState = {
   projectId: string;
   sprintId?: string;
   assigneeId?: string;
-  dueAt: string; // keep string for <input type="date">
+  dueAt?: string; // keep string for <input type="date">
   errors: Partial<Record< "taskType" | "title" | "description" | "status" | "priority" | "dueAt", string>>;
 };
 
@@ -67,7 +67,7 @@ const mapTaskToFormState = (task: Task): TaskFormState => ({
   description: task.description ?? undefined,
   status: task.status ?? "todo" ,
   taskType: task.taskType ?? "task",
-  dueAt: task.dueAt ?? "",
+  dueAt: task.dueAt ?? undefined,
   priority: task.priority ?? "low",
   projectId: task.projectId ?? undefined,
   sprintId: task.sprintId ?? undefined,

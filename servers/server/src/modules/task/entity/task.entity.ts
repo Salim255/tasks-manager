@@ -12,19 +12,19 @@ import { Project } from 'src/modules/project/entity/project.entity';
 @Entity('tasks')
 export class Task {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id!: string;
 
   @Column()
-  title: string;
+  title!: string;
 
   @Column({ nullable: true })
   description?: string;
 
   @Column({ type: 'varchar', default: 'task' })
-  taskType: TaskType;
+  taskType!: TaskType;
 
   @Column({ type: 'varchar', default: 'todo' })
-  status: TaskStatus;
+  status!: TaskStatus;
 
   @Column({ type: 'varchar', nullable: true })
   priority?: TaskPriority;
@@ -39,17 +39,17 @@ export class Task {
   sprintId?: string;
 
   @Column()
-  projectId: string;
+  projectId!: string;
 
   @ManyToOne(() => Project, { onDelete: 'CASCADE' })
-  project: Project;
+  project!: Project;
 
   @Column({ type: 'timestamptz', nullable: true })
   dueAt?: Date;
 
   @CreateDateColumn()
-  createdAt: Date;
+  createdAt!: Date;
 
   @UpdateDateColumn()
-  updatedAt: Date;
+  updatedAt!: Date;
 }

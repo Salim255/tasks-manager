@@ -144,11 +144,12 @@ export class TaskController {
     @Req() req: Request & { user: { id: string } },
   ): Promise<UpdatedTaskResponseDto> {
     const { id: userId } = req.user;
-    const { title, description, priority, status, dueAt } = dto;
-    
+    const { title, description, priority, status, dueAt, taskType } = dto;
+
     const task = await this.taskService.updateTask({
       assigneeId: dto.assigneeId,
       title,
+      taskType,
       description,
       priority,
       status,

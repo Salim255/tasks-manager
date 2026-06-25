@@ -187,7 +187,7 @@ export const UpdateTask = () => {
               type="date"
               name="dueAt"
               className="form__input"
-              value={state.dueAt?.split("T")[0] ?? ""}
+              value={state.dueAt?.split("T")[0]}
               onChange={handleChange}
             />
           </div>
