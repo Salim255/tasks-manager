@@ -94,7 +94,7 @@ export class UpdateTaskSprintDto {
   })
   @IsOptional()
   @IsString()
-  sprintId?: string | null;
+  sprintId?: string;
 }
 
 export class TasksListResponseDto {

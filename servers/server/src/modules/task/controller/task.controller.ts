@@ -82,7 +82,7 @@ export class TaskController {
     const { id: userId } = req.user;
     const { sprintId } = dto;
 
-    if (!taskId || !sprintId) {
+    if (!taskId) {
       throw new BadRequestException(
         'A valid task ID and sprint ID are required to assign a task to a sprint.'
       );

@@ -20,7 +20,7 @@ export const Projects = () => {
     return  (
         <div className="projects-layout">
             { projectId && <ProjectNavbar /> }
-            <div className="projects-content">
+            <div className="projects-layout__outlet">
                 <Outlet />
             </div>
         </div>    

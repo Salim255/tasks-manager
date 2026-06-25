@@ -60,7 +60,7 @@ export class TaskService {
 
   async updateTaskSprint(payload: {
     taskId: string;
-    sprintId: string | undefined;
+    sprintId?: string;
   }): Promise<Task> {
     try {
       const query = `

@@ -88,7 +88,9 @@ export const TasksList = () => {
     ];
   
     return (
-      <div className="tasks-table">
+     <div className="tasks-list">
+
+       <div className="tasks-list__tables">
         <Group orientation="horizontal">
           {
             columns
@@ -103,12 +105,14 @@ export const TasksList = () => {
                   </Panel>
 
                   {index < columns.length - 1 && (
-                  <Separator className="tasks-table__separator" />
+                  <Separator className="tasks-list__separator" />
                   )}
               </Fragment>
             ))
           }
         </Group>
       </div>
+     </div>
+
     )
 }

@@ -1,15 +1,21 @@
-.tasks-table {
-  padding: 1rem;
+.tasks-list {
+  height: 100vh;
+  overflow-y: auto;
+  padding: 0 1rem;
+  &__tables {
+    padding: 1rem;
 
-  background: var(--white);
+    background: var(--white);
 
-  border: 1px solid var(--grey-100);
+    border: 1px solid var(--grey-100);
 
-  border-radius: 16px;
+    border-radius: 16px;
 
-  box-shadow: var(--shadow-1);
- 
-  padding-bottom: 14rem;
+    box-shadow: var(--shadow-1);
+  
+    padding-bottom: 14rem;
+  }
+
   &__separator {
     position: relative;
 

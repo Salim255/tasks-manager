@@ -62,85 +62,111 @@ export const Backlog = () => {
 
     if (!projectId) return <Navigate to="/projects" replace />;
 
-    return(
-       <>
-        <section className="backlog-container">
-            { sprints.length > 0 
-              && sprints.map((sprint) => {
-                return sprint.projectId === projectId && (
-                    <section 
-                        className='backlog-container__sprints'
-                        key={sprint.id}
-                        onDragOver={onDragOver}
-                        onDrop={(e) => onDrop(sprint.id, e)}
-                        >
-                        <section className="sprint" >
-                            <SprintHeader 
-                                sprint={sprint} 
-                            />
-                            <div className='sprint__tasks'> 
-                                { tasks?.length ? 
-                                    tasks.map((task: Task) => {
-                                     return task.sprintId === sprint.id ?  <TaskItem
-                                            draggable
-                                            onDragStart={(e) => onDragStart(task, e)}
-                                            key={task.id} 
-                                            task={task} 
-                                        />: null
-                                    }): <div className='empty'>
-                                        Your backlog is empty
-                                    </div>
-                                }
-                            </div>
-                            <div
-                                className='sprint__footer'>
-                                <CreateTask projectId={projectId}/>
-                            </div>
-                        </section>
-                    </section>
-                )
-              }) 
-            }
+    return (
+  <>
+    <section className="backlog-container">
 
-            <section className='backlog'>
-                {/* Header */}
-               <section 
-                className='backlog__header'>
-                    <div>
-                        Backlog <span className="work-count">{countWorkItem()}</span> works item
-                    </div>
-                    
-                    <button onClick={createSprintHandler}>create sprint</button>
-               </section>
-                {/* Content */}
-                <section 
-                    onDragOver={onDragOver}
-                    onDrop={onReverseDrop}
-                    className='backlog__content' >
-                    { tasks.filter((tsk) => !tsk.sprintId)?.length ? 
-                        tasks.filter((t) => !t.sprintId).map((task) => {
-                           return <TaskItem
-                                draggable
-                                onDragStart={(e) => onDragStart(task, e)}
-                                key={task.id} 
-                                task={task} 
-                            /> 
-                        }): 
-                        <div className='empty'>
-                            Your backlog is empty
-                        </div>
-                    }
-                </section>
-                <section
-                    className='backlog__footer'>
-                    <CreateTask projectId={projectId}/>
-                </section>
+      {/* Sprint list */}
+      <section className="backlog-container__sprints">
+
+        {sprints
+          .filter((sprint) => sprint.projectId === projectId)
+          .map((sprint) => (
+            <section
+              key={sprint.id}
+              className="sprint"
+              onDragOver={onDragOver}
+              onDrop={(e) => onDrop(sprint.id, e)}
+            >
+              <SprintHeader sprint={sprint} />
+
+              <div className="sprint__tasks">
+                {tasks.some((task) => task.sprintId === sprint.id) ? (
+                  tasks.map((task) =>
+                    task.sprintId === sprint.id ? (
+                      <TaskItem
+                        key={task.id}
+                        task={task}
+                        draggable
+                        onDragStart={(e) => onDragStart(task, e)}
+                      />
+                    ) : null
+                  )
+                ) : (
+                  <div className="empty">
+                    Your sprint is empty
+                  </div>
+                )}
+              </div>
+
+              <footer className="sprint__footer">
+                <CreateTask projectId={projectId} />
+              </footer>
             </section>
+          ))}
+
+      </section>
+
+      {/* Backlog */}
+      <section className="backlog">
+
+        <header className="backlog__header">
+
+          <div className="backlog__header-left">
+            <span>Backlog</span>
+
+            <span className="backlog__count">
+              {countWorkItem()}
+            </span>
+
+            <span>work items</span>
+          </div>
+
+          <button
+            className="backlog__create"
+            onClick={createSprintHandler}
+          >
+            Create sprint
+          </button>
+
+        </header>
+
+        <section
+          className="backlog__content"
+          onDragOver={onDragOver}
+          onDrop={onReverseDrop}
+        >
+          {tasks.some((task) => !task.sprintId) ? (
+            tasks
+              .filter((task) => !task.sprintId)
+              .map((task) => (
+                <TaskItem
+                  key={task.id}
+                  task={task}
+                  draggable
+                  onDragStart={(e) => onDragStart(task, e)}
+                />
+              ))
+          ) : (
+            <div className="empty">
+              Your backlog is empty
+            </div>
+          )}
         </section>
-        { isOpenModal && <EditSprintForm/> }
-        { isOpenTaskModal && <UpdateTask/> }
-       </>
-    )
+
+        <footer className="backlog__footer">
+          <CreateTask projectId={projectId} />
+        </footer>
+
+      </section>
+
+    </section>
+
+    {isOpenModal && <EditSprintForm />}
+
+    {isOpenTaskModal && <UpdateTask />}
+  </>
+);
 }
 
 
