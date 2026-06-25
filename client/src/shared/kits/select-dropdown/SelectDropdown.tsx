@@ -34,35 +34,44 @@ export const SelectDropdown = ({
     setIsOpen(false);
   };
 
-  return (
-    <div className="select-dropdown">
+ return (
+  <div className="select-dropdown">
 
-      {label && (
-        <label className="select-dropdown__label">
-          {label}
-        </label>
-      )}
+    {/* ============================================
+        LABEL
+    ============================================ */}
+    {label && (
+      <label className="select-dropdown__label">
+        {label}
+      </label>
+    )}
 
-      <button
-        type="button"
-        className="select-dropdown__trigger"
-        onClick={() => setIsOpen(prev => !prev)}
-      >
-        <span>
-          {selectedOption?.label ?? placeholder}
-        </span>
+    {/* ============================================
+        TRIGGER
+    ============================================ */}
+    <button
+      type="button"
+      className="select-dropdown__trigger"
+      onClick={() => setIsOpen(prev => !prev)}
+    >
+      <span className="select-dropdown__value">
+        {selectedOption?.label ?? placeholder}
+      </span>
 
-        <IoChevronDown
-          className={`select-dropdown__icon ${
-            isOpen
-              ? "select-dropdown__icon--open"
-              : ""
-          }`}
-        />
-      </button>
+      <IoChevronDown
+        className={`select-dropdown__icon ${
+          isOpen ? "select-dropdown__icon--open" : ""
+        }`}
+      />
+    </button>
 
-      {isOpen && (
-        <ul className="select-dropdown__menu">
+    {/* ============================================
+        MENU
+    ============================================ */}
+    {isOpen && (
+      <div className="select-dropdown__menu">
+
+        <ul className="select-dropdown__list">
 
           {options.map(option => (
             <li
@@ -79,8 +88,10 @@ export const SelectDropdown = ({
           ))}
 
         </ul>
-      )}
 
-    </div>
-  );
+      </div>
+    )}
+
+  </div>
+);
 };
