@@ -29,38 +29,38 @@ export const BoardColumn = ({
     const { projectId }  = useParams<string>();
 
     return (
-        <div
-  className={`board-column board-column--${status}`}
-  onDrop={(e) => onDrop(e, status)}
-  onDragOver={onDragOver}
->
-  <div className="board-column__header">
+      <div
+        className={`board-column board-column--${status}`}
+        onDrop={(e) => onDrop(e, status)}
+        onDragOver={onDragOver}
+      >
+      <div className="board-column__header">
 
-    <h3 className="board-column__title">
-      {title}
-    </h3>
+        <h5 className="board-column__title">
+          {title}
+        </h5>
 
-    <span className="board-column__count">
-      {tasks.length}
-    </span>
+        <span className="board-column__count">
+          {tasks.length}
+        </span>
 
-  </div>
+      </div>
 
-  <div className="board-column__body">
+      <div className="board-column__body">
 
-    {tasks?.length
-      ? tasks.map((task: Task) => (
-          <BoardTaskItem
-            key={task.id}
-            task={task}
-            draggable
-            onDragStart={(e) => onDragStart(e, task)}
-          />
-        ))
-      : status === "todo" && sprintsSize === 0 && (
-          <BoardPH projectId={projectId!} />
-        )}
-  </div>
-</div>
-    ) 
+        {tasks?.length
+          ? tasks.map((task: Task) => (
+              <BoardTaskItem
+                key={task.id}
+                task={task}
+                draggable
+                onDragStart={(e) => onDragStart(e, task)}
+              />
+            ))
+          : status === "todo" && sprintsSize === 0 && (
+              <BoardPH projectId={projectId!} />
+            )}
+      </div>
+    </div>
+  ) 
 }

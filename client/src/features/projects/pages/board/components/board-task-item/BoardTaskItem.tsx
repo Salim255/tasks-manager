@@ -11,9 +11,9 @@ export const BoardTaskItem =  ({ task, ...props }: TaskItemProps) => {
     return (
         <div className="board-task-item" {...props} >
             <section className='board-task-item__content'>
-                <div className='board-task-item__title'>
-                    {task.title}  
-                </div>
+                <p className='board-task-item__task'>
+                    {task.title}
+                </p>
                 <div className='board-task-item__actions'>
                     <OptionsBtn 
                         item={task} 
