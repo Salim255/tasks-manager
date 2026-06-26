@@ -75,7 +75,7 @@ export const EntityModal = ({
                         actions.cancel && (
                         <button
                             type="button"
-                            className="btn btn--secondary entity-modal__cancel"
+                            className="btn btn--secondary"
                             onClick={actions.cancel.onClick}
                         >
                             {actions.cancel.label ?? "Cancel"}
@@ -85,10 +85,10 @@ export const EntityModal = ({
                         { actions.submit && (
                         <button
                             type={actions.submit.type ?? "submit"}
-                            className="btn btn-hero entity-modal__submit"
+                            className="btn btn--primary"
                             onClick={actions.submit.onClick}
                         >
-                            {actions.submit.label ?? "Save"}
+                            { actions.submit.label ?? "Save" }
                         </button>)
                     }
 

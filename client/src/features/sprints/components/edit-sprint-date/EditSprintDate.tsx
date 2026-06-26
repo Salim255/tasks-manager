@@ -1,6 +1,6 @@
 import "./_edit-sprint-date.scss";
 import type { Sprint } from "../../../projects/models/sprint.model";
-import { FaRegCalendarAlt, FaRegCalendarPlus, FaRegEdit } from "react-icons/fa";
+import { FaRegCalendarAlt, FaRegCalendarPlus } from "react-icons/fa";
 import { formatDate } from "../../../../shared/utils/methods";
 import { useDispatch } from "react-redux";
 import { type AppDispatch } from "../../../../redux/store";
