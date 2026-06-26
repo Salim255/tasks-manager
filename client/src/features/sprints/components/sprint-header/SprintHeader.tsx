@@ -48,7 +48,7 @@ export const SprintHeader = ({sprint}: { sprint: Sprint}) => {
         return (
             <div className='sprint-header'>
                 <div className='sprint-header__title'>
-                    <div className='sprint-name'> Scrum {sprint.name} </div>
+                    <div className='sprint-name'> <span>Scrum {sprint.name}</span> </div>
                     <EditSprintDate
                         sprint={sprint}/>
                     <div className='sprint-items'> { countWorkItem } work items </div>

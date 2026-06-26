@@ -1,13 +1,63 @@
- .edit-btn {  
-    border: none;
-    padding: 2px 8px;
-    transition: all .2s ease;
-    display: flex;
-    line-height: 1.2;
-    background-color: transparent;
-    color: rgb(111, 112, 112);
+.edit-sprint-header {
+  display: flex;
+  align-items: center;
+
+  min-height: 2rem;
+
+  &__date,
+  &__add-date {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 0.5rem;
+
+    padding: 0.45rem 0.75rem;
+
+    border: 0.0625rem solid transparent;
+
+    border-radius: 0.75rem;
+
+    background: transparent;
+
+    color: var(--grey-500);
+
+    font-size: 0.8125rem;
+
+    font-weight: 500;
+
+    transition:
+      background-color .18s ease,
+      border-color .18s ease,
+      color .18s ease;
+
+    cursor: pointer;
+
     &:hover {
-        cursor: pointer;
-        background-color: var(--grey-100);
+      background: var(--grey-50);
+
+      border-color: var(--grey-100);
+
+      color: var(--grey-700);
     }
+  }
+
+  &__icon {
+    display: grid;
+    place-items: center;
+
+    font-size: 0.9rem;
+
+    color: var(--grey-400);
+
+    transition: color .18s ease;
+  }
+
+  &__date:hover &__icon,
+  &__add-date:hover &__icon {
+    color: var(--primary-500);
+  }
+
+  &__value {
+    white-space: nowrap;
+  }
 }
