@@ -1,7 +1,17 @@
 .tasks-list {
   height: 100vh;
   overflow-y: auto;
-  padding: 0 1rem;
+  
+  padding: 1rem;
+
+  min-width: 0;
+
+  overflow-y: auto;
+
+  display: flex;
+
+  flex-direction: column;
+
   &__tables {
     padding: 1rem;
 

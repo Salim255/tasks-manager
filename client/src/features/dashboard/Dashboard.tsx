@@ -44,7 +44,7 @@ export const Dashboard = () => {
 
             <div className="dashboard__content">
                 <Navbar />
-                <div className='shared-layout__outlet'>
+                <div className='dashboard__outlet'>
                     <Outlet />
                 </div>
             </div>

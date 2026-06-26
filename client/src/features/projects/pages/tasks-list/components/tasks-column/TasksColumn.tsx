@@ -14,7 +14,7 @@ export const TasksColumn = ({
   return (
     <div className="tasks-column">
       <div className="tasks-column__header">
-        {title}
+        <span>{title}</span>
       </div>
 
       {tasks.map((task) => (

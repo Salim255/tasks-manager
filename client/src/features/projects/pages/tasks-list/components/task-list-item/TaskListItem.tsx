@@ -9,39 +9,6 @@ import "./_task-list-item.scss";
 import { Group, Panel, Separator } from "react-resizable-panels";
 
 export const TaskListItem = ({task}:{task: Task}) => {
-   /*  return <div className="task-list-item task-grid">
-        <div className="task-list-item__name">
-            <TaskLabel  name={task.title} />
-        </div>
-        <div className="task-list-item__description">
-            {task.description}
-        </div>
-        <div className="task-list-item__assignee">
-            <Assignee assigneeId={task.assigneeId } pageName={"task-list-item"} />
-        </div>
-        <div className="task-list-item__reporter">
-            <Reporter reporterId={task.ownerId!}/>
-        </div>
-        <div className="task-list-item__priority">
-            <Priority  priority={task.priority}/>
-        </div>
-        <div className="task-list-item__status">
-            <Status status={task.status} />
-        </div>
-        <div className="task-list-item__resolution">
-            {task.status=== "done" ? "done" : "unresolved"}
-        </div>
-        <div className="task-list-item__updated">
-            { formatDate(task.updatedAt) }
-        </div>
-        <div className="task-list-item__due-date">
-            { task.dueAt && formatDate(task.dueAt) }
-        </div>
-        <div className="task-list-item__created-at">
-            { formatDate(task.createdAt) }
-        </div>
-    </div> */
-
     return <Group orientation="horizontal">
         <Separator />
         <Panel defaultSize={800}>

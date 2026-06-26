@@ -18,14 +18,14 @@ export const TasksList = () => {
     const columns = [
     {
         title: "Task",
-        size: 25,
+        size: 12,
         render: (task: Task) => (
         <TaskLabel name={task.title} />
         ),
     },
     {
         title: "Description",
-        size: 35,
+        size: 12,
         render: (task: Task) => (
           <TaskDescription description={task.description} />
         )
@@ -69,19 +69,19 @@ export const TasksList = () => {
     },
     {
         title: "Updated",
-        size: 16,
+        size: 10,
         render: (task: Task) =>
         <DateItem date={task.updatedAt}/>
     },
     {
         title: "Due Date",
-        size: 16,
+        size: 10,
         render: (task: Task) =>
         <DateItem date={task.dueAt}/>
     },
     {
         title: "Created At",
-        size: 16,
+        size: 10,
         render: (task: Task) =>
         <DateItem date={task.createdAt}/>
     },
@@ -91,12 +91,15 @@ export const TasksList = () => {
      <div className="tasks-list">
 
        <div className="tasks-list__tables">
-        <Group orientation="horizontal">
+        <Group 
+         orientation="horizontal"
+         
+        >
           {
             columns
             ?.map((column, index) => (
               <Fragment key={column.title}>
-                  <Panel defaultSize={column.size}>
+                  <Panel groupResizeBehavior="preserve-pixel-size" defaultSize={5}  >
                   <TasksColumn
                       title={column.title}
                       tasks={tasks}
@@ -113,6 +116,5 @@ export const TasksList = () => {
         </Group>
       </div>
      </div>
-
     )
 }

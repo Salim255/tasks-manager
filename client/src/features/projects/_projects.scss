@@ -1,10 +1,9 @@
-.projects-content {
+.projects-layout {
   min-height: 50vh;
-  //height: 100vh;
   &__outlet {
     display: flex;
     flex-direction: column;
-    //padding: 1rem
-    //overflow-y: auto;
+    flex: 1;
+    min-width: 0;
   }
 }
