@@ -87,7 +87,7 @@ export const AuthForm = () => {
     )}
 
     <div className="auth-form__actions">
-        <button type="submit" className="auth-form__btn">
+        <button type="submit" className="btn btn-primary">
         {iSLogin ? "Login" : "Signup"}
         </button>
 

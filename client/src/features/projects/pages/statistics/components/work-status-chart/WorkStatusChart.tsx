@@ -10,9 +10,9 @@ export const WorkStatusChart = ({
 } ) => {
 
     const statusColors: Record<TaskStatus, string> = {
-        todo: "hsl(243, 70%, 50%)",
-        in_progress: "hsl(24, 95%, 48%)",
-        done: "hsl(148, 48%, 49%)",
+        todo: "var(--status-todo)",
+        in_progress: "var(--status-progress)",
+        done: "var(--status-done)",
     };
 
     const statusData = Object.entries(circleChartDataPercentage).map(

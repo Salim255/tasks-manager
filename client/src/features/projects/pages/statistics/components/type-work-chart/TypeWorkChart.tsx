@@ -14,11 +14,10 @@ export const TypeWorkChart = ({
   } ) => {
 
     const colors = {
-      task: "#3b82f6",
-      story: "hsl(148, 48%, 49%)",
-      bug: "hsl(24, 95%, 48%)",
+        task: "var(--task-color)",
+        story: "var(--story-color)",
+        bug: "var(--bug-color)",
     };
-
     const workTypeData = Object.entries(barChartDataPercentage).map(
       ([type, data]) => ({
         label: data.label,

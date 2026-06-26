@@ -25,10 +25,7 @@ export const BarChart = ({ data }: BarChartProps) => {
       labelSkipWidth={12}
       labelSkipHeight={12}   
       padding={0.4}
-      labelTextColor={{
-        from: "color",
-        modifiers: [["brighter", 3]],
-      }}
+      labelTextColor="white"
     />
   </div>
 }
