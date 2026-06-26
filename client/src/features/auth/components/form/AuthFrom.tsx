@@ -39,69 +39,70 @@ export const AuthForm = () => {
         setAuthMode((prev) => !prev);
     }
 
-    return <>
-    <form onSubmit={onSubmit} className="auth-form">
-    
-    <div className="auth-form__group">
-        <label className="auth-form__label">Email</label>
-        <input 
-        className="auth-form__input"
-        name="email"
-        onChange={handleInput}
-        value={state.email}
-        placeholder="Enter your email"
-        />
-        {state.errors.email && (
-        <p className="auth-form__error">{state.errors.email}</p>
-        )}
-    </div>
+    return (
+        <div className="auth">
+            <form onSubmit={onSubmit} className="form">
+                <div className="form__group">
+                    <label className="form__label">Email</label>
+                    <input 
+                    className="form__input"
+                    name="email"
+                    onChange={handleInput}
+                    value={state.email}
+                    placeholder="Enter your email"
+                    />
+                    {state.errors.email && (
+                    <p className="form__error">{state.errors.email}</p>
+                    )}
+                </div>
 
-    <div className="auth-form__group">
-        <label className="auth-form__label">Password</label>
-        <input 
-        className="auth-form__input"
-        name="password"
-        onChange={handleInput}
-        value={state.password}
-        placeholder="Password"
-        />
-        {state.errors.password && (
-        <p className="auth-form__error">{state.errors.password}</p>
-        )}
-    </div>
+                <div className="form__group">
+                    <label className="form__label">Password</label>
+                    <input 
+                    className="form__input"
+                    name="password"
+                    onChange={handleInput}
+                    value={state.password}
+                    placeholder="Password"
+                    />
+                    {state.errors.password && (
+                    <p className="form__error">{state.errors.password}</p>
+                    )}
+                </div>
 
-    {!iSLogin && (
-        <div className="auth-form__group">
-        <label className="auth-form__label">Confirm password</label>
-        <input 
-            className="auth-form__input"
-            name="confirmPassword"
-            onChange={handleInput}
-            value={state.confirmPassword}
-            placeholder="Confirm password"
-        />
-        {state.errors.confirmPassword && (
-            <p className="auth-form__error">{state.errors.confirmPassword}</p>
-        )}
+                {!iSLogin && (
+                    <div className="form__group">
+                    <label className="form__label">Confirm password</label>
+                    <input 
+                        className="form__input"
+                        name="confirmPassword"
+                        onChange={handleInput}
+                        value={state.confirmPassword}
+                        placeholder="Confirm password"
+                    />
+                    {state.errors.confirmPassword && (
+                        <p className="auth-form__error">{state.errors.confirmPassword}</p>
+                    )}
+                    </div>
+                )}
+
+                <div className="auth__actions">
+                    <button type="submit" className="btn btn--primary">
+                    {iSLogin ? "Login" : "Signup"}
+                    </button>
+
+                    <p className="auth__switch">
+                    {iSLogin ? "Don't have an account?" : "Already have an account?"}
+                    <button 
+                        type="button" 
+                        onClick={handleAutMode} 
+                        className="auth__switch-btn"
+                    >
+                        {iSLogin ? "Switch to Signup" : "Switch to Login"}
+                    </button>
+                    </p>
+                </div>
+                </form>
         </div>
-    )}
-
-    <div className="auth-form__actions">
-        <button type="submit" className="btn btn-primary">
-        {iSLogin ? "Login" : "Signup"}
-        </button>
-
-        <p className="auth-form__switch">
-        {iSLogin ? "Don't have an account?" : "Already have an account?"}
-        <button 
-            type="button" 
-            onClick={handleAutMode} 
-            className="auth-form__switch-btn"
-        >
-            {iSLogin ? "Switch to Signup" : "Switch to Login"}
-        </button>
-        </p>
-    </div>
-    </form>
-    </>
+    )
 }
