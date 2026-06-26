@@ -88,7 +88,7 @@ export const TasksList = () => {
     ];
   
     return (
-     <div className="tasks-list">
+     <div className="tasks-list scroll-bar">
 
        <div className="tasks-list__tables">
         <Group 

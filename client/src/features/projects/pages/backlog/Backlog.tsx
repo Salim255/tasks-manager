@@ -64,7 +64,7 @@ export const Backlog = () => {
 
     return (
   <>
-    <section className="backlog-container">
+    <section className="backlog-container scroll-bar">
 
       {/* Sprint list */}
       <section className="backlog-container__sprints">
@@ -132,7 +132,7 @@ export const Backlog = () => {
         </header>
 
         <section
-          className="backlog__content"
+          className="backlog__content scroll-bar"
           onDragOver={onDragOver}
           onDrop={onReverseDrop}
         >

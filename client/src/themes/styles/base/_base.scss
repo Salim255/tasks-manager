@@ -122,3 +122,34 @@ ul {
 .full-page {
   min-height: 100vh;
 }
+
+.scroll-bar {
+    &::-webkit-scrollbar {
+    //height: .2rem; // Horizontal scrollbar thickness
+    width: .6rem;  // Vertical scrollbar thickness
+  }
+
+  &::-webkit-scrollbar-track {
+   background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--grey-300);
+
+    border-radius: 999rem;
+
+    border: 0.15rem solid transparent;
+
+    background-clip: padding-box;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--grey-400);
+
+    background-clip: padding-box;
+  }
+
+  &::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+}
