@@ -18,7 +18,8 @@ export const Projects = () => {
     }, [projects, navigate, isLoading]);
 
     return  (
-        <div className="projects-layout">
+        <div 
+         className="projects-layout">
             { projectId && <ProjectNavbar /> }
             <div className="projects-layout__outlet">
                 <Outlet />

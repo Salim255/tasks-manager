@@ -17,6 +17,7 @@
     "@nivo/radar": "^0.99.0",
     "@reduxjs/toolkit": "^2.11.2",
     "axios": "^1.13.6",
+    "motion": "^12.42.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-icons": "^5.5.0",

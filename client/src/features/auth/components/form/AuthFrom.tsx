@@ -102,8 +102,6 @@ export const AuthForm = () => {
         </button>
         </p>
     </div>
-
     </form>
-
     </>
 }

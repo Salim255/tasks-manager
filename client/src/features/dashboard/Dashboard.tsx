@@ -10,12 +10,37 @@ import type { AppDispatch, RootState } from '../../redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { DiScrum } from 'react-icons/di';
 import { NavLinks } from './components/nav-links/NavLinks';
+import { motion } from "motion/react";
 
+export    const pageTransition = {
+  initial: {
+    opacity: 0,
+    y: 8,
+    scale: 0.995,
+  },
+
+  animate: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+  },
+
+  exit: {
+    opacity: 0,
+    y: -8,
+    scale: 0.995,
+  },
+
+  transition: {
+    duration: 0.22,
+    ease: [0.22, 1, 0.36, 1], // Premium ease-out curve
+  },
+};
 export const Dashboard = () => { 
     const dispatch = useDispatch<AppDispatch>();
     const { profile } = useProfileSelector();
     const { isSideBarIsOpen } = useSelector((store: RootState) => store.dashboard);
-
+ 
     useEffect(() => {
         if (profile) {
             dispatch(fetchProjectsHttp());
@@ -25,7 +50,8 @@ export const Dashboard = () => {
         return <Navigate to="/profile" replace />; // Redirect to login if not authenticated
     }
     return(
-        <main className={`dashboard ${
+        <motion.main
+        className={`dashboard ${
             isSideBarIsOpen ? "dashboard--sidebar-open" : "dashboard--sidebar-closed"
         }`}>
             <div className="dashboard__aside">
@@ -48,6 +74,6 @@ export const Dashboard = () => {
                     <Outlet />
                 </div>
             </div>
-        </main>
+        </motion.main>
     )
 }

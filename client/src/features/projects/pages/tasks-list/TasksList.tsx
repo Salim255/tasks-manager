@@ -12,6 +12,7 @@ import { Fragment } from "react/jsx-runtime";
 import { Resolution } from "../../../../shared/components/resolution/Resolution";
 import { DateItem } from "../../../../shared/components/date-item/DateItem";
 import { TaskDescription } from "../../../../shared/components/task-description/TasDescription";
+import { motion } from "motion/react";
 
 export const TasksList = () => {
     const tasks = useTasks();
@@ -88,7 +89,31 @@ export const TasksList = () => {
     ];
   
     return (
-     <div className="tasks-list scroll-bar">
+     <motion.div 
+      initial= {{
+    opacity: 0,
+    y: 8,
+    scale: 0.995,
+  }}
+
+  animate= {{
+    opacity: 1,
+    y: 0,
+    scale: 1,
+  }
+}
+  exit= {{
+    opacity: 0,
+    y: -8,
+    scale: 0.995,
+  }}
+
+  transition= {{
+    duration: 0.22,
+    ease: [0.22, 1, 0.36, 1], // Premium ease-out curve
+  }
+        }   
+        className="tasks-list scroll-bar">
 
        <div className="tasks-list__tables">
         <Group 
@@ -115,6 +140,6 @@ export const TasksList = () => {
           }
         </Group>
       </div>
-     </div>
+     </motion.div>
     )
 }
