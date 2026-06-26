@@ -25,38 +25,6 @@ export const TasksColumn = ({
           {renderCell(task)}
         </div>
       ))}
-       {tasks.map((task) => (
-        <div
-          key={task.id}
-          className="tasks-column__cell"
-        >
-          {renderCell(task)}
-        </div>
-      ))}
-       {tasks.map((task) => (
-        <div
-          key={task.id}
-          className="tasks-column__cell"
-        >
-          {renderCell(task)}
-        </div>
-      ))}
-        {tasks.map((task) => (
-        <div
-          key={task.id}
-          className="tasks-column__cell"
-        >
-          {renderCell(task)}
-        </div>
-      ))}
-        {tasks.map((task) => (
-        <div
-          key={task.id}
-          className="tasks-column__cell"
-        >
-          {renderCell(task)}
-        </div>
-      ))}
     </div>
   );
 };

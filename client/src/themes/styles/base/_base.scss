@@ -1,6 +1,7 @@
 /* ============================================
    BASE / RESET / COMPONENTS
 ============================================ */
+@use "../abstracts/queries" as *;
 @import "react-toastify/dist/ReactToastify.css";
 
 /* Reset */
@@ -9,7 +10,59 @@
 }
 
 html {
-  font-size: 100%;
+  /* Base
+     1rem = 16px
+  */
+  font-size: 62.5%;
+
+  /* Large Desktop (≤1536px)
+     1rem ≈ 9.5px
+  */
+  @include respond(desktop-lg) {
+    font-size: 59.375%;
+  }
+
+  /* Standard Desktop / Laptop (≤1280px)
+     1rem = 9px
+  */
+  @include respond(desktop) {
+    font-size: 56.25%;
+  }
+
+  /* Tablet Landscape (≤1024px)
+     1rem = 8.5px
+  */
+  @include respond(tab-land) {
+    font-size: 53.125%;
+  }
+
+  /* Tablet Portrait (≤768px)
+     1rem = 8px
+  */
+  @include respond(tab-port) {
+    font-size: 50%;
+  }
+
+  /* Large Phones (≤640px)
+     1rem = 7.5px
+  */
+  @include respond(phone-lg) {
+    font-size: 46.875%;
+  }
+
+  /* Phones (≤480px)
+     1rem = 7px
+  */
+  @include respond(phone) {
+    font-size: 43.75%;
+  }
+
+  /* Ultra-wide Screens (≥1920px)
+     1rem = 12px
+  */
+  @include respond(big-desktop) {
+    font-size: 75%;
+  }
 }
 
 body {
