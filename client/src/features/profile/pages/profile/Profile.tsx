@@ -24,7 +24,7 @@ export const Profile = () => {
     
     
    return (
-   <section className="profile">
+   <section className="profile u-p-2xl">
     <div className="profile__container">
 
         {/* HERO */}
@@ -33,7 +33,7 @@ export const Profile = () => {
         </div>
 
         {/* ACCOUNT OVERVIEW */}
-        <div className="profile__section profile__overview">
+        <div className="profile__section profile__overview u-mb-xl">
         <h2 className="profile__section-title">Account Overview</h2>
 
         <div className="profile__grid">

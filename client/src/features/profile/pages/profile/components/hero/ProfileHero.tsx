@@ -7,8 +7,8 @@ export const ProfileHero = ({ profile }: { profile: Profile }) => {
         src='/assets/images/default-profile.jpg' 
         alt='hero'/>
 
-        <div className='profile-hero__name'>
+        <h1 className='profile-hero__name heading-primary u-mt-xl'>
              { profile!.firstName } { profile!.lastName }
-        </div>
+        </h1>
     </div>
 }
