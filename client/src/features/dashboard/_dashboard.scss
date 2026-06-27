@@ -37,9 +37,9 @@
     z-index: 10;
 
     transition:
-      width 0.28s ease,
-      opacity 0.2s ease,
-      transform 0.28s ease;
+      width var(--transition-normal),
+      opacity var(--transition-fast),
+      transform var(--transition-normal);
 
     will-change: width, transform;
   }
