@@ -10,7 +10,7 @@
 
   overflow: hidden;
 
-  transition: grid-template-columns 0.28s ease;
+  transition: grid-template-columns var(--transition-normal);
 
   /* ============================================
      SIDEBAR OPEN
@@ -69,7 +69,7 @@
      MOBILE
   ============================================ */
 
-  @include respond("sm") {
+  @include respond("tab-port") {
     grid-template-columns: 0 1fr;
 
     &__aside {

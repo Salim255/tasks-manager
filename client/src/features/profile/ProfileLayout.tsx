@@ -17,8 +17,8 @@ export const ProfileLayout = () => {
     useEffect(() => {
         },[profile, isProfileLoading,navigate]);
 
-    return <section className='shared-layout'>
-        <div  className='shared-layout__dashboard'>
+    return <section className='profile-layout'>
+        <div  className='profile-layout__dashboard'>
             <SmallSidebar />
             <BigSidebar>
                 <header>
@@ -29,7 +29,7 @@ export const ProfileLayout = () => {
 
             <div>
                 <Navbar />
-                <div className='shared-layout__dashboard-page'>
+                <div className='profile-layout__dashboard-page'>
                     <Outlet />
                 </div>
             </div>

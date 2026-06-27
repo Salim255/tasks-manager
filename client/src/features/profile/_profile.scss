@@ -1,21 +1,33 @@
-.shared-layout {
+@use "../../themes/styles/abstracts/queries" as *;
+
+.profile-layout {
  
   &__dashboard {
     background: var(--white);
     display: grid;
-    grid-template-columns: 1fr;
-    @media (min-width: 992px) {
-      grid-template-columns: auto minmax(0, 1fr);
-    }
+    grid-template-columns: auto minmax(0, 1fr);
   }
+  
   &__dashboard-page {
     width: 100%;
     margin: 0 auto;
     padding: 2rem 0;
     overflow: hidden; 
-    @media (min-width: 992px) {
+    @include respond("tab-port"){
       width: 90%;
     }
   }
 }
  
+
+@include respond("tab-port"){
+  .profile-layout{
+    &__dashboard {
+      grid-template-columns: 1fr;
+    }
+    &__dashboard-page {
+      width: 90%;
+    }
+  }
+}
+
