@@ -1,6 +1,7 @@
 /*=====================================
  LANDING
 =====================================*/
+@use "../../themes/styles/abstracts/queries" as *;
 
 .landing {
   position: relative;
@@ -285,7 +286,7 @@
  RESPONSIVE
 =====================================*/
 
-@media (max-width: 1000px){
+ @include respond(tab-land){
 
   .landing{
 
@@ -307,7 +308,7 @@
 
     &__description{
 
-      max-width: 650px;
+      max-width: 65rem;
 
     }
 

@@ -6,8 +6,21 @@
 @use './themes/styles/abstracts/_colors.scss' as *;
 @use './themes/styles/abstracts/_variables.scss' as *;
 @use './themes//styles/abstracts/_typography.scss' as *;
-@use './themes/styles/base/_base.scss' as *;
+@use "./themes/styles/abstracts/borders" as *;
+@use "./themes/styles/abstracts/functions" as *;
+@use "./themes/styles/abstracts/shadows" as *;
+@use "./themes/styles/abstracts/z-index" as *;
+@use "./themes/styles/abstracts/_transitions.scss" as *;
+@use "./themes/styles/abstracts/spacing" as *;
+@use "./themes/styles/abstracts/borders" as *;
 
+@use './themes/styles/base/_base.scss' as *;
+@use "./themes/styles/base/utilities" as *;
+@use "./themes/styles/base/layout" as *;
+
+@use "./themes/styles/components/modals.scss" as *;
+@use "./themes/styles/components/badges" as *;
+@use "./themes/styles/components/_cards.scss" as *;
 
 
 

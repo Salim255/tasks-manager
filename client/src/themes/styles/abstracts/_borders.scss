@@ -1,0 +1,44 @@
+:root {
+  --radius-xs: .4rem;
+  --radius-sm: .8rem;
+  --radius-md: 1.2rem;
+  --radius-lg: 1.6rem;
+  --radius-xl: 2.4rem;
+  --radius-2xl: 3.2rem;
+  --radius-full: 50%;
+
+  --border-light:
+    .1rem solid rgba(255,255,255,.08);
+  --border-medium:
+    .1rem solid rgba(255,255,255,.12);
+  --border-dark:
+    .1rem solid rgba(0,0,0,.12);
+}
+
+.heading-primary{
+    font-size: var(--text-6xl);
+    font-weight:700;
+    line-height:1;
+}
+
+.heading-secondary {
+    font-size: var(--text-4xl);
+    font-weight:700;
+}
+
+.heading-tertiary {
+    font-size: var(--text-2xl);
+    font-weight:600;
+}
+
+.text-large {
+    font-size:var(--text-xl);
+}
+
+.text-medium {
+    font-size:var(--text-md);
+}
+
+.text-small {
+    font-size:var(--text-sm);
+}
