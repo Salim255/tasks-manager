@@ -20,7 +20,7 @@ export const NavLinks = ({ toggleSidebar }: { toggleSidebar?: () => void}) => {
     },[projects])
 
     return  ( 
-        <div className="nav-links">
+        <div className="nav-links u-p-xl">
             {
                 links.map((link) => {
                 const {id, text, path, icon} = link;

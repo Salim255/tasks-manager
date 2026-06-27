@@ -6,7 +6,7 @@
   display: flex;
   flex-direction: column;
 
-  gap: 1.5rem;
+  gap: var(--space-5);
 
   padding: 0.5rem;
 
@@ -22,7 +22,6 @@
 
     h2 {
       //font-size: 2rem;
-      font-weight: 900;
       color: var(--grey-600);
     }
   }
@@ -45,33 +44,32 @@
 
     gap: 0.5rem;
 
-    padding: 0.65rem 0.9rem;
+    padding: 1rem 1.5rem;
 
-    border-radius: 12px;
+    border-radius: 14px;
 
     text-decoration: none;
-    
-    text-transform: lowercase;
-
     color: var(--grey-500);
-
-    font-size: 0.95rem;
-
-    font-weight: 500;
 
     transition:
       background-color 0.2s ease,
       color 0.2s ease,
       transform 0.2s ease;
-
-    .icon {
-      font-size: 1rem;
-
+      
+    .project-header__link-icon{
+      display: block;
+      align-self: center;
+      font-size: 2rem;
       color: var(--grey-400);
-
       transition:
         color 0.2s ease,
         transform 0.2s ease;
+      line-height: 1;
+    }
+    .project-header__link-text{
+      text-transform: lowercase;
+      font-size: var(--text-xl);
+      font-weight: var(--font-medium);
     }
 
     &:hover {
@@ -91,7 +89,7 @@
 
       color: var(--primary-700);
 
-      font-weight: 600;
+      font-weight: var(--font-semibold);
 
       .icon {
         color: var(--primary-600);
@@ -106,8 +104,8 @@
   &__options {
     margin-left: auto;
 
-    width: 40px;
-    height: 40px;
+    width: 5rem;
+    height: 5rem;
 
     display: flex;
     align-items: center;
@@ -129,7 +127,7 @@
       transform 0.2s ease;
 
     .icon {
-      font-size: 1.2rem;
+      font-size: 2rem;
     }
 
     &:hover {

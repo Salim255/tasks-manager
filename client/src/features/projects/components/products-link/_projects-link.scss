@@ -86,11 +86,11 @@
 
     text-transform: lowercase;
 
-    font-size: 0.9rem;
+    font-size: var(--text-lg);
 
     font-weight: 400;
 
-    transition: color 0.2s ease;
+    transition: color var(--transition-normal);
   }
 
   &:hover &__link {
@@ -98,9 +98,8 @@
   }
 
   &__link--active {
-    color: var(--grey-700);
-
-    font-weight: 600;
+    color: var(--grey-600);
+    font-weight: var(--font-semibold);
   }
 
   /* ============================================

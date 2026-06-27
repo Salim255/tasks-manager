@@ -31,7 +31,8 @@ export const BoardTaskItem =  ({ task, ...props }: TaskItemProps) => {
                 <div className={`board-task-item__checkbox board-task-item__checkbox--${task.taskType}`}>
                     <span>
                         { typeIcon(task.taskType) }
-                    </span>  {task.taskType}
+                    </span>
+                    {task.taskType}
                 </div>
                 <div className='board-task-item__assignee'>
                     {/* {task.assigneeId} */}

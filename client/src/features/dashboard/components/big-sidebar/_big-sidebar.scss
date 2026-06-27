@@ -1,11 +1,9 @@
+@use "../../../../themes/styles/abstracts/queries" as *;
 /* ============================================
    BIG SIDEBAR
 ============================================ */
 
 .bg-aside {
-  display: none;
-
-  @media (min-width: 992px) {
     display: block;
 
     flex-shrink: 0;
@@ -16,14 +14,14 @@
 
     transition:
       width 0.3s cubic-bezier(.16, 1, .3, 1);
-  }
+  
 
   /* ============================================
      OPEN STATE
   ============================================ */
 
   &--show-sidebar {
-    width: 250px;
+    width: 30rem;
   }
 
   /* ============================================
@@ -31,8 +29,8 @@
   ============================================ */
 
   &__sidebar-container {
-    width: 250px;
-
+    width: 100%;
+     
     min-height: 100vh;
 
     //background: var(--white);
@@ -42,12 +40,12 @@
     opacity: 0;
 
     transition:
-      opacity 0.2s ease;
+      opacity var(--transition-normal);
 
     box-shadow:
       1px 0 0 rgba(0, 0, 0, 0.04);
   }
-
+  
   &--show-sidebar &__sidebar-container {
     opacity: 1;
   }
@@ -70,57 +68,18 @@
   /* ============================================
      HEADER
   ============================================ */
-
-    header { 
-        height: 6rem; 
-        display: flex; 
-        align-items: center; 
-        padding-left: 2.5rem; 
-        font-size: 5rem; 
-        color: var(--primary-500);
-    }
-
-  /* ============================================
-     LOGO
-  ============================================ */
-
-  &__logo {
-    margin: 0;
-
-    font-size: 1.5rem;
-
-    font-weight: 700;
-
-    letter-spacing: -0.03em;
-
-    background: linear-gradient(
-      135deg,
-      var(--primary-700),
-      var(--primary-500)
-    );
-
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  /* ============================================
-     NAVIGATION
-  ============================================ */
-
-  &__nav {
-    flex: 1;
-
-    padding: 1rem;
+  header { 
+      height: 6rem; 
+      display: flex; 
+      align-items: center; 
+      padding-left: 2.5rem; 
+      font-size: 8rem; 
+      color: var(--primary-500);
   }
 }
 
-/* ============================================
-   OPTIONAL LOGO IMAGE
-============================================ */
-
-.bg-aside__logo-image {
-  width: 40px;
-  height: 40px;
-
-  object-fit: contain;
+@include respond("tab-port") {
+  .bg-aside {
+    display: none;
+  }
 }

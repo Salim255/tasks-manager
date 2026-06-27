@@ -9,7 +9,7 @@
 
   /* icon */
   svg {
-    font-size: 1.1rem;
+    font-size: var(--text-base);
     color: var(--grey-600);
     transition: color 0.2s ease;
   }

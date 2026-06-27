@@ -10,36 +10,36 @@
 
   overflow: hidden;
 
-  transition: grid-template-columns var(--transition-normal);
+  transition: grid-template-columns 0.28s ease;
 
   /* ============================================
      SIDEBAR OPEN
   ============================================ */
-
   &--sidebar-open {
-    grid-template-columns: 16rem 1fr;
+    grid-template-columns: 30rem 1fr;
+   
   }
 
   /* ============================================
      SIDEBAR
   ============================================ */
-
-  &__aside {
+  &__bg-bar {
+    width: 30rem;
+  }
+  &__aside {  
     position: sticky;
-
     top: 0;
-
-    width: 16rem;
     height: 100dvh;
-
+    padding-right: 2rem;
+    padding-top: 2rem;
     overflow: hidden;
-
+ 
     z-index: 10;
 
     transition:
-      width var(--transition-normal),
-      opacity var(--transition-fast),
-      transform var(--transition-normal);
+      width 0.28s ease,
+      opacity 0.2s ease,
+      transform 0.28s ease;
 
     will-change: width, transform;
   }
@@ -47,6 +47,10 @@
   &__content {
     min-width: 0;
     width: 100%;
+  }
+
+  &__outlet {
+    padding: 2rem;
   }
   /* ============================================
      SIDEBAR CLOSED

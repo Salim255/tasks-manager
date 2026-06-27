@@ -18,7 +18,7 @@ export const ProjectNavbar =() => {
     return (
         <header className="project-header">
             <div className='project-header__title'>
-                <h2> {activeProject?.name} </h2>
+                <h2 className='heading-secondary'> {activeProject?.name} </h2>
                 <div className="project-header__actions">
                     <AddMemberForm projectId={projectId!} />
                 </div>
@@ -33,8 +33,10 @@ export const ProjectNavbar =() => {
                                 className={({isActive}) => {
                                     return isActive ? "project-header__link project-header__link--active" : "project-header__link"
                                 }} >
-                                <span className='icon'>  { link.icon } </span>
-                                {link.text}
+                                <span className='project-header__link-icon'>  { link.icon } </span>
+                                <span className="project-header__link-text">
+                                    {link.text}
+                                </span>
                             </NavLink>
                         )
                      })

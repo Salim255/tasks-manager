@@ -36,9 +36,9 @@ export const BoardColumn = ({
       >
       <div className="board-column__header">
 
-        <h5 className="board-column__title">
+        <h3 className="board-column__title heading-tertiary">
           {title}
-        </h5>
+        </h3>
 
         <span className="board-column__count">
           {tasks.length}
