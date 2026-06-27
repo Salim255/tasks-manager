@@ -81,12 +81,12 @@ export const AuthForm = () => {
                         placeholder="Confirm password"
                     />
                     {state.errors.confirmPassword && (
-                        <p className="auth-form__error">{state.errors.confirmPassword}</p>
+                        <p className="form__error">{state.errors.confirmPassword}</p>
                     )}
                     </div>
                 )}
 
-                <div className="auth__actions">
+                <div className="auth__actions u-mt-xl">
                     <button type="submit" className="btn btn--primary">
                     {iSLogin ? "Login" : "Signup"}
                     </button>
@@ -102,7 +102,7 @@ export const AuthForm = () => {
                     </button>
                     </p>
                 </div>
-                </form>
+            </form>
         </div>
     )
 }

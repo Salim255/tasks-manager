@@ -1,9 +1,21 @@
+import { Link } from "react-router-dom";
 import "./_landing-page.scss";
 import screen from "/assets/img/logos/screen.png";
 
 export const LandingPage = () => {
+
+  const navigateTo = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const btnName: string = event.currentTarget.textContent;
+
+    if (btnName==="Login") {
+
+    } else {
+      
+    }
+    console.log(event.currentTarget.textContent);
+  }
   return (
-    <section className="landing">
+    <section className="landing u-p-lg">
 
       <div className="landing__overlay" />
 
@@ -11,32 +23,36 @@ export const LandingPage = () => {
 
         <div className="landing__hero">
 
-          <span className="landing__eyebrow">
+          <span className="landing__eyebrow u-mb-3xl">
             Modern Project Management
           </span>
 
-          <h1 className="landing__title">
-            Flowboard
+          <h1 className="landing__title heading-primary">
+            FlowBoard
           </h1>
 
-          <h4 className="landing__subtitle">
+          <h2 className="landing__subtitle heading-secondary">
             Work flows when everything is clear.
-          </h4>
+          </h2>
 
-          <p className="landing__description">
+          <p className="landing__description u-mt-2xl">
             A clean, fast and modern task manager designed for teams
             who value clarity, collaboration and execution.
           </p>
 
-          <div className="landing__actions">
+          <div className="landing__actions u-mt-4xl">
 
-            <button className="landing__button landing__button--primary">
+            <Link
+              to="/auth"
+              className="landing__button landing__button--primary">
               Login
-            </button>
+            </Link>
 
-            <button className="landing__button landing__button--ghost">
+            <Link
+              to="demo"
+              className="landing__button landing__button--ghost">
               Try Demo
-            </button>
+            </Link>
 
           </div>
 
@@ -54,7 +70,7 @@ export const LandingPage = () => {
 
       </div>
 
-      <footer className="landing__footer">
+      <footer className="landing__footer u-p-2xl">
         © 2026 Flowboard — Built for clarity
       </footer>
 

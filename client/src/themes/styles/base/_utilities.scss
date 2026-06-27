@@ -1,41 +1,47 @@
 /* Margin Bottom */
 
-.u-mb-xs { margin-bottom: var(--space-xs); }
-.u-mb-sm { margin-bottom: var(--space-sm); }
-.u-mb-md { margin-bottom: var(--space-md); }
-.u-mb-lg { margin-bottom: var(--space-lg); }
-.u-mb-xl { margin-bottom: var(--space-xl); }
-.u-mb-2xl { margin-bottom: var(--space-2xl); }
-.u-mb-3xl { margin-bottom: var(--space-3xl); }
+.u-mb-xs { margin-bottom: var(--space-1); }
+.u-mb-sm { margin-bottom: var(--space-2); }
+.u-mb-md { margin-bottom: var(--space-3); }
+.u-mb-lg { margin-bottom: var(--space-4); }
+.u-mb-xl { margin-bottom: var(--space-5); }
+.u-mb-2xl { margin-bottom: var(--space-6); }
+.u-mb-3xl { margin-bottom: var(--space-7); }
 
 /* Margin Top */
 
-.u-mt-xs { margin-top: var(--space-xs); }
-.u-mt-sm { margin-top: var(--space-sm); }
-.u-mt-md { margin-top: var(--space-md); }
-.u-mt-lg { margin-top: var(--space-lg); }
-.u-mt-xl { margin-top: var(--space-xl); }
+.u-mt-xs { margin-top: var(--space-1); }
+.u-mt-sm { margin-top: var(--space-2); }
+.u-mt-md { margin-top: var(--space-3); }
+.u-mt-lg { margin-top: var(--space-4); }
+.u-mt-xl { margin-top: var(--space-5); }
+.u-mt-2xl { margin-top: var(--space-6);}
+.u-mt-3xl { margin-top: var( --space-7);}
+.u-mt-4xl { margin-top: var( --space-8);}
+
 
 /* Margin Left */
 
-.u-ml-sm { margin-left: var(--space-sm); }
+.u-ml-sm { margin-left: var(--space-2); }
 
 /* Margin Right */
 
-.u-mr-sm { margin-right: var(--space-sm); }
+.u-mr-sm { margin-right: var(--space-2); }
 
 /* Padding */
 
-.u-p-sm { padding: var(--space-sm); }
-.u-p-md { padding: var(--space-md); }
-.u-p-lg { padding: var(--space-lg); }
+.u-p-sm { padding: var(--space-2); }
+.u-p-md { padding: var(--space-3); }
+.u-p-lg { padding: var(--space-4); }
+.u-p-xl { padding: var(--space-5); }
+.u-p-2xl { padding: var(--space-6); }
 
 .u-px-md {
-    padding-left: var(--space-md);
-    padding-right: var(--space-md);
+    padding-left: var(--space-3);
+    padding-right: var(--space-3);
 }
 
 .u-py-lg {
-    padding-top: var(--space-lg);
-    padding-bottom: var(--space-lg);
+    padding-top: var(--space-4);
+    padding-bottom: var(--space-4);
 }
