@@ -1,15 +1,37 @@
-.priority  {
+.priority {
   display: inline-flex;
   align-items: center;
+  gap: .45rem;
 
-  font-size: var(--text-sm);
+  padding: .3rem .65rem;
 
+  border-radius: 999rem;
+
+  font-size: var(--text-xs);
   font-weight: var(--font-medium);
 
-  line-height: 1.2;
+  &::before {
+    content: "";
 
-  white-space: nowrap;
+    width: .45rem;
+    height: .45rem;
 
-  text-transform: capitalize;
-  //color: var(--grey-600);
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  &--low {
+    background: rgba(100,116,139,.08);
+    color: var(--grey-500);
+  }
+
+  &--medium {
+    background: rgba(245,158,11,.08);
+    color: #b45309;
+  }
+
+  &--high {
+    background: rgba(239,68,68,.08);
+    color: #b91c1c;
+  }
 }
