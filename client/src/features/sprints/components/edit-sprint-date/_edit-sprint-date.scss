@@ -11,7 +11,7 @@
 
     gap: 0.5rem;
 
-    padding: 0.45rem 0.75rem;
+    padding: 0.5rem 0.8rem;
 
     border: 0.0625rem solid transparent;
 
@@ -21,14 +21,14 @@
 
     color: var(--grey-500);
 
-    font-size: 0.8125rem;
+    font-size: var(--text-base);
 
-    font-weight: 500;
+    font-weight: var(--font-medium);
 
     transition:
-      background-color .18s ease,
-      border-color .18s ease,
-      color .18s ease;
+      background-color var(--transition-normal),
+      border-color var(--transition-normal),
+      color var(--transition-normal);
 
     cursor: pointer;
 
@@ -37,7 +37,7 @@
 
       border-color: var(--grey-100);
 
-      color: var(--grey-700);
+      color: var(--grey-600);
     }
   }
 
@@ -45,11 +45,11 @@
     display: grid;
     place-items: center;
 
-    font-size: 0.9rem;
+    font-size: 1rem;
 
     color: var(--grey-400);
 
-    transition: color .18s ease;
+    transition: color var(--transition-normal);
   }
 
   &__date:hover &__icon,

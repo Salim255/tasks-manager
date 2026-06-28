@@ -3,14 +3,14 @@
   align-items: center;
   gap: 0.35rem;
 
-  padding: 0.3rem 0.6rem;
+  padding: 0.5rem 1rem;
 
   border-radius: 999px;
 
   border: 1px solid transparent;
 
-  font-size: 0.7rem;
-  font-weight: 600;
+  font-size: var(--text-base);
+  font-weight: var(--font-semibold);
 
   line-height: 1;
 
@@ -36,6 +36,7 @@
     display: block;
 
     letter-spacing: 0.01em;
+    margin-left: .5rem;
   }
 
   /* ============================================
