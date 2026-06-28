@@ -27,11 +27,7 @@ export const Assignee = ({
 
             {pageName && (
             <span className="assignee__name">
-                {assignedProfile ? (
                 <MemberName profile={assignedProfile} />
-                ) : (
-                "Unassigned"
-                )}
             </span>
             )}
         </div>
