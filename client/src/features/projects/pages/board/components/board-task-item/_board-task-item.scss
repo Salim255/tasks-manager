@@ -61,9 +61,8 @@
     color: var(--grey-500);
 
     font-size: var(--text-base);
-
-    //font-weight: var(--font-medium);
-
+   
+    
     line-height: 1.5;
 
     letter-spacing: -0.01em;
@@ -119,11 +118,11 @@
 
     gap: 0.4rem;
 
-    padding: 0.35rem 0.65rem;
+    padding: 0.5rem 1rem;
 
     border-radius: 999px;
 
-    font-size: 1.2rem;
+    font-size: var(--text-base);
 
     font-weight: 600;
 
@@ -131,8 +130,6 @@
     span {
       display: flex;
       align-items: center;
-
-      font-size: 0.9rem;
     }
 
     &--task {

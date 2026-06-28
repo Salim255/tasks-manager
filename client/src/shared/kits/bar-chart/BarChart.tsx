@@ -1,5 +1,4 @@
 import "./_bar-chart.scss";
-import type { TaskType } from "../../../features/tasks/models/task.model";
 import { ResponsiveBar } from "@nivo/bar";
 
 type BarChartItem = {

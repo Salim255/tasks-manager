@@ -23,6 +23,7 @@
     h2 {
       //font-size: 2rem;
       color: var(--grey-600);
+      letter-spacing: 1px;
     }
   }
 
@@ -70,6 +71,7 @@
       text-transform: lowercase;
       font-size: var(--text-xl);
       font-weight: var(--font-medium);
+      letter-spacing: 1px;
     }
 
     &:hover {

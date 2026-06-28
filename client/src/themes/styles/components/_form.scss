@@ -19,7 +19,7 @@
   &__label {
     font-size: var(--text-lg);
 
-    font-weight: var(--font-bold);
+    font-weight: var(--font-semibold);
 
     color: var(--grey-600);
   }
@@ -37,7 +37,7 @@
 
     background: var(--white);
  
-    color: var(--grey-700);
+    color: var(--grey-600);
     font-size: var(--text-lg);
     transition:
       border-color var(--transition-normal),
