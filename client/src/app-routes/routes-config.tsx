@@ -14,6 +14,7 @@ import { ProtectedRoutes } from "../features/auth/guard/ProtectedRoutes ";
 import { Profile } from "../features/profile/pages/profile/Profile";
 import { NotFoundPage } from "../shared/pages/not-found/NotFoundPage";
 import { LandingPage } from "../features/landing-page/LandingPage";
+import { BacklogV2 } from "../features/projects/pages/backlog/Backlog-v2";
 
 
 const routes: RouteObject[] = [
@@ -55,7 +56,7 @@ const routes: RouteObject[] = [
                             },
                             {
                                 path: ':projectId/backlog',
-                                Component: Backlog
+                                Component: BacklogV2
                             },
                             {
                                 path: ':projectId/tasks',

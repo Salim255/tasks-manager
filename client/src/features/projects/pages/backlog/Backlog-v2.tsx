@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import './_backlog.scss';
+import "./_backlog-v2.scss";
 import { useDispatch } from 'react-redux';
 import { type AppDispatch } from '../../../../redux/store';
 import { CreateTask } from '../../../tasks/components/create-task/CreateTask';
@@ -16,7 +16,7 @@ import { UpdateTask } from '../../../tasks/components/update-task/UpdateTask';
 import { PageMotion } from '../../../../shared/motion/PageMotion';
 import { Group, Panel, Separator  } from 'react-resizable-panels';
 
-export const Backlog = () => {
+export const BacklogV2 = () => {
     const dispatch = useDispatch<AppDispatch>();
     const tasks = useTasks();
     const isCreating = useTaskCreating()
@@ -66,16 +66,13 @@ export const Backlog = () => {
 
     return (
   <PageMotion>
-  <section className="backlog-container scroll-bar">
+  <section className="backlog-container-2 scroll-bar">
 
     <Group orientation="vertical">
-      <Separator className="backlog-container__separator" />
+      <Separator className="backlog-container-2__separator" />
       {/* Sprint list */}
-      <Panel
-        defaultSize={70}
-        minSize={25}
-      >
-        <section className="backlog-container__sprints">
+      <Panel>
+        <section className="backlog-container-2__sprints">
 
           {sprints
             .filter((sprint) => sprint.projectId === projectId)
@@ -101,7 +98,7 @@ export const Backlog = () => {
                       ) : null
                     )
                   ) : (
-                    <div className="empty">
+                    <div className="backlog-container-2__empty">
                       Your sprint is empty
                     </div>
                   )}
@@ -116,21 +113,19 @@ export const Backlog = () => {
         </section>
       </Panel>
 
-      <Separator className="backlog-container__separator" />
+      <Separator className="backlog-container-2__separator" />
 
       {/* Backlog */}
-      <Panel
-        defaultSize={30}
-        minSize={15}
-      >
-        <section className="backlog">
+      <Panel defaultSize="50%"
+  minSize="15%">
+        <section className="backlog2">
 
-          <header className="backlog__header">
+          <header className="backlog2__header">
 
-            <div className="backlog__header-left">
+            <div className="backlog2__header-left">
               <span>Backlog</span>
 
-              <span className="backlog__count">
+              <span className="backlog2__count">
                 {countWorkItem()}
               </span>
 
@@ -138,7 +133,7 @@ export const Backlog = () => {
             </div>
 
             <button
-              className="backlog__create"
+              className="backlog2__create-btn"
               onClick={createSprintHandler}
             >
               Create sprint
@@ -147,7 +142,7 @@ export const Backlog = () => {
           </header>
 
           <section
-            className="backlog__content scroll-bar"
+            className="backlog2__content"
             onDragOver={onDragOver}
             onDrop={onReverseDrop}
           >
@@ -163,19 +158,19 @@ export const Backlog = () => {
                   />
                 ))
             ) : (
-              <div className="empty">
+              <div className="backlog-container-2__empty">
                 Your backlog is empty
               </div>
             )}
           </section>
 
-          <footer className="backlog__footer">
+          <footer className="backlog2__footer">
             <CreateTask projectId={projectId} />
           </footer>
 
         </section>
       </Panel>
-
+        <Separator className="backlog-container-2__separator" />
     </Group>
 
   </section>
