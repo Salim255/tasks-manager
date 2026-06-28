@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { type AppDispatch } from '../../../../redux/store';
 import { BoardColumn } from './components/board-column/BoardColumn';
 import { useBoardData } from './board-hooks/boardData';
+import { PageMotion } from '../../../../shared/motion/PageMotion';
 
 export const Board = () => { 
     const sprints = useSprints();
@@ -36,7 +37,8 @@ export const Board = () => {
     }, [tasks, sprints]);
 
     return (
-        <section className="board">
+         <PageMotion>
+             <section className="board">
             <BoardColumn 
                 title="To Do"
                 status="todo"
@@ -65,5 +67,7 @@ export const Board = () => {
                 onDragOver={onDragOver}
             />
         </section>
+         </PageMotion>
+       
     )
 }

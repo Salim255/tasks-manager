@@ -13,6 +13,7 @@ import { createSprint } from '../../../sprints/http/sprint.http';
 import { EditSprintForm } from '../../../sprints/components/edit-sprint-form/EditSprintForm';
 import { useTaskCreating, useTaskModalOpen, useTasks } from '../../../tasks/states/taskSelectors';
 import { UpdateTask } from '../../../tasks/components/update-task/UpdateTask';
+import { PageMotion } from '../../../../shared/motion/PageMotion';
 
 export const Backlog = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -63,7 +64,7 @@ export const Backlog = () => {
     if (!projectId) return <Navigate to="/projects" replace />;
 
     return (
-  <>
+  <PageMotion>
     <section className="backlog-container scroll-bar">
 
       {/* Sprint list */}
@@ -165,7 +166,7 @@ export const Backlog = () => {
     {isOpenModal && <EditSprintForm />}
 
     {isOpenTaskModal && <UpdateTask />}
-  </>
+  </PageMotion>
 );
 }
 

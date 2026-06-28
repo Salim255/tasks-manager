@@ -4,7 +4,7 @@ import { ProjectNavbar } from "./components/project-navbar/ProjectNavbar";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import type { RootState } from "../../redux/store";
-
+import { PageMotion } from "../../shared/motion/PageMotion";
 export const Projects = () => {
     const navigate = useNavigate();
     const { projectId } = useParams();

@@ -13,6 +13,7 @@ import { Resolution } from "../../../../shared/components/resolution/Resolution"
 import { DateItem } from "../../../../shared/components/date-item/DateItem";
 import { TaskDescription } from "../../../../shared/components/task-description/TasDescription";
 import { motion } from "motion/react";
+import { PageMotion } from "../../../../shared/motion/PageMotion";
 
 export const TasksList = () => {
     const tasks = useTasks();
@@ -89,57 +90,34 @@ export const TasksList = () => {
     ];
   
     return (
-     <motion.div 
-      initial= {{
-    opacity: 0,
-    y: 8,
-    scale: 0.995,
-  }}
+     <PageMotion>
+        <div className="tasks-list scroll-bar">
+          <div className="tasks-list__tables">
+            <Group 
+            orientation="horizontal"
+            
+            >
+              {
+                columns
+                ?.map((column, index) => (
+                  <Fragment key={column.title}>
+                      <Panel groupResizeBehavior="preserve-pixel-size" defaultSize={5}  >
+                      <TasksColumn
+                          title={column.title}
+                          tasks={tasks}
+                          renderCell={column.render}
+                      />
+                      </Panel>
 
-  animate= {{
-    opacity: 1,
-    y: 0,
-    scale: 1,
-  }
-}
-  exit= {{
-    opacity: 0,
-    y: -8,
-    scale: 0.995,
-  }}
-
-  transition= {{
-    duration: 0.22,
-    ease: [0.22, 1, 0.36, 1], // Premium ease-out curve
-  }
-        }   
-        className="tasks-list scroll-bar">
-
-       <div className="tasks-list__tables">
-        <Group 
-         orientation="horizontal"
-         
-        >
-          {
-            columns
-            ?.map((column, index) => (
-              <Fragment key={column.title}>
-                  <Panel groupResizeBehavior="preserve-pixel-size" defaultSize={5}  >
-                  <TasksColumn
-                      title={column.title}
-                      tasks={tasks}
-                      renderCell={column.render}
-                  />
-                  </Panel>
-
-                  {index < columns.length - 1 && (
-                  <Separator className="tasks-list__separator" />
-                  )}
-              </Fragment>
-            ))
-          }
-        </Group>
+                      {index < columns.length - 1 && (
+                      <Separator className="tasks-list__separator" />
+                      )}
+                  </Fragment>
+                ))
+              }
+            </Group>
+          </div>
       </div>
-     </motion.div>
+     </PageMotion>
     )
 }

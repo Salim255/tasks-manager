@@ -16,7 +16,7 @@ interface Props {
 }
 
 export const PageMotion = ({ children }: Props) => (
-  <motion.main
+  <motion.div
     initial={{
       opacity: 0,
       y: 12,
@@ -35,5 +35,5 @@ export const PageMotion = ({ children }: Props) => (
     transition={premiumTransition}
   >
     {children}
-  </motion.main>
+  </motion.div>
 );
