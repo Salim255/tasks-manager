@@ -1,6 +1,7 @@
 import { ModalOverlay } from "../../../shared/components/modal-overlay/ModalOverlay";
 import { IoMdClose } from "react-icons/io";
 import "./_entity-modal.scss";
+import { ModalMotion } from "../../motion/ModalMotion";
 
 type Props = {
   title: string;
@@ -33,68 +34,70 @@ export const EntityModal = ({
 }: Props) => {
   return (
     <ModalOverlay onClose={onClose}>
-        <div data-modal-body className="entity-modal">
+        <ModalMotion>
+            <div data-modal-body className="entity-modal">
 
-            {/* ============================================
-                HEADER (SYSTEM STYLE: SAME AS UPDATE TASK)
-            ============================================ */}
-            <div className="entity-modal__header">
-                <div className="entity-modal__header-content">
-                    <h2>{title}</h2>
+                {/* ============================================
+                    HEADER (SYSTEM STYLE: SAME AS UPDATE TASK)
+                ============================================ */}
+                <div className="entity-modal__header">
+                    <div className="entity-modal__header-content">
+                        <h2>{title}</h2>
 
-                    {description && (
-                    <p>{description}</p>
-                    )}
-                </div>
-
-                <button
-                    type="button"
-                    className="entity-modal__close"
-                    onClick={onClose}
-                >
-                    <IoMdClose />
-                </button>
-            </div>
-
-            {/* ============================================
-                BODY (SCROLLABLE FORM AREA)
-            ============================================ */}
-            <div className="entity-modal__body">
-                {children}
-            </div>
-
-            {/* ============================================
-                FOOTER (FIXED ACTION ZONE)
-            ============================================ */}
-            {
-                actions 
-                && (
-                <div className="entity-modal__footer">
-
-                    {
-                        actions.cancel && (
-                        <button
-                            type="button"
-                            className="btn btn--secondary"
-                            onClick={actions.cancel.onClick}
-                        >
-                            {actions.cancel.label ?? "Cancel"}
-                        </button>
+                        {description && (
+                        <p>{description}</p>
                         )}
+                    </div>
 
-                        { actions.submit && (
-                        <button
-                            type={actions.submit.type ?? "submit"}
-                            className="btn btn--primary"
-                            onClick={actions.submit.onClick}
-                        >
-                            { actions.submit.label ?? "Save" }
-                        </button>)
-                    }
-
+                    <button
+                        type="button"
+                        className="entity-modal__close"
+                        onClick={onClose}
+                    >
+                        <IoMdClose />
+                    </button>
                 </div>
-            )}
-        </div>
+
+                {/* ============================================
+                    BODY (SCROLLABLE FORM AREA)
+                ============================================ */}
+                <div className="entity-modal__body">
+                    {children}
+                </div>
+
+                {/* ============================================
+                    FOOTER (FIXED ACTION ZONE)
+                ============================================ */}
+                {
+                    actions 
+                    && (
+                    <div className="entity-modal__footer">
+
+                        {
+                            actions.cancel && (
+                            <button
+                                type="button"
+                                className="btn btn--secondary"
+                                onClick={actions.cancel.onClick}
+                            >
+                                {actions.cancel.label ?? "Cancel"}
+                            </button>
+                            )}
+
+                            { actions.submit && (
+                            <button
+                                type={actions.submit.type ?? "submit"}
+                                className="btn btn--primary"
+                                onClick={actions.submit.onClick}
+                            >
+                                { actions.submit.label ?? "Save" }
+                            </button>)
+                        }
+
+                    </div>
+                )}
+            </div>
+        </ModalMotion>
     </ModalOverlay>
   );
 };

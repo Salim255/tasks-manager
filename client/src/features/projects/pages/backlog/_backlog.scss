@@ -11,8 +11,8 @@
   height: 100vh;
 
   padding: 1rem;
-  padding-bottom: 12.5rem;
-
+  padding-bottom: 21.5rem;
+  
   overflow-y: auto;
 
   &__sprints {
@@ -98,12 +98,12 @@
     justify-content: space-between;
     align-items: center;
 
-    padding: .5rem .75rem;
+    padding: .5rem 1rem;
 
     background: var(--white);
 
     border: 1px solid var(--grey-100);
-    border-radius: .875rem;
+    border-radius: 14px;
 
     box-shadow: var(--shadow-1);
 
@@ -126,8 +126,8 @@
 
     color: var(--grey-600);
 
-    font-size: .95rem;
-    font-weight: 600;
+    font-size: var(--text-base);
+    font-weight: var(--font-bold);
   }
 
   &__count {
@@ -137,7 +137,7 @@
 
     min-width: 1.75rem;
 
-    padding: .25rem .6rem;
+    padding: .5rem 1rem;
 
     border-radius: 999rem;
 
@@ -145,8 +145,8 @@
 
     color: var(--grey-600);
 
-    font-size: .75rem;
-    font-weight: 700;
+    font-size: var(--text-base);
+    font-weight: var(--font-medium);
   }
 
   &__create {
@@ -154,19 +154,19 @@
     align-items: center;
     justify-content: center;
 
-    gap: .4rem;
+    gap: .5rem;
 
     padding: .6rem 1rem;
 
     border: 1px solid var(--primary-200);
-    border-radius: .625rem;
+    border-radius: 1rem;
 
     background: var(--primary-50);
 
     color: var(--primary-700);
 
-    font-size: .85rem;
-    font-weight: 600;
+    font-size: var(--text-base);
+    font-weight: var(--font-semibold);
 
     cursor: pointer;
 
@@ -197,7 +197,7 @@
 
     gap: .5rem;
 
-    max-height: 5rem;
+    max-height: 8rem;
 
     overflow-y: auto;
   }
@@ -217,9 +217,9 @@
   align-items: center;
   justify-content: center;
 
-  min-height: 3rem;
+  min-height: 4rem;
 
-  padding: .25rem;
+  padding: .5rem;
 
   border: 1px dashed var(--grey-200);
   border-radius: .875rem;
@@ -227,8 +227,8 @@
   background: var(--grey-50);
 
   color: var(--grey-500);
-  font-size: .9rem;
-  font-weight: 500;
+  font-size: var(--text-base);
+  font-weight: var(--font-medium);
 
   transition:
     background .2s ease,

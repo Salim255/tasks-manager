@@ -1,3 +1,15 @@
-.priority {
-    background-color: red;
+.priority  {
+  display: inline-flex;
+  align-items: center;
+
+  font-size: var(--text-sm);
+
+  font-weight: var(--font-medium);
+
+  line-height: 1.2;
+
+  white-space: nowrap;
+
+  text-transform: capitalize;
+  //color: var(--grey-600);
 }

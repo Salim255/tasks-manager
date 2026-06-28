@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
-import { ReactNode } from "react";
 import { premiumTransition } from "./transitions";
+import type { ReactNode } from "react";
 
 interface Props {
   children: ReactNode;

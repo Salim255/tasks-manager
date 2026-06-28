@@ -12,7 +12,6 @@ import { Fragment } from "react/jsx-runtime";
 import { Resolution } from "../../../../shared/components/resolution/Resolution";
 import { DateItem } from "../../../../shared/components/date-item/DateItem";
 import { TaskDescription } from "../../../../shared/components/task-description/TasDescription";
-import { motion } from "motion/react";
 import { PageMotion } from "../../../../shared/motion/PageMotion";
 
 export const TasksList = () => {
