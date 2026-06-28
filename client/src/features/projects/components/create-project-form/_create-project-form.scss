@@ -5,8 +5,7 @@
 ============================================ */
 
 .project-create {
-  width: 100%;
-  max-width: 48rem;
+  width: 80%;
 
   margin: auto;
 
@@ -20,7 +19,7 @@
   /* ============================================
      HEADER
   ============================================ */
-
+  //background-color: red;
   &__header {
     display: flex;
     flex-direction: column;
@@ -31,11 +30,9 @@
   &__title {
     margin: 0;
 
-    color: var(--grey-700);
+    color: var(--grey-600);
 
-    font-size: 1rem;
-
-    font-weight: 650;
+    font-size: var(--text-4xl);
 
     line-height: 1.1;
 
@@ -43,13 +40,13 @@
   }
 
   &__subtitle {
-    max-width: 34rem;
+    max-width: 44rem;
 
     margin: 0;
 
     color: var(--grey-500);
 
-    font-size: 1rem;
+    font-size: var(--text-xl);
 
     line-height: 1.7;
   }
@@ -64,13 +61,13 @@
 
     gap: 2rem;
 
-    padding: 2rem;
-
+    padding: var(--space-8);
+    
     background: var(--white);
 
     border: 0.0625rem solid var(--grey-100);
 
-    border-radius: 1.25rem;
+    border-radius: var(--radius-md);
 
     box-shadow: var(--shadow-1);
 
@@ -102,11 +99,9 @@
     h2 {
       margin: 0;
 
-      color: var(--grey-700);
-
-      font-size: 1rem;
-
-      font-weight: 600;
+      color: var(--grey-500);
+      font-size: var(--text-xl);
+      font-weight: var(--font-semibold);
 
       letter-spacing: -0.015em;
     }
@@ -116,7 +111,7 @@
 
       color: var(--grey-500);
 
-      font-size: 0.875rem;
+      font-size: var(--text-lg);
 
       line-height: 1.6;
     }

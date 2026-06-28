@@ -75,9 +75,9 @@ export const CreateProjectForm = () => {
      
   <header className="project-create__header">
 
-    <h2 className="project-create__title">
+    <h1 className="project-create__title heading-primary">
       New Project
-    </h2>
+    </h1>
 
     <p className="project-create__subtitle">
       Create a workspace for your team, tasks and sprint planning.
@@ -89,7 +89,7 @@ export const CreateProjectForm = () => {
 
     <div className="project-create__section">
 
-      <h2>
+      <h2 className="heading-secondary">
         Project details
       </h2>
 
