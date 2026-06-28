@@ -58,9 +58,9 @@ export const CreateTask = ( { projectId }: { projectId: string}) => {
             <button 
                 className='create-btn'
                 onClick={() =>setCreateBtn(false)}>
-                <div className='create-btn__icon'>
+                <span className='create-btn__icon'>
                     <BiPlus></BiPlus>
-                </div>
+                </span>
                 <span className='create-btn__text'>create task</span>
             </button>
             :
