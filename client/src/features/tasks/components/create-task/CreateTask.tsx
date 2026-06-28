@@ -60,7 +60,7 @@ export const CreateTask = ( { projectId }: { projectId: string}) => {
                 <div className='create-btn__icon'>
                     <BiPlus></BiPlus>
                 </div>
-                <span>create task</span>
+                <span className='create-btn__text'>create task</span>
             </button>
             :
             <form onSubmit={handleSubmit} className='create-task-form'>
@@ -100,7 +100,7 @@ export const CreateTask = ( { projectId }: { projectId: string}) => {
                     disabled={state.title?.length === 0}
                     type="submit" 
                     className="btn create-task-form__btn">
-                    Create Task
+                    create task
                 </button>
             </form>
     }
