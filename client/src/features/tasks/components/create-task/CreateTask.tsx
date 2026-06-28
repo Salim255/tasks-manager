@@ -7,6 +7,7 @@ import { TaskTypeDropdown } from '../../../../shared/components/task-type-dropdo
 import { createTaskHttp, type CreateTaskPayload } from '../../http/task.http';
 import { typeIcon } from '../../../../shared/utils/methods';
 import { useTaskForm } from '../../form-builder/taskFormBuilder';
+import { motion } from "motion/react";
 
 export const CreateTask = ( { projectId }: { projectId: string}) => {
   const [isCreateBtn, setCreateBtn] = useState<boolean>(true);
@@ -63,7 +64,30 @@ export const CreateTask = ( { projectId }: { projectId: string}) => {
                 <span className='create-btn__text'>create task</span>
             </button>
             :
-            <form onSubmit={handleSubmit} className='create-task-form'>
+            <motion.form 
+      initial= {{
+    opacity: 0,
+    y: 8,
+    scale: 0.995,
+  }}
+
+  animate= {{
+    opacity: 1,
+    y: 0,
+    scale: 1,
+  }
+}
+  exit= {{
+    opacity: 0,
+    y: -8,
+    scale: 0.995,
+  }}
+
+  transition= {{
+    duration: 0.22,
+    ease: [0.22, 1, 0.36, 1], // Premium ease-out curve
+  }
+        }  onSubmit={handleSubmit} className='create-task-form'>
                 {/* Title */}
                 <div className="create-task-form__form-group-title">
                     <TaskTypeDropdown
@@ -102,7 +126,7 @@ export const CreateTask = ( { projectId }: { projectId: string}) => {
                     className="btn create-task-form__btn">
                     create task
                 </button>
-            </form>
+            </motion.form>
     }
     </>
   );
