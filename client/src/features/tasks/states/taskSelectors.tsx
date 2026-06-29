@@ -48,3 +48,6 @@ export const useTaskModalOpen = () =>
 
 export const useSelectedTask = () =>
   useSelector(selectSelectedTask);
+
+export const useTaskViewerOpen = () => 
+  useSelector(selectOpenTaskViewer);
