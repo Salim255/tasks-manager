@@ -37,12 +37,13 @@ const taskSlice = createSlice({
             state.isOpenViewTask = false
             state.task = undefined;
         },
-        isOpenTaskViewer: (state, action: PayloadAction<{taskId: string}>) => {
+        setTaskViewerTask: (state, action: PayloadAction<{taskId: string}>) => {
             const {taskId} = action.payload;
             if (!taskId) return;
             const task = state.tasks.find((ts) => ts.id === taskId);
             state.task = task;
-            state.isOpenViewTask= true;
+            state.isOpenViewTask = true;
+            console.log("hello after update")
         },
         setIsOpenTaskModal:  (state, action: PayloadAction<{taskId: string}>) => {
             const {taskId} = action.payload;
@@ -153,7 +154,7 @@ const taskSlice = createSlice({
 })
 
 export const {
-    isOpenTaskViewer,
+    setTaskViewerTask,
     closeEditTaskModal,
     setIsOpenTaskModal,
     isEditingTask,

@@ -4,8 +4,11 @@ import { ProjectNavbar } from "./components/project-navbar/ProjectNavbar";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import type { RootState } from "../../redux/store";
+import { useTaskViewerOpen } from "../tasks/states/taskSelectors";
+import { TaskViewer } from "../tasks/components/task-viewer/TaskViewer";
 
 export const Projects = () => {
+     const isOpenTaskViewer = useTaskViewerOpen();
     const navigate = useNavigate();
     const { projectId } = useParams();
     const {projects, isLoading } = useSelector((store:  RootState) => store.projectReducer);
@@ -26,8 +29,12 @@ export const Projects = () => {
                     <Outlet />
                 </div>
             </section>
-            <section className="projects-layout__aside">
-                <h1>Hello world</h1>
+            <section
+                className={`projects-layout__aside ${
+                    isOpenTaskViewer ? "projects-layout__aside--open" : ""
+                }`}
+                >
+                <TaskViewer/>
             </section>
         </div>    
     )

@@ -20,11 +20,11 @@ const selectTaskUpdating = (state: RootState) =>
 const selectTaskModalOpen = (state: RootState) =>
   state.taskReducer.isOpenTaskModal;
 
-const selectOpenTaskViewer = (state: RootState) => {
+const selectOpenTaskViewer = (state: RootState) => 
   state.taskReducer.isOpenViewTask;
-}
 
-const selectSelectedTask = (state: RootState) =>
+
+const selectSelectedTask = (state: RootState) => 
   state.taskReducer.task;
 
 /* ============================================

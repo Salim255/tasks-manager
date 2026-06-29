@@ -16,8 +16,10 @@ import { UpdateTask } from '../../../tasks/components/update-task/UpdateTask';
 import { PageMotion } from '../../../../shared/motion/PageMotion';
 import { Group, Panel, Separator  } from 'react-resizable-panels';
 
+
 export const Backlog = () => {
     const dispatch = useDispatch<AppDispatch>();
+   
     const tasks = useTasks();
     const isCreating = useTaskCreating()
     const isOpenModal = useSprintModalOpen();
@@ -59,7 +61,6 @@ export const Backlog = () => {
     }
     
     useEffect(() => {
-         
     }, [tasks, isCreating, sprints, projectId]);
 
     if (!projectId) return <Navigate to="/projects" replace />;
