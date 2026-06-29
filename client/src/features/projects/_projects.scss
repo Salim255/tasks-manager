@@ -1,9 +1,17 @@
 .projects-layout {
   min-height: 50vh;
+  display: grid;
+  grid-template-columns: 1fr 25%;
   &__outlet {
     display: flex;
     flex-direction: column;
     flex: 1;
     min-width: 0;
+  }
+  &__main {
+
+  }
+  &__aside {
+
   }
 }

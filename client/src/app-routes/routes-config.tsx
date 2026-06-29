@@ -2,7 +2,6 @@ import { createBrowserRouter } from "react-router-dom";
 import type { RouteObject } from "react-router-dom";
 import { Dashboard } from "../features/dashboard/Dashboard";
 import { ProfileLayout } from "../features/profile/ProfileLayout";
-import { Backlog } from "../features/projects/pages/backlog/Backlog";
 import { Board } from "../features/projects/pages/board/Board";
 import { CreateProject } from "../features/projects/pages/create-project/CreateProject";
 import { Projects } from "../features/projects/Projects";
@@ -14,7 +13,8 @@ import { ProtectedRoutes } from "../features/auth/guard/ProtectedRoutes ";
 import { Profile } from "../features/profile/pages/profile/Profile";
 import { NotFoundPage } from "../shared/pages/not-found/NotFoundPage";
 import { LandingPage } from "../features/landing-page/LandingPage";
-import { BacklogV2 } from "../features/projects/pages/backlog/Backlog-v2";
+import { Backlog } from "../features/projects/pages/backlog/Backlog";
+
 
 
 const routes: RouteObject[] = [
@@ -56,7 +56,7 @@ const routes: RouteObject[] = [
                             },
                             {
                                 path: ':projectId/backlog',
-                                Component: BacklogV2
+                                Component: Backlog
                             },
                             {
                                 path: ':projectId/tasks',

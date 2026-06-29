@@ -4,7 +4,7 @@ import { ProjectNavbar } from "./components/project-navbar/ProjectNavbar";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import type { RootState } from "../../redux/store";
-import { PageMotion } from "../../shared/motion/PageMotion";
+
 export const Projects = () => {
     const navigate = useNavigate();
     const { projectId } = useParams();
@@ -19,11 +19,16 @@ export const Projects = () => {
 
     return  (
         <div 
-         className="projects-layout">
-            { projectId && <ProjectNavbar /> }
-            <div className="projects-layout__outlet">
-                <Outlet />
-            </div>
+            className="projects-layout">
+            <section className="projects-layout__main">
+                { projectId && <ProjectNavbar /> }
+                <div className="projects-layout__outlet">
+                    <Outlet />
+                </div>
+            </section>
+            <section className="projects-layout__aside">
+                <h1>Hello world</h1>
+            </section>
         </div>    
     )
 }

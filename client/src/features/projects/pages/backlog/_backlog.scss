@@ -1,27 +1,49 @@
-/* ============================================
-   BACKLOG CONTAINER
+.backlog-container {
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 1fr auto;
+
+    &__separator{
+        background-color: red;
+        color: red;
+    }
+    /* ============================================
+   EMPTY STATE
 ============================================ */
 
-.backlog-container {
-  display: grid;
-  flex-direction: column;
+    &__empty {
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
-  gap: 2rem;
+        min-height: 4rem;
 
-  height: 100vh;
+        padding: .5rem;
 
-  padding: 1rem;
-  padding-bottom: 21.5rem;
-  
-  overflow-y: auto;
-  background-color: red;
-  &__sprints {
-    display: flex;
-    flex-direction: column;
+        border: 1px dashed var(--grey-200);
+        border-radius: .875rem;
 
-    gap: 1rem;
-  }
+        background: var(--grey-50);
+
+        color: var(--grey-500);
+        font-size: var(--text-base);
+        font-weight: var(--font-medium);
+
+        transition:
+            background .2s ease,
+            border-color .2s ease,
+            color .2s ease;
+
+        &:hover {
+            background: var(--primary-50);
+
+            border-color: var(--primary-200);
+
+            color: var(--grey-700);
+        }
+    }
 }
+
 
 /* ============================================
    SPRINT
@@ -70,30 +92,25 @@
   }
 }
 
-/* ============================================
-   BACKLOG
-============================================ */
-
 .backlog {
-  position: sticky;
-
-  bottom: 0;
-
   display: flex;
   flex-direction: column;
 
-  gap: .5rem;
+  gap: 1rem;
 
   padding: 1rem;
 
   background: var(--white);
 
   border: 1px solid var(--grey-100);
+  border-top: 4px solid var(--grey-300);;
   border-radius: 1.2rem;
 
-  box-shadow: var(--shadow-1);
-
-  &__header {
+   box-shadow: var(--shadow-1);
+   height: 100%;
+   max-height: 60%;
+   overflow-y: auto;
+   &__header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -118,6 +135,7 @@
     }
   }
 
+
   &__header-left {
     display: flex;
     align-items: center;
@@ -130,7 +148,7 @@
     font-weight: var(--font-bold);
   }
 
-  &__count {
+   &__count {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -149,7 +167,7 @@
     font-weight: var(--font-medium);
   }
 
-  &__create {
+    &__create-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -169,7 +187,7 @@
     font-weight: var(--font-semibold);
 
     cursor: pointer;
-
+  
     transition:
       background .2s ease,
       border-color .2s ease,
@@ -196,16 +214,12 @@
     flex-direction: column;
 
     gap: .5rem;
-
-    max-height: 8rem;
-
-    overflow-y: auto;
   }
 
   &__footer {
     display: flex;
     justify-content: flex-end;
+
+    padding-bottom: 4rem;
   }
 }
-
-

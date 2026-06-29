@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import './_backlog.scss';
+import "./_backlog.scss";
 import { useDispatch } from 'react-redux';
 import { type AppDispatch } from '../../../../redux/store';
 import { CreateTask } from '../../../tasks/components/create-task/CreateTask';
@@ -71,10 +71,7 @@ export const Backlog = () => {
     <Group orientation="vertical">
       <Separator className="backlog-container__separator" />
       {/* Sprint list */}
-      <Panel
-        defaultSize={70}
-        minSize={25}
-      >
+      <Panel>
         <section className="backlog-container__sprints">
 
           {sprints
@@ -101,7 +98,7 @@ export const Backlog = () => {
                       ) : null
                     )
                   ) : (
-                    <div className="empty">
+                    <div className="backlog-container__empty">
                       Your sprint is empty
                     </div>
                   )}
@@ -119,10 +116,8 @@ export const Backlog = () => {
       <Separator className="backlog-container__separator" />
 
       {/* Backlog */}
-      <Panel
-        defaultSize={30}
-        minSize={15}
-      >
+      <Panel defaultSize="50%"
+  minSize="15%">
         <section className="backlog">
 
           <header className="backlog__header">
@@ -138,7 +133,7 @@ export const Backlog = () => {
             </div>
 
             <button
-              className="backlog__create"
+              className="backlog__create-btn"
               onClick={createSprintHandler}
             >
               Create sprint
@@ -147,7 +142,7 @@ export const Backlog = () => {
           </header>
 
           <section
-            className="backlog__content scroll-bar"
+            className="backlog__content"
             onDragOver={onDragOver}
             onDrop={onReverseDrop}
           >
@@ -163,7 +158,7 @@ export const Backlog = () => {
                   />
                 ))
             ) : (
-              <div className="empty">
+              <div className="backlog-container__empty">
                 Your backlog is empty
               </div>
             )}
@@ -175,7 +170,7 @@ export const Backlog = () => {
 
         </section>
       </Panel>
-
+        <Separator className="backlog-container__separator" />
     </Group>
 
   </section>

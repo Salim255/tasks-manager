@@ -10,6 +10,7 @@ type InitiateState = {
     isLoading: boolean;
     isUpdating: boolean;
     isOpenTaskModal: boolean;
+    isOpenViewTask: boolean;
 }
 
 const initialState: InitiateState = {
@@ -18,6 +19,7 @@ const initialState: InitiateState = {
     isLoading: false,
     isUpdating: false,
     isOpenTaskModal: false,
+    isOpenViewTask: false
 }
 
 const taskSlice = createSlice({
@@ -31,12 +33,22 @@ const taskSlice = createSlice({
             state.isOpenTaskModal = false;
             state.task = undefined;
         },
+        closeTaskViewer: (state) => {
+            state.isOpenViewTask = false
+            state.task = undefined;
+        },
+        isOpenTaskViewer: (state, action: PayloadAction<{taskId: string}>) => {
+            const {taskId} = action.payload;
+            if (!taskId) return;
+            const task = state.tasks.find((ts) => ts.id === taskId);
+            state.task = task;
+            state.isOpenViewTask= true;
+        },
         setIsOpenTaskModal:  (state, action: PayloadAction<{taskId: string}>) => {
             const {taskId} = action.payload;
             if (!taskId) return;
             const task = state.tasks.find((ts) => ts.id === taskId);
             state.task = task;
-            state.isUpdating = true;
             state.isOpenTaskModal = true;
         },
 
@@ -141,6 +153,7 @@ const taskSlice = createSlice({
 })
 
 export const {
+    isOpenTaskViewer,
     closeEditTaskModal,
     setIsOpenTaskModal,
     isEditingTask,
