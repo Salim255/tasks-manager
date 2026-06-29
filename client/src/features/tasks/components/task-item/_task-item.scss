@@ -3,11 +3,11 @@
 ============================================ */
 
 .task-item {
+  $self: &;
   position: relative;
 
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 90% 10%;
 
   gap: 1rem;
 
@@ -34,7 +34,20 @@
 
     box-shadow: var(--shadow-1);
   }
-
+  &__body {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    #{$self}__title {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: var(--text-base);
+      font-weight: var(--fond-medium);
+      color: var(--grey-900);
+      //max-width: 40rem
+    }
+  }
   &--menu-open {
     z-index: 20;
   }
@@ -48,9 +61,11 @@
     gap: 0.75rem;
 
     min-width: 0;
+  
   }
 
   &__checkbox {
+    flex: .2;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -79,30 +94,12 @@
     }
   }
 
-  &__title {
-    overflow: hidden;
-
-    text-overflow: ellipsis;
-
-    white-space: nowrap;
-
-    font-size: var(--text-base);
-
-    font-weight: 500;
-
-    color: var(--grey-900);
-  }
-
   &__status {
-    flex: 0.3;
-
     display: flex;
     justify-content: center;
   }
 
   &__assignee {
-    flex: 0.2;
-
     display: flex;
     justify-content: center;
 
@@ -118,6 +115,8 @@
   &__actions {
     display: flex;
     justify-content: center;
+    margin-left: auto;
+    padding-right: 1rem;
   }
 }
 

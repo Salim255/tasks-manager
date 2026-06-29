@@ -26,26 +26,29 @@ export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
 
     return (
         <div  
-            onClick={() => onViewTask(task.id)}
             className={`task-item ${
                 isOptionsOpen === task.id
                 ? "task-item--menu-open"
                 : ""
             }`} {...props} >
-            <section className='task-item__content'>
+            <div 
+                className="task-item__body"
+                onClick={() => onViewTask(task.id)}>
+                <section className='task-item__content'>
                 <div className={`task-item__checkbox task-item__checkbox--${task.taskType}`}>
                     {typeIcon(task.taskType)}
                 </div>
                 <div className='task-item__title'>
-                    {task.title}  
+                    <span> {task.title} </span>
                 </div>
-            </section>
-            <section className='task-item__status'>
-                <Status status={task.status} />
-            </section>
-            <section className='task-item__assignee'>
-                <Assignee assigneeId={task.assigneeId} />
-            </section>
+                </section>
+                <section className='task-item__status'>
+                    <Status status={task.status} />
+                </section>
+                <section className='task-item__assignee'>
+                    <Assignee assigneeId={task.assigneeId} />
+                </section>
+            </div>
             <section className='task-item__actions'>
                 <OptionsBtn 
                     item={task} 
@@ -67,7 +70,6 @@ export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
                         
                     </ul>
                 </OptionsBtn>
-              
             </section>
         </div>
     )

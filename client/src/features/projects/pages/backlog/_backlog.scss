@@ -3,10 +3,11 @@
     display: grid;
     grid-template-rows: 1fr auto;
 
-    &__separator{
-        background-color: red;
-        color: red;
-    }
+  &__sprints {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
     /* ============================================
    EMPTY STATE
 ============================================ */

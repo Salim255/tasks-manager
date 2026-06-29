@@ -21,6 +21,7 @@ export const Projects = () => {
     }, [projects, navigate, isLoading]);
 
     return  (
+       <>
         <div 
             className="projects-layout">
             <section className="projects-layout__main">
@@ -29,13 +30,9 @@ export const Projects = () => {
                     <Outlet />
                 </div>
             </section>
-            <section
-                className={`projects-layout__aside ${
-                    isOpenTaskViewer ? "projects-layout__aside--open" : ""
-                }`}
-                >
-                <TaskViewer/>
-            </section>
-        </div>    
+        </div>
+
+        { isOpenTaskViewer &&  <TaskViewer/>}
+       </>
     )
 }

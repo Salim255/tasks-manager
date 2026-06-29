@@ -1,34 +1,8 @@
 .projects-layout {
   min-height: 50vh;
-  display: grid;
-  grid-template-columns: 1fr auto;
   &__outlet {
     display: flex;
     flex-direction: column;
     flex: 1;
-    min-width: 0;
   }
-  &__main {
-
-  }
-  &__aside {
-      width: 0;
-
-      overflow: hidden;
-
-      opacity: 0;
-
-      background: var(--surface-1);
-      border-left: 1px solid var(--grey-100);
-
-      transition:
-        width .28s cubic-bezier(.22,1,.36,1),
-        opacity .18s ease;
-
-      &--open {
-        width: 24rem;
-
-        opacity: 1;
-      }
-    }
 }
