@@ -1,9 +1,18 @@
 // 1 Header with close cross,
 // 2 update section
 // 3 task details section
+import type { AppDispatch } from "recharts/types/state/store";
 import "./_task-viewer.scss";
+import { useDispatch } from "react-redux";
+import { closeTaskViewer } from "../../states/taskSlice";
 
 export const TaskViewer = () => {
+    const dispatch = useDispatch<AppDispatch>();
+    const onCloseTaskViewer = () => {
+        console.log("hello")
+        dispatch(closeTaskViewer())
+    }
+
   return (
     <aside className="task-viewer">
 
@@ -24,6 +33,7 @@ export const TaskViewer = () => {
           type="button"
           className="task-viewer__close"
           aria-label="Close task viewer"
+          onClick={onCloseTaskViewer}
         >
           ✕
         </button>

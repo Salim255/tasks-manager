@@ -154,6 +154,7 @@ const taskSlice = createSlice({
 })
 
 export const {
+     closeTaskViewer,
     setTaskViewerTask,
     closeEditTaskModal,
     setIsOpenTaskModal,
