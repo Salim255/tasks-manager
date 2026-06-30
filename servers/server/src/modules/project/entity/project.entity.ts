@@ -51,6 +51,9 @@ export class Project {
   })
   status!: ProjectStatus;
 
+  @Column({type: 'int'})
+  nextTaskNumber!: number;
+
   @Column({
     type: 'uuid',
   })
