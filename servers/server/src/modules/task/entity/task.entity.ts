@@ -44,8 +44,11 @@ export class Task {
   @Column({ type: "uuid",  nullable: false })
   reporterId!: string;
 
-  @Column()
+  @Column({type: "int"})
   taskNumber!: number;
+
+  @Column()
+  issueKey!: string
 
   @ManyToOne(() => User, {
     nullable: true,

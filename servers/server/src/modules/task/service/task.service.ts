@@ -3,18 +3,25 @@ import {
   Inject,
   Injectable,
   Logger,
+  NotFoundException,
 } from '@nestjs/common';
-import { TASK_REPOSITORY } from 'src/common/constants/constants';
-import { Repository } from 'typeorm';
+import { DATA_SOURCE, TASK_REPOSITORY } from 'src/common/constants/constants';
+import { DataSource, Repository } from 'typeorm';
 import { Task } from '../entity/task.entity';
 import { TaskType, UpdateTaskDto } from '../dto/task.dto';
 import { quoteIfNeeded } from 'src/common/utils/utils';
+import { Project } from 'src/modules/project/entity/project.entity';
+import { Sprint } from 'src/modules/sprint/entity/sprint.entity';
 
 @Injectable()
 export class TaskService {
   private logger = new Logger(TaskService.name);
 
-  constructor(@Inject(TASK_REPOSITORY) private taskRepo: Repository<Task>) {}
+  constructor(
+    @Inject(DATA_SOURCE)
+    private readonly dataSource: DataSource,
+    @Inject(TASK_REPOSITORY) private taskRepo: Repository<Task>
+  ) {}
 
   async updateTask(payload: UpdateTaskDto & { taskId: string }): Promise<Task> {
     try {
@@ -97,23 +104,64 @@ export class TaskService {
     reporterId: string;
     title: string;
     projectId: string;
+    sprintId?: string;
+    assigneeId?: string;
     taskType: TaskType;
   }): Promise<Task> {
     try {
-      const query = `
-        INSERT INTO tasks ("reporterId", title, "projectId", "taskType")
-        VALUES ($1, $2, $3, $4)
-        RETURNING *;
-      `;
-      const values = [
-        payload.reporterId,
-        payload.title,
-        payload.projectId,
-        payload.taskType ?? 'task',
-      ];
+      return await this.dataSource.manager.transaction(async(transactionEntityManger) => {
+        // 1. ATOMIC project update (NO lock needed)
+        const updatedProject = await transactionEntityManger
+          .createQueryBuilder()
+          .update(Project)
+          .set({
+            nextTaskNumber:  () => `"nextTaskNumber" + 1`
+          })
+          .where("id = :id", { id: payload.projectId })
+          .returning(["nextTaskNumber", "key"])
+          .execute();
 
-      const tasks: Task[] = await this.taskRepo.query(query, values);
-      return tasks[0];
+
+        if (!updatedProject) {
+          throw new NotFoundException('Project not found');
+        }
+
+        const projectKey = updatedProject.raw[0].key;
+        const nextTaskNumber = updatedProject.raw[0].nextTaskNumber;
+
+        // 2. Validate sprint belongs to project (if provided)
+        if (payload.sprintId) {
+          const sprint = await transactionEntityManger.findOne(Sprint, {
+            where: {
+              id: payload.sprintId,
+              projectId: payload.projectId 
+            }
+          });
+
+          if (!sprint) {
+            throw new BadRequestException(
+              "Sprint does not exist or does not belong to this project",
+            );
+          }
+        }
+
+        // 3. Validate assignee
+
+        // 4. Create task
+        const task =  transactionEntityManger.create(Task, {
+          title: payload.title,
+          reporterId: payload.reporterId,
+          projectId: payload.projectId,
+          assigneeId: payload.assigneeId,
+          issueKey: `${projectKey}-${nextTaskNumber-1}`,
+        ...(payload.taskType ? { taskType: payload?.taskType} :  { }),
+          sprintId: payload.sprintId
+        })
+
+        return await transactionEntityManger.save(Task, task)
+    
+      })
+    
     } catch (error) {
       this.logger.error('Error to create a task', error);
       throw error;
