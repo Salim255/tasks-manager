@@ -3,18 +3,22 @@ import {
   Inject,
   Injectable,
   Logger,
+  NotFoundException,
 } from '@nestjs/common';
-import { SPRINT_REPOSITORY } from 'src/common/constants/constants';
-import { Repository } from 'typeorm';
+import { DATA_SOURCE, SPRINT_REPOSITORY } from 'src/common/constants/constants';
+import { DataSource, Repository } from 'typeorm';
 import { Sprint } from '../entity/sprint.entity';
 import { Task } from 'src/modules/task/entity/task.entity';
 import { UpdateSprintDto } from '../dto/sprint.dto';
+import { Project } from 'src/modules/project/entity/project.entity';
 
 @Injectable()
 export class SprintService {
   private logger = new Logger(SprintService.name);
 
   constructor(
+    @Inject(DATA_SOURCE)
+    private readonly dataSource: DataSource,
     @Inject(SPRINT_REPOSITORY) private sprintRepo: Repository<Sprint>,
   ) {}
 
@@ -95,27 +99,35 @@ export class SprintService {
   }
 
   async createSprint(payload: { projectId: string }): Promise<Sprint> {
+    
     try {
-      const values = [payload.projectId];
-      const query = `
-        WITH sprint_counter AS (
-          SELECT COUNT(*) AS total
-            FROM sprints AS sp
-              WHERE sp."projectId" = $1
-        ),
-      
-        inserted AS (
-          INSERT INTO sprints (name, "projectId")
-            SELECT CONCAT('sprint', sprint_counter.total + 1),
-              $1
-            FROM sprint_counter
-          RETURNING *
-        )
-      
-        SELECT * FROM inserted;
-      `;
-      const sprint: Sprint[] = await this.sprintRepo.query(query, values);
-      return sprint[0];
+      return await this.dataSource.manager.transaction( async (manager) => {
+          const updatedProject = await manager
+            .createQueryBuilder()
+            .update(Project)
+            .set({
+              nextSprintNumber: () =>  `"nextSprintNumber" + 1`
+            })
+            .where("id = :id" , {id: payload.projectId})
+            .returning(["nextSprintNumber", "key"])
+            .execute();
+          
+          if (!updatedProject.affected || updatedProject.affected === 0) {
+            throw new NotFoundException('Project not found');
+          }
+
+          const projectKey = updatedProject.raw[0].key;
+          const nextSprintNumber = updatedProject.raw[0].nextSprintNumber;
+
+          // Create sprint
+          const sprint = manager.create(Sprint, {
+            name: `${projectKey} ${nextSprintNumber - 1 }`,
+            projectId: payload.projectId
+          });
+
+          return await manager.save(Sprint, sprint);
+
+      })
     } catch (error) {
       this.logger.error('Error to create sprint');
       throw error;

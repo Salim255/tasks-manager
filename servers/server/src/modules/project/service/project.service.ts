@@ -187,7 +187,7 @@ export class ProjectService {
         FROM projects AS project 
 
         -- Owner profile
-        WHERE project."owner" = $1
+        WHERE project."ownerId" = $1
           OR EXISTS (
             SELECT 1
               FROM members AS mb
