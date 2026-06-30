@@ -44,6 +44,8 @@ export class Task {
   @Column({ type: "uuid",  nullable: false })
   reporterId!: string;
 
+  @Column()
+  taskNumber!: number;
 
   @ManyToOne(() => User, {
     nullable: true,
@@ -62,7 +64,7 @@ export class Task {
     onDelete: 'CASCADE',
   })
   sprint!: Sprint;
-  
+
   // -----------------------
   // PROJECT (required)
   // -----------------------
