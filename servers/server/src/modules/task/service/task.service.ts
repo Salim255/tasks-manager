@@ -123,7 +123,7 @@ export class TaskService {
           .execute();
 
 
-        if (!updatedProject) {
+        if (!updatedProject.affected || updatedProject.affected === 0) {
           throw new NotFoundException('Project not found');
         }
 
@@ -164,9 +164,11 @@ export class TaskService {
           reporterId: payload.reporterId,
           projectId: payload.projectId,
           assigneeId: payload.assigneeId,
+          sprintId: payload.sprintId,
+          taskNumber: nextTaskNumber-1,
           issueKey: `${projectKey}-${nextTaskNumber-1}`,
         ...(payload.taskType ? { taskType: payload?.taskType} :  { }),
-          sprintId: payload.sprintId
+  
         })
 
         return await transactionEntityManger.save(Task, task)
