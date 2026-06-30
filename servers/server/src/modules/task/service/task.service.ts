@@ -12,6 +12,7 @@ import { TaskType, UpdateTaskDto } from '../dto/task.dto';
 import { quoteIfNeeded } from 'src/common/utils/utils';
 import { Project } from 'src/modules/project/entity/project.entity';
 import { Sprint } from 'src/modules/sprint/entity/sprint.entity';
+import { User } from 'src/modules/user/entity/user.entity';
 
 @Injectable()
 export class TaskService {
@@ -146,7 +147,17 @@ export class TaskService {
         }
 
         // 3. Validate assignee
+        if (payload.assigneeId) {
+          const assignee = await transactionEntityManger.findOne(User, {
+            where: {
+              id: payload.assigneeId
+            }
+          });
 
+          if (!assignee) {
+            throw new BadRequestException("Assignee not found");
+          }
+        }
         // 4. Create task
         const task =  transactionEntityManger.create(Task, {
           title: payload.title,
