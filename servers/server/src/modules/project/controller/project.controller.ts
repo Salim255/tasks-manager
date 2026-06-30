@@ -98,8 +98,9 @@ export class ProjectController {
     };
   }
 
-  @UseGuards(JwtAuthGuard)
+ 
   @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Post(':projectId/sprints')
   @HttpCode(HttpStatus.CREATED)
   @ApiOperation({
@@ -127,8 +128,20 @@ export class ProjectController {
   })
   async createSprint(
     @Param('projectId') projectId: string,
+
+    @Req() req: Request & {
+      user: { id: string }; 
+      refresh_token: { token: string } 
+    },
   ): Promise<SprintResponseDto> {
-    const sprint: Sprint = await this.sprintService.createSprint({ projectId });
+    const { id: userId } = req.user;
+
+    if (!userId || !projectId) {
+      console.log("UserId===",userId, "ProjectId", projectId)
+      throw new BadRequestException('Fetch project data required');
+    }
+
+    const sprint: Sprint = await this.sprintService.createSprint({ projectId, creatorId: userId });
     return {
       status: 'success',
       data: {

@@ -16,7 +16,7 @@ import { TokenCookieService } from './service/token.cookie.service';
     AuthService,
     UserRepository,
     JwtAuthGuard,
-    TokenCookieService,
+    TokenCookieService
   ],
   exports: [JwtAuthGuard, JwtTokenService, TokenCookieService],
   imports: [

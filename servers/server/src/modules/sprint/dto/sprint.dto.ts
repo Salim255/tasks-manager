@@ -50,10 +50,10 @@ export class UpdateSprintDto {
 
 export class SprintsListResponseDto {
   @ApiProperty({ example: 'success', enum: ['success', 'error'] })
-  status: 'success' | 'error';
+  status!: 'success' | 'error';
 
   @ApiProperty({ type: () => Object })
-  data: {
+  data!: {
     sprints: Sprint & { tasks: Task[] }[];
   };
 }
@@ -64,22 +64,30 @@ export class CreateSprintDto {
     description: 'Project this sprint belongs to',
   })
   @IsNotEmpty()
-  projectId: string;
+  projectId!: string;
+
+  @ApiProperty({
+    example: '7d975331-af42-4db5-83e1-bf157b922e18',
+    description: 'User that created this sprint',
+  })
+  @IsNotEmpty()
+  creatorId!: string;
+
 }
 
 export class SprintDataDto {
   @ApiProperty({ type: () => Sprint })
-  sprint: Sprint;
+  sprint!: Sprint;
 }
 
 export class SprintResponseDto {
   @ApiProperty({ example: 'success' })
-  status: string;
+  status!: string;
 
   @ApiProperty({
     type: () => SprintDataDto,
   })
-  data: SprintDataDto;
+  data!: SprintDataDto;
 }
 
 export class UpdateSprintResponseDto extends SprintResponseDto {}

@@ -98,7 +98,7 @@ export class SprintService {
     }
   }
 
-  async createSprint(payload: { projectId: string }): Promise<Sprint> {
+  async createSprint(payload: { projectId: string, creatorId: string }): Promise<Sprint> {
     
     try {
       return await this.dataSource.manager.transaction( async (manager) => {
@@ -121,8 +121,9 @@ export class SprintService {
 
           // Create sprint
           const sprint = manager.create(Sprint, {
-            name: `${projectKey} ${nextSprintNumber - 1 }`,
-            projectId: payload.projectId
+            name: `${projectKey} Sprint ${nextSprintNumber - 1 }`,
+            projectId: payload.projectId,
+            creatorId: payload.creatorId
           });
 
           return await manager.save(Sprint, sprint);

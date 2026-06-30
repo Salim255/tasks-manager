@@ -35,12 +35,11 @@ export class JwtAuthGuard implements CanActivate {
       //The controller class that contains the route handler
       context.getClass(),
     ]);
-
+   
     const allowRefresh = this.reflector.getAllAndOverride<boolean>(
       'allowRefresh',
       [context.getHandler(), context.getClass()],
     );
-
     if (isPublic) {
       if (allowRefresh) {
         this.tryInjectRefreshUser(request);

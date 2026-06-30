@@ -19,6 +19,9 @@ export class User {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
+  @Column({type: 'boolean', default: false})
+  isDemo!: boolean;
+
   @Index({ unique: true })
   @Column()
   email!: string;
