@@ -178,7 +178,7 @@ export class ProjectController {
       title,
       projectId,
       taskType,
-      ownerId: userId,
+      reporterId: userId,
     });
     const response: CreateTaskResponseDto = {
       status: 'success',
@@ -231,7 +231,7 @@ export class ProjectController {
     const project = await this.projectService.createProject({
       name,
       description,
-      ownerId: userId,
+      reporterId: userId,
     });
 
     return {
@@ -407,7 +407,7 @@ export class ProjectController {
   ): Promise<ProjectsListResponseDto> {
     const { id: userId } = req.user;
     const projects: Project[] = await this.projectService.getUserProjectsByUser(
-      { ownerId: userId },
+      { reporterId: userId },
     );
 
     const response: ProjectsListResponseDto = {

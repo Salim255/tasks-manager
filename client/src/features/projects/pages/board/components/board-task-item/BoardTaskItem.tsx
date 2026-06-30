@@ -4,9 +4,18 @@ import { OptionsBtn } from "../../../../../../shared/components/options-btn/Opti
 import type { TaskItemProps } from "../../../../../tasks/components/task-item/TaskItem";
 import { GoPerson } from "react-icons/go";
 import { typeIcon } from '../../../../../../shared/utils/methods';
+import type { AppDispatch } from '../../../../../../redux/store';
+import { useDispatch } from 'react-redux';
+import { setTaskViewerTask } from '../../../../../tasks/states/taskSlice';
 
 export const BoardTaskItem =  ({ task, ...props }: TaskItemProps) => {
     const [isOptionsOpen, setOptionsOpen ] = useState<string | null>(null);
+
+    const dispatch = useDispatch<AppDispatch>();
+
+    const onViewTask = (taskId: string) => {
+       dispatch(setTaskViewerTask({taskId}))
+    }
 
     return (
         <div className="board-task-item" {...props} >
@@ -21,7 +30,7 @@ export const BoardTaskItem =  ({ task, ...props }: TaskItemProps) => {
                         setOptionsOpen={setOptionsOpen}
                     >
                         <ul className='options-list'>
-                            <li className='options-list__item'>Edit Task</li>
+                            <li className='options-list__item'  onClick={() => onViewTask(task.id)}>Edit Task</li>
                             <li className='options-list__item'>Delete Task</li>
                         </ul>
                     </OptionsBtn>

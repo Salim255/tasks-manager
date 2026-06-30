@@ -45,7 +45,7 @@ export const TasksList = () => {
         title: "Reporter",
         size: 15,
         render: (task: Task) => (
-        <Reporter reporterId={task.ownerId!} />
+        <Reporter reporterId={task.reporterId!} />
         ),
     },
     {

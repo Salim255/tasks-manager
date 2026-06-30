@@ -42,7 +42,7 @@ export const UserMenu = ({ profile }:{ profile: Profile | undefined }) => {
         <FaUserCircle className="user-menu__icon" />
 
         <span className="user-menu__name">
-          {profile?.firstName}
+         {/*  {profile?.firstName} */} Demo
         </span>
 
         {profile && (

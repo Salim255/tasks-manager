@@ -157,7 +157,7 @@ export class CreateTaskDto {
   @ApiPropertyOptional()
   @IsString()
   @IsOptional()
-  ownerId?: string;
+  reporterId?: string;
 
   @ApiPropertyOptional()
   @IsString()

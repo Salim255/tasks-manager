@@ -15,12 +15,12 @@ export const MemberItem = ({ task }: { task: Task }) => {
     const { members } = useMemberSelector();
     const {profile} = useProfileSelector();   
     const dispatch = useDispatch<AppDispatch>();
-    const isReporter = task.ownerId === profile?.userId;
+    const isReporter = task.reporterId === profile?.userId;
 
     const reporterProfile = useMemo(() => {
         if (isReporter) return profile;
-        return members.find(m => m.userId === task.ownerId)?.profile;
-    }, [isReporter, profile, members, task.ownerId]);
+        return members.find(m => m.userId === task.reporterId)?.profile;
+    }, [isReporter, profile, members, task.reporterId]);
 
     const handleAssignMember = ({
         member,

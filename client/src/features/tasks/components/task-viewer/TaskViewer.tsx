@@ -6,6 +6,7 @@ import "./_task-viewer.scss";
 import { useDispatch } from "react-redux";
 import { closeTaskViewer } from "../../states/taskSlice";
 import { ModalOverlay } from "../../../../shared/components/modal-overlay/ModalOverlay";
+import { ModalMotion } from "../../../../shared/motion/ModalMotion";
 
 export const TaskViewer = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -15,7 +16,8 @@ export const TaskViewer = () => {
 
   return (
    <ModalOverlay onClose={onCloseTaskViewer}>
-    <aside className="task-viewer">
+     <ModalMotion>
+        <div className="task-viewer">
 
         {/*=====================================
             HEADER
@@ -371,8 +373,9 @@ export const TaskViewer = () => {
 
         </form>
 
-    </aside>
-</ModalOverlay>
-
+    </div>
+     </ModalMotion>
+    
+    </ModalOverlay>
   );
 };

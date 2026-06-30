@@ -94,19 +94,19 @@ export class TaskService {
     }
   }
   async createTask(payload: {
-    ownerId: string;
+    reporterId: string;
     title: string;
     projectId: string;
     taskType: TaskType;
   }): Promise<Task> {
     try {
       const query = `
-        INSERT INTO tasks ("ownerId", title, "projectId", "taskType")
+        INSERT INTO tasks ("reporterId", title, "projectId", "taskType")
         VALUES ($1, $2, $3, $4)
         RETURNING *;
       `;
       const values = [
-        payload.ownerId,
+        payload.reporterId,
         payload.title,
         payload.projectId,
         payload.taskType ?? 'task',

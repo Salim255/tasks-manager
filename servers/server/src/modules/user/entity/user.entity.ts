@@ -3,40 +3,54 @@ import {
   CreateDateColumn,
   Entity,
   Index,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { UserRole } from '../dto/user.dto';
 import { Profile } from 'src/modules/profile/entity/profile.entity';
+import { Task } from 'src/modules/task/entity/task.entity';
+import { Sprint } from 'src/modules/sprint/entity/sprint.entity';
+import { Project } from 'src/modules/project/entity/project.entity';
 
 @Entity('users')
 export class User {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id!: string;
 
   @Index({ unique: true })
   @Column()
-  email: string;
+  email!: string;
 
   @Column()
-  password: string;
+  password!: string;
 
   @Column({ default: false })
-  emailVerified: boolean;
+  emailVerified!: boolean;
 
   @Column({ type: 'text', nullable: true })
   refreshTokenHash?: string;
 
   @Column({ type: 'enum', enum: UserRole, default: UserRole.USER })
-  role: UserRole;
+  role!: UserRole;
 
   @OneToOne(() => Profile, (profile) => profile.user)
-  profile: Profile;
+  profile?: Profile;
+
+  // User
+  @OneToMany(() => Task, task => task.assignee)
+  assignedTasks!: Task[];
+
+  @OneToMany(() => Sprint,  sprint => sprint.reporter)
+  reporterSprints!: Sprint[];
+
+  @OneToMany(() => Project, project => project.reporterId)
+  projects!: Project[];
 
   @CreateDateColumn()
-  createdAt: Date;
+  createdAt!: Date;
 
   @UpdateDateColumn()
-  updatedAt: Date;
+  updatedAt!: Date;
 }

@@ -14,37 +14,37 @@ export enum ProjectStatus {
 
 export class ProjectDto {
   @ApiProperty()
-  id: string;
+  id!: string;
 
   @ApiProperty()
-  name: string;
+  name!: string;
 
   @ApiProperty()
-  description: string;
+  description?: string;
 
   @ApiProperty()
-  ownerId: string;
+  reporterId!: string;
 
   @ApiProperty()
-  createdAt: string;
+  createdAt!: string;
 
   @ApiProperty()
-  updatedAt: string;
+  updatedAt!: string;
 
   @ApiProperty()
-  status: string;
+  status!: string;
 
   @ApiProperty({ type: () => [Task] })
-  tasks: Task[];
+  tasks!: Task[];
 
   @ApiProperty({ type: () => [Sprint] })
-  sprints: Sprint[];
+  sprints!: Sprint[];
 
   @ApiProperty({ type: () => [Member] })
-  members: Member[];
+  members!: Member[];
 
   @ApiProperty({ type: () => Profile })
-  owner: Profile;
+  reporter!: Profile;
 }
 
 export class ProjectDtoResponse extends ApiResponseData<{
@@ -53,7 +53,7 @@ export class ProjectDtoResponse extends ApiResponseData<{
 
 export class CreateProjectResponseDto {
   @ApiProperty({ example: 'success' })
-  status: string;
+  status!: string;
 
   @ApiProperty({
     example: {
@@ -62,13 +62,13 @@ export class CreateProjectResponseDto {
         name: 'Task Manager',
         description: 'A modern task management application',
         status: 'active',
-        ownerId: 12,
+        reporterId: 12,
         createdAt: '2024-03-05T12:00:00.000Z',
         updatedAt: '2024-03-05T12:00:00.000Z',
       },
     },
   })
-  data: {
+  data!: {
     project: Project;
   };
 }
@@ -77,7 +77,7 @@ export class CreateProjectDto {
   @ApiProperty({ example: 'Task Manager' })
   @IsString()
   @IsNotEmpty()
-  name: string;
+  name!: string;
 
   @ApiProperty({
     example: 'A modern task management application',
@@ -90,7 +90,7 @@ export class CreateProjectDto {
 
 export class ProjectsListResponseDto {
   @ApiProperty({ example: 'success' })
-  status: string;
+  status!: string;
 
   @ApiProperty({
     description: 'List of projects',
@@ -102,14 +102,14 @@ export class ProjectsListResponseDto {
           name: 'Task Manager',
           description: 'A modern task management application',
           status: 'active',
-          ownerId: 12,
+          reporterId: 12,
           createdAt: '2024-03-05T12:00:00.000Z',
           updatedAt: '2024-03-05T12:00:00.000Z',
         },
       ],
     },
   })
-  data: {
+  data?: {
     projects: Project[];
   };
 }

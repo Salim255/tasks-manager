@@ -7,7 +7,7 @@ export interface Project {
   name: string;
   description?: string;
   status: 'active' | 'archived';
-  ownerId: string;
+  reporterId: string;
   sprints: Sprint[];
   members: Member[];
   tasks: Task[];

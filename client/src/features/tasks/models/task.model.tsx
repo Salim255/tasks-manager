@@ -13,7 +13,7 @@ export interface Task {
   status: TaskStatus;
   priority: TaskPriority;
 
-  ownerId?: string;    
+  reporterId?: string;    
   assigneeId?: string;
 
   sprintId?: string;
