@@ -42,11 +42,14 @@ export class User {
   @OneToMany(() => Task, task => task.assignee)
   assignedTasks!: Task[];
 
-  @OneToMany(() => Sprint,  sprint => sprint.reporter)
-  reporterSprints!: Sprint[];
+  @OneToMany(() => Sprint,  sprint => sprint.creator)
+  createdSprints!: Sprint[];
 
-  @OneToMany(() => Project, project => project.reporterId)
-  projects!: Project[];
+  @OneToMany(() => Task, task => task.reporter)
+  reportedTasks!: Task[];
+
+  @OneToMany(() => Project, project => project.owner)
+  ownedProjects!: Project[];
 
   @CreateDateColumn()
   createdAt!: Date;

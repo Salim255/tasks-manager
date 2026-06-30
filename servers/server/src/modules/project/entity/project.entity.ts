@@ -18,7 +18,8 @@ import { Sprint } from 'src/modules/sprint/entity/sprint.entity';
 
 @Entity('projects')
 @Unique(['key'])
-@Index(['reporterId'])
+@Unique(['name'])
+@Index(['ownerId'])
 @Index(['status'])
 export class Project {
 
@@ -39,7 +40,7 @@ export class Project {
 
   @Column({
     type: 'varchar',
-    length: 12,
+    length: 10,
   })
   key!: string;
 
@@ -53,7 +54,10 @@ export class Project {
   @Column({
     type: 'uuid',
   })
-  reporterId!: string;
+  ownerId!: string;
+
+  @ManyToOne(() => User , user => user.ownedProjects, { onDelete: "CASCADE" })
+  owner!: User
 
   // Project side (one → many)
   @OneToMany(() => Task, task => task.project)

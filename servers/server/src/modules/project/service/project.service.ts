@@ -84,7 +84,7 @@ export class ProjectService {
         FROM projects AS project 
 
         -- Owner profile
-        WHERE project.id = $1 AND project."reporterId" = $2
+        WHERE project.id = $1 AND project."ownerId" = $2
           OR  project.id = $1 AND  EXISTS (
             SELECT 1
               FROM members AS mb
@@ -128,9 +128,9 @@ export class ProjectService {
   }
 
   async getUserProjectsByUser({
-    reporterId,
+    ownerId,
   }: {
-    reporterId: string;
+    ownerId: string;
   }): Promise<Project[]> {
     try {
       const query = `
@@ -187,14 +187,14 @@ export class ProjectService {
         FROM projects AS project 
 
         -- Owner profile
-        WHERE project."reporterId" = $1
+        WHERE project."owner" = $1
           OR EXISTS (
             SELECT 1
               FROM members AS mb
                 WHERE mb."projectId" = project.id
           );
       `;
-      const rows: Project[] = await this.projectRepo.query(query, [reporterId]);
+      const rows: Project[] = await this.projectRepo.query(query, [ownerId]);
       return rows;
     } catch (error) {
       this.logger.error('Error to fetch user projects', error);
@@ -203,14 +203,14 @@ export class ProjectService {
   }
 
   async createProject(
-    payload: CreateProjectDto & { reporterId: string },
+    payload: CreateProjectDto & { ownerId: string },
   ): Promise<Project> {
     try {
-      const values = [payload.name, payload.description, payload.reporterId];
+      const values = [payload.name, payload.key,  payload.description, payload.ownerId];
 
       const query = `
-      INSERT INTO projects (name, description, "reporterId")
-        VALUES ($1, $2, $3)
+      INSERT INTO projects (name, key,  description, "ownerId")
+        VALUES ($1, $2, $3, $4)
       RETURNING *;
       `;
 

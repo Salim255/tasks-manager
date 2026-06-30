@@ -32,7 +32,7 @@ export class Sprint {
   @Column({ type: 'timestamptz', nullable: true })
   completeDate?: Date;
 
-  @Column()
+  @Column({type: "uuid"})
   projectId!: string;
 
   @Column({ nullable: true })
@@ -41,9 +41,12 @@ export class Sprint {
   @ManyToOne(() => Project, project => project.sprints, { onDelete: 'CASCADE' })
   project!: Project;
 
-  @ManyToOne(() => User, user=> user.reporterSprints, { onDelete: 'CASCADE' } )
-  reporter!: User;
-  
+  @Column({type: "uuid"})
+  creatorId!: string;
+
+  @ManyToOne(() => User, user=> user.createdSprints, { onDelete: 'CASCADE' } )
+  creator!: User;
+
   @OneToMany(() => Task, task => task.sprint)
   tasks!: Task[];
 

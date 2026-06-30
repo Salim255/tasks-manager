@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Project } from '../entity/project.entity';
-import { IsOptional, IsString, IsNotEmpty } from 'class-validator';
+import { IsOptional, IsString, IsNotEmpty, IsUppercase, Length } from 'class-validator';
 import { Task } from 'src/modules/task/entity/task.entity';
 import { Sprint } from 'src/modules/sprint/entity/sprint.entity';
 import { Member } from 'src/modules/member/entity/member.entity';
@@ -23,7 +23,7 @@ export class ProjectDto {
   description?: string;
 
   @ApiProperty()
-  reporterId!: string;
+  ownerId!: string;
 
   @ApiProperty()
   createdAt!: string;
@@ -62,7 +62,7 @@ export class CreateProjectResponseDto {
         name: 'Task Manager',
         description: 'A modern task management application',
         status: 'active',
-        reporterId: 12,
+        ownerId: 12,
         createdAt: '2024-03-05T12:00:00.000Z',
         updatedAt: '2024-03-05T12:00:00.000Z',
       },
@@ -78,6 +78,18 @@ export class CreateProjectDto {
   @IsString()
   @IsNotEmpty()
   name!: string;
+
+
+  @ApiProperty({ 
+    example: 'DDD',
+    maxLength: 10,
+    minLength: 2
+  })
+  @IsString()
+  @IsNotEmpty()
+  @IsUppercase()
+  @Length(2, 10)
+  key!: string;
 
   @ApiProperty({
     example: 'A modern task management application',
@@ -102,7 +114,7 @@ export class ProjectsListResponseDto {
           name: 'Task Manager',
           description: 'A modern task management application',
           status: 'active',
-          reporterId: 12,
+          owner: 12,
           createdAt: '2024-03-05T12:00:00.000Z',
           updatedAt: '2024-03-05T12:00:00.000Z',
         },

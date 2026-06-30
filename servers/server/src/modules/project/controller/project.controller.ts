@@ -220,18 +220,19 @@ export class ProjectController {
   ): Promise<CreateProjectResponseDto> {
     const { id: userId } = req.user;
     //const { token } = req.refresh_token;
-    const { name, description } = body;
+    const { name, key, description } = body;
 
-    if (!name) {
+    if (!name || !key) {
       throw new BadRequestException(
-        'Project must have both name and description',
+        'Project must have both name and key',
       );
     }
 
     const project = await this.projectService.createProject({
       name,
+      key,
       description,
-      reporterId: userId,
+      ownerId: userId,
     });
 
     return {
@@ -407,7 +408,7 @@ export class ProjectController {
   ): Promise<ProjectsListResponseDto> {
     const { id: userId } = req.user;
     const projects: Project[] = await this.projectService.getUserProjectsByUser(
-      { reporterId: userId },
+      { ownerId: userId },
     );
 
     const response: ProjectsListResponseDto = {
