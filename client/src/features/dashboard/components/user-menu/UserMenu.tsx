@@ -44,10 +44,10 @@ export const UserMenu = ({ profile }:{ profile: Profile | undefined }) => {
         <FaUserCircle className="user-menu__icon" />
 
         <span className="user-menu__name">
-         { userData?.isDemo ? "Demo" : profile?.firstName }
+         { userData?.isDemo ? "Demo account" : profile?.firstName }
         </span>
 
-        {profile && (
+        { profile && (
           <FaCaretDown
             className={`user-menu__caret ${
               showLogout
@@ -55,7 +55,7 @@ export const UserMenu = ({ profile }:{ profile: Profile | undefined }) => {
                 : ""
             }`}
           />
-        )}
+        ) }
       </button>
 
       <div

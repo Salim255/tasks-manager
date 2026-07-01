@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { authUser, demoLoginHttp, loadUserHttp } from "../http/auth.http";
+import { authUser, demoLoginHttp, loadUserHttp, logoutHttp } from "../http/auth.http";
 import { toast } from "react-toastify";
 
 type  InitiateState = {
@@ -31,6 +31,20 @@ const authSlice = createSlice({
     // Listen to fetch or the fetch call event
     extraReducers: (builder) => {
         builder
+        .addCase(logoutHttp.pending, (state) => {
+            state.isLoading = true;
+        })
+        .addCase(logoutHttp.fulfilled, (state) => {
+            state.user = null;
+            state.isLoading = false;
+            toast.success("Logged out successfully");
+        })
+        .addCase(logoutHttp.rejected, (state, action) => {
+            const { message } = action.payload || { message: "Logout failed" };
+            state.isLoading = false;
+            state.user = null; // Ensure user is cleared on logout failure
+            toast.error(message);
+        })
         .addCase(demoLoginHttp.pending, (state) => {
             state.isLoading = true;
         })

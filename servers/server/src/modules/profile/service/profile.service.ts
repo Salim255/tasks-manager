@@ -29,7 +29,7 @@ export class ProfileService {
     payload: CreateProfileDto & { userId: string },
   ): Promise<Profile> {
     try {
-      const values = [payload.lastName, payload.lastName, payload.userId];
+      const values = [payload.lastName, payload.firstName, payload.userId];
       const query = `
         INSERT INTO profiles ("lastName", "firstName", "userId")
           VALUES ($1, $2, $3)
