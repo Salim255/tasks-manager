@@ -1,20 +1,28 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./_landing-page.scss";
 import screen from "/assets/img/logos/screen.png";
 import { demoLoginHttp } from "../auth/http/auth.http";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../redux/store";
+import { useIsAuthenticated } from "../auth/states/authSelectors";
+import { useEffect } from "react";
 
 export const LandingPage = () => {
+  const navigate = useNavigate();
+  const isAuthenticated  = useIsAuthenticated();
   const dispatcher = useDispatch<AppDispatch>();
+
 
   const onDemo = () => {
     dispatcher(demoLoginHttp({ authType: "demo-login" }));
-    // Login as demo user
-    // 1 We send the demo client id to the server to get a demo user token
-    // 2 The server will return workspace and user data for the demo user based on the demo client id
-
   }
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/dashboard/create-project");
+      return;
+    }
+  }, [isAuthenticated]);
 
   return (
     <section className="landing u-p-lg">
@@ -50,12 +58,11 @@ export const LandingPage = () => {
               Login
             </Link>
 
-            <Link
-              to="/demo"
+            <button
               onClick={onDemo}
               className="landing__button landing__button--ghost">
               Try Demo
-            </Link>
+            </button>
           </div>
 
         </div>

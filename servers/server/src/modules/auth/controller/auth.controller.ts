@@ -112,15 +112,14 @@ export class AuthController {
     @Res({ passthrough: true }) response: express.Response,
     @Req()
     req: Request & { 
-      user: { id: string }; 
-      demoClientId: { demoClientId: string | null };
+      user: { id: string, demoClientId: string | null, isDemo: boolean | null };
       cookies: { cookies: AuthCookies }
      },
   ) {
     //Sanitize and validate input
-    const { id: userId } = req.user;
-    const { demoClientId } = req.demoClientId;
-    
+    const { id: userId, demoClientId, isDemo } = req.user;
+  
+
     const cookies = req.cookies as AuthCookies;
     const refreshToken = cookies.task_m_refresh_jwt;
 
@@ -130,9 +129,12 @@ export class AuthController {
     if (!userId || !refreshToken) {
       throw new BadRequestException('Missing user ID or refresh token');
     }
+
     //Get user
     const result: DataDto = await this.authService.validateSession({
       userId,
+      isDemo: isDemo ?? false,
+      demoClientId: demoClientId ?? null,
       refreshToken: refreshToken,
     });
 

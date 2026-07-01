@@ -6,6 +6,7 @@ import { getEnvVar } from 'src/common/utils/utils';
 export type JwtTokenPayload = {
   sub: string; // user ID
   demoClientId: string | null; // demo client ID
+  isDemo: boolean; // indicates if the token is for a demo user
   exp: number; // expiration timestamp (auto-added by JWT library)
 };
 

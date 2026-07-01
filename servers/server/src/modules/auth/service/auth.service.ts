@@ -27,6 +27,8 @@ export class AuthService {
 
   async validateSession(payload: {
     userId: string;
+    isDemo: boolean;
+    demoClientId: string | null;
     refreshToken: string;
   }): Promise<DataDto> {
     try {
@@ -50,8 +52,11 @@ export class AuthService {
       }
 
       // Generate new tokens
-      const { accessToken, refreshToken } =
-        await this.generateAndStoreTokens({ user, demoClientId: null, isDemo: false });
+      const { accessToken, refreshToken } = await this.generateAndStoreTokens({
+        user, 
+        demoClientId: payload.demoClientId, 
+        isDemo: payload.isDemo 
+      });
 
       return {
         user: {
@@ -75,7 +80,7 @@ export class AuthService {
     try {
       // We login we get the demo credentials from app config and use them to login the user pr .env
       const email = getEnvVar<string>('DEMO_EMAIL', '', this.configService);
-      const password = getEnvVar<string>('DEMO_PASSWORD', '', this.configService  );
+      const password = getEnvVar<string>('DEMO_PASSWORD', '', this.configService);
 
       if (!dto.demoClientId) {
         throw new BadRequestException('Demo client ID is required');
