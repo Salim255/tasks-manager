@@ -13,8 +13,14 @@ export const CreateProjectForm = () => {
   const navigate = useNavigate();
   const { state, setField, setError } = useProjectForm();
 
-  const handleInput = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-      setField(e.target.name as 'name' | 'description', e.target.value);
+  const handleInput = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  ) => {
+      const { name, value } = e.target;
+      setField(
+        name as 'name' | 'description' | 'key',
+        name === 'key' ? value.toUpperCase() : value
+      );
   }
 
   const handleSubmit = async (e: ChangeEvent<HTMLFormElement>) => {
@@ -102,11 +108,12 @@ export const CreateProjectForm = () => {
                 <div className="form__group">
                   <label className="form__label"> Key <span className="form__label-required">*</span> <span className="form__label-subtitle"> <FaInfoCircle /> </span>  </label>
                   <input
-                    className="form__input"
+                    className="form__input project-create__input-key"
                     name="key"
                     value={state.key}
                     onChange={handleInput}
                     placeholder="PROJECT-KEY"
+                    
                   />
                   {state.errors.key && (
                     <p className="form__error">

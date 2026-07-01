@@ -52,7 +52,7 @@ export const validateProjectForm = (state: ProjectFormState) => {
   errors.key =
     Validators.required(state.key, "Workspace Key") ||
     Validators.minLength(3, "Workspace Key")(state.key) ||
-    Validators.maxLength(10, "Workspace Key")(state.key);
+    Validators.maxLength(8, "Workspace Key")(state.key);
 
   errors.description =
     Validators.maxLength(200, "Workspace Description")(state.description || "");

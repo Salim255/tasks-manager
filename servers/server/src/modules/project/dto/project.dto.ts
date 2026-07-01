@@ -82,13 +82,13 @@ export class CreateProjectDto {
 
   @ApiProperty({ 
     example: 'DDD',
-    maxLength: 10,
-    minLength: 2
+    maxLength: 8,
+    minLength: 3
   })
   @IsString()
   @IsNotEmpty()
   @IsUppercase()
-  @Length(2, 10)
+  @Length(3, 8)
   key!: string;
 
   @ApiProperty({
