@@ -197,16 +197,18 @@ export class AuthService {
       demoClientId: string | null; 
       isDemo: boolean
     }): Promise<{ accessToken: string; refreshToken: string }> {
-    const accessToken = this.jwtService.generateAccessToken({
+    const accessToken = this.jwtService.generateJwtToken({
         userId: user.id, 
         demoClientId: demoClientId, 
-        isDemo: isDemo 
+        isDemo: isDemo,
+        tokenType: 'access'
       });
 
-    const refreshToken = this.jwtService.generateRefreshToken({
+    const refreshToken = this.jwtService.generateJwtToken({
       userId: user.id,
       demoClientId: demoClientId,
-      isDemo: isDemo
+      isDemo: isDemo,
+      tokenType: 'refresh'
     });
 
     // Hash refresh token

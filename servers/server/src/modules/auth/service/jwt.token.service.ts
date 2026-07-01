@@ -32,16 +32,16 @@ export class JwtTokenService {
 
   private getTokenCredential(
     tokenType: 'access' | 'refresh'
-  ): { secret: string; expiresIn: number} {
+  ): { secret: string; expiresIn: any } {
     if (tokenType === 'access') {
       return {
         secret: getEnvVar<string>('JWT_SECRET', '', this.configService),
-        expiresIn: getEnvVar<number>('JWT_ACCESS_EXPIRATION', 15 * 60, this.configService)
+        expiresIn: getEnvVar<string>('JWT_ACCESS_EXPIRATION', '15m', this.configService)
       };
     } else {
       return {
         secret: getEnvVar<string>('JWT_SECRET', '', this.configService),
-        expiresIn: getEnvVar<number>('JWT_REFRESH_EXPIRATION', 7 * 24 * 60 * 60, this.configService)
+        expiresIn: getEnvVar<string>('JWT_REFRESH_EXPIRATION', '7d', this.configService)
       };
     }
   }
@@ -53,42 +53,12 @@ export class JwtTokenService {
       tokenType
     }: CreateTokenPayload) {
     const { secret, expiresIn } = this.getTokenCredential(tokenType);
+
     return this.jwtService.sign(
       { sub: userId, demoClientId: demoClientId, isDemo: isDemo },
       {
         secret: secret,
         expiresIn: expiresIn,
-      },
-    );
-  }
-
-  generateAccessToken({
-      userId,
-      demoClientId,
-      isDemo,
-      tokenType
-    }: { userId: string; demoClientId: string | null; isDemo: boolean; tokenType: 'access' | 'refresh' }) {
-    const jwtSecret = getEnvVar<string>('JWT_SECRET', '', this.configService);
-    const jwtExpiration = getEnvVar<number>('JWT_ACCESS_EXPIRATION', 15 * 60, this.configService);
-
-    return this.jwtService.sign(
-      { sub: userId, demoClientId: demoClientId, isDemo: isDemo },
-      {
-        secret: jwtSecret,
-        expiresIn: jwtExpiration,
-      },
-    );
-  }
-
-  generateRefreshToken({ userId, demoClientId, isDemo }: { userId: string; demoClientId: string | null; isDemo: boolean }) {
-    const jwtSecret = getEnvVar<string>('JWT_SECRET', '', this.configService);
-    const jwtExpiration = getEnvVar<number>('JWT_REFRESH_EXPIRATION', 7 * 24 * 60 * 60, this.configService);
-
-    return this.jwtService.sign(
-      { sub: userId, demoClientId: demoClientId, isDemo: isDemo },
-      {
-        secret: jwtSecret,
-        expiresIn: jwtExpiration,
       },
     );
   }
