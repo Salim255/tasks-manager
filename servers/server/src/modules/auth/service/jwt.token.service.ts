@@ -25,12 +25,12 @@ export class JwtTokenService {
     return this.configService.get<T>(key) ?? fb;
   }
 
-  generateAccessToken(userId: string) {
+  generateAccessToken({ userId, demoClientId }: { userId: string; demoClientId: string | null }) {
     const jwtSecret = this.getValue('JWT_SECRET', '');
     const jwtExpiration = this.getValue('JWT_ACCESS_EXPIRATION', '15m');
 
     return this.jwtService.sign(
-      { sub: userId },
+      { sub: userId, demoClientId: demoClientId },
       {
         secret: jwtSecret,
         expiresIn: jwtExpiration,
@@ -38,12 +38,12 @@ export class JwtTokenService {
     );
   }
 
-  generateRefreshToken(userId: string) {
+  generateRefreshToken({ userId, demoClientId }: { userId: string; demoClientId: string | null }) {
     const jwtSecret = this.getValue('JWT_SECRET', '');
     const jwtExpiration = this.getValue('JWT_REFRESH_EXPIRATION', '7d');
 
     return this.jwtService.sign(
-      { sub: userId },
+      { sub: userId, demoClientId: demoClientId },
       {
         secret: jwtSecret,
         expiresIn: jwtExpiration,

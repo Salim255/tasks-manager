@@ -4,6 +4,7 @@ import {
   Inject,
   Logger,
   UnauthorizedException,
+  BadRequestException,
 } from '@nestjs/common';
 import * as bcrypt from 'bcryptjs';
 import { LoginDto, RegisterDto, DataDto, DemoLoginDto } from '../dto/auth.dto';
@@ -49,7 +50,7 @@ export class AuthService {
 
       // Generate new tokens
       const { accessToken, refreshToken } =
-        await this.generateAndStoreTokens(user);
+        await this.generateAndStoreTokens({ user, demoClientId: null });
 
       return {
         user: {
@@ -76,9 +77,14 @@ export class AuthService {
       const email = getValue('DEMO_EMAIL', '');
       const password = getValue('DEMO_PASSWORD', '');
 
+      if (!dto.demoClientId) {
+        throw new BadRequestException('Demo client ID is required');
+      }
+
       if (!email || !password) {
         throw new UnauthorizedException('Demo credentials not set');
       }
+      
       const user = await this.userRepo.findOne({
         where: { email: email },
       });
@@ -94,7 +100,7 @@ export class AuthService {
       }
 
       const { accessToken, refreshToken } =
-        await this.generateAndStoreTokens(user);
+        await this.generateAndStoreTokens({ user, demoClientId: dto.demoClientId });
 
       return {
         user: {
@@ -131,7 +137,7 @@ export class AuthService {
       }
 
       const { accessToken, refreshToken } =
-        await this.generateAndStoreTokens(user);
+        await this.generateAndStoreTokens({ user, demoClientId: null });
 
       return {
         user: {
@@ -173,7 +179,7 @@ export class AuthService {
       const user: User = await this.userRepo.query(query, values);
 
       const { accessToken, refreshToken } =
-        await this.generateAndStoreTokens(user);
+        await this.generateAndStoreTokens({ user, demoClientId: null });
 
       return { user, tokens: { accessToken, refreshToken } };
     } catch (error) {
@@ -183,9 +189,9 @@ export class AuthService {
     }
   }
 
-  private async generateAndStoreTokens(user: User) {
-    const accessToken = this.jwtService.generateAccessToken(user.id);
-    const refreshToken = this.jwtService.generateRefreshToken(user.id);
+  private async generateAndStoreTokens({ user, demoClientId }: { user: User; demoClientId: string | null }) {
+    const accessToken = this.jwtService.generateAccessToken({ userId: user.id, demoClientId: demoClientId });
+    const refreshToken = this.jwtService.generateRefreshToken({ userId: user.id, demoClientId: demoClientId });
 
     // Hash refresh token
     const refreshTokenHash = await bcrypt.hash(refreshToken, 10);
