@@ -4,6 +4,7 @@ import { JwtService } from '@nestjs/jwt';
 
 export type JwtTokenPayload = {
   sub: string; // user ID
+  demoClientId: string | null; // demo client ID
   exp: number; // expiration timestamp (auto-added by JWT library)
 };
 
@@ -25,12 +26,12 @@ export class JwtTokenService {
     return this.configService.get<T>(key) ?? fb;
   }
 
-  generateAccessToken({ userId, demoClientId }: { userId: string; demoClientId: string | null }) {
+  generateAccessToken({ userId, demoClientId, isDemo }: { userId: string; demoClientId: string | null; isDemo: boolean }) {
     const jwtSecret = this.getValue('JWT_SECRET', '');
     const jwtExpiration = this.getValue('JWT_ACCESS_EXPIRATION', '15m');
 
     return this.jwtService.sign(
-      { sub: userId, demoClientId: demoClientId },
+      { sub: userId, demoClientId: demoClientId, isDemo: isDemo },
       {
         secret: jwtSecret,
         expiresIn: jwtExpiration,
@@ -38,12 +39,12 @@ export class JwtTokenService {
     );
   }
 
-  generateRefreshToken({ userId, demoClientId }: { userId: string; demoClientId: string | null }) {
+  generateRefreshToken({ userId, demoClientId, isDemo }: { userId: string; demoClientId: string | null; isDemo: boolean }) {
     const jwtSecret = this.getValue('JWT_SECRET', '');
     const jwtExpiration = this.getValue('JWT_REFRESH_EXPIRATION', '7d');
 
     return this.jwtService.sign(
-      { sub: userId, demoClientId: demoClientId },
+      { sub: userId, demoClientId: demoClientId, isDemo: isDemo },
       {
         secret: jwtSecret,
         expiresIn: jwtExpiration,

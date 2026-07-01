@@ -16,6 +16,7 @@ interface AuthenticatedRequest extends Request {
     task_m_refresh_jwt?: string;
   };
   user?: { id: string };
+  demoClientId?: { demoClientId: string | null };
 }
 
 @Injectable()
@@ -60,6 +61,7 @@ export class JwtAuthGuard implements CanActivate {
       if (!decoded) throw new UnauthorizedException('Invalid token');
 
       request.user = { id: decoded.sub };
+      request.demoClientId = { demoClientId: decoded.demoClientId ?? null };
     } catch {
       throw new UnauthorizedException('Invalid or expired token');
     }
@@ -83,6 +85,8 @@ export class JwtAuthGuard implements CanActivate {
       const decoded = this.jwtTokenService.verifyRefreshToken(refreshToken);
       if (!decoded) throw new UnauthorizedException('Invalid refresh token');
       request.user = { id: decoded.sub };
+      request.demoClientId = { demoClientId: decoded.demoClientId ?? null };
+      
     } catch {
       throw new UnauthorizedException('Invalid refresh token');
     }

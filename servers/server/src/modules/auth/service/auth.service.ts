@@ -50,7 +50,7 @@ export class AuthService {
 
       // Generate new tokens
       const { accessToken, refreshToken } =
-        await this.generateAndStoreTokens({ user, demoClientId: null });
+        await this.generateAndStoreTokens({ user, demoClientId: null, isDemo: false });
 
       return {
         user: {
@@ -100,7 +100,9 @@ export class AuthService {
       }
 
       const { accessToken, refreshToken } =
-        await this.generateAndStoreTokens({ user, demoClientId: dto.demoClientId });
+        await this.generateAndStoreTokens(
+          { user, demoClientId: dto.demoClientId , isDemo: true }
+        );
 
       return {
         user: {
@@ -137,7 +139,7 @@ export class AuthService {
       }
 
       const { accessToken, refreshToken } =
-        await this.generateAndStoreTokens({ user, demoClientId: null });
+        await this.generateAndStoreTokens({ user, demoClientId: null, isDemo: false });
 
       return {
         user: {
@@ -179,7 +181,7 @@ export class AuthService {
       const user: User = await this.userRepo.query(query, values);
 
       const { accessToken, refreshToken } =
-        await this.generateAndStoreTokens({ user, demoClientId: null });
+        await this.generateAndStoreTokens({ user, demoClientId: null, isDemo: false });
 
       return { user, tokens: { accessToken, refreshToken } };
     } catch (error) {
@@ -189,9 +191,23 @@ export class AuthService {
     }
   }
 
-  private async generateAndStoreTokens({ user, demoClientId }: { user: User; demoClientId: string | null }) {
-    const accessToken = this.jwtService.generateAccessToken({ userId: user.id, demoClientId: demoClientId });
-    const refreshToken = this.jwtService.generateRefreshToken({ userId: user.id, demoClientId: demoClientId });
+  private async generateAndStoreTokens(
+    { user, demoClientId, isDemo }: { 
+      user: User; 
+      demoClientId: string | null; 
+      isDemo: boolean
+    }): Promise<{ accessToken: string; refreshToken: string }> {
+    const accessToken = this.jwtService.generateAccessToken({
+        userId: user.id, 
+        demoClientId: demoClientId, 
+        isDemo: isDemo 
+      });
+
+    const refreshToken = this.jwtService.generateRefreshToken({
+      userId: user.id,
+      demoClientId: demoClientId,
+      isDemo: isDemo
+    });
 
     // Hash refresh token
     const refreshTokenHash = await bcrypt.hash(refreshToken, 10);

@@ -111,10 +111,16 @@ export class AuthController {
   async refreshSession(
     @Res({ passthrough: true }) response: express.Response,
     @Req()
-    req: Request & { user: { id: string }; cookies: { cookies: AuthCookies } },
+    req: Request & { 
+      user: { id: string }; 
+      demoClientId: { demoClientId: string | null };
+      cookies: { cookies: AuthCookies }
+     },
   ) {
     //Sanitize and validate input
     const { id: userId } = req.user;
+    const { demoClientId } = req.demoClientId;
+    
     const cookies = req.cookies as AuthCookies;
     const refreshToken = cookies.task_m_refresh_jwt;
 
