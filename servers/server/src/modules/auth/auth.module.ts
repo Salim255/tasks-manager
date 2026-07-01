@@ -8,6 +8,7 @@ import { DatabaseModule } from 'src/database/database.module';
 import { AuthService } from './service/auth.service';
 import { JwtAuthGuard } from './guard/jwt-auth.guard';
 import { TokenCookieService } from './service/token.cookie.service';
+import { getEnvVar } from 'src/common/utils/utils';
 
 @Module({
   controllers: [AuthController],
@@ -25,11 +26,10 @@ import { TokenCookieService } from './service/token.cookie.service';
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => {
-        const getValue = <T>(key: string, fb: T): T =>
-          configService.get<T>(key) ?? fb;
+        
         return {
-          secret: getValue('JWT_SECRET', ''),
-          signOptions: { expiresIn: getValue('JWT_EXPIRATION', '1h') },
+          secret: getEnvVar<string>('JWT_SECRET', '', configService),
+          signOptions: { expiresIn: getEnvVar('JWT_EXPIRATION', '1h', configService) },
         };
       },
     }),

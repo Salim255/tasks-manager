@@ -1,26 +1,24 @@
 import { ConfigService } from '@nestjs/config';
 import { DB_OPTIONS } from 'src/common/constants/constants';
+import { getEnvVar } from 'src/common/utils/utils';
 import { DataSourceOptions } from 'typeorm';
 
 export const DatabaseOptionsProvider = {
   provide: DB_OPTIONS,
   inject: [ConfigService],
   useFactory: (config: ConfigService): DataSourceOptions => {
-    const getValue = <T>(key: string, fb: T): T => config.get<T>(key) ?? fb;
-
     return {
       type: 'postgres',
 
-      host: getValue<string>('DB_HOST', ''),
+      host: getEnvVar<string>('DB_HOST', '', config),
+       
+      port: getEnvVar<number>('DB_PORT', 5432, config),
 
-      port: getValue<number>('DB_PORT', 5432),
+      username: getEnvVar<string>('DB_USERNAME', '', config),
 
-      username: getValue('DB_USERNAME', ''),
+      password: getEnvVar<string>('DB_PASSWORD', '', config),
 
-      password: getValue('DB_PASSWORD', ''),
-
-      database: getValue('DB_NAME', ''),
-
+      database: getEnvVar<string>('DB_NAME', '', config),
       synchronize: true,
       logging: false,
       entities: [__dirname + '/../../modules/**/entity/*.entity{.ts,.js}'],
