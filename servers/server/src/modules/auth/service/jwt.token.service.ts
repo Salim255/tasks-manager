@@ -30,7 +30,19 @@ export class JwtTokenService {
     private jwtService: JwtService,
   ) {}
 
-  
+  private getTokenCredential(tokenType: 'access' | 'refresh'): { secret: string; expiresIn: string} {
+    if (tokenType === 'access') {
+      return {
+        secret: getEnvVar<string>('JWT_SECRET', '', this.configService),
+        expiresIn: getEnvVar('JWT_ACCESS_EXPIRATION', '15m', this.configService)
+      };
+    } else {
+      return {
+        secret: getEnvVar<string>('JWT_SECRET', '', this.configService),
+        expiresIn: getEnvVar('JWT_REFRESH_EXPIRATION', '7d', this.configService)
+      };
+    }
+  }
 
   generateAccessToken({
       userId,
