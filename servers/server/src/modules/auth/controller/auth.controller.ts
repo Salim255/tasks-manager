@@ -20,6 +20,7 @@ import {
   RegisterDto,
   RegisterResponseDto,
   DataDto,
+  DemoLoginDto,
 } from '../dto/auth.dto';
 import { AuthService } from '../service/auth.service';
 import express from 'express';
@@ -65,14 +66,14 @@ export class AuthController {
     description: 'Internal server error.',
   })
   async demoLogin(
-    @Body() body: LoginDto,
+    @Body() body: DemoLoginDto,
     @Res({ passthrough: true }) response: express.Response,
   ): Promise<LoginResponseDto> {
-    const { email, password } = body;
-    if (!email || !password) {
-      throw new BadRequestException('Email and password are required');
+    const { demoClientId } = body;
+    if (!demoClientId) {
+      throw new BadRequestException('Demo client ID is required');
     }
-    const result = await this.authService.login({ email, password });
+    const result = await this.authService.demoLogin({ demoClientId });
 
     // Cookie expiration value
     // Set HttpOnly cookies for access and refresh tokens

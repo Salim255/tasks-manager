@@ -6,17 +6,19 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import * as bcrypt from 'bcryptjs';
-import { LoginDto, RegisterDto, DataDto } from '../dto/auth.dto';
+import { LoginDto, RegisterDto, DataDto, DemoLoginDto } from '../dto/auth.dto';
 import { USER_REPOSITORY } from 'src/common/constants/constants';
 import { Repository } from 'typeorm';
 import { User } from 'src/modules/user/entity/user.entity';
 import { JwtTokenService } from './jwt.token.service';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AuthService {
   private logger = new Logger(AuthService.name);
 
   constructor(
+    private configService: ConfigService,
     private jwtService: JwtTokenService,
     @Inject(USER_REPOSITORY) private userRepo: Repository<User>,
   ) {}
@@ -63,6 +65,51 @@ export class AuthService {
       };
     } catch (error) {
       this.logger.error('Invalid or expired session token', error);
+      throw error;
+    }
+  }
+
+  async demoLogin(dto: DemoLoginDto): Promise<DataDto> {
+    try {
+      const getValue = <T>(key: string, fb: T): T => this.configService.get<T>(key) ?? fb;
+      // We login we get the demo credentials from app config and use them to login the user pr .env
+      const email = getValue('DEMO_EMAIL', '');
+      const password = getValue('DEMO_PASSWORD', '');
+
+      if (!email || !password) {
+        throw new UnauthorizedException('Demo credentials not set');
+      }
+      const user = await this.userRepo.findOne({
+        where: { email: email },
+      });
+
+      if (!user) {
+        throw new UnauthorizedException('Invalid email or password');
+      }
+
+      const isMatch = await bcrypt.compare(password, user.password);
+
+      if (!isMatch) {
+        throw new UnauthorizedException('Invalid email or password');
+      }
+
+      const { accessToken, refreshToken } =
+        await this.generateAndStoreTokens(user);
+
+      return {
+        user: {
+          id: user.id,
+          email: user.email,
+          emailVerified: user.emailVerified,
+          createdAt: user.createdAt,
+        },
+        tokens: {
+          accessToken: accessToken,
+          refreshToken: refreshToken,
+        },
+      };
+    } catch (error) {
+      this.logger.error('Failed to login user', error);
       throw error;
     }
   }
