@@ -21,6 +21,7 @@ import {
   RegisterResponseDto,
   DataDto,
   DemoLoginDto,
+  DataDtoWithTokens,
 } from '../dto/auth.dto';
 import { AuthService } from '../service/auth.service';
 import express from 'express';
@@ -41,6 +42,29 @@ export class AuthController {
     private configService: ConfigService,
     private authService: AuthService,
   ) {}
+
+  @Post('logout')
+  async logout(
+    @Res({ passthrough: true }) response: express.Response,
+    @Req()
+    req: Request & { 
+      user: { id: string, demoClientId: string | null, isDemo: boolean | null };
+      cookies: { cookies: AuthCookies }
+     },
+  ){
+    // Clear refresh token for the user in the database
+    const { id: userId } = req.user;
+    if (!userId) {
+      // Send a response indicating logout success
+      response.status(200).json({ message: 'Logged out successfully' });
+    };
+
+    await this.authService.logout(userId);
+  
+    // Clear access token and refresh token cookies
+    this.tokenCookieService.clearAuthCookies(response);
+    return  "Hello from logout"
+  }
 
   @Public()
   @Post('demo-login')
@@ -73,7 +97,7 @@ export class AuthController {
     if (!demoClientId) {
       throw new BadRequestException('Demo client ID is required');
     }
-    const result = await this.authService.demoLogin({ demoClientId });
+    const result:DataDtoWithTokens = await this.authService.demoLogin({ demoClientId });
 
     // Cookie expiration value
     // Set HttpOnly cookies for access and refresh tokens
@@ -85,7 +109,11 @@ export class AuthController {
 
     return {
       status: 'success',
-      data: result,
+      data: {
+        user: {
+          ...result.user,
+        }
+      },
     };
   }
 
@@ -131,7 +159,7 @@ export class AuthController {
     }
 
     //Get user
-    const result: DataDto = await this.authService.validateSession({
+    const result: DataDtoWithTokens = await this.authService.validateSession({
       userId,
       isDemo: isDemo ?? false,
       demoClientId: demoClientId ?? null,
@@ -148,7 +176,11 @@ export class AuthController {
 
     return {
       status: 'success',
-      data: result,
+      data: {
+        user: {
+          ...result.user
+        },
+      },
     };
   }
 
@@ -184,7 +216,7 @@ export class AuthController {
     if (!email || !password) {
       throw new BadRequestException('Email and password are required');
     }
-    const result = await this.authService.login({ email, password });
+    const result: DataDtoWithTokens = await this.authService.login({ email, password });
 
     // Cookie expiration value
     // Set HttpOnly cookies for access and refresh tokens
@@ -196,7 +228,11 @@ export class AuthController {
 
     return {
       status: 'success',
-      data: result,
+      data: {
+        user: {
+          ...result.user,
+        }
+      },
     };
   }
 

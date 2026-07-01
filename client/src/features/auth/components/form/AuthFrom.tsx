@@ -3,8 +3,9 @@ import { useState, type ChangeEvent } from "react";
 import { useAuthForm } from "../../form-builder/authFormBuilder";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../../../redux/store";
-import { authUser, type AuthPayload } from "../../http/auth.http";
+import { authUser } from "../../http/auth.http";
 import { validateAuthForm } from "../../../../shared/utils/forms-validator";
+import type { AuthPayload } from "../../dto/auth-dto";
 
 export const AuthForm = () => {
     const [iSLogin, setAuthMode] = useState<boolean>(true);

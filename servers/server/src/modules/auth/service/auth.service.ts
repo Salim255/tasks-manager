@@ -7,7 +7,7 @@ import {
   BadRequestException,
 } from '@nestjs/common';
 import * as bcrypt from 'bcryptjs';
-import { LoginDto, RegisterDto, DataDto, DemoLoginDto } from '../dto/auth.dto';
+import { LoginDto, RegisterDto, DataDto, DemoLoginDto, DataDtoWithTokens } from '../dto/auth.dto';
 import { USER_REPOSITORY } from 'src/common/constants/constants';
 import { Repository } from 'typeorm';
 import { User } from 'src/modules/user/entity/user.entity';
@@ -25,12 +25,33 @@ export class AuthService {
     @Inject(USER_REPOSITORY) private userRepo: Repository<User>,
   ) {}
 
+
+  async logout(userId: string): Promise<void> {
+      try {
+        const updatedUser = await this.userRepo.createQueryBuilder()
+          .update(User)
+          .set({ refreshTokenHash: undefined })
+          .where('id = :userId', { userId })
+          .execute();
+
+        if (!updatedUser) {
+          return;
+        }
+  
+        // Clear the refresh token hash in the database
+        console.log(`Refresh token hash cleared for user with ID: ${ updatedUser}`);
+      } catch (error) {
+        this.logger.error('Failed to logout user', error);
+        throw error;
+      }
+  }
+
   async validateSession(payload: {
     userId: string;
     isDemo: boolean;
     demoClientId: string | null;
     refreshToken: string;
-  }): Promise<DataDto> {
+  }): Promise<DataDtoWithTokens> {
     try {
       const user: User | null = await this.userRepo.findOne({
         where: { id: payload.userId },
@@ -46,6 +67,7 @@ export class AuthService {
           payload.refreshToken,
           user.refreshTokenHash,
         );
+
         if (!isValid) {
           throw new UnauthorizedException('Session token mismatch');
         }
@@ -64,6 +86,8 @@ export class AuthService {
           email: user.email,
           emailVerified: user.emailVerified,
           createdAt: user.createdAt,
+          isDemo: payload.isDemo,
+          demoClientId: payload.demoClientId,
         },
         tokens: {
           accessToken: accessToken,
@@ -76,7 +100,7 @@ export class AuthService {
     }
   }
 
-  async demoLogin(dto: DemoLoginDto): Promise<DataDto> {
+  async demoLogin(dto: DemoLoginDto): Promise<DataDtoWithTokens> {
     try {
       // We login we get the demo credentials from app config and use them to login the user pr .env
       const email = getEnvVar<string>('DEMO_EMAIL', '', this.configService);
@@ -115,6 +139,8 @@ export class AuthService {
           email: user.email,
           emailVerified: user.emailVerified,
           createdAt: user.createdAt,
+          isDemo: true,
+          demoClientId: dto.demoClientId,
         },
         tokens: {
           accessToken: accessToken,
@@ -127,7 +153,7 @@ export class AuthService {
     }
   }
 
-  async login(dto: LoginDto): Promise<DataDto> {
+  async login(dto: LoginDto): Promise<DataDtoWithTokens> {
     try {
       const user = await this.userRepo.findOne({
         where: { email: dto.email },
@@ -152,6 +178,8 @@ export class AuthService {
           email: user.email,
           emailVerified: user.emailVerified,
           createdAt: user.createdAt,
+          isDemo: false,
+          demoClientId: null,
         },
         tokens: {
           accessToken: accessToken,
@@ -164,7 +192,7 @@ export class AuthService {
     }
   }
 
-  async register(dto: RegisterDto): Promise<DataDto> {
+  async register(dto: RegisterDto): Promise<DataDtoWithTokens> {
     try {
       const existing = await this.userRepo.findOne({
         where: { email: dto.email },
@@ -188,7 +216,17 @@ export class AuthService {
       const { accessToken, refreshToken } =
         await this.generateAndStoreTokens({ user, demoClientId: null, isDemo: false });
 
-      return { user, tokens: { accessToken, refreshToken } };
+      return { 
+          user:{
+            ...user,
+            isDemo: false,
+            demoClientId: null
+          }, 
+          tokens: { 
+            accessToken, 
+            refreshToken 
+          }
+      };
     } catch (error) {
       this.logger.error('Failed to register user', error);
 

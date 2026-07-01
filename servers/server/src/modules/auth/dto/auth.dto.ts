@@ -1,12 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
 
-export class DataDto {
+export class DataDtoWithTokens {
   user!: {
     id: string;
     email: string;
     emailVerified?: boolean;
     createdAt: Date;
+    isDemo: boolean;
+    demoClientId: string | null;
   };
   tokens!: {
     accessToken: string;
@@ -14,6 +16,17 @@ export class DataDto {
   };
 }
 
+
+export class DataDto {
+  user!: {
+    id: string;
+    email: string;
+    emailVerified?: boolean;
+    createdAt: Date;
+    isDemo: boolean;
+    demoClientId: string | null;
+  };
+}
 
 
 export class DemoLoginDto {
@@ -58,11 +71,10 @@ export class RegisterResponseDto {
         id: '1',
         email: 'john@example.com',
         createdAt: '2024-03-05T12:00:00.000Z',
-      },
-      tokens: {
-        accessToken: 'jwt-access-token',
-        refreshToken: 'jwt-refresh-token',
-      },
+        emailVerified: false,
+        isDemo: false,
+        demoClientId: null
+      }
     },
   })
   data!: DataDto;
