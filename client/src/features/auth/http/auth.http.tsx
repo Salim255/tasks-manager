@@ -4,8 +4,9 @@ import api from "../../../api/axios";
 
 import { getUserProfileHttp } from "../../profile/http/profileHttp";
 import type { ApiErrorDto } from "../../../shared/interfaces/shared.interfaces";
+import { getDemoClientId } from "../../../shared/utils/demo_client_id";
 
-export type AuthType = "login" | "register";
+export type AuthType = "login" | "register" | "demo-login";
 export type AuthPayload = { password: string; email: string, authType: AuthType };
 export type AuthResponseDto = {
     status: string;
@@ -18,7 +19,44 @@ export type AuthResponseDto = {
         }
     }
 }
-    
+
+export const demoLoginHttp = createAsyncThunk<
+    AuthResponseDto,
+    { authType: AuthType },
+    { rejectValue: ApiErrorDto }
+    >(
+    'post/demoLogin',
+    async (data: { authType: AuthType }, thunkApi) => {
+        try {
+            const demoClientId = getDemoClientId();
+            const response = await api.post(
+                `/auth/${data.authType}`,
+                { demoClientId },
+                { withCredentials: true }
+            )
+            thunkApi.dispatch(getUserProfileHttp());
+            return response.data;
+        } catch (error) {
+            // Extract your backend error shape
+            if (error instanceof AxiosError) {
+                const backendError: ApiErrorDto = error.response?.data || {
+                    status: "error",
+                    message: "Unknown error",
+                    data: null
+                };
+
+                return thunkApi.rejectWithValue(backendError);
+            }
+            // fallback for non-Axios errors
+            return thunkApi.rejectWithValue({
+                status: "error",
+                message: "Unexpected error",
+                data: null
+            });
+        }
+    }
+)
+
 export const authUser = createAsyncThunk<
     AuthResponseDto,
     AuthPayload,
