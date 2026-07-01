@@ -39,10 +39,12 @@ export class UserController {
     description: 'Internal server error.',
   })
   async getMe(
-    @Req() req: Request & { user: { id: string } },
+    @Req() req: Request & {
+      user: { id: string, demoClientId: string | null, isDemo: boolean | null };
+    },
   ): Promise<MeResponseDto> {
     // req.user is injected by JwtAuthGuard after verifying the access token
-    const userId = req.user?.id;
+    const { id: userId, demoClientId, isDemo } = req.user;
 
     if (!userId) {
       throw new UnauthorizedException(
@@ -65,6 +67,8 @@ export class UserController {
           email: user.email,
           emailVerified: user.emailVerified,
           createdAt: user.createdAt,
+          demoClientId: demoClientId ,
+          isDemo: isDemo,
         },
       },
     };

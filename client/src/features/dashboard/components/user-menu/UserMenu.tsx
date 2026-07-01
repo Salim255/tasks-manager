@@ -7,9 +7,12 @@ import type { Profile } from '../../../profile/model/profile.model';
 import { FaUserCircle, FaCaretDown } from 'react-icons/fa';
 import { NavLink } from 'react-router-dom';
 import { useClickOutside } from '../../../../shared/hooks/useClickOutside';
+import { useUserData } from '../../../auth/states/authSelectors';
 
 export const UserMenu = ({ profile }:{ profile: Profile | undefined }) => {
   const [showLogout, setShowLogout] = useState(false);
+  const userData = useUserData();
+  
   const ref = useRef<HTMLDivElement>(null!);
   const dispatch = useDispatch<AppDispatch>();
 
@@ -22,6 +25,7 @@ export const UserMenu = ({ profile }:{ profile: Profile | undefined }) => {
 
   
   useEffect(() => {
+    console.log('isDemo:', userData?.isDemo);
       if (ref.current) {
         register(ref, () => setShowLogout(false));
       }
@@ -42,7 +46,7 @@ export const UserMenu = ({ profile }:{ profile: Profile | undefined }) => {
         <FaUserCircle className="user-menu__icon" />
 
         <span className="user-menu__name">
-         {/*  {profile?.firstName} */} Demo
+         { userData?.isDemo ? "Demo" : profile?.firstName }
         </span>
 
         {profile && (

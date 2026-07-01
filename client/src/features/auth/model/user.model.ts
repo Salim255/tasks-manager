@@ -1,17 +1,14 @@
 export interface User {
-  id: string;
-  email: string;
-  createdAt: string;
-}
-
-export interface AuthTokens {
-  accessToken: string;
-  refreshToken: string;
+    id: string,
+    email : string;
+    emailVerified: boolean;
+    createdAt: string;
+    isDemo: boolean;
+    demoClientId: string | null;
 }
 
 export interface AuthResponse {
   user: User;
-  tokens: AuthTokens;
 }
 
 export interface ApiResponse<T> {

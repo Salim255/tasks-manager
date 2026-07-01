@@ -5,18 +5,15 @@ import api from "../../../api/axios";
 import { getUserProfileHttp } from "../../profile/http/profileHttp";
 import type { ApiErrorDto } from "../../../shared/interfaces/shared.interfaces";
 import { getDemoClientId } from "../../../shared/utils/demo_client_id";
+import type { User } from "../model/user.model";
 
 export type AuthType = "login" | "register" | "demo-login";
 export type AuthPayload = { password: string; email: string, authType: AuthType };
+
 export type AuthResponseDto = {
     status: string;
     data: {
-        user: {
-            id: string,
-            email : string;
-            emailVerified: boolean;
-            createdAt: string;
-        }
+        user: User;
     }
 }
 

@@ -4,10 +4,12 @@ import { toast } from "react-toastify";
 
 type  InitiateState = {
     user?: { 
+        id: string;
         email : string;
         emailVerified: boolean;
         createdAt: string;
-        id: string,
+        isDemo: boolean;
+        demoClientId: string | null;
     }
     isLoading: boolean;
 }
