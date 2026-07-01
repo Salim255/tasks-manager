@@ -11,6 +11,7 @@ import { setMembers } from "../../members/states/memberSlice";
 export type CreateProjectPayload = {
     name: string;
     description?: string;
+    key: string;
 }
 
 export type ProjectResponseDto = {

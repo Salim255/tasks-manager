@@ -3,8 +3,9 @@ import { useReducer } from "react";
 export type ProjectFormState = {
     name: string;
     description?: string;
+    key: string;
     status: 'active' | 'archived';
-    errors: Partial<Record<"name" | "description" | "status", string>>;
+    errors: Partial<Record<"name" | "description" | "status" | "key" , string>>;
 }
 
 // Actions
@@ -17,6 +18,7 @@ type Action =
 // State
 export const initialProjectState: ProjectFormState = {
     name: "",
+    key: "",
     description: "",
     status: 'active',
     errors: {}

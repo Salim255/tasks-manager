@@ -1,10 +1,13 @@
 import './_create-project.scss';
 import { CreateProjectForm } from "../../components/create-project-form/CreateProjectForm";
+import { PageMotion } from '../../../../shared/motion/PageMotion';
 
 export const CreateProject = () => {
     return (
-        <section className="create-project">
-            <CreateProjectForm/>
-        </section>
+        <PageMotion>
+            <section className="create-project">
+                <CreateProjectForm/>
+            </section>
+        </PageMotion>
     )
 }

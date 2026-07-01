@@ -45,9 +45,18 @@ export const validateProjectForm = (state: ProjectFormState) => {
   const errors: ProjectFormState["errors"] = {};
 
   errors.name =
-    Validators.required(state.name, "Project Name") ||
-    Validators.minLength(3, "Project Name")(state.name) ||
-    Validators.maxLength(20, "Project Name")(state.name);
+    Validators.required(state.name, "Workspace Name") ||
+    Validators.minLength(3, "Workspace Name")(state.name) ||
+    Validators.maxLength(20, "Workspace Name")(state.name);
+  
+  errors.key =
+    Validators.required(state.key, "Workspace Key") ||
+    Validators.minLength(3, "Workspace Key")(state.key) ||
+    Validators.maxLength(10, "Workspace Key")(state.key);
+
+  errors.description =
+    Validators.maxLength(200, "Workspace Description")(state.description || "");
+
   return errors;
 };
 
@@ -57,7 +66,7 @@ export const validateMemberForm = (state: MemberFormState) => {
     errors.memberEmail =
         Validators.required(state.memberEmail, "Member Email") ||
         Validators.email(state.memberEmail);
-
+  
     return errors;
 }
 

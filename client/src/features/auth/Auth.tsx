@@ -21,7 +21,7 @@ export const Auth = () => {
 
     return (
         <section className="app-auth">
-            <div className="app-auth__back" onClick={() => navigate(-1)}>
+            <div className="app-auth__back" onClick={() => navigate("/landing")}>
                 <HiArrowNarrowLeft />
             </div>
             <div className="app-auth__header">

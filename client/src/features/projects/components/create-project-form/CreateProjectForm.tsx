@@ -6,7 +6,7 @@ import { createProjectHttp, fetchSingleProjectHttp, type CreateProjectPayload} f
 import { type AppDispatch } from "../../../../redux/store";
 import { useNavigate } from "react-router-dom";
 import { validateProjectForm } from "../../../../shared/utils/forms-validator";
-import { motion } from "motion/react";
+import { FaInfoCircle } from "react-icons/fa";
 
 export const CreateProjectForm = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -23,7 +23,7 @@ export const CreateProjectForm = () => {
       if (Object.values(errors).some(Boolean)) {
           // push errors into reducer
           Object.entries(errors).forEach(([field, message]) => {
-              if (message) setError(field as "name" | "description", message);
+              if (message) setError(field as "name" | "description" | "key" , message);
           });
           return;
       }
@@ -31,6 +31,7 @@ export const CreateProjectForm = () => {
           { 
               name: state.name,
               description: state.description,
+              key: state.key,
           }
   
       const result = await dispatch(createProjectHttp(payload));
@@ -46,107 +47,103 @@ export const CreateProjectForm = () => {
   }, [state])
 
   return (
-    < motion.section 
-      
-          initial= {{
-    opacity: 0,
-    y: 8,
-    scale: 0.995,
-  }}
+      <section className="project-create">
+          
+          <header className="project-create__header">
 
-  animate= {{
-    opacity: 1,
-    y: 0,
-    scale: 1,
-  }
-}
-  exit= {{
-    opacity: 0,
-    y: -8,
-    scale: 0.995,
-  }}
+            <h1 className="project-create__title heading-primary">
+              Name your workspace
+            </h1>
 
-  transition= {{
-    duration: 0.22,
-    ease: [0.22, 1, 0.36, 1], // Premium ease-out curve
-  }
-        }
-    className="project-create">
-     
-  <header className="project-create__header">
+            <div>
+              <p className="project-create__subtitle">
+                Create a workspace for your team, tasks and sprint planning.
+              </p>
+              <p>Required fields are marked with an asterisk *</p>
+            </div>
+          </header>
 
-    <h1 className="project-create__title heading-primary">
-      New Project
-    </h1>
+          <section className="project-create__card">
 
-    <p className="project-create__subtitle">
-      Create a workspace for your team, tasks and sprint planning.
-    </p>
+            <div className="project-create__section">
 
-  </header>
+              <h2 className="heading-secondary">
+                Workspace Details
+              </h2>
 
-  <section className="project-create__card">
+              <p>
+                Basic information about your workspace.
+              </p>
+            </div>
+            <form
+                onSubmit={handleSubmit}
+                className="project-create__form form"
+              >
+                <div className="form__group">
+                  <label className="form__label">
+                   Name <span className="form__label-required">*</span>
+                  </label>
 
-    <div className="project-create__section">
+                  <input
+                    className="form__input"
+                    name="name"
+                    value={state.name}
+                    onChange={handleInput}
+                    placeholder="FlowBoard Mobile App"
+                  />
 
-      <h2 className="heading-secondary">
-        Project details
-      </h2>
+                  {state.errors.name && (
+                    <p className="form__error">
+                      {state.errors.name}
+                    </p>
+                  )}
+                </div>
 
-      <p>
-        Basic information about your project.
-      </p>
+                <div className="form__group">
+                  <label className="form__label"> Key <span className="form__label-required">*</span> <span className="form__label-subtitle"> <FaInfoCircle /> </span>  </label>
+                  <input
+                    className="form__input"
+                    name="key"
+                    value={state.key}
+                    onChange={handleInput}
+                    placeholder="PROJECT-KEY"
+                  />
+                  {state.errors.key && (
+                    <p className="form__error">
+                      {state.errors.key}
+                    </p>
+                  )}
+                </div>
+                <div className="form__group">
+                  <label className="form__label">
+                    Description
+                  </label>
 
-    </div>
+                  <textarea
+                    className="form__textarea"
+                    value={state.description}
+                    onChange={handleInput}
+                    name="description"
+                    placeholder="What is this project about?"
+                  />
 
-      <form
-        onSubmit={handleSubmit}
-        className="project-create__form form"
-      >
-        <div className="form__group">
-          <label className="form__label">
-            Project name
-          </label>
+                  {state.errors.description && (
+                    <p className="form__error">
+                      {state.errors.description}
+                    </p>
+                  )}
+                </div>
 
-          <input
-            className="form__input"
-            name="name"
-            value={state.name}
-            onChange={handleInput}
-            placeholder="FlowBoard Mobile App"
-          />
-
-          {state.errors.name && (
-            <p className="form__error">
-              {state.errors.name}
-            </p>
-          )}
-        </div>
-
-        <div className="form__group">
-          <label className="form__label">
-            Description
-          </label>
-
-          <textarea
-            className="form__textarea"
-            value={state.description}
-            onChange={handleInput}
-            name="description"
-            placeholder="What is this project about?"
-          />
-        </div>
-
-        <div className="form__actions">
-          <button
-            type="submit"
-            className="btn btn--primary"
-          >
-            Create Project
-          </button>
-        </div>
-      </form>
-        </section>
-    </  motion.section>
+                <div className="form__actions">
+                  <button
+                    type="submit"
+                    className="btn btn--primary"
+                  >
+                    Create
+                  </button>
+                </div>
+              </form>
+            </section>
+      </section>
     );
 } 
