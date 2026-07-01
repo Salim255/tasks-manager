@@ -11,6 +11,6 @@ export type AuthPayload = {
 export type AuthResponseDto = {
     status: string;
     data: {
-        user: User;
+        user: User | null;
     }
 }

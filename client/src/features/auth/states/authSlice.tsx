@@ -3,17 +3,18 @@ import { authUser, demoLoginHttp, loadUserHttp } from "../http/auth.http";
 import { toast } from "react-toastify";
 
 type  InitiateState = {
-    user?: { 
+    user: { 
         id: string;
         email : string;
         emailVerified: boolean;
         createdAt: string;
         isDemo: boolean;
         demoClientId: string | null;
-    }
+    } | null;
     isLoading: boolean;
 }
 const initialState: InitiateState = {
+    user: null,
     isLoading: true,
 }
 
@@ -23,7 +24,7 @@ const authSlice = createSlice({
     reducers: {
         clearUser: (state) => {
             state.isLoading = true;
-            state.user = undefined;
+            state.user = null;
             state.isLoading = false;
         }
     },

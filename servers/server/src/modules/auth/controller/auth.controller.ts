@@ -19,14 +19,11 @@ import {
   RefreshSessionResponseDto,
   RegisterDto,
   RegisterResponseDto,
-  DataDto,
   DemoLoginDto,
   DataDtoWithTokens,
 } from '../dto/auth.dto';
 import { AuthService } from '../service/auth.service';
 import express from 'express';
-import { ConfigService } from '@nestjs/config';
-import { Logger } from '@nestjs/common';
 import { Public } from 'src/common/decorators/public.decorator';
 import { TokenCookieService } from '../service/token.cookie.service';
 import { AllowRefresh } from 'src/common/decorators/allow-refresh.decorator';
@@ -35,11 +32,9 @@ import { AuthCookies } from '../service/jwt.token.service';
 @ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
-  private logger = new Logger(AuthController.name);
 
   constructor(
     private tokenCookieService: TokenCookieService,
-    private configService: ConfigService,
     private authService: AuthService,
   ) {}
 
@@ -51,19 +46,19 @@ export class AuthController {
       user: { id: string, demoClientId: string | null, isDemo: boolean | null };
       cookies: { cookies: AuthCookies }
      },
-  ){
+  ):Promise<void> {
+
+    this.tokenCookieService.clearAuthCookies(response);
     // Clear refresh token for the user in the database
     const { id: userId } = req.user;
     if (!userId) {
       // Send a response indicating logout success
-      response.status(200).json({ message: 'Logged out successfully' });
+      response.status(200).json({ status: 'success', data: {user: null} });
+      return;
     };
 
     await this.authService.logout(userId);
-  
-    // Clear access token and refresh token cookies
-    this.tokenCookieService.clearAuthCookies(response);
-    return  "Hello from logout"
+    response.status(200).json({ status: 'success', data: {user: null} });
   }
 
   @Public()

@@ -19,9 +19,7 @@ export const UserMenu = ({ profile }:{ profile: Profile | undefined }) => {
 
    const { register, unregister } = useClickOutside();
 
-  const handleLogout = () => {
-          logout(dispatch);
-      }
+  const handleLogout = () => logout(dispatch);
 
   
   useEffect(() => {
