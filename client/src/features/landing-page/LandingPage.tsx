@@ -1,24 +1,15 @@
 import { Link } from "react-router-dom";
 import "./_landing-page.scss";
 import screen from "/assets/img/logos/screen.png";
-import { getDemoClientId } from "../../shared/utils/demo_client_id";
+import { demoLoginHttp } from "../auth/http/auth.http";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "../../redux/store";
 
 export const LandingPage = () => {
-
-  const navigateTo = (event: React.MouseEvent<HTMLButtonElement>) => {
-    const btnName: string = event.currentTarget.textContent;
-
-    if (btnName==="Login") {
-
-    } else {
-      
-    }
-    console.log(event.currentTarget.textContent);
-  }
+  const dispatcher = useDispatch<AppDispatch>();
 
   const onDemo = () => {
-    // Check if demo_client_id exists in local storage, if not create one and store it
-      const clientId = getDemoClientId();
+    dispatcher(demoLoginHttp({ authType: "demo-login" }));
     // Login as demo user
     // 1 We send the demo client id to the server to get a demo user token
     // 2 The server will return workspace and user data for the demo user based on the demo client id
@@ -65,7 +56,6 @@ export const LandingPage = () => {
               className="landing__button landing__button--ghost">
               Try Demo
             </Link>
-
           </div>
 
         </div>

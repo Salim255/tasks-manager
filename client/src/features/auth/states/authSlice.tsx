@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { authUser, loadUserHttp } from "../http/auth.http";
+import { authUser, demoLoginHttp, loadUserHttp } from "../http/auth.http";
 import { toast } from "react-toastify";
 
 type  InitiateState = {
@@ -28,6 +28,19 @@ const authSlice = createSlice({
     // Listen to fetch or the fetch call event
     extraReducers: (builder) => {
         builder
+        .addCase(demoLoginHttp.pending, (state) => {
+            state.isLoading = true;
+        })
+        .addCase(demoLoginHttp.fulfilled, (state, action) => {
+            state.user = action.payload.data.user;
+            state.isLoading = false;
+            toast.success("Welcome to the demo!");
+        })
+        .addCase(demoLoginHttp.rejected, (state, action) => {
+            const { message } = action.payload || { message: "Demo login failed" };
+            state.isLoading = false;
+            toast.error(message);
+        })
         .addCase(loadUserHttp.pending, (state) => {
             state.isLoading = true;
         })
@@ -38,7 +51,7 @@ const authSlice = createSlice({
         .addCase(loadUserHttp.rejected, (state) => {
             state.isLoading = false;
         })
-        .addCase(authUser .pending, (state) => {
+        .addCase(authUser.pending, (state) => {
             state.isLoading = true;
         })
         .addCase(authUser.fulfilled, (state, action) => {

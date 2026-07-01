@@ -42,6 +42,54 @@ export class AuthController {
   ) {}
 
   @Public()
+  @Post('demo-login')
+  @ApiOperation({
+    summary: 'Demo login user',
+    description: 'Authenticates a demo user and returns user info + tokens.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'User logged in successfully.',
+    type: LoginResponseDto,
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Validation error.',
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Invalid email or password.',
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'Internal server error.',
+  })
+  async demoLogin(
+    @Body() body: LoginDto,
+    @Res({ passthrough: true }) response: express.Response,
+  ): Promise<LoginResponseDto> {
+    const { email, password } = body;
+    if (!email || !password) {
+      throw new BadRequestException('Email and password are required');
+    }
+    const result = await this.authService.login({ email, password });
+
+    // Cookie expiration value
+    // Set HttpOnly cookies for access and refresh tokens
+    this.tokenCookieService.setAuthCookies(
+      response,
+      result.tokens.accessToken,
+      result.tokens.refreshToken,
+    );
+
+    return {
+      status: 'success',
+      data: result,
+    };
+  }
+
+
+  @Public()
   @AllowRefresh()
   @Post('refresh-token')
   @ApiOperation({
@@ -94,6 +142,7 @@ export class AuthController {
       data: result,
     };
   }
+
 
   @Public()
   @Post('login')
