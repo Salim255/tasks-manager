@@ -5,17 +5,7 @@ import api from "../../../api/axios";
 import { getUserProfileHttp } from "../../profile/http/profileHttp";
 import type { ApiErrorDto } from "../../../shared/interfaces/shared.interfaces";
 import { getDemoClientId } from "../../../shared/utils/demo_client_id";
-import type { User } from "../model/user.model";
-
-export type AuthType = "login" | "register" | "demo-login";
-export type AuthPayload = { password: string; email: string, authType: AuthType };
-
-export type AuthResponseDto = {
-    status: string;
-    data: {
-        user: User;
-    }
-}
+import type { AuthPayload, AuthResponseDto, AuthType } from "../dto/auth-dto";
 
 export const demoLoginHttp = createAsyncThunk<
     AuthResponseDto,
