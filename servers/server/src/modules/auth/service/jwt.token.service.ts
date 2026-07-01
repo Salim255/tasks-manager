@@ -1,11 +1,19 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
+import { getEnvVar } from 'src/common/utils/utils';
 
 export type JwtTokenPayload = {
   sub: string; // user ID
   demoClientId: string | null; // demo client ID
   exp: number; // expiration timestamp (auto-added by JWT library)
+};
+
+export type CreateTokenPayload = {
+  userId: string;
+  demoClientId: string | null;
+  isDemo: boolean;
+  tokenType: 'access' | 'refresh';
 };
 
 export interface AuthCookies {
@@ -22,13 +30,16 @@ export class JwtTokenService {
     private jwtService: JwtService,
   ) {}
 
-  private getValue<T>(key: string, fb: T): T {
-    return this.configService.get<T>(key) ?? fb;
-  }
+  
 
-  generateAccessToken({ userId, demoClientId, isDemo }: { userId: string; demoClientId: string | null; isDemo: boolean }) {
-    const jwtSecret = this.getValue('JWT_SECRET', '');
-    const jwtExpiration = this.getValue('JWT_ACCESS_EXPIRATION', '15m');
+  generateAccessToken({
+      userId,
+      demoClientId,
+      isDemo,
+      tokenType
+    }: { userId: string; demoClientId: string | null; isDemo: boolean; tokenType: 'access' | 'refresh' }) {
+    const jwtSecret = getEnvVar<string>('JWT_SECRET', '', this.configService);
+    const jwtExpiration = getEnvVar('JWT_ACCESS_EXPIRATION', '15m', this.configService);
 
     return this.jwtService.sign(
       { sub: userId, demoClientId: demoClientId, isDemo: isDemo },
@@ -40,8 +51,8 @@ export class JwtTokenService {
   }
 
   generateRefreshToken({ userId, demoClientId, isDemo }: { userId: string; demoClientId: string | null; isDemo: boolean }) {
-    const jwtSecret = this.getValue('JWT_SECRET', '');
-    const jwtExpiration = this.getValue('JWT_REFRESH_EXPIRATION', '7d');
+    const jwtSecret = getEnvVar<string>('JWT_SECRET', '', this.configService);
+    const jwtExpiration = getEnvVar('JWT_REFRESH_EXPIRATION', '7d', this.configService);
 
     return this.jwtService.sign(
       { sub: userId, demoClientId: demoClientId, isDemo: isDemo },

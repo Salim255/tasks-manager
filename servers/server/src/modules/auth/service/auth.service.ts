@@ -13,6 +13,7 @@ import { Repository } from 'typeorm';
 import { User } from 'src/modules/user/entity/user.entity';
 import { JwtTokenService } from './jwt.token.service';
 import { ConfigService } from '@nestjs/config';
+import { getEnvVar } from 'src/common/utils/utils';
 
 @Injectable()
 export class AuthService {
@@ -72,10 +73,9 @@ export class AuthService {
 
   async demoLogin(dto: DemoLoginDto): Promise<DataDto> {
     try {
-      const getValue = <T>(key: string, fb: T): T => this.configService.get<T>(key) ?? fb;
       // We login we get the demo credentials from app config and use them to login the user pr .env
-      const email = getValue('DEMO_EMAIL', '');
-      const password = getValue('DEMO_PASSWORD', '');
+      const email = getEnvVar<string>('DEMO_EMAIL', '', this.configService);
+      const password = getEnvVar<string>('DEMO_PASSWORD', '', this.configService  );
 
       if (!dto.demoClientId) {
         throw new BadRequestException('Demo client ID is required');
