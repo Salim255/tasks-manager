@@ -4,7 +4,7 @@
 
 .app-auth {
   min-height: 100vh;
-
+  
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -17,36 +17,38 @@
   position: relative;
   overflow: hidden;
 
-  &::before {
-    content: "";
-
+  &__back {
     position: absolute;
 
-    width: 600px;
-    height: 600px;
+    top: 2rem;
+    left: 2rem;
 
-    top: -250px;
-    left: 50%;
+    display: flex;
+    align-items: center;
 
-    transform: translateX(-50%);
+    font-size: 3rem;
 
-    border-radius: 50%;
+    color: var(--grey-600);
 
-    background: radial-gradient(
-      circle,
-      rgba(59, 130, 246, 0.08) 0%,
-      rgba(59, 130, 246, 0.04) 35%,
-      transparent 70%
-    );
+    cursor: pointer;
 
-    pointer-events: none;
+    transition:
+      color .2s ease,
+      transform .2s ease;
+
+    &:hover {
+      color: var(--primary-400);
+
+      transform: translateX(-3px);
+    }
   }
-
+ 
   &__header {
     margin-bottom: var(--space-8);
 
     text-align: center;
   }
+
 
   &__logo {
     font-size: clamp(2rem, 6vw, 3.5rem);

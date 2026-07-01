@@ -4,9 +4,12 @@ import { useProfileSelector } from "../../states/profileSelectors";
 import { ProfileForm } from "../../components/ProfileForm";
 import { useEffect } from "react";
 import { ProfileHero } from './components/hero/ProfileHero';
+import { useUserData } from '../../../auth/states/authSelectors';
+import { formatDate } from '../../../../shared/utils/methods';
 
 export const Profile = () => {
     const { isProfileLoading, profile } = useProfileSelector();
+    const userData = useUserData();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -29,7 +32,7 @@ export const Profile = () => {
 
         {/* HERO */}
         <div className="profile__hero">
-        <ProfileHero profile={profile!} />
+            <ProfileHero profile={profile!} />
         </div>
 
         {/* ACCOUNT OVERVIEW */}
@@ -38,23 +41,23 @@ export const Profile = () => {
 
         <div className="profile__grid">
             <div className="profile__item">
-            <span className="profile__item-label">Full Name</span>
-            <span className="profile__item-value">Salim Hassan</span>
+            <span className="profile__item-label"> Full Name </span>
+            <span className="profile__item-value"> { profile!.firstName } { profile!.lastName } </span>
             </div>
 
             <div className="profile__item">
             <span className="profile__item-label">Email</span>
-            <span className="profile__item-value">{profile!.email}</span>
+            <span className="profile__item-value">{userData!.email}</span>
             </div>
 
             <div className="profile__item">
             <span className="profile__item-label">Role</span>
-            <span className="profile__item-value"> User </span>
+            <span className="profile__item-value"> member </span>
             </div>
 
             <div className="profile__item">
             <span className="profile__item-label">Member Since</span>
-            <span className="profile__item-value">{profile!.createdAt}</span>
+            <span className="profile__item-value">{ formatDate(userData!.createdAt) }</span>
             </div>
         </div>
         </div>

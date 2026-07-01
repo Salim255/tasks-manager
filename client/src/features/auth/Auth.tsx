@@ -1,11 +1,12 @@
 import "./_auth.scss";
 import { AuthForm } from "./components/form/AuthFrom";
 import { useIsAuthenticated } from "./states/authSelectors";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useProfileSelector } from "../profile/states/profileSelectors";
-
+import { HiArrowNarrowLeft } from "react-icons/hi";
 
 export const Auth = () => {
+    const navigate = useNavigate();
     const { profile, isProfileLoading } = useProfileSelector();
     const isAuthenticated  = useIsAuthenticated();
     // If authenticated and profile exists → go to dashboard
@@ -20,6 +21,9 @@ export const Auth = () => {
 
     return (
         <section className="app-auth">
+            <div className="app-auth__back" onClick={() => navigate(-1)}>
+                <HiArrowNarrowLeft />
+            </div>
             <div className="app-auth__header">
                 <h1 className="app-auth__logo">
                      FlowBoard
