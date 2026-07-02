@@ -10,6 +10,7 @@ import { Project } from '../entity/project.entity';
 import { CreateProjectDto, ProjectDto, ProjectMemberDto, ProjectOwnerDto } from '../dto/project.dto';
 import { Member } from 'src/modules/member/entity/member.entity';
 import { User } from 'src/modules/user/entity/user.entity';
+import { DtoMapper } from 'src/common/utils/dtoMapper';
 
 @Injectable()
 export class ProjectService {
@@ -183,7 +184,8 @@ export class ProjectService {
       const response = projects.map(project => ({
         ...project,
         owner: this.projectOwnerMapper(project.owner),
-        members: project.members.map(member => this.projectMemberMapper(member)
+        members: project.members.map(member => this.projectMemberMapper(member),
+        
         ),
       }));
 

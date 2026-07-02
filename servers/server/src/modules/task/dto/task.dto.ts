@@ -11,7 +11,6 @@ export class TaskReporterDto {
   profile!: ReporterProfileDto | null
 }
 
-
 export class ReporterProfileDto {
   id!: string;
   firstName!: string;
