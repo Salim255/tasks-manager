@@ -7,6 +7,7 @@ import {
   HttpStatus,
   Param,
   Post,
+  Query,
   Req,
   UseGuards,
 } from '@nestjs/common';
@@ -59,7 +60,8 @@ export class ProjectController {
   @ApiOperation({
     summary: 'Fetch a single project',
     description:
-      'Fetches a single project along with its tasks, sprints, members (with profile), and owner. Requires authentication via HttpOnly session cookie.',
+      `Fetches a single project along with its tasks, sprints, members (with profile), 
+      and owner. Requires authentication via HttpOnly session cookie.`,
   })
   @ApiParam({
     name: 'projectId',
@@ -78,9 +80,15 @@ export class ProjectController {
   async getProject(
     @Param('projectId') projectId: string,
     @Req()
-    req: Request & { user: { id: string }; refresh_token: { token: string } },
-  ): Promise<ProjectDtoResponse> {
-    const { id: userId } = req.user;
+    req: Request & { 
+      user: { 
+        id: string, 
+        demoClientId: string | null, 
+        isDemo: boolean | null 
+      };
+      refresh_token: { token: string } 
+    },): Promise<ProjectDtoResponse> {
+    const { id: userId, isDemo } = req.user;
 
     if (!userId || !projectId) {
       throw new BadRequestException('Fetch project data required');
@@ -130,7 +138,11 @@ export class ProjectController {
     @Param('projectId') projectId: string,
 
     @Req() req: Request & {
-      user: { id: string }; 
+      user: { 
+        id: string, 
+        demoClientId: string | null,
+        isDemo: boolean | null 
+      }; 
       refresh_token: { token: string } 
     },
   ): Promise<SprintResponseDto> {
@@ -179,7 +191,14 @@ export class ProjectController {
     @Param('projectId') projectId: string,
     @Body() dto: CreateTaskDto,
     @Req()
-    req: Request & { user: { id: string }; refresh_token: { token: string } },
+    req: Request & { 
+      user: { 
+        id: string, 
+        demoClientId: string | null, 
+        isDemo: boolean | null 
+      }; 
+      refresh_token: { token: string } 
+    },
   ) {
     const { id: userId } = req.user;
     const { title, taskType } = dto;
@@ -229,10 +248,17 @@ export class ProjectController {
   async createProject(
     @Body() body: CreateProjectDto,
     @Req()
-    req: Request & { user: { id: string }; refresh_token: { token: string } },
+    req: Request & { 
+      user: { 
+        id: string, 
+        demoClientId: string | null, 
+        isDemo: boolean | null 
+      }; 
+      refresh_token: { token: string } 
+    },
   ): Promise<CreateProjectResponseDto> {
-    const { id: userId } = req.user;
-    //const { token } = req.refresh_token;
+    const { id: userId, isDemo, demoClientId } = req.user;
+  
     const { name, key, description } = body;
 
     if (!name || !key) {
@@ -245,6 +271,7 @@ export class ProjectController {
       name,
       key,
       description,
+      demoClientId: demoClientId ? demoClientId : undefined,
       ownerId: userId,
     });
 
@@ -293,9 +320,15 @@ export class ProjectController {
   async getTasksByProject(
     @Param('projectId') projectId: string,
     @Req()
-    req: Request & { user: { id: string }; refresh_token: { token: string } },
-  ): Promise<TasksListResponseDto> {
-    const { id: userId } = req.user;
+    req: Request & { 
+      user: { 
+        id: string, 
+        demoClientId: string | null, 
+        isDemo: boolean | null 
+      }; 
+      refresh_token: { token: string } 
+    },): Promise<TasksListResponseDto> {
+    const { id: userId, isDemo, demoClientId } = req.user;
 
     if (!projectId) {
       throw new BadRequestException('ProjectId needed to fetch project');
@@ -345,9 +378,15 @@ export class ProjectController {
   })
   async getSprintsByProject(
     @Param('projectId') projectId: string,
-    @Req() req: Request & { user: { id: string } },
-  ): Promise<SprintsListResponseDto> {
-    const { id: userId } = req.user;
+    @Req() req: Request & { 
+      user: { 
+        id: string,
+        demoClientId: string | null,
+        isDemo: boolean | null
+      }; 
+      refresh_token: { token: string } 
+    },): Promise<SprintsListResponseDto> {
+    const { id: userId, isDemo, demoClientId } = req.user;
 
     const sprints = await this.sprintService.getSprintsByProject({
       projectId,
@@ -363,7 +402,7 @@ export class ProjectController {
   @ApiOperation({
     summary: 'Get all projects',
     description:
-      'Returns a list of all projects belonging to the authenticated user.',
+      'Returns a list of all app projects ',
   })
   @ApiResponse({
     status: 200,
@@ -417,11 +456,24 @@ export class ProjectController {
   })
   async getProjectsByUser(
     @Req()
-    req: Request & { user: { id: string }; refresh_token: { token: string } },
+    req: Request & {
+      user: {
+        id: string,
+        demoClientId: string | null,
+        isDemo: boolean | null 
+      }; 
+      refresh_token: { token: string }
+    },
+
+    @Query('include')
+    include?: string,
   ): Promise<ProjectsListResponseDto> {
-    const { id: userId } = req.user;
-    const projects: Project[] = await this.projectService.getUserProjectsByUser(
-      { ownerId: userId },
+    const { id: userId, isDemo, demoClientId } = req.user;
+    const dataToInclude = include?.split(',');
+    console.log(dataToInclude);
+    const projects: Project[] = await this.projectService.getUserProjectsByUserV2(
+      { ownerId: userId, relations: dataToInclude?.length ? dataToInclude : [] }
+      
     );
 
     const response: ProjectsListResponseDto = {

@@ -80,6 +80,7 @@ const projectSlice = createSlice({
         })
         .addCase(fetchProjectsHttp.fulfilled, (state, action) => {
             const { projects } = action.payload.data;
+            console.log("Fetched projects:", projects);
             state.projects = projects;
             state.isLoading = false;
         })

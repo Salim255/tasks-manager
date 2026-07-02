@@ -10,30 +10,30 @@ import {
 @Entity('profiles')
 export class Profile {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id!: string;
 
   @Column({ type: 'uuid' })
-  userId: string;
+  userId!: string;
 
   @OneToOne(() => User, (user) => user.profile, { onDelete: 'CASCADE' })
   @JoinColumn()
-  user: User;
+  user!: User;
 
   @Column({ nullable: true })
-  firstName: string;
+  firstName!: string;
 
   @Column({ nullable: true })
-  lastName: string;
+  lastName!: string;
 
   @Column({ nullable: true })
-  avatarUrl: string;
+  avatarUrl!: string;
 
   @Column({ nullable: true })
-  bio: string;
+  bio!: string;
 
   @Column({ nullable: true })
-  timezone: string;
+  timezone!: string;
 
   @Column({ type: 'jsonb', default: {} })
-  preferences: Record<string, any>;
+  preferences!: Record<string, any>;
 }

@@ -15,10 +15,11 @@ import { ProjectStatus } from '../dto/project.dto';
 import { User } from 'src/modules/user/entity/user.entity';
 import { Task } from 'src/modules/task/entity/task.entity';
 import { Sprint } from 'src/modules/sprint/entity/sprint.entity';
+import { Member } from 'src/modules/member/entity/member.entity';
 
 @Entity('projects')
-@Unique(['key'])
-@Unique(['name'])
+@Unique(["ownerId", "name"])
+@Unique(["ownerId", "key"])
 @Index(['ownerId'])
 @Index(['status'])
 export class Project {
@@ -31,6 +32,9 @@ export class Project {
     length: 120,
   })
   name!: string;
+
+  @Column({ type: 'varchar', default: null, nullable: true })
+  demoClientId!: string;
 
   @Column({
     type: 'text',
@@ -72,6 +76,9 @@ export class Project {
   @OneToMany(() => Sprint, sprint => sprint.project)
   sprints!: Sprint[];
 
+  @OneToMany(() => Member, member => member.project)
+  members!: Member[];
+  
   @CreateDateColumn({
     type: 'timestamp',
   })

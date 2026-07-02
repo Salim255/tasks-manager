@@ -13,6 +13,7 @@ import { Profile } from 'src/modules/profile/entity/profile.entity';
 import { Task } from 'src/modules/task/entity/task.entity';
 import { Sprint } from 'src/modules/sprint/entity/sprint.entity';
 import { Project } from 'src/modules/project/entity/project.entity';
+import { Member } from 'src/modules/member/entity/member.entity';
 
 @Entity('users')
 export class User {
@@ -53,6 +54,9 @@ export class User {
 
   @OneToMany(() => Project, project => project.owner)
   ownedProjects!: Project[];
+
+  @OneToMany(() => Member, member => member.user)
+  projectMembers!: Member[];
 
   @CreateDateColumn()
   createdAt!: Date;

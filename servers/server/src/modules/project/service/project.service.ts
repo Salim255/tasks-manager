@@ -5,7 +5,7 @@ import {
   Logger,
 } from '@nestjs/common';
 import { PROJECT_REPOSITORY } from 'src/common/constants/constants';
-import { Repository } from 'typeorm';
+import { FindOptionsRelations, Repository } from 'typeorm';
 import { Project } from '../entity/project.entity';
 import { CreateProjectDto, ProjectDto } from '../dto/project.dto';
 
@@ -16,6 +16,7 @@ export class ProjectService {
   constructor(
     @Inject(PROJECT_REPOSITORY) private projectRepo: Repository<Project>,
   ) {}
+
 
   async getProjectById({
     projectId,
@@ -100,6 +101,7 @@ export class ProjectService {
     }
   }
 
+
   async getUserProjects(): Promise<Project[]> {
     try {
       const query = `
@@ -127,11 +129,70 @@ export class ProjectService {
     }
   }
 
-  async getUserProjectsByUser({
+  async getUserProjectsByUserV2({
     ownerId,
+    relations
   }: {
     ownerId: string;
+    relations: string []
   }): Promise<Project[]> {
+    try {
+      const projectRelations: FindOptionsRelations<Project> = {};
+
+      if (relations.includes('tasks')) {
+        projectRelations.tasks = true;
+      }
+
+      if (relations.includes('sprints')) {
+        projectRelations.sprints = true;
+      }
+
+      if (relations.includes('members')) {
+        projectRelations.members =  {
+          user: {
+            profile: true
+          },
+        };
+      }
+
+      if (relations.includes('owner')) {
+        projectRelations.owner = true;
+      }
+
+      console.log(projectRelations, 'projectRelations');
+      const projects = await this.projectRepo.find({
+        where: { ownerId },
+        relations: projectRelations,
+      });
+
+      const response = projects.map(project => ({
+        ...project,
+        members: project.members.map(member => ({
+          id: member.id,
+          role: member.role,
+          projectId: member.projectId,
+          userId: member.userId,
+          createdAt: member.createdAt,
+          profile: {
+            id: member?.user?.profile?.id,
+            firstName: member?.user?.profile?.firstName,
+            lastName: member?.user?.profile?.lastName,
+            avatarUrl: member?.user?.profile?.avatarUrl,
+            bio: member?.user?.profile?.bio,
+          },
+        })),
+      }));
+
+      return response;
+    } catch (error) {
+      this.logger.error('Error to fetch user projects', error);
+      throw new InternalServerErrorException('Failed to fetch user projects');
+    }
+  }
+
+  async getUserProjectsByUser(
+    {ownerId}: {ownerId: string;}
+  ): Promise<Project[]> {
     try {
       const query = `
         SELECT *,
@@ -203,14 +264,20 @@ export class ProjectService {
   }
 
   async createProject(
-    payload: CreateProjectDto & { ownerId: string },
+    payload: CreateProjectDto & { ownerId: string; demoClientId?: string },
   ): Promise<Project> {
     try {
-      const values = [payload.name, payload.key,  payload.description, payload.ownerId];
+      const values = [
+        payload.name,
+        payload.key,
+        payload.description,
+        payload.ownerId,
+        payload.demoClientId
+      ];
 
       const query = `
-      INSERT INTO projects (name, key,  description, "ownerId")
-        VALUES ($1, $2, $3, $4)
+      INSERT INTO projects (name, key,  description, "ownerId", "demoClientId")
+        VALUES ($1, $2, $3, $4, $5)
       RETURNING *;
       `;
 

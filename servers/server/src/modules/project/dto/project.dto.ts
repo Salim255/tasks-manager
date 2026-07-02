@@ -7,6 +7,20 @@ import { Member } from 'src/modules/member/entity/member.entity';
 import { Profile } from 'src/modules/profile/entity/profile.entity';
 import { ApiResponseData } from 'src/common/interfaces/shared.interface';
 
+export class ProjectProfileDto {
+  firstName!: string;
+  lastName!: string;
+  avatarUrl!: string;
+  bio!: string;
+}
+export class ProjectMemberDto {
+  id!: string;
+  role!: string;
+  userId!: string;
+  createdAt!: string;
+  profile!: ProjectProfileDto | null; 
+}
+
 export enum ProjectStatus {
   ACTIVE = 'active',
   ARCHIVED = 'archived',
