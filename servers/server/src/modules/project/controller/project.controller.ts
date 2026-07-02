@@ -420,7 +420,7 @@ export class ProjectController {
   })
   async getProjects(): Promise<ProjectsListResponseDto> {
     // Example mock — replace with service call
-    const projects: Project[] = await this.projectService.getUserProjects();
+    const projects: ProjectDto[] = await this.projectService.getUserProjects();
 
     const response: ProjectsListResponseDto = {
       status: 'success',
@@ -471,7 +471,7 @@ export class ProjectController {
     const { id: userId, isDemo, demoClientId } = req.user;
     const dataToInclude = include?.split(',');
     console.log(dataToInclude);
-    const projects: Project[] = await this.projectService.getUserProjectsByUserV2(
+    const projects: ProjectDto[] = await this.projectService.getUserProjectsByUserV2(
       { ownerId: userId, relations: dataToInclude?.length ? dataToInclude : [] }
       
     );

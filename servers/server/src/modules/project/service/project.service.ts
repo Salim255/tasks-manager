@@ -7,7 +7,9 @@ import {
 import { PROJECT_REPOSITORY } from 'src/common/constants/constants';
 import { FindOptionsRelations, Repository } from 'typeorm';
 import { Project } from '../entity/project.entity';
-import { CreateProjectDto, ProjectDto } from '../dto/project.dto';
+import { CreateProjectDto, ProjectDto, ProjectMemberDto, ProjectOwnerDto } from '../dto/project.dto';
+import { Member } from 'src/modules/member/entity/member.entity';
+import { User } from 'src/modules/user/entity/user.entity';
 
 @Injectable()
 export class ProjectService {
@@ -135,16 +137,33 @@ export class ProjectService {
   }: {
     ownerId: string;
     relations: string []
-  }): Promise<Project[]> {
+  }): Promise<ProjectDto[]> {
     try {
       const projectRelations: FindOptionsRelations<Project> = {};
 
+      if (relations.includes('owner')) {
+        projectRelations.owner = {
+          profile: true,
+        };
+      }
+
       if (relations.includes('tasks')) {
-        projectRelations.tasks = true;
+        projectRelations.tasks = {
+          reporter: {
+            profile: true
+          },
+          assignee: {
+            profile: true
+          },
+        };;
       }
 
       if (relations.includes('sprints')) {
-        projectRelations.sprints = true;
+        projectRelations.sprints =  {
+          creator: {
+            profile: true
+          },
+        };
       }
 
       if (relations.includes('members')) {
@@ -155,10 +174,6 @@ export class ProjectService {
         };
       }
 
-      if (relations.includes('owner')) {
-        projectRelations.owner = true;
-      }
-
       console.log(projectRelations, 'projectRelations');
       const projects = await this.projectRepo.find({
         where: { ownerId },
@@ -167,20 +182,9 @@ export class ProjectService {
 
       const response = projects.map(project => ({
         ...project,
-        members: project.members.map(member => ({
-          id: member.id,
-          role: member.role,
-          projectId: member.projectId,
-          userId: member.userId,
-          createdAt: member.createdAt,
-          profile: {
-            id: member?.user?.profile?.id,
-            firstName: member?.user?.profile?.firstName,
-            lastName: member?.user?.profile?.lastName,
-            avatarUrl: member?.user?.profile?.avatarUrl,
-            bio: member?.user?.profile?.bio,
-          },
-        })),
+        owner: this.projectOwnerMapper(project.owner),
+        members: project.members.map(member => this.projectMemberMapper(member)
+        ),
       }));
 
       return response;
@@ -287,5 +291,41 @@ export class ProjectService {
       this.logger.error('Error in create a project', error);
       throw error;
     }
+  }
+
+
+
+  private projectOwnerMapper(owner: User): ProjectOwnerDto | null {
+    const profile = owner.profile;
+    return{
+      id: owner.id,
+      profile: profile ?  {
+        id: profile?.id ,
+        firstName: profile?.firstName || '',
+        lastName: profile?.lastName || '',
+        avatarUrl: profile?.avatarUrl || '',
+        bio: profile?.bio || '',
+      }: null
+    }
+  }
+
+  private projectMemberMapper(member: Member): ProjectMemberDto {
+
+      const profile = member.user?.profile;
+
+      return {
+        id: member.id,
+        role: member.role,
+        userId: member.userId,
+        profile: profile
+          ? { 
+              id: profile.id,
+              firstName: profile.firstName,
+              lastName: profile.lastName,
+              avatarUrl: profile.avatarUrl,
+              bio: profile.bio,
+            }
+          : null,
+      };
   }
 }

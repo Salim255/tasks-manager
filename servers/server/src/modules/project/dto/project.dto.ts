@@ -3,11 +3,16 @@ import { Project } from '../entity/project.entity';
 import { IsOptional, IsString, IsNotEmpty, IsUppercase, Length } from 'class-validator';
 import { Task } from 'src/modules/task/entity/task.entity';
 import { Sprint } from 'src/modules/sprint/entity/sprint.entity';
-import { Member } from 'src/modules/member/entity/member.entity';
 import { Profile } from 'src/modules/profile/entity/profile.entity';
 import { ApiResponseData } from 'src/common/interfaces/shared.interface';
 
+export class ProjectOwnerDto {
+  id!: string;
+  profile!: ProjectProfileDto | null
+}
+
 export class ProjectProfileDto {
+  id!: string;
   firstName!: string;
   lastName!: string;
   avatarUrl!: string;
@@ -17,8 +22,7 @@ export class ProjectMemberDto {
   id!: string;
   role!: string;
   userId!: string;
-  createdAt!: string;
-  profile!: ProjectProfileDto | null; 
+  profile?: ProjectProfileDto | null; 
 }
 
 export enum ProjectStatus {
@@ -40,25 +44,19 @@ export class ProjectDto {
   ownerId!: string;
 
   @ApiProperty()
-  createdAt!: string;
-
-  @ApiProperty()
-  updatedAt!: string;
-
-  @ApiProperty()
   status!: string;
 
   @ApiProperty({ type: () => [Task] })
-  tasks!: Task[];
+  tasks?: Task[];
 
   @ApiProperty({ type: () => [Sprint] })
-  sprints!: Sprint[];
+  sprints?: Sprint[];
 
-  @ApiProperty({ type: () => [Member] })
-  members!: Member[];
+  @ApiProperty({ type: () => [ProjectMemberDto] })
+  members?: ProjectMemberDto[];
 
   @ApiProperty({ type: () => Profile })
-  reporter!: Profile;
+  reporter?: Profile;
 }
 
 export class ProjectDtoResponse extends ApiResponseData<{
@@ -136,6 +134,6 @@ export class ProjectsListResponseDto {
     },
   })
   data?: {
-    projects: Project[];
+    projects: ProjectDto[];
   };
 }

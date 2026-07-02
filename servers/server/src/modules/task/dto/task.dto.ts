@@ -6,6 +6,20 @@ export type TaskStatus = 'todo' | 'in_progress' | 'done';
 export type TaskPriority = 'low' | 'medium' | 'high';
 export type TaskType = 'task' | 'bug' | 'story';
 
+export class TaskReporterDto {
+  id!: string;
+  profile!: ReporterProfileDto | null
+}
+
+
+export class ReporterProfileDto {
+  id!: string;
+  firstName!: string;
+  lastName!: string;
+  avatarUrl!: string;
+  bio!: string;
+}
+
 export class UpdateTaskDto {
   @ApiPropertyOptional({
     example: 'Fix login bug',
