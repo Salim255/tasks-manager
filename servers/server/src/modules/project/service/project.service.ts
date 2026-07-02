@@ -184,8 +184,8 @@ export class ProjectService {
       const response = projects.map(project => ({
         ...project,
         owner: this.projectOwnerMapper(project.owner),
+        tasks: project.tasks.map(task => DtoMapper.projectTaskMapper(task)),
         members: project.members.map(member => this.projectMemberMapper(member),
-        
         ),
       }));
 

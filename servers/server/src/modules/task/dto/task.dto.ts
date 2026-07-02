@@ -1,6 +1,11 @@
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional, OmitType } from '@nestjs/swagger';
 import { IsIn, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { Task } from '../entity/task.entity';
+
+export class TaskDto extends OmitType(Task, ['assignee', 'reporter']) {
+  reporter!: TaskReporterDto | null;
+  assignee!: TaskAssignerDto | null;
+}
 
 export type TaskStatus = 'todo' | 'in_progress' | 'done';
 export type TaskPriority = 'low' | 'medium' | 'high';
@@ -8,10 +13,12 @@ export type TaskType = 'task' | 'bug' | 'story';
 
 export class TaskReporterDto {
   id!: string;
-  profile!: ReporterProfileDto | null
+  profile!: UserProfileDto | null
 }
 
-export class ReporterProfileDto {
+export class TaskAssignerDto extends TaskReporterDto {};
+
+export class UserProfileDto {
   id!: string;
   firstName!: string;
   lastName!: string;
