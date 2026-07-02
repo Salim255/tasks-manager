@@ -171,7 +171,8 @@ export class ProjectController {
       {
         ownerId: userId,
         relations: dataToInclude?.length ? dataToInclude : [],
-        demoClientId: demoClientId
+        demoClientId: demoClientId,
+        isDemo: isDemo ?? false,
        }
     );
 

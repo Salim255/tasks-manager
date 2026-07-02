@@ -7,11 +7,10 @@ import {
 import { PROJECT_REPOSITORY } from 'src/common/constants/constants';
 import { FindOptionsRelations, FindOptionsWhere, Repository } from 'typeorm';
 import { Project } from '../entity/project.entity';
-import { CreateProjectDto, ProjectDto, ProjectMemberDto, ProjectOwnerDto } from '../dto/project.dto';
-import { Member } from 'src/modules/member/entity/member.entity';
+import { CreateProjectDto, ProjectDto, ProjectOwnerDto } from '../dto/project.dto';
 import { User } from 'src/modules/user/entity/user.entity';
 import { DtoMapper } from 'src/common/utils/dtoMapper';
-import { TableRelationBuilder } from 'src/common/utils/tableRealtionBuilder';
+import { TableRelationBuilder } from 'src/common/utils/tableRelationBuilder';
 
 @Injectable()
 export class ProjectService {
@@ -93,18 +92,20 @@ export class ProjectService {
     ownerId,
     relations,
     demoClientId,
+    isDemo,
   }: {
     ownerId: string;
     relations: string [];
-     demoClientId: string | null;
+    demoClientId: string | null;
+    isDemo: boolean;
   }): Promise<ProjectDto[]> {
     try {
       const projectRelations:FindOptionsRelations<Project> =
         TableRelationBuilder.projectRelationsBuilder(relations);
-        
+
       const where: FindOptionsWhere<Project> = {
         ownerId,
-        ...(demoClientId ? { demoClientId } : {}),
+        ...((demoClientId && isDemo) ? { demoClientId } : {}),
       };
 
       const projects = await this.projectRepo.find({

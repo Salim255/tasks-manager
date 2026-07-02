@@ -38,11 +38,20 @@ export const fetchSingleProjectHttp = createAsyncThunk<
     'fetch/fetch-project',
     async ({ projectId }: { projectId: string }, thunkApi) => {
         try {
-            const response = await api.get(`projects/${projectId}`, { withCredentials: true });
+            const include = ["tasks", "sprints", "members", "owner"];
+
+            const url = `projects/${projectId}?include=${include.join(",")}`;
+
+            const response = await api.get(`${url}`, { withCredentials: true });
+            console.log(response);
             const project  = (response.data.data.project) as Project;
-            thunkApi.dispatch(setSprints({ sprints: project.sprints }));
-            thunkApi.dispatch(setTasks({ tasks: project.tasks }));
-            thunkApi.dispatch(setMembers({ members: project.members }))
+
+            if (project?.sprints) thunkApi.dispatch(setSprints({ sprints: project.sprints }));
+
+            if (project?.tasks) thunkApi.dispatch(setTasks({ tasks: project.tasks }));
+
+            if (project?.members) thunkApi.dispatch(setMembers({ members: project.members }));
+
             return response.data;
         } catch (error) {
             // Extract your backend error shape

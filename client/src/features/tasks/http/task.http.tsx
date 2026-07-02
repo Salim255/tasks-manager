@@ -1,49 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
 import { type ApiErrorDto } from "../../../shared/interfaces/shared.interfaces";
-import type { Task, TaskStatus, TaskType } from "../models/task.model";
 import api from "../../../api/axios";
-
-export type UpdateTaskPayload = {
-  title?: string;
-  status?: TaskStatus;
-  taskType?: TaskType;
-  assigneeId?: string;
-  dueAt?: string;
-  priority?: 'low' | 'medium' | 'high';
-  sprintId?: string 
-  description?: string;
-}
-
-export interface CreateTaskPayload  {
-    title: string;
-    status: TaskStatus;
-    assigneeId?: string;
-    taskType: TaskType;
-    dueAt?: string;
-    projectId: string;
-}
-
-export type UpdateTaskSprintPayload = {
-    taskId: string;
-    sprintId: string | null;
-};
-
-export type CreateTaskResponseDto = {
-    status: string;
-    data: {
-        task: Task
-    }
-}
-
-export type  UpdatedTaskResponseDto = CreateTaskResponseDto;
-
-export type GetTasksResponseDto = {
-    status: string;
-    data: {
-        tasks: Task []
-    }
-}
+import type { CreateTaskPayload, CreateTaskResponseDto, GetTasksResponseDto, UpdatedTaskResponseDto, UpdateTaskPayload, UpdateTaskSprintPayload } from "../dto/task-dto";
 
 export const updateTasHttp = createAsyncThunk<
     UpdatedTaskResponseDto,
