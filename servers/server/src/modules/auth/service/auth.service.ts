@@ -211,14 +211,15 @@ export class AuthService {
       `;
 
       const values = [dto.email, hashedPassword];
-      const user: User = await this.userRepo.query(query, values);
+      const user: User[] = await this.userRepo.query(query, values);
 
+      console.log(user)
       const { accessToken, refreshToken } =
-        await this.generateAndStoreTokens({ user, demoClientId: null, isDemo: false });
+        await this.generateAndStoreTokens({ user: user[0], demoClientId: null, isDemo: false });
 
       return { 
           user:{
-            ...user,
+            ...user[0],
             isDemo: false,
             demoClientId: null
           }, 
@@ -258,7 +259,7 @@ export class AuthService {
     const refreshTokenHash = await bcrypt.hash(refreshToken, 10);
 
     // Store hash in DB
-    await this.userRepo.update(user.id, { refreshTokenHash });
+    await this.userRepo.update({ id: user.id }, { refreshTokenHash });
 
     return {
       accessToken,

@@ -7,12 +7,14 @@ import {
   ManyToOne,
   JoinColumn,
   Index,
-  OneToOne,
 } from 'typeorm';
-import type { TaskPriority, TaskStatus, TaskType } from '../dto/task.dto';
 import { Project } from 'src/modules/project/entity/project.entity';
 import { User } from 'src/modules/user/entity/user.entity';
 import { Sprint } from 'src/modules/sprint/entity/sprint.entity';
+
+export type TaskStatus = 'todo' | 'in_progress' | 'done';
+export type TaskPriority = 'low' | 'medium' | 'high';
+export type TaskType = 'task' | 'bug' | 'story';
 
 @Entity('tasks')
 @Index(['projectId'])
@@ -25,8 +27,8 @@ export class Task {
   @Column()
   title!: string;
 
-  @Column({ nullable: true })
-  description?: string;
+  @Column({ nullable: true, default: null })
+  description!: string;
 
   @Column({ type: 'varchar', default: 'task' })
   taskType!: TaskType;
@@ -34,7 +36,7 @@ export class Task {
   @Column({ type: 'varchar', default: 'todo' })
   status!: TaskStatus;
 
-  @Column({ type: 'varchar', nullable: true })
+  @Column({ type: 'varchar', default: 'medium' })
   priority?: TaskPriority;
 
   @ManyToOne(() => User)
@@ -56,11 +58,11 @@ export class Task {
   @JoinColumn({ name: 'assigneeId' })
   assignee?: User;
 
-  @Column({ type: "uuid", nullable: true })
+  @Column({ type: "uuid", nullable: true, default: null })
   assigneeId?: string;
 
 
-  @Column({ type: 'uuid', nullable: true })
+  @Column({ type: 'uuid', nullable: true, default: null })
   sprintId?: string;
 
   @ManyToOne(() => Sprint, sprint => sprint.tasks, {
@@ -80,10 +82,10 @@ export class Task {
   })
   project!: Project;
 
-  @Column({ type: 'int', nullable: true})
+  @Column({ type: 'int', nullable: true, default: null})
   pointEstimate?: number;
 
-  @Column({ type: 'timestamptz', nullable: true })
+  @Column({ type: 'timestamptz', nullable: true , default: null})
   dueAt?: Date;
 
   @CreateDateColumn()

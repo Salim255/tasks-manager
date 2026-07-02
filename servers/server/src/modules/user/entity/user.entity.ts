@@ -33,7 +33,7 @@ export class User {
   @Column({ default: false })
   emailVerified!: boolean;
 
-  @Column({ type: 'text', nullable: true })
+  @Column({ type: 'text', nullable: true, default: null })
   refreshTokenHash?: string;
 
   @Column({ type: 'enum', enum: UserRole, default: UserRole.USER })

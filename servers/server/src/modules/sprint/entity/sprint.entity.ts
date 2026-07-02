@@ -23,20 +23,20 @@ export class Sprint {
   @Column({ type: 'varchar', default: 'planned' })
   status!: SprintStatus;
 
-  @Column({ type: 'timestamptz', nullable: true })
-  startDate?: Date;
+  @Column({ type: 'timestamptz', nullable: true, default: null })
+  startDate!: Date;
 
-  @Column({ type: 'timestamptz', nullable: true })
-  endDate?: Date;
+  @Column({ type: 'timestamptz', nullable: true, default: null })
+  endDate!: Date;
 
-  @Column({ type: 'timestamptz', nullable: true })
-  completeDate?: Date;
+  @Column({ type: 'timestamptz', nullable: true, default: null })
+  completeDate!: Date;
 
   @Column({type: "uuid"})
   projectId!: string;
 
-  @Column({ nullable: true })
-  goal?: string;
+  @Column({ nullable: true, default: null  })
+  goal!: string;
 
   @ManyToOne(() => Project, project => project.sprints, { onDelete: 'CASCADE' })
   project!: Project;

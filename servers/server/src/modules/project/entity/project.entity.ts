@@ -6,7 +6,6 @@ import {
   UpdateDateColumn,
   Index,
   Unique,
-  JoinColumn,
   ManyToOne,
   OneToMany,
 } from 'typeorm';
@@ -39,8 +38,9 @@ export class Project {
   @Column({
     type: 'text',
     nullable: true,
+    default: null
   })
-  description?: string;
+  description!: string;
 
   @Column({
     type: 'varchar',

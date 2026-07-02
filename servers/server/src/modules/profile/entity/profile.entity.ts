@@ -19,19 +19,19 @@ export class Profile {
   @JoinColumn()
   user!: User;
 
-  @Column({ nullable: true })
+  @Column({ nullable: false })
   firstName!: string;
 
-  @Column({ nullable: true })
+  @Column({ nullable: false })
   lastName!: string;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, default: null })
   avatarUrl!: string;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, default: null })
   bio!: string;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, default: null })
   timezone!: string;
 
   @Column({ type: 'jsonb', default: {} })

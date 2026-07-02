@@ -2,21 +2,70 @@ import { ApiProperty, ApiPropertyOptional, OmitType } from '@nestjs/swagger';
 import { IsIn, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { Task } from '../entity/task.entity';
 
-export class TaskDto extends OmitType(Task, ['assignee', 'reporter']) {
-  reporter!: TaskReporterDto | null;
-  assignee!: TaskAssignerDto | null;
+export class TaskDto {
+  @ApiProperty()
+  id!: string;
+
+  @ApiProperty()
+  title!: string;
+
+  @ApiPropertyOptional({ nullable: true })
+  description?: string ;
+
+  @ApiProperty({ enum: ['task', 'bug', 'story'] })
+  taskType!: TaskType;
+
+  @ApiProperty({ enum: ['todo', 'in_progress', 'done'] })
+  status!: TaskStatus;
+
+  @ApiPropertyOptional({ enum: ['low', 'medium', 'high']})
+  priority!: TaskPriority;
+
+  @ApiProperty()
+  reporterId!: string;
+
+  @ApiPropertyOptional({ nullable: true })
+  assigneeId!: string | null;
+
+  @ApiProperty()
+  taskNumber!: number;
+
+  @ApiProperty()
+  issueKey!: string;
+
+  @ApiProperty()
+  projectId!: string;
+
+  @ApiPropertyOptional({ nullable: true })
+  sprintId!: string | null;
+
+  @ApiPropertyOptional({ nullable: true })
+  pointEstimate!: number | null;
+
+  @ApiPropertyOptional({ nullable: true })
+  dueAt!: Date | null;
+
+  @ApiProperty()
+  createdAt!: Date;
+
+  @ApiProperty()
+  updatedAt!: Date;
+
+  @ApiProperty({ type: () => TaskUserDto })
+  reporter!: TaskUserDto | null;
+
+  @ApiPropertyOptional({ type: () => TaskUserDto, nullable: true })
+  assignee!: TaskUserDto | null;
 }
 
 export type TaskStatus = 'todo' | 'in_progress' | 'done';
 export type TaskPriority = 'low' | 'medium' | 'high';
 export type TaskType = 'task' | 'bug' | 'story';
 
-export class TaskReporterDto {
+export class TaskUserDto {
   id!: string;
   profile!: UserProfileDto | null
 }
-
-export class TaskAssignerDto extends TaskReporterDto {};
 
 export class UserProfileDto {
   id!: string;
