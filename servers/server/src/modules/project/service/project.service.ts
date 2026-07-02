@@ -24,9 +24,11 @@ export class ProjectService {
   async getProjectById({
     projectId,
     userId,
+    relations
   }: {
     projectId: string;
     userId: string;
+    relations: string [];
   }): Promise<ProjectDto | null> {
     try {
       const project = await this.projectRepo.findOne(
@@ -81,7 +83,7 @@ export class ProjectService {
     }
   }
 
-  async getUserProjectsByUserV2({
+  async getUserProjectsByUser({
     ownerId,
     relations
   }: {
@@ -146,79 +148,6 @@ export class ProjectService {
     }
   }
 
-  async getUserProjectsByUser(
-    {ownerId}: {ownerId: string;}
-  ): Promise<Project[]> {
-    try {
-      const query = `
-        SELECT *,
-          
-          -- Add project tasks
-          COALESCE (
-            (
-              SELECT jsonb_agg ( task.* )
-                FROM tasks AS task
-                  WHERE task."projectId" = project.id
-            ),
-            '[]'::jsonb
-          ) AS tasks,
-         
-          -- Add project sprints
-          COALESCE (
-            (
-              SELECT jsonb_agg ( sprint.* )
-                FROM sprints AS sprint
-                  WHERE sprint."projectId" = project.id
-          ),
-          '[]'::jsonb
-          ) AS sprints,
-
-          -- # Add project Members 
-          COALESCE (
-            (
-            SELECT jsonb_agg ( 
-                to_jsonb(m.*) 
-                || jsonb_build_object('profile', to_jsonb(pr)
-                )
-              )
-              FROM members AS m
-              JOIN profiles pr ON  pr."userId" = m."userId"
-                
-              WHERE m."projectId" = project.id
-               
-            ),
-            '[]'::jsonb
-          ) AS members,
-
-          -- # Project Owner profile
-          COALESCE (
-            ( 
-              SELECT  to_jsonb ( profile.* ) 
-                FROM profiles AS profile
-                  WHERE profile."userId" = $1
-                LIMIT 1
-            ),
-            '{}'::jsonb
-          ) AS Owner
-
-        FROM projects AS project 
-
-        -- Owner profile
-        WHERE project."ownerId" = $1
-          OR EXISTS (
-            SELECT 1
-              FROM members AS mb
-                WHERE mb."projectId" = project.id
-          );
-      `;
-      const rows: Project[] = await this.projectRepo.query(query, [ownerId]);
-      return rows;
-    } catch (error) {
-      this.logger.error('Error to fetch user projects', error);
-      throw new InternalServerErrorException('Failed to fetch user projects');
-    }
-  }
-
   async createProject(
     payload: CreateProjectDto & { ownerId: string; demoClientId?: string },
   ): Promise<Project> {
@@ -262,5 +191,4 @@ export class ProjectService {
       }: null
     }
   }
-
 }

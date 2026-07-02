@@ -161,7 +161,7 @@ export class ProjectController {
   ): Promise<ProjectsListResponseDto> {
     const { id: userId, isDemo, demoClientId } = req.user;
     const dataToInclude = include?.split(',');
-    const projects: ProjectDto[] = await this.projectService.getUserProjectsByUserV2(
+    const projects: ProjectDto[] = await this.projectService.getUserProjectsByUser(
       { ownerId: userId, relations: dataToInclude?.length ? dataToInclude : [] }
       
     );
