@@ -2,17 +2,17 @@ import "./_edit-sprint-form.scss";
 import { IoMdClose } from "react-icons/io";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../../../redux/store";
-import { type ChangeEvent } from "react";
+import { useRef, type ChangeEvent } from "react";
 import { updateSprintHttp } from "../../http/sprint.http";
-
-import { ModalOverlay } from "../../../../shared/components/modal-overlay/ModalOverlay";
 import { useSprintForm } from "../../form-builder/sprintFormBuilder";
 import { closeEditSprint } from "../../states/sprintSlice";
 import { useSelectedSprint } from "../../states/sprintSelectors";
 import { removedUnchangedField } from "../../../../shared/utils/detect-field-change";
 import type { UpdateSprintPayload } from "../../dto/sprint-dto";
+import { EntityModal } from "../../../../shared/modals/entity-modal/EntityModal";
 
 export const EditSprintForm = () => {
+    const formRef = useRef<HTMLFormElement | null>(null);
    const sprint  = useSelectedSprint();
    const { state, setField, reset } = useSprintForm(sprint);
    const dispatch = useDispatch<AppDispatch>();
@@ -53,63 +53,56 @@ export const EditSprintForm = () => {
        dispatch(closeEditSprint());
     }
 
+    const triggerSubmit = () => {
+      formRef?.current?.requestSubmit();
+    };
+
     return (
-        <ModalOverlay onClose={closeModal}>
+        <EntityModal
+            title="Edit Sprint"
+            description="Update sprint details and schedule."
+            onClose={closeModal}
+            actions={{
+            cancel: { label: "Cancel", onClick: closeModal },
+            submit: { 
+                label: "Save Changes", 
+                type: "submit", onClick: triggerSubmit, 
+                loading: false 
+            }
+            }}
+        >
             <form
+             ref={formRef}
              data-modal-body
-             className="edit-sprint-form"
+             className="form"
              onSubmit={clickSubmit}
             >
-            {/* Header */}
-            <div className="edit-sprint-form__header">
-                <div>
-                <h2>Edit Sprint</h2>
-                <p>Update sprint details and schedule.</p>
-                </div>
-
-                <button
-                type="button"
-                className="edit-sprint-form__close"
-                onClick={closeModal}
-                >
-                <IoMdClose />
-                </button>
-            </div>
-
-            {/* Content */}
-            <div className="edit-sprint-form__body">
-
-                {/* Sprint Name */}
-                <div className="edit-sprint-form__field">
-                <label htmlFor="name">Sprint Name</label>
-
-                <input
-                    id="name"
-                    type="text"
-                    name="name"
-                    value={state.name}
-                    placeholder="Sprint Alpha"
-                    onChange={handleChange}
-                    className="form__input"
-                />
-                </div>
-
-                {/* Sprint Goal */}
                 <div className="form__group">
-                <label htmlFor="goal" className="form__label">Sprint Goal</label>
+                    <label htmlFor="name" className="form_label">Sprint Name</label>
 
-                <textarea
-                    id="goal"
-                    name="goal"
-                    value={state.goal ?? ""}
-                    placeholder="Describe the primary objective of this sprint..."
-                    onChange={handleChange}
-                    className="form__textarea"
-                />
+                    <input
+                        id="name"
+                        type="text"
+                        name="name"
+                        value={state.name}
+                        placeholder="Sprint Alpha"
+                        onChange={handleChange}
+                        className="form__input"
+                    />
                 </div>
 
-                {/* Dates */}
                 <div className="form__group">
+                    <label htmlFor="goal" className="form__label">Sprint Goal</label>
+
+                    <textarea
+                        id="goal"
+                        name="goal"
+                        value={state.goal ?? ""}
+                        placeholder="Describe the primary objective of this sprint..."
+                        onChange={handleChange}
+                        className="form__textarea"
+                    />
+                </div>
 
                 <div className="form__group">
                     <label htmlFor="startDate" className="form__label">Start Date</label>
@@ -135,28 +128,7 @@ export const EditSprintForm = () => {
                     className="form__input"
                     />
                 </div>
-                </div>
-
-            </div>
-
-            {/* Footer */}
-            <div className="edit-sprint-form__footer">
-                <button
-                type="button"
-                className="edit-sprint-form__cancel"
-                onClick={closeModal}
-                >
-                Cancel
-                </button>
-
-                <button
-                type="submit"
-                className="btn btn-hero edit-sprint-form__submit"
-                >
-                Save Changes
-                </button>
-            </div>
             </form>
-        </ModalOverlay>
+        </EntityModal>
     );
 }
