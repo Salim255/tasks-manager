@@ -1,20 +1,11 @@
+import type { UserSummary } from "../../../shared/interfaces/shared.interfaces";
+
 type TaskStatus = "todo" | "in_progress" | "done";
 
 type TaskPriority = "low" | "medium" | "high";
 type TaskType = "task" | "bug" | "story";
 
-interface UserProfileDto {
-  id: string;
-  firstName: string;
-  lastName: string;
-  avatarUrl: string;
-  bio: string;
-}
 
-interface TaskUserProfileDto {
-  id: string;
-  profile: UserProfileDto | null;
-}
 
 export interface Task {
   id: string;
@@ -41,7 +32,7 @@ export interface Task {
   createdAt: string;
   updatedAt: string;
 
-  reporter?: TaskUserProfileDto| null;
+  reporter?: UserSummary| null;
 
-  assignee?:  TaskUserProfileDto | null;
+  assignee?:  UserSummary | null;
 }
