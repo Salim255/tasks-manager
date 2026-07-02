@@ -88,7 +88,10 @@ export const EntityModal = ({
                             <button
                                 type={actions.submit.type ?? "submit"}
                                 className="btn btn--primary"
-                                onClick={actions.submit.onClick}
+                                onClick={() => {
+                                    actions?.submit?.onClick();
+                                    actions?.cancel?.onClick();
+                                }}
                             >
                                 { actions.submit.label ?? "Save" }
                             </button>)

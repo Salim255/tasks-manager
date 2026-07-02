@@ -17,9 +17,9 @@ export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
     const dispatch = useDispatch<AppDispatch>();
 
     const onViewTask = (taskId: string) => {
-        console.log("hello")
        dispatch(setTaskViewerTask({taskId}))
     }
+    
     const openEditTaskModal =() => {
       dispatch(setIsOpenTaskModal({taskId: task.id}))
     }
@@ -45,13 +45,11 @@ export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
                 <section className='task-item__status'>
                     <Status status={task.status} />
                 </section>
-                {
-                    task.assigneeId && (
-                    <section className='task-item__assignee'>
-                        <Assignee assigneeId={task.assigneeId} />
-                    </section>
-                    )
-                }
+               
+                <section className='task-item__assignee'>
+                    <Assignee assigneeId={task.assigneeId} />
+                </section>
+              
             </div>
             <section className='task-item__actions'>
                 <OptionsBtn 

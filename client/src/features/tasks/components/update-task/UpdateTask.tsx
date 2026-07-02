@@ -1,4 +1,4 @@
-import { useRef, useState, type ChangeEvent } from "react";
+import { useRef, type ChangeEvent } from "react";
 import { useDispatch } from "react-redux";
 import { SelectDropdown } from "../../../../shared/kits/select-dropdown/SelectDropdown";
 import { EntityModal } from "../../../../shared/modals/entity-modal/EntityModal";
@@ -43,10 +43,12 @@ export const UpdateTask = () => {
         e.preventDefault();
         if (!task?.id) return;
         
-        const payload = {...removedUnchangedField(state, task), taskId: task.id};
+        const payload = removedUnchangedField(state, task);
+        
+        // Nothing changed it has always error: {}
+        if(Object.keys(payload).length === 1) return;
 
-        console.log(payload, "hello paylod");
-        dispatch(updateTasHttp(payload));
+        dispatch(updateTasHttp({ ...payload, taskId: task.id }));
 
         //reset();
       }

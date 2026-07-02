@@ -1,5 +1,4 @@
 import "./_edit-sprint-form.scss";
-import { IoMdClose } from "react-icons/io";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../../../redux/store";
 import { useRef, type ChangeEvent } from "react";
@@ -43,8 +42,13 @@ export const EditSprintForm = () => {
             goal: sprint.goal,
             };
         
+       
        const payload: UpdateSprintPayload = removedUnchangedField(state, original);
-
+    
+       if (Object.keys(payload).length === 1) {
+            return; // Nothing changed it has always error: {}
+        }
+       console.log(payload, "hello world");
         dispatch(updateSprintHttp({...payload, sprintId: sprint.id}))
         reset();
     }
@@ -65,7 +69,7 @@ export const EditSprintForm = () => {
             actions={{
             cancel: { label: "Cancel", onClick: closeModal },
             submit: { 
-                label: "Save Changes", 
+                label: "update", 
                 type: "submit", onClick: triggerSubmit, 
                 loading: false 
             }
