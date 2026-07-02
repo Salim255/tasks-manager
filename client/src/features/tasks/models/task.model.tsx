@@ -1,9 +1,9 @@
-export type TaskStatus = "todo" | "in_progress" | "done";
+type TaskStatus = "todo" | "in_progress" | "done";
 
-export type TaskPriority = "low" | "medium" | "high";
-export type TaskType = "task" | "bug" | "story";
+type TaskPriority = "low" | "medium" | "high";
+type TaskType = "task" | "bug" | "story";
 
-export interface UserProfileDto {
+interface UserProfileDto {
   id: string;
   firstName: string;
   lastName: string;
@@ -11,7 +11,7 @@ export interface UserProfileDto {
   bio: string;
 }
 
-export interface TaskUserProfileDto {
+interface TaskUserProfileDto {
   id: string;
   profile: UserProfileDto | null;
 }

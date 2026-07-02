@@ -45,9 +45,13 @@ export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
                 <section className='task-item__status'>
                     <Status status={task.status} />
                 </section>
-                <section className='task-item__assignee'>
-                    <Assignee assigneeId={task.assigneeId} />
-                </section>
+                {
+                    task.assigneeId && (
+                    <section className='task-item__assignee'>
+                        <Assignee assigneeId={task.assigneeId} />
+                    </section>
+                    )
+                }
             </div>
             <section className='task-item__actions'>
                 <OptionsBtn 

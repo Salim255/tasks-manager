@@ -1,5 +1,6 @@
 import { useReducer } from "react";
-import type { Task, TaskType } from "../models/task.model";
+import type { Task } from "../models/task.model";
+import type { TaskType } from "../dto/task-dto";
 
 export type TaskStatus = "todo" | "in_progress" | "done";
 export type TaskPriority = "low" | "medium" | "high";

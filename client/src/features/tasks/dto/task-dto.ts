@@ -1,4 +1,9 @@
-import type { Task, TaskStatus, TaskType } from "../models/task.model";
+import type { Task } from "../models/task.model";
+
+export type TaskStatus = "todo" | "in_progress" | "done";
+
+export type TaskPriority = "low" | "medium" | "high";
+export type TaskType = "task" | "bug" | "story";
 
 export type UpdateTaskPayload = {
   title?: string;
@@ -6,7 +11,7 @@ export type UpdateTaskPayload = {
   taskType?: TaskType;
   assigneeId?: string;
   dueAt?: string;
-  priority?: 'low' | 'medium' | 'high';
+  priority?:  TaskPriority ;
   sprintId?: string 
   description?: string;
 }

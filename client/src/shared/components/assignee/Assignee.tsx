@@ -9,7 +9,7 @@ export const Assignee = ({
     assigneeId,
     pageName,
 }: { 
-    assigneeId: string | undefined;
+    assigneeId: string | null;
     pageName?: string 
 }) => {
     const { profile } = useProfileSelector();
