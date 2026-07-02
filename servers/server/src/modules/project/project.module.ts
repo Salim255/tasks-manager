@@ -6,10 +6,11 @@ import { ProjectController } from './controller/project.controller';
 import { AuthModule } from '../auth/auth.module';
 import { TaskModule } from '../task/task.module';
 import { SprintModule } from '../sprint/sprint.module';
+import { ProjectTaskController } from './controller/project-task.controller';
 
 @Module({
   imports: [SprintModule, TaskModule, AuthModule, DatabaseModule],
   providers: [ProjectService, ProjectRepository],
-  controllers: [ProjectController],
+  controllers: [ProjectController, ProjectTaskController],
 })
 export class ProjectModule {}
