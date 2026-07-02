@@ -1,9 +1,16 @@
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional, OmitType } from '@nestjs/swagger';
 import { Sprint } from '../entity/sprint.entity';
 import { IsISO8601, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { Task } from 'src/modules/task/entity/task.entity';
+import { TaskReporterDto } from 'src/modules/task/dto/task.dto';
 
 export type SprintStatus = 'active' | 'completed' | 'planned' | 'upcoming';
+
+export class SprintDto extends OmitType(Sprint, ['creator']) {
+  creator!: SprintCreatorDto | null;
+}
+
+export class SprintCreatorDto extends  TaskReporterDto {}
 
 export class UpdateSprintDto {
   @ApiPropertyOptional({

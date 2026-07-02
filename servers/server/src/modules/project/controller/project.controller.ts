@@ -398,39 +398,6 @@ export class ProjectController {
     };
   }
 
-  @Get('/all')
-  @ApiOperation({
-    summary: 'Get all projects',
-    description:
-      'Returns a list of all app projects ',
-  })
-  @ApiResponse({
-    status: 200,
-    description: 'List of projects retrieved successfully.',
-    type: ProjectsListResponseDto,
-    isArray: true,
-  })
-  @ApiResponse({
-    status: 401,
-    description: 'Unauthorized — missing or invalid authentication token.',
-  })
-  @ApiResponse({
-    status: 500,
-    description: 'Internal server error.',
-  })
-  async getProjects(): Promise<ProjectsListResponseDto> {
-    // Example mock — replace with service call
-    const projects: ProjectDto[] = await this.projectService.getUserProjects();
-
-    const response: ProjectsListResponseDto = {
-      status: 'success',
-      data: {
-        projects: projects,
-      },
-    };
-
-    return response;
-  }
 
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)

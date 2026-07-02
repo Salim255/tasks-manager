@@ -5,6 +5,7 @@ import { Task } from 'src/modules/task/entity/task.entity';
 import { Sprint } from 'src/modules/sprint/entity/sprint.entity';
 import { Profile } from 'src/modules/profile/entity/profile.entity';
 import { ApiResponseData } from 'src/common/interfaces/shared.interface';
+import { TaskDto } from 'src/modules/task/dto/task.dto';
 
 export class ProjectOwnerDto {
   id!: string;
@@ -18,6 +19,8 @@ export class ProjectProfileDto {
   avatarUrl!: string;
   bio!: string;
 }
+
+
 export class ProjectMemberDto {
   id!: string;
   role!: string;
@@ -47,7 +50,7 @@ export class ProjectDto {
   status!: string;
 
   @ApiProperty({ type: () => [Task] })
-  tasks?: Task[];
+  tasks?: TaskDto[];
 
   @ApiProperty({ type: () => [Sprint] })
   sprints?: Sprint[];
