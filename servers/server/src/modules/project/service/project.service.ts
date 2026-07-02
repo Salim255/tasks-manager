@@ -27,77 +27,26 @@ export class ProjectService {
   }: {
     projectId: string;
     userId: string;
-  }): Promise<ProjectDto> {
+  }): Promise<ProjectDto | null> {
     try {
-      const values = [projectId, userId];
-      const query = `
-        SELECT *,
-          
-          -- Add project tasks
-          COALESCE (
-            (
-              SELECT jsonb_agg ( task.* )
-                FROM tasks AS task
-                  WHERE task."projectId" = project.id
-            ),
-            '[]'::jsonb
-          ) AS tasks,
-         
-          -- Add project sprints
-          COALESCE (
-            (
-              SELECT jsonb_agg ( sprint.* )
-                FROM sprints AS sprint
-                  WHERE sprint."projectId" = project.id
-          ),
-          '[]'::jsonb
-          ) AS sprints,
+      const project = await this.projectRepo.findOne(
+        {
+          where: {id: projectId}
+        }
+      )
+      if (!project) return null
 
-          -- # Add project Members 
-          COALESCE (
-            (
-              SELECT jsonb_agg (
-                jsonb_build_object(
-                  'id', m.id,
-                  'role', m.role,
-                  'projectId', m."projectId",
-                  'createdAt', m."createdAt",
-                  'profile', to_jsonb(pr.*)
-                )
-              ) 
-                  
-              FROM members AS m
-              JOIN profiles pr ON  pr."userId" = m."userId"
-              WHERE m."projectId" = $1
-               
-            ),
-            '[]'::jsonb
-          ) AS members,
-
-          -- # Project Owner profile
-          COALESCE (
-            ( 
-              SELECT  to_jsonb ( profile.* ) 
-                FROM profiles AS profile
-                  WHERE profile."userId" = $2
-                LIMIT 1
-            ),
-            '{}'::jsonb
-          ) AS Owner
-
-        FROM projects AS project 
-
-        -- Owner profile
-        WHERE project.id = $1 AND project."ownerId" = $2
-          OR  project.id = $1 AND  EXISTS (
-            SELECT 1
-              FROM members AS mb
-                WHERE mb."projectId" = project.id AND mb."userId" = $2
-          );
-      `;
-
-      const rows: ProjectDto[] = await this.projectRepo.query(query, values);
-      return rows[0];
+      const response = {
+        ...project,
+        owner: this.projectOwnerMapper(project.owner),
+        tasks: project.tasks?.map(task => DtoMapper.projectTaskMapper(task)),
+        sprints: project.sprints?.map(sprint => DtoMapper.projectSprintMapper(sprint)),
+        members: project.members?.map(member => DtoMapper.projectMemberMapper(member),
+        ),
+      }
+      
+      return response;
+      
     } catch (error) {
       this.logger.error('Error to fetch single project', error);
       throw error;
@@ -283,10 +232,10 @@ export class ProjectService {
       ];
 
       const query = `
-      INSERT INTO projects (name, key,  description, "ownerId", "demoClientId")
-        VALUES ($1, $2, $3, $4, $5)
-      RETURNING *;
-      `;
+        INSERT INTO projects (name, key,  description, "ownerId", "demoClientId")
+          VALUES ($1, $2, $3, $4, $5)
+        RETURNING *;
+        `;
 
       const project: Project[] = await this.projectRepo.query(query, values);
       return project[0];
@@ -299,9 +248,11 @@ export class ProjectService {
 
 
   private projectOwnerMapper(owner: User): ProjectOwnerDto | null {
-    const profile = owner.profile;
+    if(!owner) return null;
+
+    const profile = owner?.profile;
     return{
-      id: owner.id,
+      id: owner?.id,
       profile: profile ?  {
         id: profile?.id ,
         firstName: profile?.firstName || '',

@@ -70,6 +70,7 @@ export class ProjectSprintController {
     }
 
     const sprint: Sprint = await this.sprintService.createSprint({ projectId, creatorId: userId });
+    
     return {
       status: 'success',
       data: {

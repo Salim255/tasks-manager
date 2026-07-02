@@ -51,10 +51,6 @@ export class ProjectController {
     description: 'Project successfully fetched',
     type: ProjectDtoResponse,
   })
-  @ApiResponse({
-    status: 404,
-    description: 'Project not found',
-  })
   async getProject(
     @Param('projectId') projectId: string,
     @Req()
@@ -71,7 +67,7 @@ export class ProjectController {
     if (!userId || !projectId) {
       throw new BadRequestException('Fetch project data required');
     }
-    const project: ProjectDto = await this.projectService.getProjectById({
+    const project: ProjectDto | null = await this.projectService.getProjectById({
       projectId,
       userId,
     });
@@ -95,18 +91,6 @@ export class ProjectController {
     status: 201,
     description: 'Project created successfully.',
     type: CreateProjectResponseDto,
-  })
-  @ApiResponse({
-    status: 400,
-    description: 'Validation error.',
-  })
-  @ApiResponse({
-    status: 409,
-    description: 'Project with this name already exists.',
-  })
-  @ApiResponse({
-    status: 500,
-    description: 'Internal server error.',
   })
   async createProject(
     @Body() body: CreateProjectDto,

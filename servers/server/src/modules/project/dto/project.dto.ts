@@ -62,7 +62,7 @@ export class ProjectDto {
 }
 
 export class ProjectDtoResponse extends ApiResponseData<{
-  project: ProjectDto;
+  project: ProjectDto | null;
 }> {}
 
 export class CreateProjectResponseDto {
