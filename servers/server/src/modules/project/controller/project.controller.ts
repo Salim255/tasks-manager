@@ -51,7 +51,7 @@ export class ProjectController {
     description: 'Project successfully fetched',
     type: ProjectDtoResponse,
   })
-  async getProject(
+  async getProjectSingle(
     @Param('projectId') projectId: string,
     @Req()
     req: Request & { 
@@ -61,15 +61,21 @@ export class ProjectController {
         isDemo: boolean | null 
       };
       refresh_token: { token: string } 
-    },): Promise<ProjectDtoResponse> {
+    },
+    @Query('include')
+    include?: string,
+  ): Promise<ProjectDtoResponse> {
     const { id: userId, isDemo } = req.user;
+    const dataToInclude = include?.split(',');
 
     if (!userId || !projectId) {
       throw new BadRequestException('Fetch project data required');
     }
+
     const project: ProjectDto | null = await this.projectService.getProjectById({
       projectId,
       userId,
+      relations: dataToInclude?.length ? dataToInclude : []
     });
 
     return {
@@ -145,7 +151,7 @@ export class ProjectController {
     isArray: true,
   })
  
-  async getProjectsByUser(
+  async getManyProjectsByUser(
     @Req()
     req: Request & {
       user: {
@@ -162,8 +168,11 @@ export class ProjectController {
     const { id: userId, isDemo, demoClientId } = req.user;
     const dataToInclude = include?.split(',');
     const projects: ProjectDto[] = await this.projectService.getUserProjectsByUser(
-      { ownerId: userId, relations: dataToInclude?.length ? dataToInclude : [] }
-      
+      {
+        ownerId: userId,
+        relations: dataToInclude?.length ? dataToInclude : [],
+        demoClientId: demoClientId
+       }
     );
 
     const response: ProjectsListResponseDto = {

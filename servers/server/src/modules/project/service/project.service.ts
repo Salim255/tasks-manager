@@ -5,12 +5,13 @@ import {
   Logger,
 } from '@nestjs/common';
 import { PROJECT_REPOSITORY } from 'src/common/constants/constants';
-import { FindOptionsRelations, Repository } from 'typeorm';
+import { FindOptionsRelations, FindOptionsWhere, Repository } from 'typeorm';
 import { Project } from '../entity/project.entity';
 import { CreateProjectDto, ProjectDto, ProjectMemberDto, ProjectOwnerDto } from '../dto/project.dto';
 import { Member } from 'src/modules/member/entity/member.entity';
 import { User } from 'src/modules/user/entity/user.entity';
 import { DtoMapper } from 'src/common/utils/dtoMapper';
+import { TableRelationBuilder } from 'src/common/utils/tableRealtionBuilder';
 
 @Injectable()
 export class ProjectService {
@@ -31,11 +32,16 @@ export class ProjectService {
     relations: string [];
   }): Promise<ProjectDto | null> {
     try {
+      const projectRelations:FindOptionsRelations<Project> = TableRelationBuilder.projectRelationsBuilder(relations);
+
+      
       const project = await this.projectRepo.findOne(
         {
-          where: {id: projectId}
+          where: {id: projectId},
+          relations: projectRelations,
         }
       )
+
       if (!project) return null
 
       const response = {
@@ -85,59 +91,33 @@ export class ProjectService {
 
   async getUserProjectsByUser({
     ownerId,
-    relations
+    relations,
+    demoClientId,
   }: {
     ownerId: string;
-    relations: string []
+    relations: string [];
+     demoClientId: string | null;
   }): Promise<ProjectDto[]> {
     try {
-      const projectRelations: FindOptionsRelations<Project> = {};
+      const projectRelations:FindOptionsRelations<Project> =
+        TableRelationBuilder.projectRelationsBuilder(relations);
+        
+      const where: FindOptionsWhere<Project> = {
+        ownerId,
+        ...(demoClientId ? { demoClientId } : {}),
+      };
 
-      if (relations.includes('owner')) {
-        projectRelations.owner = {
-          profile: true,
-        };
-      }
-
-      if (relations.includes('tasks')) {
-        projectRelations.tasks = {
-          reporter: {
-            profile: true
-          },
-          assignee: {
-            profile: true
-          },
-        };;
-      }
-
-      if (relations.includes('sprints')) {
-        projectRelations.sprints =  {
-          creator: {
-            profile: true
-          },
-        };
-      }
-
-      if (relations.includes('members')) {
-        projectRelations.members =  {
-          user: {
-            profile: true
-          },
-        };
-      }
-
-      console.log(projectRelations, 'projectRelations');
       const projects = await this.projectRepo.find({
-        where: { ownerId },
+        where: where,
         relations: projectRelations,
       });
 
       const response = projects.map(project => ({
         ...project,
         owner: this.projectOwnerMapper(project.owner),
-        tasks: project.tasks.map(task => DtoMapper.projectTaskMapper(task)),
-        sprints: project.sprints.map(sprint => DtoMapper.projectSprintMapper(sprint)),
-        members: project.members.map(member => DtoMapper.projectMemberMapper(member),
+        tasks: project?.tasks?.map(task => DtoMapper.projectTaskMapper(task)),
+        sprints: project?.sprints?.map(sprint => DtoMapper.projectSprintMapper(sprint)),
+        members: project?.members?.map(member => DtoMapper.projectMemberMapper(member),
         ),
       }));
 
