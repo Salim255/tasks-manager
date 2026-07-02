@@ -185,6 +185,7 @@ export class ProjectService {
         ...project,
         owner: this.projectOwnerMapper(project.owner),
         tasks: project.tasks.map(task => DtoMapper.projectTaskMapper(task)),
+        sprints: project.sprints.map(sprint => DtoMapper.projectSprintMapper(sprint)),
         members: project.members.map(member => this.projectMemberMapper(member),
         ),
       }));

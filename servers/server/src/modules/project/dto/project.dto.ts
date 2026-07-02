@@ -1,11 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Project } from '../entity/project.entity';
 import { IsOptional, IsString, IsNotEmpty, IsUppercase, Length } from 'class-validator';
-import { Task } from 'src/modules/task/entity/task.entity';
-import { Sprint } from 'src/modules/sprint/entity/sprint.entity';
 import { Profile } from 'src/modules/profile/entity/profile.entity';
 import { ApiResponseData } from 'src/common/interfaces/shared.interface';
 import { TaskDto } from 'src/modules/task/dto/task.dto';
+import { SprintDto } from 'src/modules/sprint/dto/sprint.dto';
 
 export class ProjectOwnerDto {
   id!: string;
@@ -49,11 +48,11 @@ export class ProjectDto {
   @ApiProperty()
   status!: string;
 
-  @ApiProperty({ type: () => [Task] })
+  @ApiProperty({ type: () => [TaskDto] })
   tasks?: TaskDto[];
 
-  @ApiProperty({ type: () => [Sprint] })
-  sprints?: Sprint[];
+  @ApiProperty({ type: () => [SprintDto] })
+  sprints?: SprintDto[];
 
   @ApiProperty({ type: () => [ProjectMemberDto] })
   members?: ProjectMemberDto[];
