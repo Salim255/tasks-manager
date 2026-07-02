@@ -1,3 +1,5 @@
+import { Member } from "src/modules/member/entity/member.entity";
+import { ProjectMemberDto, ProjectProfileDto } from "src/modules/project/dto/project.dto";
 import { SprintCreatorDto, SprintDto } from "src/modules/sprint/dto/sprint.dto";
 import { Sprint } from "src/modules/sprint/entity/sprint.entity";
 import { TaskDto, TaskUserDto } from "src/modules/task/dto/task.dto";
@@ -30,8 +32,8 @@ export class DtoMapper {
             createdAt: task.createdAt,
             updatedAt: task.updatedAt,
 
-            reporter: this.userMapper(task.reporter),
-            assignee: task.assignee ? this.userMapper(task.assignee) : null,
+            reporter: this.userMapper(task.reporter) as TaskUserDto,
+            assignee: task.assignee ? this.userMapper(task.assignee) as TaskUserDto : null,
         }
     }
 
@@ -40,11 +42,29 @@ export class DtoMapper {
 
         return {
             ...sprint,
-            creator: creator ? this.userMapper(creator): null
+            creator: creator ? this.userMapper(creator) as SprintCreatorDto: null
         }
     } 
     
-    static userMapper = (user: User): 
+    static projectMemberMapper = (member: Member): ProjectMemberDto => {
+
+      const profile = member?.user?.profile;
+      return {
+        id: member.id,
+        role: member.role,
+        userId: member.userId,
+        profile: profile ? {
+            id: profile?.id ,
+            firstName: profile?.firstName || '',
+            lastName: profile?.lastName || '',
+            avatarUrl: profile?.avatarUrl || '',
+            bio: profile?.bio || '',
+        }: null
+      };
+    }
+
+    static userMapper = (user: User):
+        ProjectProfileDto 
         | TaskUserDto
         | SprintCreatorDto => {
         const profile = user.profile;

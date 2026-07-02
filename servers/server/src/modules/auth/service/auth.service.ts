@@ -155,10 +155,11 @@ export class AuthService {
 
   async login(dto: LoginDto): Promise<DataDtoWithTokens> {
     try {
-      const user = await this.userRepo.findOne({
+      const user: User | null = await this.userRepo.findOne({
         where: { email: dto.email },
       });
 
+      console.log(user)
       if (!user) {
         throw new UnauthorizedException('Invalid email or password');
       }
@@ -211,15 +212,19 @@ export class AuthService {
       `;
 
       const values = [dto.email, hashedPassword];
-      const user: User[] = await this.userRepo.query(query, values);
+      const createdUser: User[] = await this.userRepo.query(query, values);
 
-      console.log(user)
+      const user = createdUser[0];
+
       const { accessToken, refreshToken } =
-        await this.generateAndStoreTokens({ user: user[0], demoClientId: null, isDemo: false });
+        await this.generateAndStoreTokens({ user: user, demoClientId: null, isDemo: false });
 
       return { 
           user:{
-            ...user[0],
+            id: user.id,
+            email: user.email,
+            emailVerified: user.emailVerified,
+            createdAt: user.createdAt,
             isDemo: false,
             demoClientId: null
           }, 

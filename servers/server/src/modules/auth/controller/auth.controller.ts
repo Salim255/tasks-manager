@@ -274,7 +274,9 @@ export class AuthController {
 
     return {
       status: 'success',
-      data: result,
+      data: {
+        user: {...result.user}
+      },
     };
   }
 }

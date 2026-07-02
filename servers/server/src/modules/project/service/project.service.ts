@@ -186,7 +186,7 @@ export class ProjectService {
         owner: this.projectOwnerMapper(project.owner),
         tasks: project.tasks.map(task => DtoMapper.projectTaskMapper(task)),
         sprints: project.sprints.map(sprint => DtoMapper.projectSprintMapper(sprint)),
-        members: project.members.map(member => this.projectMemberMapper(member),
+        members: project.members.map(member => DtoMapper.projectMemberMapper(member),
         ),
       }));
 
@@ -312,23 +312,4 @@ export class ProjectService {
     }
   }
 
-  private projectMemberMapper(member: Member): ProjectMemberDto {
-
-      const profile = member.user?.profile;
-
-      return {
-        id: member.id,
-        role: member.role,
-        userId: member.userId,
-        profile: profile
-          ? { 
-              id: profile.id,
-              firstName: profile.firstName,
-              lastName: profile.lastName,
-              avatarUrl: profile.avatarUrl,
-              bio: profile.bio,
-            }
-          : null,
-      };
-  }
 }

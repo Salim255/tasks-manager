@@ -24,7 +24,7 @@ export class ProjectMemberDto {
   id!: string;
   role!: string;
   userId!: string;
-  profile?: ProjectProfileDto | null; 
+  profile!: ProjectProfileDto | null; 
 }
 
 export enum ProjectStatus {
