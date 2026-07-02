@@ -1,4 +1,4 @@
-import type { Sprint } from "./sprint.model";
+import type { Sprint } from "../../sprints/model/sprint.model";
 import type { Task } from "../../tasks/models/task.model";
 import type { Member } from "../../members/models/member.model";
 

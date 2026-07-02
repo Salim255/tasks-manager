@@ -1,4 +1,4 @@
-import type { Sprint } from "../../features/projects/models/sprint.model";
+import type { Sprint } from "../../features/sprints/model/sprint.model";
 
 export const sprintsList: Sprint[] = [
   {

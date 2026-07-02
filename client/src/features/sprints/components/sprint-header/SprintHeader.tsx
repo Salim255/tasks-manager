@@ -1,6 +1,6 @@
 import './_sprint-header.scss';
 import { OptionsBtn } from "../../../../shared/components/options-btn/OptionsBtn";
-import type { Sprint, SprintStatus } from "../../../projects/models/sprint.model";
+import type { Sprint, SprintStatus } from "../../model/sprint.model";
 import { EditSprintDate } from "../edit-sprint-date/EditSprintDate";
 import { useDispatch } from 'react-redux';
 import { type AppDispatch } from '../../../../redux/store';

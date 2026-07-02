@@ -2,7 +2,7 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { AppDispatch, RootState } from "../../../redux/store";
 import { toast } from "react-toastify";
-import type { Sprint, SprintStatus } from "../../projects/models/sprint.model";
+import type { Sprint, SprintStatus } from "../model/sprint.model";
 import { createSprint, fetchSprintsHttp, updateSprintHttp } from "../http/sprint.http";
 
 
@@ -14,7 +14,7 @@ type StateType  = {
     isUpdating: boolean;
 
     isOpenModal: boolean;
-    
+
     sprint?: Sprint;
 }
 const initialState: StateType = {
