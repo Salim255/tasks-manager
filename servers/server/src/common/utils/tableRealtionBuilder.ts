@@ -2,7 +2,7 @@ import { Project } from "src/modules/project/entity/project.entity";
 import { FindOptionsRelations } from "typeorm";
 
 export class TableRelationBuilder {
-    static projectRelationsBuilder(relations: string[]) {
+    static projectRelationsBuilder(relations: string[]): FindOptionsRelations<Project> {
         const projectRelations: FindOptionsRelations<Project> = {};
 
         if (relations.includes('owner')) {
@@ -37,6 +37,7 @@ export class TableRelationBuilder {
                 },
             };
         }
-        
+    
+        return projectRelations;
     }
 }
