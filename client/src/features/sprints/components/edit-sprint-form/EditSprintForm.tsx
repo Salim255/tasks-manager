@@ -3,13 +3,14 @@ import { IoMdClose } from "react-icons/io";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../../../redux/store";
 import { type ChangeEvent } from "react";
-import { updateSprintHttp, type UpdateSprintPayload } from "../../http/sprint.http";
+import { updateSprintHttp } from "../../http/sprint.http";
 
 import { ModalOverlay } from "../../../../shared/components/modal-overlay/ModalOverlay";
 import { useSprintForm } from "../../form-builder/sprintFormBuilder";
 import { closeEditSprint } from "../../states/sprintSlice";
 import { useSelectedSprint } from "../../states/sprintSelectors";
 import { removedUnchangedField } from "../../../../shared/utils/detect-field-change";
+import type { UpdateSprintPayload } from "../../dto/sprint-dto";
 
 export const EditSprintForm = () => {
    const sprint  = useSelectedSprint();
@@ -31,9 +32,18 @@ export const EditSprintForm = () => {
     const clickSubmit = (e: ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if (!sprint) return;
+        if (!sprint?.id) return;
+
+        const original: UpdateSprintPayload = {
+            name: sprint.name,
+            status: sprint.status,
+            startDate: sprint.startDate,
+            endDate: sprint.endDate,
+            completeDate: sprint.completeDate,
+            goal: sprint.goal,
+            };
         
-       const payload: UpdateSprintPayload = removedUnchangedField(state, sprint);
+       const payload: UpdateSprintPayload = removedUnchangedField(state, original);
 
         dispatch(updateSprintHttp({...payload, sprintId: sprint.id}))
         reset();
@@ -91,7 +101,7 @@ export const EditSprintForm = () => {
                 <textarea
                     id="goal"
                     name="goal"
-                    value={state.goal}
+                    value={state.goal ?? ""}
                     placeholder="Describe the primary objective of this sprint..."
                     onChange={handleChange}
                     className="form__textarea"
@@ -108,7 +118,7 @@ export const EditSprintForm = () => {
                     id="startDate"
                     type="date"
                     name="startDate"
-                    value={state.startDate}
+                    value={state.startDate ?? ""}
                     onChange={handleChange}
                     className="form__input"
                     />
@@ -120,7 +130,7 @@ export const EditSprintForm = () => {
                     id="endDate"
                     type="date"
                     name="endDate"
-                    value={state.endDate}
+                    value={state.endDate ?? ""}
                     onChange={handleChange}
                     className="form__input"
                     />

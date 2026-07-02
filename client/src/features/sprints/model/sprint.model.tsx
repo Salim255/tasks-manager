@@ -20,7 +20,7 @@ export interface Sprint {
   creatorId: string;
   creator: UserSummary;
 
-  tasks: Task[];
+  tasks: Task[] | null;
 
   createdAt: string;
   updatedAt: string;

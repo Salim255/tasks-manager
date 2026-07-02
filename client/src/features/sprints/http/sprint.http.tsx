@@ -1,36 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
-import type { Sprint, SprintStatus } from "../models/sprint.model";
 import type { ApiErrorDto } from "../../../shared/interfaces/shared.interfaces";
 import api from "../../../api/axios";
+import type { CreateSprintPayload, CreateSprintResponseDto, FetchSprintsResponseDto, UpdateSprintPayload, UpdateSprintResponseDto } from "../dto/sprint-dto";
 
-export type UpdateSprintPayload = {
-  name?: string;
-  status?: SprintStatus;
-  startDate?: string;
-  endDate?: string;
-  completeDate?: string;
-  goal?: string;
-}
-
-export type FetchSprintsResponseDto = {
-    status: string;
-    data: {
-        sprints: Sprint []
-    }
-}
-export type CreateSprintPayload = {
-    projectId: string
-}
-
-export type CreateSprintResponseDto = {
-    status: string;
-    data: {
-        sprint: Sprint
-    }
-}
-
-export type UpdateSprintResponseDto = CreateSprintResponseDto ;
 
 export const updateSprintHttp = createAsyncThunk<
         UpdateSprintResponseDto,

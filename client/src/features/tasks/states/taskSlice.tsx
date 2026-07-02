@@ -74,7 +74,7 @@ const taskSlice = createSlice({
 
             state.tasks = [
                 ...state.tasks, 
-                {...task, sprintId: undefined },
+                {...task, sprintId: null },
             ]
         },
 

@@ -1,13 +1,14 @@
 import { useReducer } from "react";
-import type { Sprint, SprintStatus } from "../models/sprint.model";
+import type { Sprint, SprintStatus } from "../model/sprint.model";
+
 
 export type SprintFormState = {
-    name?: string;
-    status?: SprintStatus;
-    startDate?: string;
-    endDate?: string;
-    completeDate?: string;
-    goal?: string;
+    name: string;
+    status: SprintStatus;
+    startDate: string | null;
+    endDate: string | null;
+    completeDate: string | null;
+    goal: string | null;
     errors: Partial<Record<"name" | "goal" | "status" | "startDate" | "endDate" | "completeDate" , string>>;
 };
 
@@ -19,7 +20,11 @@ type Action =
 
 export const initialTaskFormState: SprintFormState = {
     name: "",
-    status: 'planned', 
+    status: 'planned',
+    startDate: null,
+    endDate: null,
+    completeDate: null,
+    goal: null,
     errors: {},
 };
 
@@ -50,12 +55,12 @@ function reducer(state: SprintFormState, action: Action): SprintFormState {
 }
 
 const mapSprintToFormState = (sprint: Sprint): SprintFormState => ({
-  name: sprint.name ?? undefined,
-  status: sprint.status ?? 'upcoming',
-  startDate: sprint.startDate ?? undefined,
-  endDate: sprint.endDate ?? undefined,
-  goal: sprint.goal ?? undefined,
-  completeDate: sprint.completeDate ??  undefined,
+  name: sprint.name ?? "",
+  status: sprint.status ?? 'planned',
+  startDate: sprint.startDate ?? null,
+  endDate: sprint.endDate ?? null,
+  goal: sprint.goal ?? null,
+  completeDate: sprint.completeDate ??  null,
   errors: {},
 });
 
