@@ -3,23 +3,45 @@ export type TaskStatus = "todo" | "in_progress" | "done";
 export type TaskPriority = "low" | "medium" | "high";
 export type TaskType = "task" | "bug" | "story";
 
+export interface UserProfileDto {
+  id: string;
+  firstName: string;
+  lastName: string;
+  avatarUrl: string;
+  bio: string;
+}
+
+export interface TaskUserProfileDto {
+  id: string;
+  profile: UserProfileDto | null;
+}
+
 export interface Task {
   id: string;
 
   title: string;
-  description?: string;
+  description: string | null;
 
   taskType: TaskType;
   status: TaskStatus;
-  priority: TaskPriority;
+  priority: TaskPriority | null;
 
-  reporterId?: string;    
-  assigneeId?: string;
+  reporterId: string;
+  assigneeId: string | null;
 
-  sprintId?: string;
+  taskNumber: number;
+  issueKey: string;
+
+  sprintId: string | null;
   projectId: string;
-  dueAt?: string;        // ISO date (optional)
+
+  pointEstimate: number | null;
+  dueAt: string | null;
 
   createdAt: string;
   updatedAt: string;
+
+  reporter?: TaskUserProfileDto| null;
+
+  assignee?:  TaskUserProfileDto | null;
 }

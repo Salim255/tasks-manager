@@ -4,10 +4,11 @@ import { BiPlus } from "react-icons/bi";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../../../redux/store";
 import { TaskTypeDropdown } from '../../../../shared/components/task-type-dropdown/TaskTypeDropdown';
-import { createTaskHttp, type CreateTaskPayload } from '../../http/task.http';
+import { createTaskHttp } from '../../http/task.http';
 import { typeIcon } from '../../../../shared/utils/methods';
 import { useTaskForm } from '../../form-builder/taskFormBuilder';
 import { motion } from "motion/react";
+import type { CreateTaskPayload } from '../../dto/task-dto';
 
 export const CreateTask = ( { projectId }: { projectId: string}) => {
   const [isCreateBtn, setCreateBtn] = useState<boolean>(true);
