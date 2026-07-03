@@ -14,5 +14,6 @@ export const ProtectedRoutes = () => {
     return <Navigate to="/auth" replace />;
   }
 
-  return <Outlet />;
+  return  <Outlet />
+
 };

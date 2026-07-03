@@ -94,7 +94,6 @@ export const TasksList = () => {
           <div className="tasks-list__tables">
             <Group 
             orientation="horizontal"
-            
             >
               {
                 columns

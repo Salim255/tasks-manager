@@ -4,15 +4,16 @@ import type { RouteObject } from "react-router-dom";
 const routes: RouteObject[] = [
     {
         path: '/',
-        lazy: () => import("../features/auth/guard/ProtectedRoutes").then((m) => ({
+        lazy:() =>  import('../features/auth/guard/ProtectedRoutes').then((m) => ({
             Component: m.ProtectedRoutes
         })),
+        
         children:
         [
             {   
                 path: 'profile',
                 lazy: () => import("../features/profile/ProfileLayout").then((m) => ({
-                    Component: m.ProfileLayout,
+                    Component: m.ProfileLayout
                 })),
                 children: [
                     {
