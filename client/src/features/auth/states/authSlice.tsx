@@ -1,5 +1,4 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import { authUser, demoLoginHttp, loadUserHttp } from "../http/auth.http";
 import { toast } from "react-toastify";
 import type { ApiErrorDto } from "../../../shared/interfaces/shared.interfaces";
 import type { AuthResponseDto } from "../dto/auth-dto";
@@ -88,18 +87,20 @@ const authSlice = createSlice({
             console.log(errorAction.payload.message, "hello form error")
         })
         /*  */
-        .addCase(authUser.pending, (state) => {
+        .addCase("authUser/authUserHttp/pending", (state) => {
             state.isLoading = true;
         })
-        .addCase(authUser.fulfilled, (state, action) => {
-            state.user = action.payload.data.user;
+        .addCase("authUser/authUserHttp/fulfilled", (state, action) => {
+            const successAction = action as PayloadAction<AuthResponseDto>;
+            state.user = successAction.payload.data.user;
             state.isLoading = false;
             toast.success("Welcome back!");
         })
-        .addCase(authUser .rejected, (state, action) => {
-            const { message } = action.payload || { message: "Authentication failed" };
+        .addCase("authUser/authUserHttp/rejected", (state, action) => {
+            const errorAction = action as PayloadAction<ApiErrorDto>;
+        
             state.isLoading = false;
-            toast.error(message);
+            toast.error(errorAction.payload.message);
         })
     }
 })

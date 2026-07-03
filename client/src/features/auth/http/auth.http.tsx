@@ -81,12 +81,12 @@ export const demoLoginHttp = createAsyncThunk<
     }
 )
 
-export const authUser = createAsyncThunk<
+export const authUserHttp = createAsyncThunk<
     AuthResponseDto,
     AuthPayload,
     { rejectValue: ApiErrorDto }
     >(
-    'post/authUser',
+    'authUser/authUserHttp',
     async (data: AuthPayload, thunkApi) => {
         try {
             const response = await api.post(

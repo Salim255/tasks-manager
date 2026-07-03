@@ -3,7 +3,7 @@ import { useState, type ChangeEvent } from "react";
 import { useAuthForm } from "../../form-builder/authFormBuilder";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../../../redux/store";
-import { authUser } from "../../http/auth.http";
+import { authUserHttp } from "../../http/auth.http";
 import { validateAuthForm } from "../../../../shared/utils/forms-validator";
 import type { AuthPayload } from "../../dto/auth-dto";
 
@@ -29,7 +29,7 @@ export const AuthForm = () => {
             password: state.password, 
             authType: iSLogin ? 'login' :'register'
         };
-        dispatch(authUser(payload));
+        dispatch(authUserHttp(payload));
     }
 
     const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
