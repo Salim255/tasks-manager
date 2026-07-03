@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import type { RouteObject } from "react-router-dom";
 import { Dashboard } from "../features/dashboard/Dashboard";
 import { ProfileLayout } from "../features/profile/ProfileLayout";
@@ -14,8 +14,6 @@ import { Profile } from "../features/profile/pages/profile/Profile";
 import { NotFoundPage } from "../shared/pages/not-found/NotFoundPage";
 import { LandingPage } from "../features/landing-page/LandingPage";
 import { Backlog } from "../features/projects/pages/backlog/Backlog";
-import { useMemo } from "react";
-import { AppProvider } from "./AppProvider";
 
 
 
@@ -92,7 +90,4 @@ const routes: RouteObject[] = [
 ]
 
 
-export const createAppRouter = () => {
-    const router = useMemo(() => createBrowserRouter(routes), [] )
-    return <RouterProvider router={router}></RouterProvider>;
-}
+export const createAppRouter = () => createBrowserRouter(routes);
