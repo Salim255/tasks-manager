@@ -2,6 +2,7 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import { authUser, demoLoginHttp, loadUserHttp } from "../http/auth.http";
 import { toast } from "react-toastify";
 import type { ApiErrorDto } from "../../../shared/interfaces/shared.interfaces";
+import type { AuthResponseDto } from "../dto/auth-dto";
 
 type  InitiateState = {
     user: { 
@@ -47,22 +48,24 @@ const authSlice = createSlice({
             const errorAction = action as PayloadAction<ApiErrorDto>;
             console.log(action)
             state.isLoading = false;
-           // state.error = errorAction.payload.message;
+            //state.error = errorAction.payload.message;
             state.user = null; // Ensure user is cleared on logout failure
         })
         /*  */
-        .addCase(demoLoginHttp.pending, (state) => {
+        .addCase("demoLogin/demoLoginHttp/pending", (state) => {
             state.isLoading = true;
         })
-        .addCase(demoLoginHttp.fulfilled, (state, action) => {
-            state.user = action.payload.data.user;
+        .addCase("demoLogin/demoLoginHttp/fulfilled", (state, action) => {
+            const successAction = action as PayloadAction<AuthResponseDto>;
+             state.user = successAction.payload.data.user;
+
             state.isLoading = false;
             toast.success("Welcome to the demo!");
         })
-        .addCase(demoLoginHttp.rejected, (state, action) => {
-            const { message } = action.payload || { message: "Demo login failed" };
+        .addCase("demoLogin/demoLoginHttp/rejected", (state, action) => {
+            const errorAction = action as PayloadAction<ApiErrorDto>;
             state.isLoading = false;
-            toast.error(message);
+            toast.error(errorAction.payload.message);
         })
         /*  */
         .addCase(loadUserHttp.pending, (state) => {

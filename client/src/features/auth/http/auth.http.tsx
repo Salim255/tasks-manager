@@ -49,7 +49,7 @@ export const demoLoginHttp = createAsyncThunk<
     { authType: AuthType },
     { rejectValue: ApiErrorDto }
     >(
-    'post/demoLogin',
+    'demoLogin/demoLoginHttp',
     async (data: { authType: AuthType }, thunkApi) => {
         try {
             const demoClientId = getDemoClientId();
