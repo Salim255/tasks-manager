@@ -118,7 +118,7 @@ export const authUser = createAsyncThunk<
 )
 
 export const loadUserHttp = createAsyncThunk(
-  'users/loadUser',
+  'user/loadUserHttp',
   async (_, thunkApi) => {
     try {
       const res = await api.get('/users/me');

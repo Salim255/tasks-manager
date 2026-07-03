@@ -68,22 +68,24 @@ const authSlice = createSlice({
             toast.error(errorAction.payload.message);
         })
         /*  */
-        .addCase(loadUserHttp.pending, (state) => {
+        .addCase("user/loadUserHttp/pending", (state) => {
             state.isLoading = true;
         })
-        .addCase(loadUserHttp.fulfilled, (state, action) => {
-            state.user = action.payload.data.user;
+        .addCase("user/loadUserHttp/fulfilled", (state, action) => {
+            const successAction = action as PayloadAction<AuthResponseDto>;
+            state.user = successAction.payload.data.user;
             state.isLoading = false;
         })
-        .addCase(loadUserHttp.rejected, (state, action) => {
+        .addCase("user/loadUserHttp/rejected", (state, action) => {
             state.isLoading = false;
+            const errorAction = action as PayloadAction<ApiErrorDto>;
             // Because your API ALWAYS returns ApiErrorDto,
             // we can safely cast the payload.
-            const errorPayload = action.payload as ApiErrorDto;
-     
+         
+    
             state.isLoggingOut = true;
 
-            console.log(errorPayload.message, "hello form error")
+            console.log(errorAction.payload.message, "hello form error")
         })
         /*  */
         .addCase(authUser.pending, (state) => {
