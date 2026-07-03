@@ -13,7 +13,7 @@ export const logoutHttp = createAsyncThunk<
     {},
     { rejectValue: ApiErrorDto }
     >(
-    'post/logout',
+    "auth/logoutHttp",
     async (_, thunkApi) => {
         try {
             const response = await api.post(
@@ -126,6 +126,7 @@ export const loadUserHttp = createAsyncThunk(
       return res.data;
     } catch (error) {
         // Extract your backend error shape
+      
         if (error instanceof AxiosError) {
             const backendError: ApiErrorDto = error.response?.data || {
                 status: "error",

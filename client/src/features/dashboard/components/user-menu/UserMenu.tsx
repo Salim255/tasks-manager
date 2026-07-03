@@ -1,25 +1,27 @@
 import './_user-menu.scss';
-import { useDispatch } from 'react-redux';
-import { logout } from '../../../auth/states/logout';
-import type { AppDispatch } from '../../../../redux/store';
 import { useEffect, useRef, useState } from 'react';
 import type { Profile } from '../../../profile/model/profile.model';
 import { FaUserCircle, FaCaretDown } from 'react-icons/fa';
 import { NavLink } from 'react-router-dom';
 import { useClickOutside } from '../../../../shared/hooks/useClickOutside';
 import { useUserData } from '../../../auth/states/authSelectors';
+import { logout } from '../../../auth/states/logout';
+import { useDispatch } from 'react-redux';
+import { type AppDispatch } from '../../../../redux/store';
+
 
 export const UserMenu = ({ profile }:{ profile: Profile | undefined }) => {
   const [showLogout, setShowLogout] = useState(false);
   const userData = useUserData();
-  
-  const ref = useRef<HTMLDivElement>(null!);
   const dispatch = useDispatch<AppDispatch>();
 
+  const ref = useRef<HTMLDivElement>(null!);
 
    const { register, unregister } = useClickOutside();
 
-  const handleLogout = () => logout(dispatch);
+  const handleLogout = () => {
+    logout(dispatch)
+  };
 
   
   useEffect(() => {

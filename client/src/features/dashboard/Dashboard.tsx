@@ -11,6 +11,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { DiScrum } from 'react-icons/di';
 import { NavLinks } from './components/nav-links/NavLinks';
 import { motion } from "motion/react";
+import { useIsLogout } from '../auth/states/authSelectors';
+import { logout } from '../auth/states/logout';
+
+//import { dispatch } from "../../redux/store";
 
 export    const pageTransition = {
   initial: {
@@ -38,14 +42,24 @@ export    const pageTransition = {
 };
 export const Dashboard = () => { 
     const dispatch = useDispatch<AppDispatch>();
+    const isLoggingOut = useIsLogout();
     const { profile } = useProfileSelector();
     const { isSideBarIsOpen } = useSelector((store: RootState) => store.dashboard);
+  
  
     useEffect(() => {
         if (profile) {
             dispatch(fetchProjectsHttp());
         }
-    }, [profile, dispatch]);
+
+        if (isLoggingOut){
+            //logout(dispatch);
+            queueMicrotask(() => {
+                //return <Navigate to="/" replace />
+            })
+        }
+        console.log( isLoggingOut)
+    }, [profile, dispatch,  isLoggingOut]);
     if (!profile) {
         return <Navigate to="/profile" replace />; // Redirect to login if not authenticated
     }
