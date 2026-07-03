@@ -1,10 +1,8 @@
-import { RouterProvider } from "react-router-dom";
-import AppRoutes from "../app-routes/routes-config";
-import { ToastContainer } from "react-toastify";
 import { useEffect } from "react";
 import type { AppDispatch } from "../redux/store";
 import { useDispatch } from "react-redux";
 import { loadUserHttp } from "../features/auth/http/auth.http";
+import { AppRouter } from "./AppRouter";
 import { AppProvider } from "./AppProvider";
 
 
@@ -15,9 +13,12 @@ function App(){
     dispatch(loadUserHttp());
   }, [dispatch]);
 
-  return <AppProvider>
-    <AppRoute></AppRoute>
-  </AppProvider>
+  return (
+    <AppProvider>
+      <AppRouter/>
+    </AppProvider>
+  )
+  
 }
 
 export default App;
