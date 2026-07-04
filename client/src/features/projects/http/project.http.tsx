@@ -1,11 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { AxiosError } from "axios";
 import type { Project } from "../models/project.model";
 import { type ApiErrorDto } from "../../../shared/interfaces/shared.interfaces";
 import api from "../../../api/axios";
 import { setSprints } from "../../sprints/states/sprintSlice";
 import { setTasks } from "../../tasks/states/taskSlice";
 import { setMembers } from "../../members/states/memberSlice";
+import { handleHttpError } from "../../../shared/http/handleHttpError";
 
 // 1 create project 
 export type CreateProjectPayload = {
@@ -43,7 +43,7 @@ export const fetchSingleProjectHttp = createAsyncThunk<
             const url = `projects/${projectId}?include=${include.join(",")}`;
 
             const response = await api.get(`${url}`, { withCredentials: true });
-            console.log(response);
+        
             const project  = (response.data.data.project) as Project;
 
             if (project?.sprints) thunkApi.dispatch(setSprints({ sprints: project.sprints }));
@@ -54,22 +54,7 @@ export const fetchSingleProjectHttp = createAsyncThunk<
 
             return response.data;
         } catch (error) {
-            // Extract your backend error shape
-            if (error instanceof AxiosError) {
-                    const backendError: ApiErrorDto = error.response?.data || {
-                        status: "error",
-                        message: "Unknown error",
-                        data: null
-                    };
-
-                return thunkApi.rejectWithValue(backendError);
-            }
-            // fallback for non-Axios errors
-            return thunkApi.rejectWithValue({
-                status: "error",
-                message: "Unexpected error",
-                data: null
-            });
+            return thunkApi.rejectWithValue(handleHttpError(error, thunkApi));
         }
     }
 )
@@ -88,22 +73,7 @@ export const createProjectHttp = createAsyncThunk<
             );
             return result.data;
         } catch (error) {
-            // Extract your backend error shape
-            if (error instanceof AxiosError) {
-                    const backendError: ApiErrorDto = error.response?.data || {
-                        status: "error",
-                        message: "Unknown error",
-                        data: null
-                    };
-
-                return thunkApi.rejectWithValue(backendError);
-            }
-            // fallback for non-Axios errors
-            return thunkApi.rejectWithValue({
-                status: "error",
-                message: "Unexpected error",
-                data: null
-            });
+            return thunkApi.rejectWithValue(handleHttpError(error, thunkApi));
         }
 
     }
@@ -123,22 +93,7 @@ export const fetchProjectsHttp = createAsyncThunk<
             );
             return response.data;
         } catch (error) {
-            // Extract your backend error shape
-            if (error instanceof AxiosError) {
-                    const backendError: ApiErrorDto = error.response?.data || {
-                        status: "error",
-                        message: "Unknown error",
-                        data: null
-                    };
-
-                return thunkApi.rejectWithValue(backendError);
-            }
-            // fallback for non-Axios errors
-            return thunkApi.rejectWithValue({
-                status: "error",
-                message: "Unexpected error",
-                data: null
-            });
+            return thunkApi.rejectWithValue(handleHttpError(error, thunkApi));
         }
     }
 )

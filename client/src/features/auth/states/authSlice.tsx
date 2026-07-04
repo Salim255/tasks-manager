@@ -25,6 +25,7 @@ const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
+        
         clearUser: (state) => {
             state.isLoading = true;
             state.user = null;

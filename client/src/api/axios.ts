@@ -13,7 +13,7 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if(error.response.status ===  "401") {
-      
+      (error as any).isUnauthorized = true;
     }
   })
 export default api;
