@@ -9,4 +9,11 @@ const api = axios.create({
 });
 
 // Export the configured Axios instance for use across your app
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if(error.response.status ===  "401") {
+      
+    }
+  })
 export default api;
