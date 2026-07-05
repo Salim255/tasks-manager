@@ -1,51 +1,17 @@
 import './_dashboard.scss';
-import { SmallSidebar } from './components/small-sidebar/SmallSidebar';
-import { BigSidebar } from './components/big-sidebar/BigSidebar';
-import { Navbar } from './components/navbar/Navbar';
 import { useEffect } from 'react';
 import { fetchProjectsHttp } from '../projects/http/project.http';
-import type { AppDispatch, RootState } from '../../redux/store';
-import { useDispatch, useSelector } from 'react-redux';
-import { DiScrum } from 'react-icons/di';
-import { NavLinks } from './components/nav-links/NavLinks';
-import { motion } from "motion/react";
+import type { AppDispatch } from '../../redux/store';
+import { useDispatch } from 'react-redux';
 
 
 export const Dashboard = ({ children }:{children: React.ReactNode}) => { 
     const dispatch = useDispatch<AppDispatch>();
-  
-    const { isSideBarIsOpen } = useSelector((store: RootState) => store.dashboard);
-  
+    
     useEffect(()  => {
         dispatch(fetchProjectsHttp());
     }, [dispatch]);
     
 
-    return(
-        <motion.main
-            className={`dashboard ${
-            isSideBarIsOpen ? "dashboard--sidebar-open" : "dashboard--sidebar-closed"
-        }`}>
-            <div className="dashboard__aside">
-                <div className='dashboard__sm-bar'>
-                    <SmallSidebar />
-                </div>
-                <div className='dashboard__bg-bar'>
-                    <BigSidebar>
-                        <header>
-                            <DiScrum/>
-                        </header>
-                        <NavLinks/>
-                    </BigSidebar>
-                </div>
-            </div>
-
-            <div className="dashboard__content">
-                <Navbar />
-                <div className='dashboard__outlet'>
-                    { children }
-                </div>
-            </div>
-        </motion.main>
-    )
+    return  children 
 }

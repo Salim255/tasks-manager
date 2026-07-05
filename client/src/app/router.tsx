@@ -5,6 +5,7 @@ import { ErrorBoundary as AppRootErrorBoundary} from "../shared/pages/error-boun
 import { ProfileGuard } from "../features/auth/guard/ProfileGuard";
 import { ProfileLayout } from "../features/profile/ProfileLayout";
 import { Dashboard } from "../features/dashboard/Dashboard";
+import { AppLayout } from "./AppLayout";
 
 const routes: RouteObject[] = [
     {
@@ -24,7 +25,9 @@ const routes: RouteObject[] = [
         path: '/',
         element: (
             <AuthGuard>
-                <Outlet/>
+                <AppLayout>
+                   <Outlet/>
+                </AppLayout>
             </AuthGuard>
         ),
         ErrorBoundary: AppRootErrorBoundary,
@@ -121,7 +124,7 @@ const routes: RouteObject[] = [
     {
         path: "*",
         lazy: () => import("../shared/pages/not-found/NotFoundPage").then((m) => ({
-             Component: m.NotFoundPage
+            Component: m.NotFoundPage
         }))
     }
 ]
