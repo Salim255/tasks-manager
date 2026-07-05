@@ -84,7 +84,9 @@ const sprintSlice = createSlice({
         })
         .addCase(createSprint.fulfilled, (state, action) => {
             const { sprint } = action.payload.data;
-            state.sprints = [...state.sprints, sprint];
+            const sortedSprint = [...state.sprints, sprint]
+                .sort((a,b) =>  (new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()));
+            state.sprints = [...sortedSprint];
             state.isCreating = false;
         })
         .addCase(createSprint.rejected, (state) => {

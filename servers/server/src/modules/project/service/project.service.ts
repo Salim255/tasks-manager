@@ -36,8 +36,16 @@ export class ProjectService {
       
       const project = await this.projectRepo.findOne(
         {
-          where: {id: projectId},
+          where: { id: projectId },
           relations: projectRelations,
+          order: {
+            sprints: {
+              createdAt: 'DESC'
+            },
+            tasks: {
+              createdAt: 'DESC'
+            }
+          }
         }
       )
 

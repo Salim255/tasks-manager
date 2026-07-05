@@ -7,8 +7,9 @@ import { TaskTypeDropdown } from '../../../../shared/components/task-type-dropdo
 import { createTaskHttp } from '../../http/task.http';
 import { typeIcon } from '../../../../shared/utils/methods';
 import { useTaskForm } from '../../form-builder/taskFormBuilder';
-import { motion } from "motion/react";
 import type { CreateTaskPayload } from '../../dto/task-dto';
+import { motion } from 'motion/react';
+import { premiumTransition } from '../../../../shared/motion/transitions';
 
 export const CreateTask = ( { projectId, sprintId }: { projectId: string; sprintId: string | null}) => {
   const [isCreateBtn, setCreateBtn] = useState<boolean>(true);
@@ -67,35 +68,24 @@ export const CreateTask = ( { projectId, sprintId }: { projectId: string; sprint
             </button>
             :
             <motion.form 
-      initial= {{
-    opacity: 0,
-    y: 8,
-    scale: 0.995,
-  }}
+                whileHover={{
+                    y: -2,
+                    transition: {
+                    duration: .15
+                    }
+                }}
+                whileTap={{
+                    scale: .99
+                }}
+                transition={premiumTransition}
 
-  animate= {{
-    opacity: 1,
-    y: 0,
-    scale: 1,
-  }
-}
-  exit= {{
-    opacity: 0,
-    y: -8,
-    scale: 0.995,
-  }}
-
-  transition= {{
-    duration: 0.22,
-    ease: [0.22, 1, 0.36, 1], // Premium ease-out curve
-  }
-        }  onSubmit={handleSubmit} className='create-task-form'>
+                onSubmit={handleSubmit} className='create-task-form'>
                 {/* Title */}
                 <div className="create-task-form__form-group-title">
                     <TaskTypeDropdown
                     name="taskType"
-                      value={state.taskType}
-                      onChange={handleChange}
+                    value={state.taskType}
+                    onChange={handleChange}
                     >
                         <option value="task"> Task </option>
                         <option value="bug"> { typeIcon('task') } Bug </option>
@@ -128,7 +118,7 @@ export const CreateTask = ( { projectId, sprintId }: { projectId: string; sprint
                     className="btn create-task-form__btn">
                     create task
                 </button>
-            </motion.form>
+            </motion.form>            
     }
     </>
   );
