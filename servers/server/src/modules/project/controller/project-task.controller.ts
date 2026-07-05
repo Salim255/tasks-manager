@@ -19,15 +19,6 @@ import {
   ApiParam,
   ApiBody,
 } from '@nestjs/swagger';
-import {
-  CreateProjectDto,
-  CreateProjectResponseDto,
-  ProjectDto,
-  ProjectDtoResponse,
-  ProjectsListResponseDto,
-} from '../dto/project.dto';
-import { Project } from '../entity/project.entity';
-import { ProjectService } from '../service/project.service';
 import { JwtAuthGuard } from 'src/modules/auth/guard/jwt-auth.guard';
 import {
   CreateTaskDto,
@@ -85,7 +76,7 @@ export class ProjectTaskController {
     },
   ) {
     const { id: userId } = req.user;
-    const { title, taskType } = dto;
+    const { title, taskType, sprintId } = dto;
 
     if (!userId || !title || !taskType) {
       throw new BadRequestException('Missing required fields');
@@ -93,6 +84,7 @@ export class ProjectTaskController {
     const task: Task = await this.taskService.createTask({
       title,
       projectId,
+      sprintId,
       taskType,
       reporterId: userId,
     });

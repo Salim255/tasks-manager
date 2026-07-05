@@ -110,6 +110,7 @@ export class TaskService {
     taskType: TaskType;
   }): Promise<Task> {
     try {
+      console.log(payload, "Hello from create task")
       return await this.dataSource.manager.transaction(async(transactionEntityManger) => {
         // 1. ATOMIC project update (NO lock needed)
         const updatedProject = await transactionEntityManger

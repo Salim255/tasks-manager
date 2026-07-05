@@ -107,7 +107,7 @@ export const Backlog = () => {
                 </div>
 
                 <footer className="sprint__footer">
-                  <CreateTask projectId={projectId} />
+                  <CreateTask projectId={projectId} sprintId={sprint.id} />
                 </footer>
               </section>
             ))}
@@ -167,7 +167,7 @@ export const Backlog = () => {
           </section>
 
           <footer className="backlog__footer">
-            <CreateTask projectId={projectId} />
+            <CreateTask projectId={projectId} sprintId={null} />
           </footer>
 
         </section>

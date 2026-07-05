@@ -23,6 +23,7 @@ export interface CreateTaskPayload  {
     taskType: TaskType;
     dueAt?: string;
     projectId: string;
+    sprintId?: string;
 }
 
 export type UpdateTaskSprintPayload = {

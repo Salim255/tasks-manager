@@ -1,5 +1,4 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { AxiosError } from "axios";
 import { type ApiErrorDto } from "../../../shared/interfaces/shared.interfaces";
 import api from "../../../api/axios";
 import type { CreateTaskPayload, CreateTaskResponseDto, GetTasksResponseDto, UpdatedTaskResponseDto, UpdateTaskPayload, UpdateTaskSprintPayload } from "../dto/task-dto";
@@ -54,13 +53,11 @@ export const  createTaskHttp = createAsyncThunk<
     'post/createTask',
     async (data: CreateTaskPayload, thunkApi) => {
         try {
-            console.log(data);
             const response = await api.post(
                `projects/${data.projectId}/tasks`, 
                 data,
                 { withCredentials: true }
             );
-            console.log(response);
             return response.data;
         } catch (error) {
             return thunkApi.rejectWithValue(handleHttpError(error, thunkApi));

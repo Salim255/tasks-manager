@@ -10,7 +10,7 @@ import { useTaskForm } from '../../form-builder/taskFormBuilder';
 import { motion } from "motion/react";
 import type { CreateTaskPayload } from '../../dto/task-dto';
 
-export const CreateTask = ( { projectId }: { projectId: string}) => {
+export const CreateTask = ( { projectId, sprintId }: { projectId: string; sprintId: string | null}) => {
   const [isCreateBtn, setCreateBtn] = useState<boolean>(true);
   const { state, setField, setError, clearErrors, reset } = useTaskForm();
   const dispatch = useDispatch<AppDispatch>();
@@ -44,6 +44,7 @@ export const CreateTask = ( { projectId }: { projectId: string}) => {
         status: state.status, 
         projectId: projectId,
         taskType: state.taskType,
+        ...(sprintId && { sprintId }),
         ...(state.assigneeId && { assigneeId: state.assigneeId }),
         ...(state.dueAt && {dueAt: state.dueAt }),
     }
