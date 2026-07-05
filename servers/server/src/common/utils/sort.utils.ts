@@ -1,12 +1,10 @@
-import { Project } from "src/modules/project/entity/project.entity";
-import { Sprint } from "src/modules/sprint/entity/sprint.entity";
-import { Task } from "src/modules/task/entity/task.entity";
+type HasCreatedAt = {
+  createdAt: string | Date;
+};
 
-export const sortByDate = (list: Sprint[] | Task[] | Project[] ) => {
-    return [...list.sort(
-        (
-            a:Sprint | Task | Project, 
-            b:Sprint | Task | Project
-        ) => (new Date(b.createdAt).getTime()) - new Date(a.createdAt).getTime())
-    ]
-}
+export const sortByDate = <T extends HasCreatedAt>(list: T[]): T[] => {
+  return [...list].sort(
+    (a, b) =>
+      new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+  );
+};

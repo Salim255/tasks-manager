@@ -11,6 +11,8 @@ import { CreateProjectDto, ProjectDto, ProjectOwnerDto } from '../dto/project.dt
 import { User } from 'src/modules/user/entity/user.entity';
 import { DtoMapper } from 'src/common/utils/dtoMapper';
 import { TableRelationBuilder } from 'src/common/utils/tableRelationBuilder';
+import { sortByDate } from 'src/common/utils/sort.utils';
+import { TaskDto } from 'src/modules/task/dto/task.dto';
 
 @Injectable()
 export class ProjectService {
@@ -124,9 +126,9 @@ export class ProjectService {
       const response = projects.map(project => ({
         ...project,
         owner: this.projectOwnerMapper(project.owner),
-        tasks: project?.tasks?.map(task => DtoMapper.projectTaskMapper(task)),
-        sprints: project?.sprints?.map(sprint => DtoMapper.projectSprintMapper(sprint)),
-        members: project?.members?.map(member => DtoMapper.projectMemberMapper(member),
+        tasks: sortByDate(project?.tasks?.map(task => DtoMapper.projectTaskMapper(task))),
+        sprints: sortByDate(project?.sprints?.map(sprint => DtoMapper.projectSprintMapper(sprint))),
+        members:  project?.members?.map(member => DtoMapper.projectMemberMapper(member),
         ),
       }));
 

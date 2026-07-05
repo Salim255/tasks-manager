@@ -97,7 +97,10 @@ const sprintSlice = createSlice({
     reducers: {
         setSprints: (state, action: PayloadAction<{sprints: Sprint[]}>) => {
             const { sprints } = action.payload;
-            state.sprints = sprints;
+
+              const sortedSprint = sprints
+                .sort((a,b) =>  (new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()));
+            state.sprints = [...sortedSprint];
         },
         onUpdateSprintStatus: (state, action: PayloadAction<{ sprintId: string, status: SprintStatus }>) => {
             const { sprintId, status } = action.payload;
