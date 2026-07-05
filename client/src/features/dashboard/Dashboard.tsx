@@ -1,5 +1,5 @@
 import './_dashboard.scss';
-import { Navigate, Outlet, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { SmallSidebar } from './components/small-sidebar/SmallSidebar';
 import { BigSidebar } from './components/big-sidebar/BigSidebar';
 import { Navbar } from './components/navbar/Navbar';
@@ -11,25 +11,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { DiScrum } from 'react-icons/di';
 import { NavLinks } from './components/nav-links/NavLinks';
 import { motion } from "motion/react";
-import { useIsAuthenticated } from '../auth/states/authSelectors';
+
 
 export const Dashboard = ({ children }:{children: React.ReactNode}) => { 
     const dispatch = useDispatch<AppDispatch>();
-    const navigate = useNavigate();
     const { profile } = useProfileSelector();
     const { isSideBarIsOpen } = useSelector((store: RootState) => store.dashboard);
-    const isAuthenticated  = useIsAuthenticated();
   
-
     useEffect(() => {
         if (profile) {
             dispatch(fetchProjectsHttp());
         }
-        if (!isAuthenticated) {
-            navigate("/");
-        }
-        console.log(isAuthenticated, "Is authed")
-    }, [profile, isAuthenticated, dispatch]);
+    }, [profile, dispatch]);
     
     if (!profile) {
         return <Navigate to="/profile" replace />; // Redirect to login if not authenticated

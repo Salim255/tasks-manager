@@ -1,6 +1,13 @@
+import { useNavigate } from "react-router-dom";
 import "./_error-boundary.scss";
 
 export const ErrorBoundary = () => {
+    const navigate = useNavigate();
+
+    const goHome = () => {
+        navigate("/")
+    }
+    
     return (
         <main className="error-boundary">
             <div className="error-boundary__card">
@@ -15,9 +22,9 @@ export const ErrorBoundary = () => {
 
                 <button
                     className="error-boundary__button"
-                    onClick={() => window.location.reload()}
+                    onClick={goHome}
                 >
-                    Refresh Page
+                 Go to Home
                 </button>
             </div>
         </main>

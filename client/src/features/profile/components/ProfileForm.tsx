@@ -28,6 +28,7 @@ export const ProfileForm = () => {
     dispatcher(createProfileHttp(payload));
     reset();
   };
+  
 return (
  <section className="profile-setup">
   <div className="container">

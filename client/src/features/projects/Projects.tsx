@@ -15,7 +15,7 @@ export const Projects = () => {
     
     useEffect(() => {
         if (!isLoading && !projects.length){
-            navigate("/dashboard/create-project", { replace: true });
+            navigate("/create-project", { replace: true });
             return;
         }       
     }, [projects, navigate, isLoading]);

@@ -1,13 +1,20 @@
 import { createBrowserRouter } from "react-router-dom";
 import type { RouteObject } from "react-router-dom";
 import { ProtectedRoutes } from "../features/auth/guard/ProtectedRoutes";
-import { AppRoot, ErrorBoundary as AppRootErrorBoundary } from "./root";
+import { AppRoot } from "./root";
+import { ErrorBoundary as AppRootErrorBoundary} from "../shared/pages/error-boundary/ErrorBoundary";
 
 const routes: RouteObject[] = [
      {
         path: "/auth",
         lazy: () => import("../features/auth/Auth").then((m) => ({
             Component: m.Auth,
+        }))
+    },
+    {
+        path: "/create-profile",
+        lazy: () => import("../features/profile/components/ProfileForm").then((m) => ({
+            Component: m.ProfileForm
         }))
     },
     {
@@ -78,20 +85,20 @@ const routes: RouteObject[] = [
                             Component: m.Statistics
                         }))
                     },
+                ]
+            },
+            {   
+                path: 'profile',
+                lazy: () => import("../features/profile/ProfileLayout").then((m) => ({
+                    Component: m.ProfileLayout
+                })),
+                children: [
                     {   
-                        path: 'profile',
-                        lazy: () => import("../features/profile/ProfileLayout").then((m) => ({
-                            Component: m.ProfileLayout
+                        index: true,
+                        lazy: () => import("../features/profile/pages/profile/Profile").then((m) => ({
+                            Component: m.Profile
                         })),
-                        children: [
-                            {
-                                index: true,
-                                lazy: () => import("../features/profile/pages/profile/Profile").then((m) => ({
-                                    Component: m.Profile
-                                }))
-                            }
-                        ]
-                    },
+                    }
                 ]
             },
         ]
