@@ -1,8 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
 import type { RouteObject } from "react-router-dom";
-import { ProtectedRoutes } from "../features/auth/guard/ProtectedRoutes";
+import { AuthGuard } from "../features/auth/guard/AuthGuard";
 import { AppRoot } from "./root";
 import { ErrorBoundary as AppRootErrorBoundary} from "../shared/pages/error-boundary/ErrorBoundary";
+import { ProfileGuard } from "../features/auth/guard/ProfileGuard";
 
 const routes: RouteObject[] = [
      {
@@ -27,9 +28,11 @@ const routes: RouteObject[] = [
         // Public routes
         path: '/',
         element: (
-            <ProtectedRoutes>
-                <AppRoot />
-            </ProtectedRoutes>
+            <AuthGuard>
+               <ProfileGuard>
+                 <AppRoot />
+               </ProfileGuard>
+            </AuthGuard>
         ),
         ErrorBoundary: AppRootErrorBoundary,
         
