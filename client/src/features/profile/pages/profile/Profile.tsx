@@ -31,12 +31,12 @@ export const Profile = () => {
         <div className="profile__grid">
             <div className="profile__item">
             <span className="profile__item-label"> Full Name </span>
-            <span className="profile__item-value"> { profile!.firstName } { profile!.lastName } </span>
+            <span className="profile__item-value"> { profile?.firstName } { profile?.lastName } </span>
             </div>
 
             <div className="profile__item">
             <span className="profile__item-label">Email</span>
-            <span className="profile__item-value">{userData!.email}</span>
+            <span className="profile__item-value">{userData?.email}</span>
             </div>
 
             <div className="profile__item">

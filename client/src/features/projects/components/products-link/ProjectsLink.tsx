@@ -12,11 +12,11 @@ export const ProjectsLinks = ({ project }: { project: Project }) => {
   const dispatch = useDispatch<AppDispatch>();
   const { projectId } = useParams();
 
-  const isCurrentProject = projectId === project.id;
+  const isCurrentProject = projectId === project?.key;
 
   const updateActiveProjectId = async () => {
-      dispatch(setActiveProjectId({ projectId: project.id }));
-      dispatch(fetchSingleProjectHttp({projectId: project.id}));
+    dispatch(setActiveProjectId({ projectId: project?.id }));
+    dispatch(fetchSingleProjectHttp({projectId: project?.id}));
   };
   
   return (
@@ -34,9 +34,9 @@ export const ProjectsLinks = ({ project }: { project: Project }) => {
           ? "projects-item__link projects-item__link--active" 
           : "projects-item__link"
         }
-        to={`/projects/${project.id}/board`} 
+        to={`/projects/${project.key}/board`} 
       >
-        <span>{ project.name }</span>
+        <span> { project.name }</span>
       </NavLink>
     </li>
   );

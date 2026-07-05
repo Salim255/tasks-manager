@@ -8,7 +8,7 @@ import {useSelectProjects} from "../../../projects/states/projectsSelectors";
 export const NavLinks = ({ toggleSidebar }: { toggleSidebar?: () => void}) => {
     const { projects } = useSelectProjects();
     const [toggleProjects, setToggleProjects] = useState<boolean>(false);
-    
+
     const handleClick = (text: string) => {
         if(text === 'Projects') {
             setToggleProjects((prev) => !prev);
@@ -42,9 +42,9 @@ export const NavLinks = ({ toggleSidebar }: { toggleSidebar?: () => void}) => {
                        
                         <ul key={id}  className={`nav-links__projects ${toggleProjects ? 'nav-links__projects--active': ''} `}>
                             {
-                                projects.map((project) => {
+                                projects?.map((project) => {
                                     return(
-                                        <ProjectsLinks key={project.id} project={project}/>
+                                        <ProjectsLinks key={project?.key} project={project}/>
                                     )
                                 })
                             }

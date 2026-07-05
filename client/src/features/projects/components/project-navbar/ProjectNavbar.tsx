@@ -11,14 +11,15 @@ export const ProjectNavbar =() => {
     const { activeProject, isFetchingProject} = useSelector((store:  RootState) => store.projectReducer);
 
     const projectId  = activeProject?.id;
-    
-     useEffect(() => {
-    }, [activeProject, isFetchingProject]);
+    const projectKey = activeProject?.key;
+
+    useEffect(() => {
+        }, [activeProject, isFetchingProject]);
 
     return (
         <header className="project-header">
             <div className='project-header__title'>
-                <h2 className='heading-secondary'> {activeProject?.name} </h2>
+                <h2 className='heading-secondary'> { activeProject?.name } </h2>
                 <div className="project-header__actions">
                     <AddMemberForm projectId={projectId!} />
                 </div>
@@ -29,11 +30,13 @@ export const ProjectNavbar =() => {
                         return (
                              <NavLink
                                 key={link.id}
-                                to={link.path( projectId ?? '')}
+                                to={link.path( projectKey ?? '')}
                                 className={({isActive}) => {
-                                    return isActive ? "project-header__link project-header__link--active" : "project-header__link"
+                                    return isActive ? 
+                                    "project-header__link project-header__link--active" : 
+                                    "project-header__link"
                                 }} >
-                                <span className='project-header__link-icon'>  { link.icon } </span>
+                                <span className='project-header__link-icon'> { link.icon } </span>
                                 <span className="project-header__link-text">
                                     {link.text}
                                 </span>

@@ -4,9 +4,9 @@ import type { Task } from "../../../tasks/models/task.model";
 import { OptionsBtn } from '../../../../shared/components/options-btn/OptionsBtn';
 import { typeIcon } from '../../../../shared/utils/methods';
 import { AsidePopup } from '../../../../shared/kits/aside-popup/AsidePopup';
-import { MemberItem } from '../member-item/MemberItem';
 import { Assignee } from '../../../../shared/components/assignee/Assignee';
 import { Status } from '../../../../shared/components/task-status/TaskStatus';
+import { MemberItem } from '../../../members/components/member-item/MemberItem';
 
 export type TaskItemProps = { task: Task; } & React.HTMLAttributes<HTMLDivElement>;
 
@@ -39,7 +39,7 @@ export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
                             Assignee
                             <AsidePopup >
                                 <div className='task-aside-container__item-aside'>
-                                    < MemberItem key={task.id} task={task} />
+                                    <MemberItem key={task.id} task={task} />
                                 </div>
                             </AsidePopup>
                         </li>

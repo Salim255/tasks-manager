@@ -25,13 +25,14 @@
   ============================================ */
   &__bg-bar {
     width: 30rem;
+    background-color: var(--grey-100);
   }
   &__aside {  
     position: sticky;
     top: 0;
     height: 100dvh;
     padding-right: 2rem;
-    padding-top: 2rem;
+    //padding-top: 2rem;
     overflow: hidden;
  
     z-index: 10;
