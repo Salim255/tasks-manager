@@ -1,7 +1,6 @@
 import './_profile.scss';
 import { useNavigate } from "react-router-dom";
 import { useProfileSelector } from "../../states/profileSelectors";
-import { ProfileForm } from "../../components/ProfileForm";
 import { useEffect } from "react";
 import { ProfileHero } from './components/hero/ProfileHero';
 import { useUserData } from '../../../auth/states/authSelectors';
@@ -13,17 +12,7 @@ export const Profile = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-    },[profile, isProfileLoading,navigate]);
-    
-
-    if (isProfileLoading) {
-        return <h1>Loading...</h1>
-    }
-    
-
-    if (!isProfileLoading && !profile) {
-        return <ProfileForm />
-    }
+    },[profile, isProfileLoading, navigate]);
     
     
    return (

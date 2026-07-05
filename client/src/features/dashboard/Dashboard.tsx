@@ -1,11 +1,9 @@
 import './_dashboard.scss';
-import { Navigate } from "react-router-dom";
 import { SmallSidebar } from './components/small-sidebar/SmallSidebar';
 import { BigSidebar } from './components/big-sidebar/BigSidebar';
 import { Navbar } from './components/navbar/Navbar';
 import { useEffect } from 'react';
 import { fetchProjectsHttp } from '../projects/http/project.http';
-import { useProfileSelector } from '../profile/states/profileSelectors';
 import type { AppDispatch, RootState } from '../../redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { DiScrum } from 'react-icons/di';
@@ -15,18 +13,13 @@ import { motion } from "motion/react";
 
 export const Dashboard = ({ children }:{children: React.ReactNode}) => { 
     const dispatch = useDispatch<AppDispatch>();
-    const { profile } = useProfileSelector();
+  
     const { isSideBarIsOpen } = useSelector((store: RootState) => store.dashboard);
   
-    useEffect(() => {
-        if (profile) {
-            dispatch(fetchProjectsHttp());
-        }
-    }, [profile, dispatch]);
+    useEffect(()  => {
+        dispatch(fetchProjectsHttp());
+    }, [dispatch]);
     
-    if (!profile) {
-        return <Navigate to="/profile" replace />; // Redirect to login if not authenticated
-    }
 
     return(
         <motion.main

@@ -1,8 +1,7 @@
 import './_profile.scss';
-import { Outlet } from 'react-router-dom';
 
-export const ProfileLayout = () => {
+export const ProfileLayout = ({children}:{children: React.ReactNode}) => {
 
-    return <Outlet />  
+    return children
     
 }

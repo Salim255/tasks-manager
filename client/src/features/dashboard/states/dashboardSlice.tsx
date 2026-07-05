@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    isSideBarIsOpen: false
+    isSideBarIsOpen: true
 }
 const dashboardSlice  = createSlice({
     name: 'dashboard',

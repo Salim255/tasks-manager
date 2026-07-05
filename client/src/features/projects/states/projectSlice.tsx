@@ -78,14 +78,14 @@ const projectSlice = createSlice({
             state.isCreating = false;
             toast.error("Failed to create project. Please try again.");
         })
+        .addCase(fetchProjectsHttp.pending, (state) => {
+            console.log("Its loading")
+            state.isLoading = true;
+        })
         .addCase(fetchProjectsHttp.fulfilled, (state, action) => {
             const { projects } = action.payload.data;
-            console.log("Fetched projects:", projects);
             state.projects = projects;
             state.isLoading = false;
-        })
-        .addCase(fetchProjectsHttp.pending, (state) => {
-            state.isLoading = true;
         })
         .addCase(fetchProjectsHttp.rejected, (state) => {
             state.isLoading = false;
