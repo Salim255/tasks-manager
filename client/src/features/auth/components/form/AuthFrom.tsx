@@ -11,7 +11,9 @@ export const AuthForm = () => {
     const [iSLogin, setAuthMode] = useState<boolean>(true);
 
     const dispatch = useDispatch<AppDispatch>();
+
     const { state, setField, setError } = useAuthForm();
+
     const onSubmit = (e: ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
         const errors = validateAuthForm(state, iSLogin);
@@ -29,6 +31,7 @@ export const AuthForm = () => {
             password: state.password, 
             authType: iSLogin ? 'login' :'register'
         };
+        
         dispatch(authUserHttp(payload));
     }
 

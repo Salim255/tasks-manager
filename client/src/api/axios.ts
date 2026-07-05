@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { dispatch } from "../redux/store";
 
 // Create a dedicated Axios instance for your entire app
 // This ensures all requests share the same config + interceptors
@@ -12,8 +11,10 @@ const api = axios.create({
 api.interceptors.response.use(
   (response) => response,
   (error) => {
+    console.log(error.response);
     if(error.response.status ===  "401") {
       (error as any).isUnauthorized = true;
     }
+    return Promise.reject(error); // REQUIRED
   })
 export default api;

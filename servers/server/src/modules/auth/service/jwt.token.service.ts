@@ -37,12 +37,12 @@ export class JwtTokenService {
     if (tokenType === 'access') {
       return {
         secret: getEnvVar<string>('JWT_SECRET', '', this.configService),
-        expiresIn: getEnvVar<string>('JWT_ACCESS_EXPIRATION', '15m', this.configService)
+        expiresIn: getEnvVar<string>('JWT_ACCESS_EXPIRATION', '', this.configService)
       };
     } else {
       return {
         secret: getEnvVar<string>('JWT_SECRET', '', this.configService),
-        expiresIn: getEnvVar<string>('JWT_REFRESH_EXPIRATION', '7d', this.configService)
+        expiresIn: getEnvVar<string>('JWT_REFRESH_EXPIRATION', '', this.configService)
       };
     }
   }

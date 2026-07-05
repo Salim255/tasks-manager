@@ -4,7 +4,7 @@ import type { RouteObject } from "react-router-dom";
 const routes: RouteObject[] = [
     {
         path: '/',
-        lazy:() =>  import('../features/auth/guard/ProtectedRoutes').then((m) => ({
+        lazy: () =>  import('../features/auth/guard/ProtectedRoutes').then((m) => ({
             Component: m.ProtectedRoutes
         })),
         

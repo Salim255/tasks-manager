@@ -13,24 +13,21 @@ type  InitiateState = {
         demoClientId: string | null;
     } | null;
     isLoading: boolean;
-    isLoggingOut: boolean;
 }
 const initialState: InitiateState = {
     user: null,
     isLoading: true,
-    isLoggingOut: false,
 }
 
 const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        
+
         clearUser: (state) => {
             state.isLoading = true;
             state.user = null;
             state.isLoading = false;
-            state.isLoggingOut = false;
         }
     },
     // Listen to fetch or the fetch call event
@@ -82,9 +79,6 @@ const authSlice = createSlice({
             // Because your API ALWAYS returns ApiErrorDto,
             // we can safely cast the payload.
          
-    
-            state.isLoggingOut = true;
-
             console.log(errorAction.payload.message, "hello form error")
         })
         /*  */

@@ -1,5 +1,5 @@
 import './_dashboard.scss';
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import { SmallSidebar } from './components/small-sidebar/SmallSidebar';
 import { BigSidebar } from './components/big-sidebar/BigSidebar';
 import { Navbar } from './components/navbar/Navbar';
@@ -11,58 +11,30 @@ import { useDispatch, useSelector } from 'react-redux';
 import { DiScrum } from 'react-icons/di';
 import { NavLinks } from './components/nav-links/NavLinks';
 import { motion } from "motion/react";
-import { useIsLogout } from '../auth/states/authSelectors';
-import { logout } from '../auth/states/logout';
+import { useIsAuthenticated } from '../auth/states/authSelectors';
 
-//import { dispatch } from "../../redux/store";
-
-export    const pageTransition = {
-  initial: {
-    opacity: 0,
-    y: 8,
-    scale: 0.995,
-  },
-
-  animate: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-  },
-
-  exit: {
-    opacity: 0,
-    y: -8,
-    scale: 0.995,
-  },
-
-  transition: {
-    duration: 0.22,
-    ease: [0.22, 1, 0.36, 1], // Premium ease-out curve
-  },
-};
-export const Dashboard = () => { 
+export const Dashboard = ({ children }:{children: React.ReactNode}) => { 
     const dispatch = useDispatch<AppDispatch>();
-    const isLoggingOut = useIsLogout();
+    const navigate = useNavigate();
     const { profile } = useProfileSelector();
     const { isSideBarIsOpen } = useSelector((store: RootState) => store.dashboard);
+    const isAuthenticated  = useIsAuthenticated();
   
  
     useEffect(() => {
         if (profile) {
             dispatch(fetchProjectsHttp());
         }
-
-        if (isLoggingOut){
-            //logout(dispatch);
-            queueMicrotask(() => {
-                //return <Navigate to="/" replace />
-            })
+        if (!isAuthenticated) {
+            navigate("/");
         }
-        console.log( isLoggingOut)
-    }, [profile, dispatch,  isLoggingOut]);
+        console.log(isAuthenticated, "Is authed")
+    }, [profile, isAuthenticated, dispatch]);
+    
     if (!profile) {
         return <Navigate to="/profile" replace />; // Redirect to login if not authenticated
     }
+
     return(
         <motion.main
         className={`dashboard ${
@@ -85,7 +57,7 @@ export const Dashboard = () => {
             <div className="dashboard__content">
                 <Navbar />
                 <div className='dashboard__outlet'>
-                    <Outlet />
+                    { children }
                 </div>
             </div>
         </motion.main>
