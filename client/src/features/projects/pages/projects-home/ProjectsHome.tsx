@@ -1,6 +1,12 @@
+import { useNavigate } from "react-router-dom";
 import "./_projects-home.scss";
 
 export const ProjectsHome = () => {
+  const navigate = useNavigate();
+  const onCreateProject = () => {
+    navigate("/create-project");
+  }
+
   return (
     <main className="projects-home">
       <section className="projects-home__hero">
@@ -13,12 +19,15 @@ export const ProjectsHome = () => {
           </p>
 
           <div className="projects-home__hero-actions">
-            <button className="projects-home__button projects-home__button--primary">
+            <button
+                onClick={onCreateProject}
+                className="projects-home__button
+                projects-home__button--primary">
               Create project
             </button>
-            <button className="projects-home__button projects-home__button--secondary">
+          {/*   <button className="projects-home__button projects-home__button--secondary">
               Start sprint
-            </button>
+            </button> */}
           </div>
         </div>
 
