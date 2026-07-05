@@ -20,7 +20,7 @@ export const Dashboard = ({ children }:{children: React.ReactNode}) => {
     const { isSideBarIsOpen } = useSelector((store: RootState) => store.dashboard);
     const isAuthenticated  = useIsAuthenticated();
   
- 
+
     useEffect(() => {
         if (profile) {
             dispatch(fetchProjectsHttp());

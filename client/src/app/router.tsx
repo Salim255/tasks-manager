@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import type { RouteObject } from "react-router-dom";
 import { ProtectedRoutes } from "../features/auth/guard/ProtectedRoutes";
-import { AppRoot } from "./root";
+import { AppRoot, ErrorBoundary as AppRootErrorBoundary } from "./root";
 
 const routes: RouteObject[] = [
      {
@@ -24,6 +24,7 @@ const routes: RouteObject[] = [
                 <AppRoot />
             </ProtectedRoutes>
         ),
+        ErrorBoundary: AppRootErrorBoundary,
         
         children: [
             {
