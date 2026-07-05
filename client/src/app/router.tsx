@@ -35,7 +35,7 @@ const routes: RouteObject[] = [
         children: [
             {
                 index: true,
-                element: <Navigate to="/create-project" replace />
+                element: <Navigate to="/projects" replace />
             },
             {   
                 path: 'profile',
@@ -82,11 +82,10 @@ const routes: RouteObject[] = [
                         })),
                         children: [
                                 {
-                                    path: 'empty',
-                                    lazy: () => import("../features/projects/pages/empty-projects/EmptyProjects")
-                                        .then((m) =>({
-                                            Component: m.EmptyProjects
-                                        }))
+                                    index: true,
+                                    lazy: () => import("../features/projects/pages/projects-home/ProjectsHome").then((m) => ({
+                                        Component: m.ProjectsHome
+                                    }))
                                 },
                                 {
                                     path: ':projectId/board',

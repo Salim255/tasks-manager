@@ -2,6 +2,7 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { Task  } from "../models/task.model";
 import { createTaskHttp, getTasksHttp, updateTasHttp, updateTaskSprintHttp } from "../http/task.http";
 import { toast } from "react-toastify";
+import { sortList } from "../../../shared/utils/sort.utils";
 
 type InitiateState = {
     tasks: Task [];
@@ -55,7 +56,7 @@ const taskSlice = createSlice({
 
         setTasks: (state, action: PayloadAction<{tasks: Task[]}>) => {
             const { tasks } = action.payload;
-            state.tasks = tasks;
+            state.tasks = [...sortList(tasks)];
         },
         isEditingTask: (state, action: PayloadAction<{taskId: string}>) => {
             const {taskId} = action.payload;
@@ -131,7 +132,7 @@ const taskSlice = createSlice({
         })
         .addCase(getTasksHttp.fulfilled, (state, action) => {
            const {tasks} = action.payload.data;
-           state.tasks = [...tasks];
+           state.tasks = [...sortList(tasks)];
            state.isLoading = false;
         })
         .addCase(getTasksHttp.rejected, (state) => {
@@ -142,7 +143,7 @@ const taskSlice = createSlice({
         })
         .addCase(createTaskHttp.fulfilled, (state, action) => {
             const { task } = action.payload.data;
-            state.tasks = [...state.tasks, task];
+            state.tasks =  sortList([...state.tasks, task]);
             state.isCreating = false;
         })
         .addCase(createTaskHttp.rejected, (state) => {

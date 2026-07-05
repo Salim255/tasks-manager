@@ -4,6 +4,7 @@ import type { AppDispatch, RootState } from "../../../redux/store";
 import { toast } from "react-toastify";
 import type { Sprint, SprintStatus } from "../model/sprint.model";
 import { createSprint, fetchSprintsHttp, updateSprintHttp } from "../http/sprint.http";
+import { sortList } from "../../../shared/utils/sort.utils";
 
 
 // 2 initial state
@@ -84,8 +85,7 @@ const sprintSlice = createSlice({
         })
         .addCase(createSprint.fulfilled, (state, action) => {
             const { sprint } = action.payload.data;
-            const sortedSprint = [...state.sprints, sprint]
-                .sort((a,b) =>  (new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()));
+            const sortedSprint = sortList([...state.sprints, sprint]);
             state.sprints = [...sortedSprint];
             state.isCreating = false;
         })
@@ -98,8 +98,7 @@ const sprintSlice = createSlice({
         setSprints: (state, action: PayloadAction<{sprints: Sprint[]}>) => {
             const { sprints } = action.payload;
 
-              const sortedSprint = sprints
-                .sort((a,b) =>  (new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()));
+            const sortedSprint = sortList(sprints);
             state.sprints = [...sortedSprint];
         },
         onUpdateSprintStatus: (state, action: PayloadAction<{ sprintId: string, status: SprintStatus }>) => {

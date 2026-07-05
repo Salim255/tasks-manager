@@ -80,7 +80,7 @@ export const LandingPage = () => {
       </div>
 
       <footer className="landing__footer u-p-2xl">
-        © 2026 Flowboard — Built for clarity
+        © { new Date().getFullYear() } Flowboard — Built for clarity
       </footer>
 
     </section>
