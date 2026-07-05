@@ -37,7 +37,7 @@ export const Dashboard = ({ children }:{children: React.ReactNode}) => {
 
     return(
         <motion.main
-        className={`dashboard ${
+            className={`dashboard ${
             isSideBarIsOpen ? "dashboard--sidebar-open" : "dashboard--sidebar-closed"
         }`}>
             <div className="dashboard__aside">

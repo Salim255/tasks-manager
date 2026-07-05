@@ -11,7 +11,7 @@ export const Auth = () => {
     const isAuthenticated  = useIsAuthenticated();
     // If authenticated and profile exists → go to dashboard
     if (isAuthenticated && !isProfileLoading && profile) {
-        return <Navigate to="/dashboard/create-project" replace />;
+        return <Navigate to="/create-project" replace />;
     }
 
     // If authenticated but no profile → go to profile creation

@@ -19,7 +19,7 @@ export const LandingPage = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate("/dashboard/create-project");
+      navigate("/create-project");
       return;
     }
   }, [isAuthenticated]);

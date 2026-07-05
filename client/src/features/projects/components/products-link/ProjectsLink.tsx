@@ -34,7 +34,7 @@ export const ProjectsLinks = ({ project }: { project: Project }) => {
           ? "projects-item__link projects-item__link--active" 
           : "projects-item__link"
         }
-        to={`/dashboard/projects/${project.id}/board`} 
+        to={`/projects/${project.id}/board`} 
       >
         <span>{ project.name }</span>
       </NavLink>
