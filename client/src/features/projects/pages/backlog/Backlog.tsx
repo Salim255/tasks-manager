@@ -6,7 +6,7 @@ import { CreateTask } from '../../../tasks/components/create-task/CreateTask';
 import { TaskItem } from '../../../tasks/components/task-item/TaskItem';
 import type { Task } from '../../../tasks/models/task.model';
 import { SprintHeader } from '../../../sprints/components/sprint-header/SprintHeader';
-import { Navigate, useParams } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { useSprintModalOpen, useSprints } from '../../../sprints/states/sprintSelectors';
 import { updateTaskSprintHttp } from '../../../tasks/http/task.http';
 import { createSprint } from '../../../sprints/http/sprint.http';
@@ -15,17 +15,18 @@ import { useTaskCreating, useTaskModalOpen, useTasks } from '../../../tasks/stat
 import { UpdateTask } from '../../../tasks/components/update-task/UpdateTask';
 import { PageMotion } from '../../../../shared/motion/PageMotion';
 import { Group, Panel, Separator  } from 'react-resizable-panels';
+import { useActiveProject } from '../../states/projectsSelectors';
 
 
 export const Backlog = () => {
     const dispatch = useDispatch<AppDispatch>();
-   
+    const activeProject = useActiveProject();
     const tasks = useTasks();
     const isCreating = useTaskCreating()
     const isOpenModal = useSprintModalOpen();
     const isOpenTaskModal = useTaskModalOpen();
     const sprints = useSprints();
-    const { projectId }  = useParams();
+    const  projectId  = activeProject?.id;
     
     const onDragStart = (task: Task, e: React.DragEvent<HTMLDivElement>) => {
         e.dataTransfer.setData("text/plain", JSON.stringify(task)); // Any payload
@@ -118,7 +119,7 @@ export const Backlog = () => {
 
       {/* Backlog */}
       <Panel defaultSize="50%"
-  minSize="15%">
+        minSize="15%">
         <section className="backlog">
 
           <header className="backlog__header">
