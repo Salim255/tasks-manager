@@ -55,9 +55,9 @@
   &__title {
     margin: 0;
 
-    color: var(--text-primary);
-    font-size: clamp(3rem, 4vw, 4.8rem);
-    font-weight: 800;
+    color: var(--grey-500);
+    font-size: var(--text-4xl);
+    font-weight: var(--font-bold);
     line-height: 1.05;
     letter-spacing: -0.04em;
 

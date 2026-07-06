@@ -2,20 +2,19 @@
   position: relative;
 }
 
-/* Trigger */
+/* =========================
+   TRIGGER
+========================= */
 
 .user-menu__trigger {
   display: flex;
   align-items: center;
-
   gap: 0.75rem;
 
-  padding: 1rem 2rem;
+  padding: 0.9rem 1.6rem;
 
   background: var(--white);
-
   border: 1px solid var(--grey-100);
-
   border-radius: 999px;
 
   cursor: pointer;
@@ -34,12 +33,14 @@
 }
 
 .user-menu__name {
-  font-size: var(--text-lg);
+  font-size: var(--text-base);
   font-weight: var(--font-semibold);
-
   color: var(--grey-600);
+
+  white-space: nowrap;
 }
 
+/* caret */
 .user-menu__caret {
   transition: transform 0.2s ease;
 }
@@ -48,21 +49,20 @@
   transform: rotate(180deg);
 }
 
-/* Dropdown */
+/* =========================
+   DROPDOWN
+========================= */
 
 .user-menu__dropdown {
   position: absolute;
-
   top: calc(100% + 0.75rem);
   right: 0;
 
-  min-width: 18rem;
+  min-width: 16rem;
 
   background: var(--white);
-
   border: 1px solid var(--grey-100);
-
-  border-radius: 1.6rem;
+  border-radius: 1.2rem;
 
   box-shadow: var(--shadow-3);
 
@@ -70,7 +70,6 @@
 
   opacity: 0;
   visibility: hidden;
-
   transform: translateY(-6px);
 
   transition: all 0.2s ease;
@@ -79,36 +78,41 @@
 .user-menu__dropdown--open {
   opacity: 1;
   visibility: visible;
-
   transform: translateY(0);
 }
 
+/* =========================
+   ITEMS
+========================= */
+
 .user-menu__item {
+  display: block;
   width: 100%;
 
   padding: 0.9rem 1rem;
 
   border: none;
-
   background: transparent;
 
-  text-decoration: none;
-
-  display: block;
-
   text-align: left;
+  text-decoration: none;
 
   color: var(--grey-700);
 
   cursor: pointer;
 
   transition: background 0.15s ease;
-}
 
-.user-menu__item:hover {
-  background: var(--grey-50);
-}
+  &:hover {
+    background: var(--grey-50);
+    color: var(--grey-900);
+  }
 
-.user-menu__item:last-child {
-  color: var(--red-dark);
+  &:last-child {
+    color: var(--red-dark);
+
+    &:hover {
+      background: rgba(239, 68, 68, 0.08);
+    }
+  }
 }

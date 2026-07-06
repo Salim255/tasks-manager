@@ -12,14 +12,13 @@
 
   &__sidebar-container {
     width: 100%;
-    min-height: calc(100dvh - 3.2rem);
+    height: 100dvh;
 
     display: flex;
     flex-direction: column;
     overflow: hidden;
 
     border: 1px solid var(--border-color);
-    border-radius: 2.2rem;
     background:
       linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(248, 250, 252, 0.96)),
       var(--surface);

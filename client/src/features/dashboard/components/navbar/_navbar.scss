@@ -9,10 +9,10 @@
   top: 0;
   z-index: 30;
 
-  padding: 1.6rem 2.4rem 1.2rem;
-  background: transparent;
+  //padding: 1.6rem 2.4rem 1.2rem;
+  //background: transparent;
   backdrop-filter: blur(10px);
-
+  background-color: red;
   &__container {
     min-height: 7.2rem;
 
@@ -23,8 +23,8 @@
 
     padding: 0 1.8rem;
 
-    border: 1px solid var(--border-color);
-    border-radius: 2rem;
+    //border: 1px solid var(--border-color);
+    //border-radius: 2rem;
 
     background:
       linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(248, 250, 252, 0.96)),

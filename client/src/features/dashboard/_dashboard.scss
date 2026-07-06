@@ -35,7 +35,7 @@
     overflow: hidden;
 
     z-index: 20;
-    background-color: transparent;
+    background-color: white;
 
     transition:
       width 0.28s ease,
@@ -50,9 +50,9 @@
   &__bg-bar {
     width: var(--dashboard-sidebar-width);
     min-width: var(--dashboard-sidebar-width);
-    min-height: 100dvh;
-    padding: var(--dashboard-shell-padding);
-    padding-right: 1.2rem;
+    height: 100dvh;
+    //padding: var(--dashboard-shell-padding);
+    //padding-right: 1.2rem;
     background-color: transparent;
   }
 
@@ -71,7 +71,6 @@
     flex: 1;
     min-width: 0;
     min-height: 0;
-    padding: 0 var(--dashboard-content-padding) var(--dashboard-content-padding);
   }
 
   /* ============================================

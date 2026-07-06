@@ -3,7 +3,7 @@
   flex-direction: column;
 
   height: 50%;
-
+  min-height: 40rem;
   padding: 1.25rem;
 
   background: var(--white);
@@ -13,6 +13,13 @@
   border-radius: 16px;
 
   box-shadow: var(--shadow-1);
+
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    border-color: var(--grey-200);
+    box-shadow: var(--shadow-2);
+  }
 
   &__title {
     margin-bottom: 1rem;
@@ -25,4 +32,35 @@
     letter-spacing: -0.02em;
   }
 
+  /* =========================
+     EMPTY STATE
+  ========================= */
+
+  &__empty {
+    flex: 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 8rem;
+
+    border: 1px dashed var(--grey-200);
+    border-radius: 12px;
+
+    background: var(--grey-50);
+
+    color: var(--grey-500);
+
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: var(--primary-50);
+      border-color: var(--primary-200);
+      color: var(--grey-700);
+    }
+  }
 }

@@ -1,9 +1,9 @@
 import type { UserSummary } from "../../../shared/interfaces/shared.interfaces";
 
-type TaskStatus = "todo" | "in_progress" | "done";
+export type TaskStatus = "todo" | "in_progress" | "done";
 
 type TaskPriority = "low" | "medium" | "high";
-type TaskType = "task" | "bug" | "story";
+export type TaskType = "task" | "bug" | "story";
 
 
 
