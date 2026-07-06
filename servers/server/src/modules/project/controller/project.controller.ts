@@ -32,6 +32,7 @@ import { Request } from 'express';
 export class ProjectController {
   constructor(private projectService: ProjectService) {}
 
+  
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Get(':projectId')

@@ -6,6 +6,7 @@ import { ApiResponseData } from 'src/common/interfaces/shared.interface';
 import { TaskDto } from 'src/modules/task/dto/task.dto';
 import { SprintDto } from 'src/modules/sprint/dto/sprint.dto';
 
+
 export class ProjectOwnerDto {
   id!: string;
   profile!: ProjectProfileDto | null
