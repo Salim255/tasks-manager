@@ -1,54 +1,67 @@
-import { projectLinks } from '../../../../shared/utils/links';
-import './_project-navbar.scss';
+import { projectLinks } from "../../../../shared/utils/links";
+import "./_project-navbar.scss";
 import { NavLink } from "react-router-dom";
-import { useSelector } from 'react-redux';
-import type { RootState } from '../../../../redux/store';
-import { useEffect } from 'react';
+import { useSelector } from "react-redux";
+import type { RootState } from "../../../../redux/store";
 import { IoMdOptions } from "react-icons/io";
-import { AddMemberForm } from '../../../members/components/add-member-form/AddMemberForm';
+import { AddMemberForm } from "../../../members/components/add-member-form/AddMemberForm";
 
-export const ProjectNavbar =() => {
-    const { activeProject, isFetchingProject} = useSelector((store:  RootState) => store.projectReducer);
+export const ProjectNavbar = () => {
+  const { activeProject, isFetchingProject } = useSelector(
+    (store: RootState) => store.projectReducer
+  );
 
-    const projectId  = activeProject?.id;
-    const projectKey = activeProject?.key;
+  const projectId = activeProject?.id;
+  const projectKey = activeProject?.key;
 
-    useEffect(() => {
-        }, [activeProject, isFetchingProject]);
+  return (
+    <header className="project-header">
+      <div className="project-header__top">
+        <div className="project-header__identity">
+          <span className="project-header__eyebrow">
+            {isFetchingProject ? "Loading project..." : projectKey || "Project"}
+          </span>
 
-    return (
-        <header className="project-header">
-            <div className='project-header__title'>
-                <h2 className='heading-secondary'> { activeProject?.name } </h2>
-                <div className="project-header__actions">
-                    <AddMemberForm projectId={projectId!} />
-                </div>
-            </div>
-            <nav className="project-header__links">
-                {
-                    projectLinks.map((link) => {
-                        return (
-                             <NavLink
-                                key={link.id}
-                                to={link.path( projectKey ?? '')}
-                                className={({isActive}) => {
-                                    return isActive ? 
-                                    "project-header__link project-header__link--active" : 
-                                    "project-header__link"
-                                }} >
-                                <span className='project-header__link-icon'> { link.icon } </span>
-                                <span className="project-header__link-text">
-                                    {link.text}
-                                </span>
-                            </NavLink>
-                        )
-                     })
+          <div className="project-header__title-row">
+            <h2 className="project-header__title">
+              {activeProject?.name ?? "Project workspace"}
+            </h2>
+          </div>
+        </div>
+
+        <div className="project-header__actions">
+          {projectId && <AddMemberForm projectId={projectId} />}
+        </div>
+      </div>
+
+      <div className="project-header__bottom">
+        <nav className="project-header__nav" aria-label="Project sections">
+          {projectLinks.map((link) => {
+            return (
+              <NavLink
+                key={link.id}
+                to={link.path(projectKey ?? "")}
+                className={({ isActive }) =>
+                  isActive
+                    ? "project-header__link project-header__link--active"
+                    : "project-header__link"
                 }
+              >
+                <span className="project-header__link-icon">{link.icon}</span>
+                <span className="project-header__link-text">{link.text}</span>
+              </NavLink>
+            );
+          })}
+        </nav>
 
-                <button className='project-header__options'>
-                   <IoMdOptions className='icon' />
-                </button>
-            </nav>
-        </header>
-    )
-}
+        <button
+          type="button"
+          className="project-header__options"
+          aria-label="Project options"
+        >
+          <IoMdOptions className="icon" />
+        </button>
+      </div>
+    </header>
+  );
+};

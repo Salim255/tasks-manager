@@ -1,99 +1,180 @@
+@use "../../../../themes/styles/abstracts/queries" as *;
+
 /* ============================================
    NAVBAR
 ============================================ */
-@use "../../../../themes/styles/abstracts/queries" as *;
 
 .navbar {
-  height: 7.2rem;
-
-  //background: var(--white);
-  padding: 2rem;
-  border-bottom: 1px solid var(--grey-100);
-
   position: sticky;
   top: 0;
+  z-index: 30;
 
-  z-index: 100;
-}
-
-.navbar__container {
-  height: 100%;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  //padding: 0 2rem;
-}
-
-/* ============================================
-   TOGGLE
-============================================ */
-
-.navbar__toggle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
+  padding: 1.6rem 2.4rem 1.2rem;
   background: transparent;
-  border: none;
+  backdrop-filter: blur(10px);
 
-  cursor: pointer;
+  &__container {
+    min-height: 7.2rem;
 
-  font-size: var(--text-4xl);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.6rem;
 
-  color: var(--grey-500);
+    padding: 0 1.8rem;
 
-  transition: var(--transition);
+    border: 1px solid var(--border-color);
+    border-radius: 2rem;
 
-  &:hover {
-    color: var(--primary-600);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(248, 250, 252, 0.96)),
+      var(--surface);
+
+    box-shadow:
+      0 10px 30px rgba(15, 23, 42, 0.05),
+      0 1px 0 rgba(255, 255, 255, 0.7) inset;
   }
-}
 
-/* ============================================
-   LOGO
-============================================ */
+  /* ============================================
+     LEFT / RIGHT
+  ============================================ */
 
-.navbar__logo {
-  margin: 0;
+  &__left,
+  &__right {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+  }
 
-  font-size: var(--text-4xl);
+  &__left {
+    gap: 1.4rem;
+  }
 
-  font-weight: var(--font-bold);
+  &__right {
+    margin-left: auto;
+  }
 
-  letter-spacing: -0.03em;
+  /* ============================================
+     TOGGLE BUTTON
+  ============================================ */
 
-  background: linear-gradient(
-    135deg,
-    var(--primary-700),
-    var(--primary-500)
-  );
+  &__toggle {
+    flex-shrink: 0;
 
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 
-/* correct media query equivalent */
-@include respond("tab-port"){
-  .navbar {
-    position: sticky;
-    top: 0;
-    &__nav-center {
-        width: 90%;
+    width: 4.6rem;
+    height: 4.6rem;
+
+    border: 1px solid var(--border-color);
+    border-radius: 1.4rem;
+
+    background: var(--surface);
+    color: var(--grey-600);
+
+    cursor: pointer;
+
+    font-size: 1.8rem;
+
+    transition:
+      transform 0.2s ease,
+      color 0.2s ease,
+      background-color 0.2s ease,
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+
+    &:hover {
+      color: var(--primary-700);
+      background-color: var(--primary-50);
+      border-color: rgba(59, 130, 246, 0.18);
+      box-shadow: 0 8px 18px rgba(59, 130, 246, 0.12);
     }
-    .logo {
-        display: none;
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+
+  /* ============================================
+     BRAND BLOCK
+  ============================================ */
+
+  &__brand {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &__logo {
+    margin: 0;
+
+    color: var(--text-primary);
+    font-size: var(--text-2xl);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+  }
+
+  &__subtitle {
+    margin: 0.2rem 0 0;
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: 0.01em;
+  }
+
+  /* ============================================
+     RESPONSIVE
+  ============================================ */
+
+  @include respond("tab-port") {
+    padding: 1.2rem 1.6rem 1rem;
+
+    &__container {
+      min-height: 6.4rem;
+      padding: 0 1.4rem;
+      border-radius: 1.6rem;
     }
 
-    .logo-text {
-      display: block;
-      font-size: 1.5rem;
-      font-weight: 600;
-      background: linear-gradient(135deg, #1e90ff, #0066ff, #00c6ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+    &__left {
+      gap: 1rem;
+    }
+
+    &__toggle {
+      width: 4.2rem;
+      height: 4.2rem;
+      border-radius: 1.2rem;
+      font-size: 1.6rem;
+    }
+
+    &__logo {
+      font-size: var(--text-xl);
+    }
+
+    &__subtitle {
+      font-size: 1.1rem;
+    }
+  }
+
+  @include respond("phone") {
+    padding: 1rem 1.2rem 0.8rem;
+
+    &__container {
+      min-height: 5.8rem;
+      padding: 0 1.2rem;
+      border-radius: 1.4rem;
+    }
+
+    &__subtitle {
+      display: none;
+    }
+
+    &__logo {
+      font-size: var(--text-lg);
     }
   }
 }
