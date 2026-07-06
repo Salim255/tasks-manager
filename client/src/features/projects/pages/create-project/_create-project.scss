@@ -1,5 +1,23 @@
+@use "../../../../themes/styles/abstracts/queries" as *;
+
+/* ============================================
+   CREATE PROJECT PAGE
+============================================ */
+
 .create-project {
-    display: flex;
-    justify-content: center;
-    padding-top: 0 10rem;
+  width: 100%;
+  min-height: 100%;
+
+  display: flex;
+  justify-content: center;
+
+  padding: 1rem 0 5rem;
+
+  @include respond("tab-port") {
+    padding: 0.5rem 0 4rem;
+  }
+
+  @include respond("phone") {
+    padding: 0 0 3rem;
+  }
 }

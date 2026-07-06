@@ -53,104 +53,153 @@ export const CreateProjectForm = () => {
   }, [state])
 
   return (
-      <section className="project-create">
-          
-          <header className="project-create__header">
 
-            <h1 className="project-create__title heading-primary">
-              Name your workspace
-            </h1>
+    <section className="project-create">
+      <header className="project-create__hero">
+        <div className="project-create__hero-copy">
+          <span className="project-create__eyebrow">New workspace</span>
 
-            <div>
-              <p className="project-create__subtitle">
-                Create a workspace for your team, tasks and sprint planning.
-              </p>
-              <p>Required fields are marked with an asterisk *</p>
+          <h1 className="project-create__title">
+            Create a project space for your team
+          </h1>
+
+          <p className="project-create__subtitle">
+            Set up a workspace for tasks, sprint planning, and day-to-day
+            collaboration. Start with the basics — you can always refine it
+            later.
+          </p>
+        </div>
+
+        <div className="project-create__hero-note">
+          <span className="project-create__required-dot" />
+          <p>Required fields are marked with an asterisk *</p>
+        </div>
+      </header>
+
+      <section className="project-create__card">
+        <div className="project-create__intro">
+          <div className="project-create__intro-block">
+            <span className="project-create__intro-label">
+              Workspace details
+            </span>
+
+            <h2 className="project-create__section-title">
+              Basic project information
+            </h2>
+
+            <p className="project-create__section-text">
+              Choose a clear project name and a short key. The key is used in
+              task references like <strong>FLOW-1</strong>,{" "}
+              <strong>FLOW-2</strong>, and sprint naming across the workspace.
+            </p>
+          </div>
+
+          <div className="project-create__tip">
+            <div className="project-create__tip-icon">
+              <FaInfoCircle />
             </div>
-          </header>
 
-          <section className="project-create__card">
-
-            <div className="project-create__section">
-
-              <h2 className="heading-secondary">
-                Workspace Details
-              </h2>
-
+            <div className="project-create__tip-content">
+              <h3>About the project key</h3>
               <p>
-                Basic information about your workspace.
+                Use a short uppercase identifier, for example{" "}
+                <strong>FLOW</strong>, <strong>CRM</strong>, or{" "}
+                <strong>MOBILE</strong>. This helps keep tasks easy to scan.
               </p>
             </div>
-            <form
-                onSubmit={handleSubmit}
-                className="project-create__form form"
-              >
-                <div className="form__group">
-                  <label className="form__label">
-                   Name <span className="form__label-required">*</span>
-                  </label>
+          </div>
+        </div>
 
-                  <input
-                    className="form__input"
-                    name="name"
-                    value={state.name}
-                    onChange={handleInput}
-                    placeholder="FlowBoard Mobile App"
-                  />
+        <form onSubmit={handleSubmit} className="project-create__form form">
+          <div className="form__group">
+            <label htmlFor="project-name" className="form__label">
+              Name <span className="form__label-required">*</span>
+            </label>
 
-                  {state.errors.name && (
-                    <p className="form__error">
-                      {state.errors.name}
-                    </p>
-                  )}
-                </div>
+            <input
+              id="project-name"
+              className="form__input"
+              name="name"
+              value={state.name}
+              onChange={handleInput}
+              placeholder="FlowBoard Mobile App"
+            />
 
-                <div className="form__group">
-                  <label className="form__label"> Key <span className="form__label-required">*</span> <span className="form__label-subtitle"> <FaInfoCircle /> </span>  </label>
-                  <input
-                    className="form__input project-create__input-key"
-                    name="key"
-                    value={state.key}
-                    onChange={handleInput}
-                    placeholder="PROJECT-KEY"
-                    
-                  />
-                  {state.errors.key && (
-                    <p className="form__error">
-                      {state.errors.key}
-                    </p>
-                  )}
-                </div>
-                <div className="form__group">
-                  <label className="form__label">
-                    Description
-                  </label>
+            <p className="form__hint">
+              Use a clear, recognizable name for the workspace.
+            </p>
 
-                  <textarea
-                    className="form__textarea"
-                    value={state.description}
-                    onChange={handleInput}
-                    name="description"
-                    placeholder="What is this project about?"
-                  />
+            {state.errors.name && (
+              <p className="form__error">{state.errors.name}</p>
+            )}
+          </div>
 
-                  {state.errors.description && (
-                    <p className="form__error">
-                      {state.errors.description}
-                    </p>
-                  )}
-                </div>
+          <div className="form__group">
+            <label htmlFor="project-key" className="form__label">
+              Key <span className="form__label-required">*</span>
+            </label>
 
-                <div className="form__actions">
-                  <button
-                    type="submit"
-                    className="btn btn--primary"
-                  >
-                    Create
-                  </button>
-                </div>
-              </form>
-            </section>
+            <div className="project-create__key-field">
+              <input
+                id="project-key"
+                className="form__input project-create__input-key"
+                name="key"
+                value={state.key}
+                onChange={handleInput}
+                placeholder="FLOW"
+              />
+
+              <div className="project-create__key-preview">
+                <span className="project-create__key-preview-label">
+                  Preview
+                </span>
+                <span className="project-create__key-preview-value">
+                  {(state.key || "KEY").toUpperCase()}-1
+                </span>
+              </div>
+            </div>
+
+            <p className="form__hint">
+              Uppercase, short, and unique. Example: FLOW, CRM, MOBILE.
+            </p>
+
+            {state.errors.key && (
+              <p className="form__error">{state.errors.key}</p>
+            )}
+          </div>
+
+          <div className="form__group">
+            <label htmlFor="project-description" className="form__label">
+              Description
+            </label>
+
+            <textarea
+              id="project-description"
+              className="form__textarea"
+              value={state.description}
+              onChange={handleInput}
+              name="description"
+              placeholder="What is this project about?"
+            />
+
+            <p className="form__hint">
+              Add a short summary to help your team understand the purpose of
+              the workspace.
+            </p>
+
+            {state.errors.description && (
+              <p className="form__error">{state.errors.description}</p>
+            )}
+          </div>
+
+          <div className="project-create__actions">
+            <button type="submit" className="btn btn--primary">
+              Create project
+            </button>
+          </div>
+        </form>
       </section>
+    </section>
+
     );
 } 
