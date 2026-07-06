@@ -1,5 +1,5 @@
 /* ============================================
-   UPDATE TASK — FORM ONLY (CLEAN SYSTEM)
+   UPDATE TASK — MODERN ISSUE EDITOR
 ============================================ */
 @use "./../../../../themes/styles/abstracts/queries" as *;
 
@@ -8,52 +8,124 @@
   flex-direction: column;
 
   gap: 1.5rem;
+}
 
-  /* ============================================
-     FORM WRAPPER (NO MODAL RESPONSIBILITY ANYMORE)
-  ============================================ */
+/* ============================================
+   FORM WRAPPER
+============================================ */
 
-  &__form {
-    display: flex;
-    flex-direction: column;
+.update-task__form {
+  display: flex;
+  flex-direction: column;
 
-    gap: 1.5rem;
+  gap: 1.5rem;
+}
+
+/* ============================================
+   SECTIONS (NEW STRUCTURE LAYER)
+============================================ */
+
+.update-task__section {
+  display: flex;
+  flex-direction: column;
+
+  gap: 0.9rem;
+
+  padding-bottom: 1rem;
+
+  border-bottom: 1px solid var(--grey-100);
+
+  &:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+}
+
+/* ============================================
+   GRID SYSTEM (REFINED)
+============================================ */
+
+.update-task__grid {
+  display: grid;
+
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+  gap: 0.9rem;
+
+  @include respond(tab-port) {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================
+   FORM GROUP (LESS HEAVY LOOK)
+============================================ */
+
+.update-task .form__group {
+  display: flex;
+  flex-direction: column;
+
+  gap: 0.35rem;
+}
+
+/* labels */
+.update-task .form__label {
+  font-size: var(--text-sm);
+  font-weight: 600;
+
+  color: var(--text-secondary);
+}
+
+/* inputs */
+.update-task .form__input,
+.update-task .form__textarea {
+  border: 1px solid var(--border-color);
+
+  border-radius: 10px;
+
+  padding: 0.6rem 0.75rem;
+
+  font-size: var(--text-base);
+
+  background: var(--surface);
+
+  color: var(--text-primary);
+
+  transition: all 0.2s ease;
+
+  &:focus {
+    outline: none;
+
+    border-color: var(--primary-300);
+
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.08);
   }
 
-  /* ============================================
-     GRID SYSTEM
-  ============================================ */
-
-  &__grid {
-    display: grid;
-
-    grid-template-columns: repeat(3, 1fr);
-
-    gap: 1rem;
-
-    @include respond(sm) {
-      grid-template-columns: 1fr;
-    }
+  &::placeholder {
+    color: var(--text-muted);
   }
+}
 
-  /* ============================================
-     BODY SECTION GROUPING (OPTIONAL STRUCTURE)
-  ============================================ */
+/* textarea */
+.update-task .form__textarea {
+  min-height: 90px;
+  resize: vertical;
+}
 
-  &__section {
-    display: flex;
-    flex-direction: column;
+/* ============================================
+   SELECT DROPDOWN WRAPPER ALIGNMENT
+============================================ */
 
-    gap: 1.25rem;
-  }
+.update-task .select-dropdown {
+  width: 100%;
+}
 
-  /* ============================================
-     RESPONSIVE GRID SAFETY
-  ============================================ */
+/* ============================================
+   RESPONSIVE SAFETY
+============================================ */
 
-  @include respond(xs) {
-    &__grid {
-      grid-template-columns: 1fr;
-    }
+@include respond(phone) {
+  .update-task__grid {
+    grid-template-columns: 1fr;
   }
 }
