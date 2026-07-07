@@ -26,6 +26,7 @@ import {
 import { ProjectService } from '../service/project.service';
 import { JwtAuthGuard } from 'src/modules/auth/guard/jwt-auth.guard';
 import { Request } from 'express';
+import { DashboardOverviewDto, DashboardViewDtoResponse } from '../dto/dashboard-overview.dto';
 
 @ApiTags('Projects')
 @Controller('projects')
@@ -34,7 +35,7 @@ export class ProjectController {
 
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
-  @Get("/dashboard-over-view")
+  @Get("/dashboard-overview")
   async getDashboardOverView(
       @Req()
       req: Request & { 
@@ -45,10 +46,17 @@ export class ProjectController {
         };
         refresh_token: { token: string } 
       }
-  ){
+  ): Promise<DashboardViewDtoResponse> {
+  
     const { id: userId, isDemo } = req.user;
-    return await this.projectService.getAccessibleProjects(userId);
-
+    const result: DashboardOverviewDto =
+      await this.projectService.geDashboardOverViewDto(userId);
+    return {
+      status: "success",
+      data: {
+        dashboardData: result 
+      }
+    }
   }
 
   @ApiBearerAuth()

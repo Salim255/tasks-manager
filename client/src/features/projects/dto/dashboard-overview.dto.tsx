@@ -1,9 +1,11 @@
-import { ApiResponseData } from "src/common/interfaces/shared.interface";
-import { TaskDto } from "src/modules/task/dto/task.dto";
+import type { Task } from "../../tasks/models/task.model";
 
-export class DashboardViewDtoResponse extends ApiResponseData<{
-  dashboardData: DashboardOverviewDto | null;
-}> {}
+export interface DashboardViewDtoResponseDto {
+    status: string;
+    data: {
+        dashboardData: DashboardOverviewDto
+    }
+}
 
 export interface DashboardOverviewDto {
   projectsOverview: ProjectsOverviewDto;
@@ -64,9 +66,9 @@ export interface AssignedToMeDto {
 }
 
 export interface NeedsAttentionDto {
-  today: TaskDto[];
-  tomorrow: TaskDto[];
-  highPriority: TaskDto[];
+  today: Task[];
+  tomorrow: Task[];
+  highPriority: Task[];
 }
 
 export interface RecentProjectDto {

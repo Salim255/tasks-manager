@@ -6,6 +6,7 @@ import { setSprints } from "../../sprints/states/sprintSlice";
 import { setTasks } from "../../tasks/states/taskSlice";
 import { setMembers } from "../../members/states/memberSlice";
 import { handleHttpError } from "../../../shared/http/handleHttpError";
+import type { DashboardViewDtoResponseDto } from "../dto/dashboard-overview.dto";
 
 // 1 create project 
 export type CreateProjectPayload = {
@@ -27,6 +28,19 @@ export type ProjectsResponseDto = {
         projects: Project[]
     }
 }
+
+export const getDashboardOverviewHttp = createAsyncThunk<
+    DashboardViewDtoResponseDto,
+    void,
+    { rejectValue: ApiErrorDto }
+    > ('fetch/dashboard-overview-data', async (_, thunkApi) => {
+        try {
+            const response = await api.get("projects/dashboard-overview", { withCredentials: true});
+            return response.data;
+        } catch (error) {
+            return thunkApi.rejectWithValue(handleHttpError(error, thunkApi));
+        }
+    })
 
 
 export const fetchSingleProjectHttp = createAsyncThunk<

@@ -18,7 +18,7 @@ import { DtoMapper } from 'src/common/utils/dtoMapper';
 import { TableRelationBuilder } from 'src/common/utils/tableRelationBuilder';
 import { sortByDate } from 'src/common/utils/sort.utils';
 import { Task } from 'src/modules/task/entity/task.entity';
-import { DashboardOverviewDto, NeedsAttentionDto, ProjectsOverviewDto, ProjectSprintOverviewDto, ProjectTasksOverviewDto, TasksOverviewDto } from '../dto/dashboard-overview.dto';
+import { DashboardOverviewDto, NeedsAttentionDto, ProjectsOverviewDto, ProjectSprintOverviewDto, ProjectTasksOverviewDto, RecentProjectDto, TasksOverviewDto } from '../dto/dashboard-overview.dto';
 import { Sprint } from 'src/modules/sprint/entity/sprint.entity';
 import { SprintStatus } from 'src/modules/sprint/dto/sprint.dto';
 import { take } from 'rxjs';
@@ -35,10 +35,10 @@ export class ProjectService {
   ) {}
 
 
-  async getAccessibleProjects(userId: string){
+  async geDashboardOverViewDto(userId: string){
     try {
       
-      const recentProjects = await this.getRecentProjectsMetrics(userId);
+      const recentProjects: RecentProjectDto[]  = await this.getRecentProjectsMetrics(userId);
       
       const projects = await this.projectRepo
         .createQueryBuilder("project")
@@ -105,14 +105,14 @@ export class ProjectService {
 
       const assignedMeDueThisWeekCounter = await this.getAssigneeToMeTasksDueThisWeek(activeSprintsIds);
 
-      const result:DashboardOverviewDto = {
+      const result: DashboardOverviewDto = {
         projectsOverview: projectsOverviewDto,
         assignedToMe: {
           totalAssigned: projectsOverviewDto.tasks.assignedToMeCount,
           dueThisWeek: assignedMeDueThisWeekCounter,
           needsAttention: needsAttentionDto
         },
-        recentProjects: recentProjects as any
+        recentProjects: recentProjects
       }
       return result;
       //return getActiveSprints;
