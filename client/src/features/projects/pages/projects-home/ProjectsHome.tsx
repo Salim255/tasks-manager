@@ -1,15 +1,26 @@
 import { useNavigate } from "react-router-dom";
 import "./_projects-home.scss";
 import { useEffect } from "react";
+import { useDashboardView, useIsFetchingDashboard } from "../../states/projectsSelectors";
+import { useDispatch } from "react-redux";
+import { fetchDashboardOverviewHttp } from "../../http/project.http";
+import type { AppDispatch } from "../../../../redux/store";
 
 export const ProjectsHome = () => {
+    const dispatch = useDispatch<AppDispatch>();
+  const isFetchingDashboard = useIsFetchingDashboard();
+  const dashboardData = useDashboardView();
   const navigate = useNavigate();
   const onCreateProject = () => {
     navigate("/create-project");
   }
   useEffect(() => {
-    console.log("Hello from project");
-  });
+    if(!dashboardData && !isFetchingDashboard) {
+      dispatch(fetchDashboardOverviewHttp());
+    }
+
+    console.log(dashboardData);
+  }, [dispatch,dashboardData,  isFetchingDashboard]);
 
   return (
     <main className="projects-home">
