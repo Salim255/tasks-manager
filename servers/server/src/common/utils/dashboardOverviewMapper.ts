@@ -1,7 +1,54 @@
-import { ProjectSprintOverviewDto } from "src/modules/project/dto/dashboard-overview.dto";
+import { ProjectSprintOverviewDto, ProjectTasksOverviewDto } from "src/modules/project/dto/dashboard-overview.dto";
 import { SprintStatus } from "src/modules/sprint/dto/sprint.dto";
 
 export class DashboardOverviewMapper {
+    static projectTasksOverviewDto(
+        userId: string,
+        tasks: {
+                projectId: string;
+                status: string;
+                count: string;
+                assigneeId: string | null
+            } []
+        ) {
+        return tasks
+            .reduce<ProjectTasksOverviewDto>(
+            (
+                acc: ProjectTasksOverviewDto,
+                task: {
+                    projectId: string;
+                    status: string;
+                    count: string;
+                    assigneeId: string | null;
+                }
+            ) => {
+                const count = Number(task.count);
+                acc.assignedToMeCount += (task.assigneeId === userId ? 1 : 0);
+            
+                acc.total += count;
+    
+                switch(task.status){
+                case 'done':
+                    acc.done += count;
+                    break;
+                case 'in_progress':
+                    acc.inProgress += count;
+                    break;
+                case 'todo':
+                    acc.todo += count;
+                    break;
+                };
+                return acc;
+              }, {
+                total: 0,
+                todo: 0,
+                inProgress: 0,
+                done: 0,
+                assignedToMeCount: 0,
+              }
+            )
+    }
+
     static projectSprintOverviewDto(
         sprints: {
             status: SprintStatus;

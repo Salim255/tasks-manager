@@ -75,43 +75,12 @@ export class ProjectService {
         .addGroupBy("sprint.id")
         .getRawMany()
         
-      const projectTasksOverviewDto: ProjectTasksOverviewDto = tasks.reduce<ProjectTasksOverviewDto>(
-        (
-          acc: ProjectTasksOverviewDto,
-          task: {
-            projectId: string;
-            status: string;
-            count: string;
-            assigneeId: string | null;
-          }) => {
-          const count = Number(task.count);
-          acc.assignedToMeCount += (task.assigneeId === userId ? 1 : 0);
-      
-          acc.total += count;
-
-          switch(task.status){
-            case 'done':
-              acc.done += count;
-              break;
-            case 'in_progress':
-              acc.inProgress += count;
-              break;
-            case 'todo':
-              acc.todo += count;
-              break;
-          };
-          return acc;
-      }, {
-        total: 0,
-        todo: 0,
-        inProgress: 0,
-        done: 0,
-        assignedToMeCount: 0,
-      })
+      const projectTasksOverviewDto: ProjectTasksOverviewDto =
+        DashboardOverviewMapper.projectTasksOverviewDto(userId, tasks);
 
       const projectSprintOverviewDto: ProjectSprintOverviewDto =
         DashboardOverviewMapper.projectSprintOverviewDto(sprints);
-        
+
       const projectsOverviewDto : ProjectsOverviewDto =
         {
           activeProjectsCount,
@@ -130,14 +99,18 @@ export class ProjectService {
 
       // Get tasks the belong to this sprintIds and are assigned to me
       // and are due to tomorrow and today and height   
-      const highPriorityTasks = await this.getAssigneeToMePriorityTasks(activeSprintsIds);
+      const needsAttentionDto: NeedsAttentionDto = await this.getAssigneeToMeTasksNeedsAttentionDto(activeSprintsIds);
 
-
+      const assignedMeCounter = await this.getAssigneeToMeTasksDueThisWeek(activeSprintsIds);
       const result:DashboardOverviewDto = {
         projectsOverview: projectsOverviewDto,
-        tasksOverview: highPriorityTasks,
-        assignedToMe: highPriorityTasks,
-        recentProjects: highPriorityTasks
+        tasksOverview: projectsOverviewDto.tasks,
+        assignedToMe: {
+          totalAssigned: assignedMeCounter,
+          dueThisWeek: 3,
+          needsAttention: needsAttentionDto
+        },
+        recentProjects: projects as any
       }
       return result;
       //return getActiveSprints;
@@ -306,8 +279,28 @@ export class ProjectService {
     }
   }
 
+  async getAssigneeToMeTasksDueThisWeek(activeSprintsIds: string[]): Promise<number>{
+    const now = new Date();
+    const startOfWeek = new Date(now);
+    startOfWeek.setDate(now.getDate() - now.getDay()); // Sunday
 
-  async getAssigneeToMePriorityTasks(activeSprintsIds: string[]){
+    startOfWeek.setHours(0, 0, 0, 0);
+
+    const endOfWeek = new Date(startOfWeek);
+    endOfWeek.setDate(startOfWeek.getDate() + 7);
+
+    const result = await this.data_source.manager
+      .createQueryBuilder(Task, 'task')
+      .select("COUNT(*)", "count")
+      .where("task.sprintId IN (:...ids)", { ids: activeSprintsIds })
+      .andWhere("task.dueAt >= :startOfWeek", { startOfWeek })
+      .andWhere("task.dueAt < :endOfWeek", { endOfWeek })
+      .getRawOne();
+
+    return result ? result.count : 0;
+  }
+
+  async getAssigneeToMeTasksNeedsAttentionDto(activeSprintsIds: string[]){
     const now = new Date();
 
     const todayStart = new Date(

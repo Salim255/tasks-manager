@@ -8,7 +8,7 @@ export interface DashboardOverviewDto {
 }
 
 export interface TasksOverviewDto {
-  totalTasks: number;
+  total: number;
 
   todo: number;
   inProgress: number;
