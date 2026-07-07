@@ -2,7 +2,6 @@ import { TaskDto } from "src/modules/task/dto/task.dto";
 
 export interface DashboardOverviewDto {
   projectsOverview: ProjectsOverviewDto;
-  tasksOverview: TasksOverviewDto;
   assignedToMe: AssignedToMeDto;
   recentProjects: RecentProjectDto[];
 }
@@ -68,12 +67,24 @@ export interface NeedsAttentionDto {
 export interface RecentProjectDto {
   id: string;
   name: string;
+  key: string;
 
+  totalTasks: number;
+  completedTasks: number;
   progressPercentage: number;
 
   sprints: {
-    active: number;
-    planned: number;
-    nearRelease: number;
+    active: {
+       total: number;
+       tasksNumber: number; 
+    };
+    planned: {
+       total: number;
+       tasksNumber: number; 
+    };
+    nearRelease: {
+       total: number;
+       tasksNumber: number; 
+    };
   };
 }

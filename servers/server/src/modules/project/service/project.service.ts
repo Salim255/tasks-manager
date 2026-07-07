@@ -37,7 +37,9 @@ export class ProjectService {
 
   async getAccessibleProjects(userId: string){
     try {
-  
+      
+      const recentProjects = await this.getRecentProjectsMetrics(userId);
+      
       const projects = await this.projectRepo
         .createQueryBuilder("project")
         .leftJoin("project.members", "member")
@@ -101,16 +103,16 @@ export class ProjectService {
       // and are due to tomorrow and today and height   
       const needsAttentionDto: NeedsAttentionDto = await this.getAssigneeToMeTasksNeedsAttentionDto(activeSprintsIds);
 
-      const assignedMeCounter = await this.getAssigneeToMeTasksDueThisWeek(activeSprintsIds);
+      const assignedMeDueThisWeekCounter = await this.getAssigneeToMeTasksDueThisWeek(activeSprintsIds);
+
       const result:DashboardOverviewDto = {
         projectsOverview: projectsOverviewDto,
-        tasksOverview: projectsOverviewDto.tasks,
         assignedToMe: {
-          totalAssigned: assignedMeCounter,
-          dueThisWeek: 3,
+          totalAssigned: projectsOverviewDto.tasks.assignedToMeCount,
+          dueThisWeek: assignedMeDueThisWeekCounter,
           needsAttention: needsAttentionDto
         },
-        recentProjects: projects as any
+        recentProjects: recentProjects as any
       }
       return result;
       //return getActiveSprints;
@@ -279,6 +281,61 @@ export class ProjectService {
     }
   }
 
+  async getRecentProjectsMetrics(userId: string) {
+  return await this.projectRepo
+    .createQueryBuilder("project")
+    .leftJoin("project.members", "member")
+    .leftJoin("project.tasks", "task")
+    .leftJoin("task.sprint", "sprint")
+    .select([
+      "project.id AS id",
+      "project.name AS name",
+      "project.key AS key",
+
+      `COUNT(DISTINCT task.id) AS "totalTasks"`,
+
+      `COUNT(DISTINCT CASE 
+        WHEN task.status = 'done' 
+        THEN task.id 
+      END) AS "completedTasks"`,
+
+      `
+      CASE 
+        WHEN COUNT(DISTINCT task.id) = 0 THEN 0
+        ELSE ROUND(
+          COUNT(DISTINCT CASE WHEN task.status = 'done' THEN task.id END)::decimal
+          /
+          COUNT(DISTINCT task.id)::decimal
+          * 100
+        )
+      END AS "progressPercentage"
+      `,
+
+      `
+      json_build_object(
+        'active', json_build_object(
+          'total', COUNT(DISTINCT CASE WHEN sprint.status = 'active' THEN sprint.id END),
+          'tasksNumber', COUNT(DISTINCT CASE WHEN sprint.status = 'active' THEN task.id END)
+        ),
+
+        'planned', json_build_object(
+          'total', COUNT(DISTINCT CASE WHEN sprint.status = 'planned' THEN sprint.id END),
+          'tasksNumber', COUNT(DISTINCT CASE WHEN sprint.status = 'planned' THEN task.id END)
+        ),
+
+        'completed', json_build_object(
+          'total', COUNT(DISTINCT CASE WHEN sprint.status = 'completed' THEN sprint.id END),
+          'tasksNumber', COUNT(DISTINCT CASE WHEN sprint.status = 'completed' THEN task.id END)
+        )
+      ) AS sprints
+      `
+    ])
+    .where("project.ownerId = :userId", { userId })
+    .orWhere("member.userId = :userId", { userId })
+    .groupBy("project.id")
+    .getRawMany();
+}
+
   async getAssigneeToMeTasksDueThisWeek(activeSprintsIds: string[]): Promise<number>{
     const now = new Date();
     const startOfWeek = new Date(now);
@@ -297,7 +354,7 @@ export class ProjectService {
       .andWhere("task.dueAt < :endOfWeek", { endOfWeek })
       .getRawOne();
 
-    return result ? result.count : 0;
+    return Number(result?.count) ?? 0;
   }
 
   async getAssigneeToMeTasksNeedsAttentionDto(activeSprintsIds: string[]){
