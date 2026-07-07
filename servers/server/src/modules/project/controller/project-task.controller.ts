@@ -76,7 +76,7 @@ export class ProjectTaskController {
     },
   ) {
     const { id: userId } = req.user;
-    const { title, taskType, sprintId, dueAt } = dto;
+    const { title, taskType, sprintId, dueAt, priority } = dto;
 
     if (!userId || !title || !taskType) {
       throw new BadRequestException('Missing required fields');
@@ -85,6 +85,7 @@ export class ProjectTaskController {
       title,
       projectId,
       dueAt: dueAt ?? null,
+      priority: priority ?? undefined,
       sprintId,
       taskType,
       reporterId: userId,

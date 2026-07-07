@@ -18,9 +18,10 @@ import { DtoMapper } from 'src/common/utils/dtoMapper';
 import { TableRelationBuilder } from 'src/common/utils/tableRelationBuilder';
 import { sortByDate } from 'src/common/utils/sort.utils';
 import { Task } from 'src/modules/task/entity/task.entity';
-import { ProjectsOverviewDto, ProjectSprintOverviewDto, ProjectTasksOverviewDto, TasksOverviewDto } from '../dto/dashboard-overview.dto';
+import { DashboardOverviewDto, NeedsAttentionDto, ProjectsOverviewDto, ProjectSprintOverviewDto, ProjectTasksOverviewDto, TasksOverviewDto } from '../dto/dashboard-overview.dto';
 import { Sprint } from 'src/modules/sprint/entity/sprint.entity';
 import { SprintStatus } from 'src/modules/sprint/dto/sprint.dto';
+import { take } from 'rxjs';
 
 @Injectable()
 export class ProjectService {
@@ -159,31 +160,19 @@ export class ProjectService {
 
     // Get tasks the belong to this sprintIds and are assigned to me
     // and are due to tomorrow and today and height   
-    const now = new Date();
-    const today = new Date(
-      now.getFullYear(),
-      now.getMonth(),
-      now.getDate()
-    );
 
-    const tomorrow = new Date(today);
-    tomorrow.setDate(today.getDate() + 1);
+    const highPriorityTasks =
 
-    const highPriority = await this.data_source.manager
-      .createQueryBuilder(Task, "task")
-      .where("task.sprintId IN (:...ids)", { ids: activeSprintsIds })
-      .andWhere("task.status != :status", { status: "done" })
-      /* .andWhere(
-        "(task.priority = :priority OR task.dueAt IN (:...dates))",
-        {
-          priority: "high",
-          dates: [today, tomorrow],
-        }
-      ) */
-      .getMany();
 
-    return highPriority;
+      const result:DashboardOverviewDto = {
+        projectsOverview: projectsOverviewDto,
+        tasksOverview: highPriorityTasks,
+        assignedToMe: highPriorityTasks,
+        recentProjects: highPriorityTasks
+      }
+      return result;
       //return getActiveSprints;
+      //return activeSprintsIds
     } catch (error){
         throw error
     }
@@ -346,5 +335,118 @@ export class ProjectService {
         bio: profile?.bio || '',
       }: null
     }
+  }
+
+
+  async getAssigneeToMePriorityTasks ( activeSprintsIds: string[]){
+    const now = new Date();
+    
+    const todayStart = new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate()
+    );
+
+    const tomorrowStart = new Date(todayStart);
+    tomorrowStart.setDate(todayStart.getDate() + 1);
+
+    const dayAfterTomorrowStart = new Date(tomorrowStart);
+    dayAfterTomorrowStart.setDate(tomorrowStart.getDate() + 1);
+
+    return await this.data_source.manager
+      .createQueryBuilder(Task, "task")
+      .select(`
+        COALESCE(
+          json_agg(
+            json_build_object(
+              'id', task.id,
+              'title', task.title,
+              'taskNumber', task.taskNumber,
+              'status', task.status,
+              'priority', task.priority,
+              'taskType', task.taskType,
+              'dueAt', task.dueAt,
+              'projectId', task.projectId,
+              'sprintId', task.sprintId,
+              'assigneeId', task.assigneeId,
+              'createdAt', task.createdAt,
+              'updatedAt', task."updatedAt"
+            )
+            ORDER BY task."dueAt" ASC
+          ) FILTER (
+            WHERE task."dueAt" >= :todayStart
+              AND task."dueAt" < :tomorrowStart
+          ),
+          '[]'
+        )
+      `, "today")
+      .addSelect(`
+        COALESCE(
+          json_agg(
+            json_build_object(
+              'id', task.id,
+              'title', task.title,
+              'taskNumber', task."taskNumber",
+              'status', task.status,
+              'priority', task.priority,
+              'taskType', task."taskType",
+              'dueAt', task.dueAt,
+              'projectId', task."projectId",
+              'sprintId', task."sprintId",
+              'assigneeId', task."assigneeId",
+              'createdAt', task."createdAt",
+              'updatedAt', task."updatedAt"
+            )
+            ORDER BY task."dueAt" ASC
+          ) FILTER (
+            WHERE task."dueAt" >= :tomorrowStart
+              AND task."dueAt" < :dayAfterTomorrowStart
+          ),
+          '[]'
+        )
+      `, "tomorrow")
+      .addSelect(`
+        COALESCE(
+          json_agg(
+            json_build_object(
+              'id', task.id,
+              'title', task.title,
+              'taskNumber', task."taskNumber",
+              'status', task.status,
+              'priority', task.priority,
+              'taskType', task."taskType",
+              'dueAt', task."dueAt",
+              'projectId', task."projectId",
+              'sprintId', task."sprintId",
+              'assigneeId', task."assigneeId",
+              'createdAt', task."createdAt",
+              'updatedAt', task."updatedAt"
+            )
+            ORDER BY task."dueAt" ASC
+          ) FILTER (
+            WHERE task.priority =:highPriority
+              AND (
+              task."dueAt" IS NULL
+              OR NOT (
+                (task."dueAt" >= :todayStart AND task."dueAt" < :tomorrowStart)
+                OR
+                (task."dueAt" >= :tomorrowStart AND task."dueAt" < :dayAfterTomorrowStart)
+              )
+            )
+          ),
+          '[]'
+        )
+      `, "highPriority")
+      .where("task.sprintId IN (:...ids)", { ids: activeSprintsIds })
+      .andWhere("task.status != :doneStatus", { doneStatus: "done" })
+      // optional if you want only "assigned to me"
+      // .andWhere("task.assigneeId = :userId", { userId })
+      .setParameters({
+        todayStart,
+        tomorrowStart,
+        dayAfterTomorrowStart,
+        highPriority: "high",
+      })
+      .getRawOne();
   }
 }
