@@ -18,7 +18,9 @@ import { DtoMapper } from 'src/common/utils/dtoMapper';
 import { TableRelationBuilder } from 'src/common/utils/tableRelationBuilder';
 import { sortByDate } from 'src/common/utils/sort.utils';
 import { Task } from 'src/modules/task/entity/task.entity';
-import { ProjectsOverviewDto, ProjectTasksOverviewDto } from '../dto/dashboard-overview.dto';
+import { ProjectsOverviewDto, ProjectSprintOverviewDto, ProjectTasksOverviewDto } from '../dto/dashboard-overview.dto';
+import { Sprint } from 'src/modules/sprint/entity/sprint.entity';
+import { SprintStatus } from 'src/modules/sprint/dto/sprint.dto';
 
 @Injectable()
 export class ProjectService {
@@ -57,8 +59,24 @@ export class ProjectService {
         .addGroupBy("task.status")
         .getRawMany()
       
+      const sprints = await this.data_source.manager
+        .createQueryBuilder(Sprint, "sprint")
+        .select("sprint.projectId", "projectId")
+        .addSelect("sprint.status", "status")
+        .addSelect("COUNT(*)", "count")
+        .where("sprint.projectId IN (:...ids)", { ids: projectIds })
+        .groupBy("sprint.projectId")
+        .addGroupBy("sprint.status")
+        .getRawMany()
+        
       const getTaskOverview = tasks.reduce<ProjectTasksOverviewDto>(
-        (acc: ProjectTasksOverviewDto, task: {projectId: string, status: string, count: string}) => {
+        (
+          acc: ProjectTasksOverviewDto,
+          task: {
+            projectId: string;
+            status: string;
+            count: string
+          }) => {
           const count = Number(task.count);
           console.log(count,task.count )
           acc.total += count;
@@ -81,8 +99,43 @@ export class ProjectService {
         inProgress: 0,
         done: 0,
       })
+
+      const getSprintOverview = sprints.reduce<ProjectSprintOverviewDto>(
+        (
+          acc: ProjectSprintOverviewDto,
+          sprint: {
+            status: SprintStatus;
+            projectId: string;
+            count: string
+          }) => {
+          const count = Number(sprint.count);
+          acc.total += count;
+
+          switch(sprint.status){
+            case 'active':
+              acc.active += count;
+              break;
+            case 'completed':
+              acc.completed += count;
+              break;
+            case 'planned':
+              acc.planned += count;
+              break;
+            case 'upcoming':
+              acc.upcoming += count;
+              break;
+          }
+
+          return acc
+      }, {
+        total: 0,
+        active: 0,
+        completed: 0,
+        planned: 0,
+        upcoming: 0
+      }) 
       //const projectsOverviewDto : ProjectsOverviewDto = {activeProjectsCount, tasks: tasks as  ProjectTasksOverviewDto[]  };
-      return getTaskOverview;
+      return getSprintOverview;
     } catch (error){
         throw error
     }

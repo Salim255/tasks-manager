@@ -38,11 +38,15 @@ export interface ProjectTasksOverviewDto {
 }
 
 export interface ProjectSprintOverviewDto {
+  total: number;
+
   active: number;
 
   planned: number;
 
-  nearRelease: number;
+  upcoming: number;
+
+  completed: number;
 }
 
 export interface AssignedToMeDto {
