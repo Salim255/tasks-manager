@@ -1,18 +1,27 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { Project } from "../models/project.model";
-import { fetchProjectsHttp, createProjectHttp, fetchSingleProjectHttp } from "../http/project.http";
+import {
+    fetchProjectsHttp,
+    createProjectHttp,
+    fetchSingleProjectHttp,
+    fetchDashboardOverviewHttp
+} from "../http/project.http";
 import { toast } from "react-toastify";
 import { addMemberHttp } from "../../members/http/member.http";
+import type { DashboardOverviewDto } from "../dto/dashboard-overview.dto";
 
 type InitialState = {
     projects: Project[];
+    dashboardView?: DashboardOverviewDto;
     activeProjectId?: string;
     activeProject?: Project;
+
     isLoading: boolean;
     isCreating: boolean;
     isAddMember: boolean;
     isLoadingMember: boolean;
     isFetchingProject: boolean;
+    isFetchingDashboard: boolean;
 }
 
 export type CreateProjectPayload = {
@@ -28,6 +37,7 @@ const initialState: InitialState = {
     isAddMember: false,
     isLoadingMember: false,
     isFetchingProject: false,
+    isFetchingDashboard: false
 }
 
 const projectSlice = createSlice({
@@ -35,6 +45,17 @@ const projectSlice = createSlice({
     initialState,
     extraReducers: (builder) => {
         builder
+        .addCase(fetchDashboardOverviewHttp.pending, (state) =>{
+            state.isFetchingDashboard = true
+        })
+        .addCase(fetchDashboardOverviewHttp.fulfilled, (state, action) => {
+            state.dashboardView = action.payload.data.dashboardData;
+            state.isFetchingDashboard = false;
+        })
+        .addCase(fetchDashboardOverviewHttp.rejected, (state) => {
+            state.isFetchingDashboard = false;
+        })
+
         .addCase(fetchSingleProjectHttp.pending, (state) => {
             state.isFetchingProject = true;
         })

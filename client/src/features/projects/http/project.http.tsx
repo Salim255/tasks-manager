@@ -29,7 +29,7 @@ export type ProjectsResponseDto = {
     }
 }
 
-export const getDashboardOverviewHttp = createAsyncThunk<
+export const fetchDashboardOverviewHttp = createAsyncThunk<
     DashboardViewDtoResponseDto,
     void,
     { rejectValue: ApiErrorDto }
@@ -40,8 +40,7 @@ export const getDashboardOverviewHttp = createAsyncThunk<
         } catch (error) {
             return thunkApi.rejectWithValue(handleHttpError(error, thunkApi));
         }
-    })
-
+    });
 
 export const fetchSingleProjectHttp = createAsyncThunk<
     ProjectResponseDto,

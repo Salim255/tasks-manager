@@ -1,11 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import "./_projects-home.scss";
+import { useEffect } from "react";
 
 export const ProjectsHome = () => {
   const navigate = useNavigate();
   const onCreateProject = () => {
     navigate("/create-project");
   }
+  useEffect(() => {
+    console.log("Hello from project");
+  });
 
   return (
     <main className="projects-home">
