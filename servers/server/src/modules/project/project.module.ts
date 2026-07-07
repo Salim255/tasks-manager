@@ -8,9 +8,15 @@ import { TaskModule } from '../task/task.module';
 import { SprintModule } from '../sprint/sprint.module';
 import { ProjectTaskController } from './controller/project-task.controller';
 import { ProjectSprintController } from './controller/project-sprint.controller';
+;
 
 @Module({
-  imports: [SprintModule, TaskModule, AuthModule, DatabaseModule],
+  imports: [
+    SprintModule,
+    TaskModule,
+    AuthModule,
+    DatabaseModule,
+  ],
   providers: [ProjectService, ProjectRepository],
   controllers: [ProjectController, ProjectTaskController, ProjectSprintController],
 })

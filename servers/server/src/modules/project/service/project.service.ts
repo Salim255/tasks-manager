@@ -4,24 +4,89 @@ import {
   InternalServerErrorException,
   Logger,
 } from '@nestjs/common';
-import { PROJECT_REPOSITORY } from 'src/common/constants/constants';
-import { FindOptionsRelations, FindOptionsWhere, Repository } from 'typeorm';
+import { DATA_SOURCE, PROJECT_REPOSITORY } from 'src/common/constants/constants';
+import {
+  DataSource,
+  FindOptionsRelations,
+  FindOptionsWhere,
+  Repository,
+} from 'typeorm';
 import { Project } from '../entity/project.entity';
-import { CreateProjectDto, ProjectDto, ProjectOwnerDto } from '../dto/project.dto';
+import { CreateProjectDto, ProjectDto, ProjectOwnerDto, ProjectStatus } from '../dto/project.dto';
 import { User } from 'src/modules/user/entity/user.entity';
 import { DtoMapper } from 'src/common/utils/dtoMapper';
 import { TableRelationBuilder } from 'src/common/utils/tableRelationBuilder';
 import { sortByDate } from 'src/common/utils/sort.utils';
-import { TaskDto } from 'src/modules/task/dto/task.dto';
+import { Task } from 'src/modules/task/entity/task.entity';
+import { ProjectsOverviewDto, ProjectTasksOverviewDto } from '../dto/dashboard-overview.dto';
 
 @Injectable()
 export class ProjectService {
   private logger = new Logger(ProjectService.name);
 
   constructor(
+    @Inject(DATA_SOURCE)
+    private data_source: DataSource,
     @Inject(PROJECT_REPOSITORY) private projectRepo: Repository<Project>,
   ) {}
 
+
+  async getAccessibleProjects(userId: string){
+    try {
+  
+      const projects = await this.projectRepo
+        .createQueryBuilder("project")
+        .leftJoin("project.members", "member")
+        .where("project.ownerId=:ownerId", { ownerId: userId })
+        .orWhere("member.userId =:userId", { userId })
+        .getMany();
+      
+      // 2. Extract IDs
+      const projectIds = projects.map(p => p.id);
+
+      // 3. Calculate project metrics
+      const activeProjectsCount = projects?.filter(pr=> pr.status === ProjectStatus.ACTIVE)?.length ?? 0;
+     
+      const tasks =  await this.data_source.manager
+        .createQueryBuilder(Task, 'task')
+        .select("task.projectId", "projectId")
+        .addSelect("task.status", "status")
+        .addSelect("COUNT(*)", "count")
+        .where("task.projectId IN (:...ids)", { ids: projectIds })
+        .groupBy("task.projectId")
+        .addGroupBy("task.status")
+        .getRawMany()
+      
+      const getTaskOverview = tasks.reduce<ProjectTasksOverviewDto>(
+        (acc: ProjectTasksOverviewDto, task: {projectId: string, status: string, count: string}) => {
+          const count = Number(task.count);
+          console.log(count,task.count )
+          acc.total += count;
+
+          switch(task.status){
+            case 'done':
+              acc.done += count;
+              break;
+            case 'in_progress':
+              acc.inProgress += count;
+              break;
+            case 'todo':
+              acc.todo += count;
+              break;
+          };
+          return acc;
+      }, {
+        total: 0,
+        todo: 0,
+        inProgress: 0,
+        done: 0,
+      })
+      //const projectsOverviewDto : ProjectsOverviewDto = {activeProjectsCount, tasks: tasks as  ProjectTasksOverviewDto[]  };
+      return getTaskOverview;
+    } catch (error){
+        throw error
+    }
+  }
 
   async getProjectById({
     projectId,

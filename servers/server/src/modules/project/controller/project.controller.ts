@@ -32,7 +32,25 @@ import { Request } from 'express';
 export class ProjectController {
   constructor(private projectService: ProjectService) {}
 
-  
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  @Get("/dashboard-over-view")
+  async getDashboardOverView(
+      @Req()
+      req: Request & { 
+        user: { 
+          id: string, 
+          demoClientId: string | null, 
+          isDemo: boolean | null 
+        };
+        refresh_token: { token: string } 
+      }
+  ){
+    const { id: userId, isDemo } = req.user;
+    return await this.projectService.getAccessibleProjects(userId);
+
+  }
+
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Get(':projectId')
