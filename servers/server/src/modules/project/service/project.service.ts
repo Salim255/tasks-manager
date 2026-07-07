@@ -22,6 +22,7 @@ import { DashboardOverviewDto, NeedsAttentionDto, ProjectsOverviewDto, ProjectSp
 import { Sprint } from 'src/modules/sprint/entity/sprint.entity';
 import { SprintStatus } from 'src/modules/sprint/dto/sprint.dto';
 import { take } from 'rxjs';
+import { DashboardOverviewMapper } from 'src/common/utils/dashboardOverviewMapper';
 
 @Injectable()
 export class ProjectService {
@@ -74,7 +75,7 @@ export class ProjectService {
         .addGroupBy("sprint.id")
         .getRawMany()
         
-      const getTaskOverview = tasks.reduce<ProjectTasksOverviewDto>(
+      const projectTasksOverviewDto: ProjectTasksOverviewDto = tasks.reduce<ProjectTasksOverviewDto>(
         (
           acc: ProjectTasksOverviewDto,
           task: {
@@ -108,46 +109,15 @@ export class ProjectService {
         assignedToMeCount: 0,
       })
 
-      const getSprintOverview = sprints.reduce<ProjectSprintOverviewDto>(
-        (
-          acc: ProjectSprintOverviewDto,
-          sprint: {
-            status: SprintStatus;
-            projectId: string;
-            count: string
-          }) => {
-          const count = Number(sprint.count);
-          acc.total += count;
-
-          switch(sprint.status){
-            case 'active':
-              acc.active += count;
-              break;
-            case 'completed':
-              acc.completed += count;
-              break;
-            case 'planned':
-              acc.planned += count;
-              break;
-            case 'upcoming':
-              acc.upcoming += count;
-              break;
-          }
-
-          return acc;
-      }, {
-        total: 0,
-        active: 0,
-        completed: 0,
-        planned: 0,
-        upcoming: 0
-      }) 
+      const projectSprintOverviewDto: ProjectSprintOverviewDto =
+        DashboardOverviewMapper.projectSprintOverviewDto(sprints);
+        
       const projectsOverviewDto : ProjectsOverviewDto =
         {
           activeProjectsCount,
           lastUpdatedProjectsCount: activeProjectsCount,
-          tasks: getTaskOverview,
-          sprints: getSprintOverview
+          tasks: projectTasksOverviewDto,
+          sprints: projectSprintOverviewDto
         };
 
       
@@ -156,12 +126,11 @@ export class ProjectService {
       //return projectsOverviewDto;
       //return getTaskOverview;
     
-    const activeSprintsIds = getActiveSprints.map(activeSprint => activeSprint.sprintId);
+      const activeSprintsIds = getActiveSprints.map(activeSprint => activeSprint.sprintId);
 
-    // Get tasks the belong to this sprintIds and are assigned to me
-    // and are due to tomorrow and today and height   
-
-    const highPriorityTasks =
+      // Get tasks the belong to this sprintIds and are assigned to me
+      // and are due to tomorrow and today and height   
+      const highPriorityTasks = await this.getAssigneeToMePriorityTasks(activeSprintsIds);
 
 
       const result:DashboardOverviewDto = {
@@ -338,9 +307,9 @@ export class ProjectService {
   }
 
 
-  async getAssigneeToMePriorityTasks ( activeSprintsIds: string[]){
+  async getAssigneeToMePriorityTasks(activeSprintsIds: string[]){
     const now = new Date();
-    
+
     const todayStart = new Date(
       now.getFullYear(),
       now.getMonth(),

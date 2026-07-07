@@ -7,7 +7,6 @@ import { Task } from "src/modules/task/entity/task.entity";
 import { User } from "src/modules/user/entity/user.entity";
 
 export class DtoMapper {
-
     static projectTaskMapper = (task: Task): TaskDto => {
         return {
             id: task.id,
