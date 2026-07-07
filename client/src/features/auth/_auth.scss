@@ -1,72 +1,155 @@
-/* ============================================
-   AUTH PAGE
-============================================ */
-
 .app-auth {
+  position: relative;
+
   min-height: 100vh;
-  
+
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
 
-  padding: var(--space-6);
+  padding: 2.4rem 3rem;
 
-  background: var(--backgroundColor);
+  background-color: var(--backgroundColor);
 
-  position: relative;
   overflow: hidden;
+
+
+
+  &__background {
+    position: absolute;
+    inset: 0;
+
+    background:
+      radial-gradient(
+        circle at 20% 10%,
+        rgba(59,130,246,.12),
+        transparent 35%
+      ),
+      radial-gradient(
+        circle at 80% 90%,
+        rgba(47,158,115,.08),
+        transparent 30%
+      );
+  }
+
+
 
   &__back {
     position: absolute;
 
-    top: 2rem;
-    left: 2rem;
+    top: 2.4rem;
+    left: 2.4rem;
 
-    display: flex;
+    display: inline-flex;
     align-items: center;
+    gap: .8rem;
 
-    font-size: 3rem;
+    padding: .8rem 1.2rem;
 
-    color: var(--grey-600);
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+
+    background: transparent;
+
+    color: var(--text-secondary);
+
+    font-size: var(--text-sm);
+    font-weight: 700;
 
     cursor: pointer;
 
-    transition:
+    transition: 
       color .2s ease,
+      border-color .2s ease,
       transform .2s ease;
 
-    &:hover {
-      color: var(--primary-400);
 
+    svg {
+      font-size: 1.8rem;
+    }
+
+
+    &:hover {
+      color: var(--primary-600);
+      border-color: var(--primary-300);
       transform: translateX(-3px);
     }
   }
- 
-  &__header {
-    margin-bottom: var(--space-8);
 
-    text-align: center;
+
+
+  &__content {
+    position: relative;
+
+    width: min(100%, 50rem);
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
   }
 
 
+
+  &__header {
+    text-align: center;
+
+    margin-bottom: 3.6rem;
+  }
+
+
+
   &__logo {
-    font-size: clamp(2rem, 6vw, 3.5rem);
-    letter-spacing: -0.08em;
+    margin: 0;
+
+    font-size: 3rem;
+
+    font-weight: 900;
 
     line-height: 1;
 
-    background: linear-gradient(
+    letter-spacing: -0.05em;
+
+
+    background:
+      linear-gradient(
         135deg,
         var(--primary-400),
-        var(--primary-600),
-        var(--primary-800)
-    );
+        var(--primary-700)
+      );
 
     background-clip: text;
     -webkit-background-clip: text;
 
     color: transparent;
-    -webkit-text-fill-color: transparent;
+  }
+
+
+
+  &__subtitle {
+    margin: 1.4rem 0 0;
+
+    color: var(--text-secondary);
+
+    font-size: var(--text-base);
+
+    line-height: 1.6;
+  }
+
+
+
+  @media(max-width:768px) {
+
+    padding:1.6rem;
+
+
+    &__back {
+      top:1.6rem;
+      left:1.6rem;
+
+      span {
+        display:none;
+      }
+    }
   }
 }

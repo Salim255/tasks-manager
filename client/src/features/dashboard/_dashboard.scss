@@ -5,12 +5,16 @@
   --dashboard-shell-padding: 1.6rem;
   --dashboard-content-padding: 2.4rem;
   --dashboard-navbar-height: 7.2rem;
-
+ 
   display: grid;
   grid-template-columns: 0 minmax(0, 1fr);
 
   width: 100%;
-  min-height: 100dvh;
+
+
+  height: 100dvh;
+  overflow: hidden;
+
   background-color: var(--backgroundColor);
   color: var(--text-primary);
 

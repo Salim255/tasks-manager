@@ -6,6 +6,20 @@ import { useDispatch } from "react-redux";
 import { fetchDashboardOverviewHttp } from "../../http/project.http";
 import type { AppDispatch } from "../../../../redux/store";
 
+export function stringToColor(value: string): string {
+  let hash = 0;
+
+  for (let i = 0; i < value.length; i++) {
+    hash = value.charCodeAt(i) + ((hash << 5) - hash);
+  }
+
+  const hue = Math.abs(hash) % 360;
+  const saturation = 55 + (Math.abs(hash >> 8) % 25); // 55-80%
+  const lightness = 40 + (Math.abs(hash >> 16) % 20); // 40-60%
+
+  return `hsla(${hue}, ${saturation}%, ${lightness}%, 0.14)`;
+}
+
 export const ProjectsHome = () => {
     const dispatch = useDispatch<AppDispatch>();
   const isFetchingDashboard = useIsFetchingDashboard();
@@ -22,6 +36,7 @@ export const ProjectsHome = () => {
     console.log(dashboardData);
   }, [dispatch,dashboardData,  isFetchingDashboard]);
 
+  
   return (
     <main className="projects-home">
       <section className="projects-home__hero">
@@ -49,20 +64,20 @@ export const ProjectsHome = () => {
         <div className="projects-home__hero-stats">
           <article className="projects-home__stat-card">
             <span className="projects-home__stat-label">Active projects</span>
-            <strong className="projects-home__stat-value">08</strong>
-            <span className="projects-home__stat-meta">2 updated today</span>
+            <strong className="projects-home__stat-value"> { dashboardData? dashboardData?.projectsOverview?.activeProjectsCount : '08' }</strong>
+            <span className="projects-home__stat-meta">  { dashboardData? dashboardData?.projectsOverview?.activeProjectsCount : '08' } updated today</span>
           </article>
 
           <article className="projects-home__stat-card">
             <span className="projects-home__stat-label">Current sprint</span>
-            <strong className="projects-home__stat-value">24 tasks</strong>
-            <span className="projects-home__stat-meta">6 in progress · 12 done</span>
+            <strong className="projects-home__stat-value">{ dashboardData? dashboardData?.projectsOverview?.tasks?.total : '08' } tasks</strong>
+            <span className="projects-home__stat-meta"> { dashboardData? dashboardData?.projectsOverview?.tasks?.inProgress : '08' } in progress · { dashboardData? dashboardData?.projectsOverview?.tasks?.done : '08' } done · { dashboardData? dashboardData?.projectsOverview?.tasks?.todo : '08' } todo</span>
           </article>
 
           <article className="projects-home__stat-card">
             <span className="projects-home__stat-label">Assigned to me</span>
-            <strong className="projects-home__stat-value">11</strong>
-            <span className="projects-home__stat-meta">3 due this week</span>
+            <strong className="projects-home__stat-value">{ dashboardData? dashboardData?.assignedToMe?.totalAssigned : '00' }</strong>
+            <span className="projects-home__stat-meta"> { dashboardData? dashboardData?.assignedToMe.dueThisWeek : '00' } due this week</span>
           </article>
         </div>
       </section>
@@ -81,90 +96,36 @@ export const ProjectsHome = () => {
             </div>
 
             <div className="projects-home__projects-list">
-              <article className="projects-home__project-card">
-                <div className="projects-home__project-top">
-                  <div className="projects-home__project-badge">WB</div>
-                  <div>
-                    <h3 className="projects-home__project-title">Website rebuild</h3>
-                    <p className="projects-home__project-key">WB · Product design</p>
-                  </div>
-                </div>
+              {
+                dashboardData?.recentProjects.map((p) => {
+                  return <article className="projects-home__project-card">
+                    <div key={p.id} className="projects-home__project-top">
+                      <div className="projects-home__project-badge"   style={{ backgroundColor: stringToColor(p.key) }}>{p.key.slice(0,2)}</div>
+                      <div>
+                        <h3 className="projects-home__project-title">{ p.name }</h3>
+                        <p className="projects-home__project-key">{p.key}</p>
+                      </div>
+                    </div>
 
-                <div className="projects-home__project-progress">
-                  <div className="projects-home__progress-row">
-                    <span>Progress</span>
-                    <span>68%</span>
-                  </div>
-                  <div className="projects-home__progress-bar">
-                    <span style={{ width: "68%" }} />
-                  </div>
-                </div>
+                    <div className="projects-home__project-progress">
+                      <div className="projects-home__progress-row">
+                        <span>Progress</span>
+                        <span>{p.progressPercentage}%</span>
+                      </div>
+                      <div className="projects-home__progress-bar">
+                        <span style={{ width: `${p.progressPercentage}%` }} />
+                      </div>
+                    </div>
 
-                <div className="projects-home__project-footer">
-                  <span className="projects-home__status projects-home__status--progress">
-                    Sprint active
-                  </span>
-                  <span className="projects-home__project-meta">12 tasks</span>
-                </div>
-              </article>
-
-              <article className="projects-home__project-card">
-                <div className="projects-home__project-top">
-                  <div className="projects-home__project-badge projects-home__project-badge--green">
-                    AP
-                  </div>
-                  <div>
-                    <h3 className="projects-home__project-title">Admin portal</h3>
-                    <p className="projects-home__project-key">AP · Internal tools</p>
-                  </div>
-                </div>
-
-                <div className="projects-home__project-progress">
-                  <div className="projects-home__progress-row">
-                    <span>Progress</span>
-                    <span>42%</span>
-                  </div>
-                  <div className="projects-home__progress-bar">
-                    <span style={{ width: "42%" }} />
-                  </div>
-                </div>
-
-                <div className="projects-home__project-footer">
-                  <span className="projects-home__status projects-home__status--todo">
-                    Planning
-                  </span>
-                  <span className="projects-home__project-meta">8 tasks</span>
-                </div>
-              </article>
-
-              <article className="projects-home__project-card">
-                <div className="projects-home__project-top">
-                  <div className="projects-home__project-badge projects-home__project-badge--orange">
-                    MB
-                  </div>
-                  <div>
-                    <h3 className="projects-home__project-title">Mobile backlog</h3>
-                    <p className="projects-home__project-key">MB · Feature stream</p>
-                  </div>
-                </div>
-
-                <div className="projects-home__project-progress">
-                  <div className="projects-home__progress-row">
-                    <span>Progress</span>
-                    <span>87%</span>
-                  </div>
-                  <div className="projects-home__progress-bar">
-                    <span style={{ width: "87%" }} />
-                  </div>
-                </div>
-
-                <div className="projects-home__project-footer">
-                  <span className="projects-home__status projects-home__status--done">
-                    Near release
-                  </span>
-                  <span className="projects-home__project-meta">5 tasks</span>
-                </div>
-              </article>
+                    <div className="projects-home__project-footer">
+                      <span className="projects-home__status projects-home__status--progress">
+                        Sprint active
+                      </span>
+                      <span className="projects-home__project-meta">{ p.sprints.active.total } sprints</span>
+                    </div>
+                  </article>
+                })
+              }
             </div>
           </section>
 
