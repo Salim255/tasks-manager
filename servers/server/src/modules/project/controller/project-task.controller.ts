@@ -76,7 +76,7 @@ export class ProjectTaskController {
     },
   ) {
     const { id: userId } = req.user;
-    const { title, taskType, sprintId } = dto;
+    const { title, taskType, sprintId, dueAt } = dto;
 
     if (!userId || !title || !taskType) {
       throw new BadRequestException('Missing required fields');
@@ -84,6 +84,7 @@ export class ProjectTaskController {
     const task: Task = await this.taskService.createTask({
       title,
       projectId,
+      dueAt: dueAt ?? null,
       sprintId,
       taskType,
       reporterId: userId,

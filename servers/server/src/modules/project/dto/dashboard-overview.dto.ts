@@ -35,6 +35,8 @@ export interface ProjectTasksOverviewDto {
   inProgress: number;
 
   done: number;
+
+  assignedToMeCount: number;
 }
 
 export interface ProjectSprintOverviewDto {
@@ -56,6 +58,7 @@ export interface AssignedToMeDto {
 
   needsAttention: NeedsAttentionDto;
 }
+
 export interface NeedsAttentionDto {
   today: TaskDto[];
   tomorrow: TaskDto[];

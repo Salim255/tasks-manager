@@ -8,7 +8,7 @@ import {
 import { DATA_SOURCE, TASK_REPOSITORY } from 'src/common/constants/constants';
 import { DataSource, Repository } from 'typeorm';
 import { Task } from '../entity/task.entity';
-import { TaskType, UpdateTaskDto } from '../dto/task.dto';
+import { CreateTaskDto, TaskType, UpdateTaskDto } from '../dto/task.dto';
 import { quoteIfNeeded } from 'src/common/utils/utils';
 import { Project } from 'src/modules/project/entity/project.entity';
 import { Sprint } from 'src/modules/sprint/entity/sprint.entity';
@@ -101,14 +101,7 @@ export class TaskService {
       throw error;
     }
   }
-  async createTask(payload: {
-    reporterId: string;
-    title: string;
-    projectId: string;
-    sprintId?: string;
-    assigneeId?: string;
-    taskType: TaskType;
-  }): Promise<Task> {
+  async createTask(payload: CreateTaskDto): Promise<Task> {
     try {
       console.log(payload, "Hello from create task")
       return await this.dataSource.manager.transaction(async(transactionEntityManger) => {
@@ -169,6 +162,7 @@ export class TaskService {
           taskNumber: nextTaskNumber-1,
           issueKey: `${projectKey}-${nextTaskNumber-1}`,
         ...(payload.taskType ? { taskType: payload?.taskType} :  { }),
+        ...(payload.dueAt ? { dueAt: payload?.dueAt } :  { }),
   
         })
 

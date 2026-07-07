@@ -246,7 +246,7 @@ export class CreateTaskDto {
   @ApiPropertyOptional()
   @IsString()
   @IsOptional()
-  dueAt?: string;
+  dueAt!: string | null;
 }
 
 export class CreateTaskResponseDto {

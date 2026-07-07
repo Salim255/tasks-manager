@@ -50,13 +50,13 @@ export class ProjectDto {
   status!: string;
 
   @ApiProperty({ type: () => [TaskDto] })
-  tasks?: TaskDto[];
+  tasks!: TaskDto[];
 
   @ApiProperty({ type: () => [SprintDto] })
-  sprints?: SprintDto[];
+  sprints!: SprintDto[];
 
   @ApiProperty({ type: () => [ProjectMemberDto] })
-  members?: ProjectMemberDto[];
+  members!: ProjectMemberDto[];
 
   @ApiProperty({ type: () => Profile })
   reporter?: Profile;

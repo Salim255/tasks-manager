@@ -18,7 +18,7 @@ import { DtoMapper } from 'src/common/utils/dtoMapper';
 import { TableRelationBuilder } from 'src/common/utils/tableRelationBuilder';
 import { sortByDate } from 'src/common/utils/sort.utils';
 import { Task } from 'src/modules/task/entity/task.entity';
-import { ProjectsOverviewDto, ProjectSprintOverviewDto, ProjectTasksOverviewDto } from '../dto/dashboard-overview.dto';
+import { ProjectsOverviewDto, ProjectSprintOverviewDto, ProjectTasksOverviewDto, TasksOverviewDto } from '../dto/dashboard-overview.dto';
 import { Sprint } from 'src/modules/sprint/entity/sprint.entity';
 import { SprintStatus } from 'src/modules/sprint/dto/sprint.dto';
 
@@ -53,20 +53,24 @@ export class ProjectService {
         .createQueryBuilder(Task, 'task')
         .select("task.projectId", "projectId")
         .addSelect("task.status", "status")
+        .addSelect("task.assigneeId", "assigneeId")
         .addSelect("COUNT(*)", "count")
         .where("task.projectId IN (:...ids)", { ids: projectIds })
         .groupBy("task.projectId")
         .addGroupBy("task.status")
+        .addGroupBy("task.assigneeId")
         .getRawMany()
       
       const sprints = await this.data_source.manager
         .createQueryBuilder(Sprint, "sprint")
         .select("sprint.projectId", "projectId")
         .addSelect("sprint.status", "status")
+        .addSelect("sprint.id", "sprintId")
         .addSelect("COUNT(*)", "count")
         .where("sprint.projectId IN (:...ids)", { ids: projectIds })
         .groupBy("sprint.projectId")
         .addGroupBy("sprint.status")
+        .addGroupBy("sprint.id")
         .getRawMany()
         
       const getTaskOverview = tasks.reduce<ProjectTasksOverviewDto>(
@@ -75,10 +79,12 @@ export class ProjectService {
           task: {
             projectId: string;
             status: string;
-            count: string
+            count: string;
+            assigneeId: string | null;
           }) => {
           const count = Number(task.count);
-          console.log(count,task.count )
+          acc.assignedToMeCount += (task.assigneeId === userId ? 1 : 0);
+      
           acc.total += count;
 
           switch(task.status){
@@ -98,6 +104,7 @@ export class ProjectService {
         todo: 0,
         inProgress: 0,
         done: 0,
+        assignedToMeCount: 0,
       })
 
       const getSprintOverview = sprints.reduce<ProjectSprintOverviewDto>(
@@ -126,7 +133,7 @@ export class ProjectService {
               break;
           }
 
-          return acc
+          return acc;
       }, {
         total: 0,
         active: 0,
@@ -134,8 +141,49 @@ export class ProjectService {
         planned: 0,
         upcoming: 0
       }) 
-      //const projectsOverviewDto : ProjectsOverviewDto = {activeProjectsCount, tasks: tasks as  ProjectTasksOverviewDto[]  };
-      return getSprintOverview;
+      const projectsOverviewDto : ProjectsOverviewDto =
+        {
+          activeProjectsCount,
+          lastUpdatedProjectsCount: activeProjectsCount,
+          tasks: getTaskOverview,
+          sprints: getSprintOverview
+        };
+
+      
+      const getActiveSprints =  sprints.filter(sp => sp.status === "active")
+      //const tasksOverviewDto: TasksOverviewDto =  {}
+      //return projectsOverviewDto;
+      //return getTaskOverview;
+    
+    const activeSprintsIds = getActiveSprints.map(activeSprint => activeSprint.sprintId);
+
+    // Get tasks the belong to this sprintIds and are assigned to me
+    // and are due to tomorrow and today and height   
+    const now = new Date();
+    const today = new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate()
+    );
+
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+
+    const highPriority = await this.data_source.manager
+      .createQueryBuilder(Task, "task")
+      .where("task.sprintId IN (:...ids)", { ids: activeSprintsIds })
+      .andWhere("task.status != :status", { status: "done" })
+      /* .andWhere(
+        "(task.priority = :priority OR task.dueAt IN (:...dates))",
+        {
+          priority: "high",
+          dates: [today, tomorrow],
+        }
+      ) */
+      .getMany();
+
+    return highPriority;
+      //return getActiveSprints;
     } catch (error){
         throw error
     }
@@ -241,13 +289,12 @@ export class ProjectService {
         relations: projectRelations,
       });
 
-      const response = projects.map(project => ({
+      const response = projects?.map(project => ({
         ...project,
-        owner: this.projectOwnerMapper(project.owner),
-        tasks: sortByDate(project?.tasks?.map(task => DtoMapper.projectTaskMapper(task))),
-        sprints: sortByDate(project?.sprints?.map(sprint => DtoMapper.projectSprintMapper(sprint))),
-        members:  project?.members?.map(member => DtoMapper.projectMemberMapper(member),
-        ),
+        owner: project.owner ? this.projectOwnerMapper(project.owner): null,
+        tasks: project?.tasks ? sortByDate(project?.tasks?.map(task => DtoMapper.projectTaskMapper(task))): [],
+        sprints: project?.sprints ? sortByDate(project?.sprints?.map(sprint => DtoMapper.projectSprintMapper(sprint))): [],
+        members: project?.members ? project?.members?.map(member => DtoMapper.projectMemberMapper(member)): [],
       }));
 
       return response;
