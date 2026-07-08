@@ -7,7 +7,7 @@ import { IoMdOptions } from "react-icons/io";
 import { AddMemberForm } from "../../../members/components/add-member-form/AddMemberForm";
 
 export const ProjectNavbar = () => {
-  const { activeProject, isFetchingProject } = useSelector(
+  const { activeProject  } = useSelector(
     (store: RootState) => store.projectReducer
   );
 
@@ -19,7 +19,7 @@ export const ProjectNavbar = () => {
       <div className="project-header__top">
         <div className="project-header__identity">
           <span className="project-header__eyebrow">
-            {isFetchingProject ? "Loading project..." : projectKey || "Project"}
+            { projectKey }
           </span>
 
           <div className="project-header__title-row">

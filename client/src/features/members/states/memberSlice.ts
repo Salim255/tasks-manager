@@ -2,6 +2,7 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { Member } from "../models/member.model";
 
 
+
 type InitialState = {
     members: Member[];
     isLoading: boolean;

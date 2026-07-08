@@ -1,8 +1,9 @@
+import type { TaskPriority } from "../../../features/tasks/dto/task-dto";
 import "./_priority.scss";
-import type { TaskPriority } from "../../../features/tasks/models/task.model";
+
 
 interface PriorityProps {
-  priority: TaskPriority;
+  priority: TaskPriority | null;
 }
 
 const priorityLabel: Record<TaskPriority, string> = {
@@ -11,7 +12,7 @@ const priorityLabel: Record<TaskPriority, string> = {
   high: "high",
 };
 
-export const Priority = ({ priority }: PriorityProps) => {
+export const Priority = ({ priority }: PriorityProps ) => {
   const safePriority: TaskPriority = priority || "low";
   return (
     <span className={`priority priority--${safePriority}`}>

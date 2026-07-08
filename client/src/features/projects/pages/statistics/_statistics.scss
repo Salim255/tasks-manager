@@ -1,3 +1,5 @@
+@use "../../../../themes/styles/abstracts/queries" as *;
+
 .statistics {
     display: flex;
     justify-content: center;
@@ -6,5 +8,15 @@
     &__work-status,
     &__work-types {
      flex: 1;
+    }
+}
+
+ 
+@include respond("tab-land") {
+    .statistics{
+        flex-direction: column;
+        //height: 100dvh;
+        overflow-y: auto;
+        //padding-top: 20rem;
     }
 }

@@ -1,25 +1,29 @@
 import "./_add-member-form.scss";
 import { BsPersonAdd } from "react-icons/bs";
-import { useSelectProjects } from "../../../projects/states/projectsSelectors";
-import { useEffect, type ChangeEvent } from "react";
+import { useIsAddMember } from "../../../projects/states/projectsSelectors";
+import { useEffect, useRef, type ChangeEvent } from "react";
 import { useDispatch } from "react-redux";
 import { type AppDispatch } from "../../../../redux/store";
-import { ModalOverlay } from "../../../../shared/components/modal-overlay/ModalOverlay";
 import { onAddMemberModal } from "../../../projects/states/projectSlice";
-import { IoMdClose } from "react-icons/io";
 import { useMemberForm } from "../../form-builder/memberFormBuilder";
 import { addMemberHttp, type CreateMemberPayload } from "../../http/member.http";
 import { validateMemberForm } from "../../../../shared/utils/forms-validator";
+import { EntityModal } from "../../../../shared/modals/entity-modal/EntityModal";
 
 export const AddMemberForm = ({ projectId }:{ projectId: string }) => {
+    const formRef = useRef<HTMLFormElement | null>(null);
     const dispatch = useDispatch<AppDispatch>();
     const { state, setField, reset, setError } =  useMemberForm(projectId);
-    const { isAddMember } = useSelectProjects();
+    const isAddMember = useIsAddMember();
     
     const onClose = () => {
         dispatch(onAddMemberModal());
     }
 
+
+    const triggerSubmit = () => {
+      formRef?.current?.requestSubmit();
+    };
     const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
 
@@ -53,34 +57,27 @@ export const AddMemberForm = ({ projectId }:{ projectId: string }) => {
         <BsPersonAdd  className="add-member-form-container__close-icon" onClick={onClose}/> 
         {
             isAddMember &&
-            <ModalOverlay onClose={onClose}>
+            <EntityModal
+                title="Invite Member"
+                description="Add a teammate to collaborate on this project."
+                onClose={onClose}
+                actions={{
+                cancel: { label: "Cancel", onClick: onClose },
+                submit: { 
+                    label: "Send Invitation", 
+                    type: "submit", onClick: triggerSubmit, 
+                    loading: false 
+                }
+                }}
+                    >
+
                 <form
+                    ref={formRef}
                     onSubmit={handleSubmit}
                     data-modal-body
                     className="add-member-form"
                     >
-                    <div className="add-member-form__header">
-
-                        <div>
-                        <h3 className="add-member-form__title">
-                            Invite Member
-                        </h3>
-
-                        <p className="add-member-form__subtitle">
-                            Add a teammate to collaborate on this project.
-                        </p>
-                        </div>
-
-                        <button
-                        type="button"
-                        className="add-member-form__close"
-                        onClick={onClose}
-                        >
-                        <IoMdClose />
-                        </button>
-
-                    </div>
-
+        
                     <div className="form__group">
                         <label className="form__label">
                         Email Address
@@ -116,17 +113,8 @@ export const AddMemberForm = ({ projectId }:{ projectId: string }) => {
                         <option value="admin">Admin</option>
                         </select>
                     </div>
-
-                    <div className="form__actions">
-                        <button
-                        type="submit"
-                        className="btn btn--primary"
-                        >
-                        Send Invitation
-                        </button>
-                    </div>
-                    </form>
-            </ModalOverlay>
+                </form>
+            </EntityModal>
         }
     </div>   
 }

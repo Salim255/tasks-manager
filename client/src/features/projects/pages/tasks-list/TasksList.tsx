@@ -87,7 +87,7 @@ export const TasksList = () => {
         <DateItem date={task.createdAt}/>
     },
     ];
-  
+    
     return (
      <PageMotion>
         <div className="tasks-list scroll-bar">
@@ -98,7 +98,7 @@ export const TasksList = () => {
               {
                 columns
                 ?.map((column, index) => (
-                  <Fragment key={column.title}>
+                  <Fragment key={column.title} >
                       <Panel groupResizeBehavior="preserve-pixel-size" defaultSize={5}  >
                       <TasksColumn
                           title={column.title}

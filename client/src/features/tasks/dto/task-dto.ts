@@ -6,14 +6,14 @@ export type TaskPriority = "low" | "medium" | "high";
 export type TaskType = "task" | "bug" | "story";
 
 export type UpdateTaskPayload = {
-  title?: string;
-  status?: TaskStatus;
-  taskType?: TaskType;
-  assigneeId?: string;
-  dueAt?: string;
-  priority?:  TaskPriority ;
-  sprintId?: string 
-  description?: string;
+  title?: string | null;
+  status?: TaskStatus | null;
+  taskType?: TaskType | null;
+  assigneeId?: string | null;
+  dueAt?: string | null;
+  priority?:  TaskPriority | null ;
+  sprintId?: string  | null;
+  description?: string | null;
 }
 
 export interface CreateTaskPayload  {

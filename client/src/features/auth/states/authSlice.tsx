@@ -42,7 +42,7 @@ const authSlice = createSlice({
             //toast.success("Logged out successfully");
         })
         .addCase('auth/logoutHttp/rejected', (state, action) => {
-            const errorAction = action as PayloadAction<ApiErrorDto>;
+            //const errorAction = action as PayloadAction<ApiErrorDto>;
             console.log(action)
             state.isLoading = false;
             //state.error = errorAction.payload.message;

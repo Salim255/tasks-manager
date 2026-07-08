@@ -15,7 +15,7 @@ export const UpdateTask = () => {
     const formRef = useRef<HTMLFormElement | null>(null);
     const dispatch = useDispatch<AppDispatch>();
     const task  = useSelectedTask();
-    const { state, setField, reset } = useTaskForm(task);
+    const { state, setField } = useTaskForm(task);
 
     const handleChange = (
       event: ChangeEvent<

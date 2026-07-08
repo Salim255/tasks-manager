@@ -1,228 +1,470 @@
 @use "./../../../themes/styles/abstracts/queries" as *;
 
 /* ============================================
-   ENTITY MODAL — BASE SYSTEM (REUSES UPDATE UX)
+   ENTITY MODAL — PREMIUM BASE SYSTEM
 ============================================ */
 
 .entity-modal {
-  width: min(720px, 92vw);
 
-  max-height: 85vh;
+  width: min(72rem, 95vw);
 
-  display: flex;
-  flex-direction: column;
+  max-height: 90vh;
 
-  background: var(--white);
 
-  border: 1px solid var(--grey-100);
+  display:flex;
 
-  border-radius: 20px;
+  flex-direction:column;
 
-  box-shadow: var(--shadow-3);
 
-  overflow: hidden;
+  background:
+    var(--surface);
 
-  animation: modalIn 0.2s ease-out;
+
+  border:
+    1px solid var(--border-color);
+
+
+  border-radius:
+    2rem;
+
+
+  overflow:hidden;
+
+
+  box-shadow:
+    0 30px 80px rgba(15,23,42,.12);
+
+
+  animation:
+    modalIn .2s ease-out;
+
+
+
 
   /* ============================================
-     HEADER (SAME AS UPDATE TASK)
+     HEADER
   ============================================ */
+
 
   &__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
 
-    padding: 1.5rem 1.5rem 1rem;
 
-    border-bottom: 1px solid var(--grey-100);
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-start;
+
+
+    padding:
+      2.4rem 2.8rem;
+
+
+    border-bottom:
+      1px solid var(--border-color);
+
+
 
     h2 {
-      margin: 0;
 
-      font-size: 1.35rem;
+      margin:0;
 
-      font-weight: 700;
 
-      color: var(--grey-900);
+      color:
+        var(--text-primary);
+
+
+      font-size:
+        var(--text-2xl);
+
+
+      font-weight:
+        800;
+
+
+      letter-spacing:
+        -.03em;
     }
+
+
 
     p {
-      margin-top: 0.35rem;
 
-      font-size: 0.9rem;
+      margin:.6rem 0 0;
 
-      color: var(--grey-500);
+
+      color:
+        var(--text-secondary);
+
+
+      font-size:
+        var(--text-base);
+
+
+      line-height:
+        1.6;
     }
   }
 
+
+
+
+
+
   /* ============================================
-     CLOSE BUTTON (IDENTICAL UX)
+     CLOSE BUTTON
   ============================================ */
+
 
   &__close {
-    width: 2.2rem;
-    height: 2.2rem;
 
-    display: grid;
-    place-items: center;
 
-    border-radius: 10px;
+    width:
+      4rem;
 
-    background: transparent;
 
-    border: none;
+    height:
+      4rem;
 
-    color: var(--grey-500);
 
-    transition: all 0.2s ease;
+    display:grid;
+
+    place-items:center;
+
+
+    border:none;
+
+
+    border-radius:
+      1.2rem;
+
+
+    background:
+      transparent;
+
+
+    color:
+      var(--text-secondary);
+
+
+    font-size:
+      var(--text-xl);
+
+
+    transition:
+      .2s ease;
+
+
 
     &:hover {
-      background: var(--grey-100);
 
-      color: var(--grey-900);
 
-      cursor: pointer;
+      cursor:pointer;
+
+
+      background:
+        var(--surface-secondary);
+
+
+      color:
+        var(--text-primary);
     }
   }
 
+
+
+
+
+
   /* ============================================
-     BODY (SCROLL SYSTEM)
+     BODY
   ============================================ */
+
 
   &__body {
-    flex: 1;
 
-    overflow-y: auto;
 
-    padding: 1.5rem;
+    flex:1;
 
-    display: flex;
-    flex-direction: column;
 
-    gap: 1.25rem;
+    overflow-y:auto;
+
+
+    padding:
+      2.8rem;
+
+
+
+    display:flex;
+
+    flex-direction:column;
+
+
+    gap:
+      2rem;
   }
 
+
+
+
+
+
   /* ============================================
-     FOOTER (IDENTICAL TO UPDATE TASK UX)
+     FOOTER
   ============================================ */
+
 
   &__footer {
-    display: flex;
 
-    justify-content: flex-end;
 
-    align-items: center;
+    display:flex;
 
-    gap: 0.75rem;
 
-    padding: 1rem 1.5rem;
+    justify-content:flex-end;
 
-    border-top: 1px solid var(--grey-100);
 
-    background: var(--white);
+    align-items:center;
 
-    flex-shrink: 0;
+
+    gap:
+      1rem;
+
+
+    padding:
+      1.8rem 2.8rem;
+
+
+    border-top:
+      1px solid var(--border-color);
+
+
+    background:
+      var(--surface-secondary);
+
+
+    flex-shrink:0;
   }
+
+
+
+
+
 
   /* ============================================
-     RESPONSIVE FOOTER (FROM YOUR SYSTEM)
+     BUTTONS
   ============================================ */
 
-  @include respond(xs) {
-    &__footer {
-      flex-direction: row;
 
-      justify-content: space-between;
+  &__cancel,
+  &__submit {
 
-      gap: 0.5rem;
-    }
 
-    &__cancel {
-      flex: 1;
-    }
+    height:
+      4.2rem;
 
-    &__submit {
-      flex: 2;
+
+    padding:
+      0 1.8rem;
+
+
+    border-radius:
+      1.1rem;
+
+
+    font-size:
+      var(--text-base);
+
+
+    font-weight:
+      700;
+
+
+    cursor:pointer;
+
+
+    transition:
+      .2s ease;
+  }
+
+
+
+
+
+  &__cancel {
+
+
+    border:
+      1px solid var(--border-color);
+
+
+    background:
+      var(--surface);
+
+
+    color:
+      var(--text-secondary);
+
+
+
+    &:hover {
+
+
+      background:
+        var(--surface-secondary);
+
+
+      color:
+        var(--text-primary);
     }
   }
 
-  @include respond(mobile) {
-    &__footer {
-      flex-direction: column;
 
-      align-items: stretch;
+
+
+
+  &__submit {
+
+
+    min-width:
+      15rem;
+
+
+    border:none;
+
+
+    background:
+      var(--primary-600);
+
+
+    color:
+      var(--white);
+
+
+
+    box-shadow:
+      0 8px 20px rgba(59,130,246,.18);
+
+
+
+    &:hover {
+
+
+      background:
+        var(--primary-700);
+
+
+      transform:
+        translateY(-1px);
     }
+  }
+
+
+
+
+
+
+
+  /* ============================================
+     RESPONSIVE
+  ============================================ */
+
+
+  @include respond("tab-port") {
+
+
+    width:
+      95vw;
+
+    &__header {
+
+      padding:
+        2rem;
+    }
+
+
+
+    &__body {
+
+      padding:
+        2rem;
+    }
+
+
+
+    &__footer {
+
+      padding:
+        1.6rem 2rem;
+    }
+  }
+
+
+
+
+
+  @include respond("phone") {
+
+
+    border-radius:
+      1.6rem;
+
+
+
+    &__footer {
+
+
+      flex-direction:
+        column;
+
+
+      align-items:
+        stretch;
+    }
+
+
 
     &__cancel,
     &__submit {
-      width: 100%;
+
+
+      width:
+        100%;
     }
+
   }
 
-  /* ============================================
-     BUTTONS (CONSISTENT WITH SYSTEM)
-  ============================================ */
 
-  &__cancel {
-    padding: 0.75rem 1rem;
 
-    border-radius: 12px;
 
-    border: 1px solid var(--grey-200);
 
-    background: var(--white);
-
-    color: var(--grey-700);
-
-    font-weight: 600;
-
-    transition: all 0.2s ease;
-
-    &:hover {
-      background: var(--grey-100);
-
-      color: var(--grey-900);
-
-      cursor: pointer;
-    }
-  }
-
-  &__submit {
-    padding: 0.75rem 1.2rem;
-
-    border-radius: 12px;
-
-    font-weight: 600;
-
-    min-width: 150px;
-
-    box-shadow: var(--shadow-1);
-
-    transition: all 0.2s ease;
-
-    &:hover {
-      transform: translateY(-1px);
-
-      box-shadow: var(--shadow-2);
-    }
-  }
 
   /* ============================================
      ANIMATION
   ============================================ */
 
-  @keyframes modalIn {
-    from {
-      opacity: 0;
 
-      transform: translateY(10px) scale(0.98);
+  @keyframes modalIn {
+
+
+    from {
+
+      opacity:0;
+
+      transform:
+        translateY(12px)
+        scale(.98);
     }
+
 
     to {
-      opacity: 1;
 
-      transform: translateY(0) scale(1);
+      opacity:1;
+
+      transform:
+        translateY(0)
+        scale(1);
     }
+
   }
+
 }

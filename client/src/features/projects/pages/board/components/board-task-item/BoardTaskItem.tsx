@@ -18,7 +18,7 @@ export const BoardTaskItem =  ({ task, ...props }: TaskItemProps) => {
     }
 
     return (
-        <div className="board-task-item" {...props} >
+        <div className="board-task-item" {...props} onClick={() => onViewTask(task.id)} >
             <section className='board-task-item__content'>
                 <p className='board-task-item__task'>
                     {task.title}
@@ -30,7 +30,7 @@ export const BoardTaskItem =  ({ task, ...props }: TaskItemProps) => {
                         setOptionsOpen={setOptionsOpen}
                     >
                         <ul className='options-list'>
-                            <li className='options-list__item'  onClick={() => onViewTask(task.id)}>Edit Task</li>
+                            <li className='options-list__item'  >Edit Task</li>
                             <li className='options-list__item'>Delete Task</li>
                         </ul>
                     </OptionsBtn>
