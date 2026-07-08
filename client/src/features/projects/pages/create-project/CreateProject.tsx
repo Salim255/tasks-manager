@@ -5,7 +5,7 @@ import { PageMotion } from '../../../../shared/motion/PageMotion';
 export const CreateProject = () => {
     return (
         <PageMotion>
-            <section className="create-project">
+            <section className="create-project scroll-bar">
                 <CreateProjectForm/>
             </section>
         </PageMotion>
