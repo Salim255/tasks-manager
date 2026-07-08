@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { loadUserHttp } from "../features/auth/http/auth.http";
 import { AppRouter } from "./AppRouter";
 import { AppProvider } from "./AppProvider";
-
+import { AppModals } from "../shared/modals/AppModals/AppModals";
 
 function App(){
   const dispatch = useDispatch<AppDispatch>();

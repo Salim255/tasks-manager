@@ -22,7 +22,6 @@ type InitialState = {
     isLoadingMember: boolean;
     isFetchingProject: boolean;
     isFetchingDashboard: boolean;
-    isOpenQuickAction: boolean;
 }
 
 export type CreateProjectPayload = {
@@ -39,7 +38,6 @@ const initialState: InitialState = {
     isLoadingMember: false,
     isFetchingProject: false,
     isFetchingDashboard: false,
-    isOpenQuickAction: false
 }
 
 const projectSlice = createSlice({
@@ -119,9 +117,6 @@ const projectSlice = createSlice({
             state.projects = [];
             state.activeProject = undefined;
             state.activeProjectId = undefined;
-        },
-        onToggleQuickAction: (state) => {
-            state.isOpenQuickAction = !state.isOpenQuickAction;
         },
         onAddMemberModal: (state) => {
             state.isAddMember = !state.isAddMember;

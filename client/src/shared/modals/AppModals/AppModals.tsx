@@ -1,8 +1,16 @@
-import { useIsOpenQuickAction } from "../../../features/projects/states/projectsSelectors";
+
+import { useQuickActionIsOpen } from "../states/quickActionsSelectors";
 
 export const AppModals = () => {
-    const isOpenQuick = useIsOpenQuickAction();
+    const quickActionIsOpen = useQuickActionIsOpen();
+    console.log("Hello from AppModals", quickActionIsOpen)
+
     return <>
-        {isOpenQuick && }
+
     </>
+        
+    
+    
+
+
 }
