@@ -5,8 +5,10 @@ import projectReducer from "../features/projects/states/projectSlice";
 import authReducer from "../features/auth/states/authSlice";
 import profileReducer from "../features/profile/states/profileSlice";
 import memberReducer from "../features/members/states/memberSlice";
+import quickActionReducer from "../shared/modals/states/quickActionsSlice";
 
 const reducers = {
+    quickActionReducer: quickActionReducer,
     memberReducer: memberReducer,
     profileReducer: profileReducer,
     authReducer: authReducer,
