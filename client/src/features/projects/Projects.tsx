@@ -14,24 +14,32 @@ export const Projects = () => {
 
 
   return (
-    <>
-      <div className="projects-layout">
+   <>
+    <div className="projects-layout">
   <section className="projects-layout__main">
-    <div className="projects-layout__stack">
+
+    <div className="projects-layout__content">
+
       {projectId && <ProjectNavbar />}
 
       <div className="projects-layout__outlet">
-        <Outlet />
+        <div className="projects-layout__page">
+          <Outlet />
+        </div>
       </div>
 
-      <QuickActionLayout isOpen={isQuickActionOpen}>
-        <div>Hello world Salim</div>
-      </QuickActionLayout>
     </div>
+
+
+    <QuickActionLayout isOpen={isQuickActionOpen}>
+      <div>Hello world Salim</div>
+    </QuickActionLayout>
+
+
   </section>
 </div>
 
-      {isOpenTaskViewer && <TaskViewer />}
-    </>
+    {isOpenTaskViewer && <TaskViewer />}
+  </>
   );
 }

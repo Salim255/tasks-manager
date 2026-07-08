@@ -1,49 +1,50 @@
 .projects-layout {
+
+  position: relative;
+
   min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
+
 
   &__main {
-    flex: 1;
-    min-height: 0;
-    min-width: 0;
 
-    display: flex;
-    flex-direction: column;
-  }
-
-  /*
-  ============================================
-  STACK LAYER
-  - contains navbar + outlet + quick action
-  - quick action can now overlap the whole project area
-  ============================================
-  */
-  &__stack {
     position: relative;
 
-    flex: 1;
-    min-height: 0;
-    min-width: 0;
+    min-height:100%;
 
-    display: flex;
-    flex-direction: column;
+    display:flex;
 
-    isolation: isolate;
+    flex-direction:column;
+
+    min-width:0;
   }
 
-  /*
-  ============================================
-  PAGE CONTENT
-  ============================================
-  */
-  &__outlet {
-    flex: 1;
-    min-height: 0;
-    min-width: 0;
 
-    display: flex;
-    flex-direction: column;
+  &__content {
+
+    flex:1;
+
+    min-height:0;
+
+    display:flex;
+
+    flex-direction:column;
+  }
+
+
+  &__outlet {
+
+    flex:1;
+
+    min-height:0;
+
+    overflow:hidden;
+  }
+
+
+  &__page {
+
+    height:100%;
+
+    overflow:auto;
   }
 }
