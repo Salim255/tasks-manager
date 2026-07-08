@@ -171,29 +171,43 @@ export const ProjectsHome = () => {
             </div>
 
             <div className="projects-home__tasks-list">
-              <article className="projects-home__task-item">
-                <div className="projects-home__task-type projects-home__task-type--task" />
-                <div className="projects-home__task-content">
-                  <p className="projects-home__task-title">Implement sprint creation flow</p>
-                  <span className="projects-home__task-meta">FLOW-18 · Today</span>
-                </div>
-              </article>
+              {
+                dashboardData?.assignedToMe?.needsAttention?.today?.map((t) => {
+                  return <article className="projects-home__task-item">
+                    <div className="projects-home__task-type projects-home__task-type--task" />
+                    <div className="projects-home__task-content">
+                      <p className="projects-home__task-title">{t.title}</p>
+                      <span className="projects-home__task-meta">{t.issueKey} · Today</span>
+                    </div>
+                  </article>
+                })
+              }
+              
+              {
+                dashboardData?.assignedToMe?.needsAttention?.tomorrow?.map((t) => {
+                  return <article className="projects-home__task-item">
+                    <div className="projects-home__task-type projects-home__task-type--story" />
+                    <div className="projects-home__task-content">
+                      <p className="projects-home__task-title">{t.title}</p>
+                      <span className="projects-home__task-meta">{t.issueKey} · Tomorrow</span>
+                    </div>
+                  </article>
+                })
+              }
 
-              <article className="projects-home__task-item">
-                <div className="projects-home__task-type projects-home__task-type--story" />
-                <div className="projects-home__task-content">
-                  <p className="projects-home__task-title">Refine board filtering UX</p>
-                  <span className="projects-home__task-meta">FLOW-21 · Tomorrow</span>
-                </div>
-              </article>
+              {
+                dashboardData?.assignedToMe?.needsAttention?.highPriority?.map((t) => {
+                  return  <article className="projects-home__task-item">
+                    <div className="projects-home__task-type projects-home__task-type--bug" />
+                    <div className="projects-home__task-content">
+                      <p className="projects-home__task-title">{t.title}</p>
+                      <span className="projects-home__task-meta"> {t.issueKey} · High priority</span>
+                    </div>
+                  </article>
+                })
+              }
 
-              <article className="projects-home__task-item">
-                <div className="projects-home__task-type projects-home__task-type--bug" />
-                <div className="projects-home__task-content">
-                  <p className="projects-home__task-title">Fix duplicate project key validation</p>
-                  <span className="projects-home__task-meta">FLOW-24 · High priority</span>
-                </div>
-              </article>
+          
             </div>
           </section>
 

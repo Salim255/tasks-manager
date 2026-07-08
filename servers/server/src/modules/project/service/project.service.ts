@@ -380,6 +380,7 @@ export class ProjectService {
             json_build_object(
               'id', task.id,
               'title', task.title,
+              'issueKey', task.issueKey,
               'taskNumber', task.taskNumber,
               'status', task.status,
               'priority', task.priority,
@@ -405,6 +406,7 @@ export class ProjectService {
             json_build_object(
               'id', task.id,
               'title', task.title,
+              'issueKey', task.issueKey,
               'taskNumber', task."taskNumber",
               'status', task.status,
               'priority', task.priority,
@@ -430,6 +432,7 @@ export class ProjectService {
             json_build_object(
               'id', task.id,
               'title', task.title,
+              'issueKey', task.issueKey,
               'taskNumber', task."taskNumber",
               'status', task.status,
               'priority', task.priority,
