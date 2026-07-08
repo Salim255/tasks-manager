@@ -1,7 +1,7 @@
-import { useQuickActionType } from "../../states/quickActionsSelectors";
-import { TaskQuickAction } from "../task-quick-action/TaskQuickAction";
-import { SprintQuickAction } from "../sprint-quick-action/SprintQuickAction";
-import { AddMemberQuickAction } from "../add-member-quick-action/AddMemberQuickAction";
+import { useQuickActionType } from "../../../../shared/modals/states/quickActionsSelectors";
+import { TaskQuickAction } from "../../../tasks/components/task-quick-action/TaskQuickAction";
+import { SprintQuickAction } from "../../../sprints/components/sprint-quick-action/SprintQuickAction"; 
+import { MemberQuickAction } from "../../../members/components/member-quick-action/MemberQuickAction";
 
 export const QuickActionRenderer = () => {
   const quickActionType = useQuickActionType();
@@ -14,7 +14,7 @@ export const QuickActionRenderer = () => {
       return <SprintQuickAction />;
 
     case "addMember":
-      return <AddMemberQuickAction />;
+      return < MemberQuickAction />;
 
     default:
       return null;

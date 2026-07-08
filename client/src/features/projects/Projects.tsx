@@ -5,6 +5,8 @@ import { useTaskViewerOpen } from "../tasks/states/taskSelectors";
 import { TaskViewer } from "../tasks/components/task-viewer/TaskViewer";
 import { QuickActionLayout } from "../../shared/components/quick-action-layout/QuickActionLayout";
 import { TaskQuickAction } from "../tasks/components/task-quick-action/TaskQuickAction";
+import { useQuickActionType } from "../../shared/modals/states/quickActionsSelectors";
+import { QuickActionRenderer } from "./components/quick-action-renderer/QuickActionRenderer";
 
 export const Projects = () => {
     const isOpenTaskViewer = useTaskViewerOpen();
@@ -32,7 +34,7 @@ export const Projects = () => {
 
 
     <QuickActionLayout>
-        <TaskQuickAction></TaskQuickAction>
+       <QuickActionRenderer/>
     </QuickActionLayout>
 
   </section>
