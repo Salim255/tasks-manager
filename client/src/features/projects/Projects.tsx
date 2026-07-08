@@ -4,11 +4,11 @@ import { ProjectNavbar } from "./components/project-navbar/ProjectNavbar";
 import { useTaskViewerOpen } from "../tasks/states/taskSelectors";
 import { TaskViewer } from "../tasks/components/task-viewer/TaskViewer";
 import { QuickActionLayout } from "../../shared/components/quick-action-layout/QuickActionLayout";
-import { useQuickActionIsOpen } from "../../shared/modals/states/quickActionsSelectors";
 import { TaskQuickAction } from "../tasks/components/task-quick-action/TaskQuickAction";
 
 export const Projects = () => {
     const isOpenTaskViewer = useTaskViewerOpen();
+    const quickActionType = useQuickActionType();
    
     const { projectId } = useParams();
 
@@ -20,7 +20,7 @@ export const Projects = () => {
 
     <div className="projects-layout__content">
 
-      {projectId && <ProjectNavbar />}
+      { projectId && <ProjectNavbar /> }
 
       <div className="projects-layout__outlet">
         <div className="projects-layout__page">

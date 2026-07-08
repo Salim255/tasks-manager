@@ -5,7 +5,7 @@ import { useDashboardView, useIsFetchingDashboard } from "../../states/projectsS
 import { useDispatch } from "react-redux";
 import { fetchDashboardOverviewHttp } from "../../http/project.http";
 import type { AppDispatch } from "../../../../redux/store";
-import { openCreateTaskModal, toggleQuickAction, setQuickActionType, type QuickActionType } from "../../../../shared/modals/states/quickActionsSlice";
+import { setQuickActionType, type QuickActionType } from "../../../../shared/modals/states/quickActionsSlice";
 
 
 export function stringToColor(value: string): string {

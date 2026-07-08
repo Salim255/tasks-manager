@@ -50,7 +50,7 @@ export const QuickActionLayout = ({
             <div className="quick-action-layout__panel ">
                 <QuickActionHeader/>
                 <div className="quick-action-layout__children">
-                {children}
+                { children }
                 </div>
             </div>
 
