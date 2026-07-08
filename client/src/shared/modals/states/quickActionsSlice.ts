@@ -49,9 +49,11 @@ const quickActionsSlice = createSlice({
   initialState,
   reducers: {
     toggleQuickAction: (state) => {
-        state.data = null;
-        state.type = null;
-        state.isOpen = false;
+        state.isOpen = !state.isOpen;
+    },
+    setQuickActionType: (state, action: PayloadAction<{ actionType:  QuickActionType }>) => {
+        state.type = action.payload.actionType;
+        state.isOpen = true;
     },
     openCreateTaskModal: (state, action: PayloadAction<CreateTaskPayload>) => {
         state.isOpen = true;
@@ -83,6 +85,7 @@ const quickActionsSlice = createSlice({
 });
 
 export const {
+  setQuickActionType,
   toggleQuickAction,
   openCreateTaskModal,
   openCreateSprintModal,

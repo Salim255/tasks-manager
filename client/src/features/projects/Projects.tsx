@@ -5,11 +5,11 @@ import { useTaskViewerOpen } from "../tasks/states/taskSelectors";
 import { TaskViewer } from "../tasks/components/task-viewer/TaskViewer";
 import { QuickActionLayout } from "../../shared/components/quick-action-layout/QuickActionLayout";
 import { useQuickActionIsOpen } from "../../shared/modals/states/quickActionsSelectors";
+import { TaskQuickAction } from "../tasks/components/task-quick-action/TaskQuickAction";
 
 export const Projects = () => {
     const isOpenTaskViewer = useTaskViewerOpen();
-    const isQuickActionOpen = useQuickActionIsOpen();
-
+   
     const { projectId } = useParams();
 
 
@@ -31,10 +31,9 @@ export const Projects = () => {
     </div>
 
 
-    <QuickActionLayout isOpen={isQuickActionOpen}>
-      <div>Hello world Salim</div>
+    <QuickActionLayout>
+        <TaskQuickAction></TaskQuickAction>
     </QuickActionLayout>
-
 
   </section>
 </div>

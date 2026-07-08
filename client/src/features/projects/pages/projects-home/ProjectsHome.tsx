@@ -5,7 +5,8 @@ import { useDashboardView, useIsFetchingDashboard } from "../../states/projectsS
 import { useDispatch } from "react-redux";
 import { fetchDashboardOverviewHttp } from "../../http/project.http";
 import type { AppDispatch } from "../../../../redux/store";
-import { openCreateTaskModal } from "../../../../shared/modals/states/quickActionsSlice";
+import { openCreateTaskModal, toggleQuickAction, setQuickActionType, type QuickActionType } from "../../../../shared/modals/states/quickActionsSlice";
+
 
 export function stringToColor(value: string): string {
   let hash = 0;
@@ -30,14 +31,8 @@ export const ProjectsHome = () => {
     navigate("/create-project");
   }
 
-  const onQuickCreate = () => {
-    console.log("Hello form here");
-    dispatch(openCreateTaskModal({
-        projectId: "1",
-        projectName: "Salim",
-        projectKey: "SLM"
-      })
-    );
+  const onQuickAction = (item: QuickActionType ) => {
+    dispatch(setQuickActionType({actionType: item}));
   }
 
   useEffect(() => {
@@ -232,21 +227,21 @@ export const ProjectsHome = () => {
             </div>
 
             <div className="projects-home__actions" >
-              <button className="projects-home__action-card" onClick={onQuickCreate}>
+              <button className="projects-home__action-card" onClick={() => onQuickAction("createTask")}>
                 <span className="projects-home__action-title">Create task</span>
                 <span className="projects-home__action-text">
                   Add a new task to the active sprint.
                 </span>
               </button>
 
-              <button className="projects-home__action-card" onClick={onQuickCreate}>
+              <button className="projects-home__action-card" onClick={() => onQuickAction("createSprint")}>
                 <span className="projects-home__action-title">Add sprint</span>
                 <span className="projects-home__action-text">
                   Plan the next iteration and goals.
                 </span>
               </button>
 
-              <button className="projects-home__action-card" onClick={onQuickCreate}>
+              <button className="projects-home__action-card" onClick={() => onQuickAction("addMember")}>
                 <span className="projects-home__action-title">Invite member</span>
                 <span className="projects-home__action-text">
                   Bring teammates into the workspace.
