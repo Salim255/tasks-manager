@@ -8,6 +8,7 @@ import { Status } from '../../../../shared/components/task-status/TaskStatus';
 import { setIsOpenTaskModal, setTaskViewerTask } from '../../states/taskSlice';
 import { useDispatch } from 'react-redux';
 import type { AppDispatch } from 'recharts/types/state/store';
+import { setQuickActionType, type QuickActionType } from '../../../../shared/modals/states/quickActionsSlice';
 
 
 export type TaskItemProps = { task: Task; } & React.HTMLAttributes<HTMLDivElement>;
@@ -24,6 +25,10 @@ export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
       dispatch(setIsOpenTaskModal({taskId: task.id}))
     }
 
+    const onQuickAction = (item: QuickActionType ) => {
+        dispatch(setQuickActionType({actionType: item}));
+    }
+
     return (
         <div  
             className={`task-item ${
@@ -33,7 +38,8 @@ export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
             }`} {...props} >
             <div 
                 className="task-item__body"
-                onClick={() => onViewTask(task.id)}>
+                
+                onClick={() => onQuickAction("createTask")}>
                 <section className='task-item__content'>
                 <div className={`task-item__checkbox task-item__checkbox--${task.taskType}`}>
                     {typeIcon(task.taskType)}

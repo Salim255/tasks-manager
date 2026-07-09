@@ -4,7 +4,6 @@ import { ProjectNavbar } from "./components/project-navbar/ProjectNavbar";
 import { useTaskViewerOpen } from "../tasks/states/taskSelectors";
 import { TaskViewer } from "../tasks/components/task-viewer/TaskViewer";
 import { QuickActionLayout } from "../../shared/components/quick-action-layout/QuickActionLayout";
-import { QuickActionRenderer } from "./components/quick-action-renderer/QuickActionRenderer";
 import { useSelectProjects } from "./states/projectsSelectors";
 import { EmptyProjects } from "./pages/empty-projects/EmptyProjects";
 
@@ -14,7 +13,7 @@ export const Projects = () => {
   const projects = useSelectProjects();
 
   const hasProjects = projects.length > 0
-  console.log(hasProjects);
+  
   return (
     <>
       <div className="projects-layout">
@@ -35,7 +34,7 @@ export const Projects = () => {
           </div>
 
           <QuickActionLayout>
-            <QuickActionRenderer />
+            <TaskViewer />
           </QuickActionLayout>
         </section>
       </div>

@@ -23,7 +23,7 @@ export function stringToColor(value: string): string {
 }
 
 export const ProjectsHome = () => {
-    const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch<AppDispatch>();
   const isFetchingDashboard = useIsFetchingDashboard();
   const dashboardData = useDashboardView();
   const navigate = useNavigate();

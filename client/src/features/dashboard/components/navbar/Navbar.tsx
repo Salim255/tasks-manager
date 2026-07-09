@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import "./_navbar.scss";
-import { FaAlignLeft } from "react-icons/fa";
+import { PiTextOutdentBold } from "react-icons/pi";
 import { updateSidebarOpenState } from "../../states/dashboardSlice";
 import { type AppDispatch } from "../../../../redux/store";
 import { useProfileSelector } from "../../../profile/states/profileSelectors";
@@ -24,7 +24,7 @@ export const Navbar = () => {
             onClick={toggle}
             aria-label="Toggle sidebar"
           >
-            <FaAlignLeft />
+            <PiTextOutdentBold />
           </button>
 
           <div className="navbar__brand">

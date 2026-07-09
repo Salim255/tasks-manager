@@ -5,8 +5,6 @@ import type { AppDispatch } from "recharts/types/state/store";
 import "./_task-viewer.scss";
 import { useDispatch } from "react-redux";
 import { closeTaskViewer } from "../../states/taskSlice";
-import { ModalOverlay } from "../../../../shared/components/modal-overlay/ModalOverlay";
-import { ModalMotion } from "../../../../shared/motion/ModalMotion";
 
 export const TaskViewer = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -15,50 +13,8 @@ export const TaskViewer = () => {
     }
 
   return (
-   <ModalOverlay onClose={onCloseTaskViewer}>
-     <ModalMotion>
+  
         <div className="task-viewer">
-
-        {/*=====================================
-            HEADER
-        =====================================*/}
-        <header className="task-viewer__header">
-
-            <div className="task-viewer__heading">
-
-                <span className="task-viewer__type">
-                    Task
-                </span>
-
-                <h2 className="task-viewer__title">
-                    Improve Task Viewer
-                </h2>
-
-                <div className="task-viewer__meta">
-
-                    <span>STP-24</span>
-
-                    <span className="task-viewer__separator"></span>
-
-                    <span>In Progress</span>
-
-                    <span className="task-viewer__separator"></span>
-
-                    <span>High Priority</span>
-
-                </div>
-
-            </div>
-
-            <button
-                type="button"
-                className="task-viewer__close"
-                onClick={onCloseTaskViewer}
-            >
-                ✕
-            </button>
-
-        </header>
 
         {/*=====================================
             FORM
@@ -71,10 +27,6 @@ export const TaskViewer = () => {
             =====================================*/}
 
             <section className="task-viewer__section">
-
-                <h3 className="task-viewer__section-title">
-                    Update Task
-                </h3>
 
                 <div className="task-viewer__group">
 
@@ -115,7 +67,7 @@ export const TaskViewer = () => {
                     </label>
 
                     <textarea
-                        rows={8}
+                        rows={4}
                         className="task-viewer__textarea"
                         defaultValue="Build a modern task viewer inspired by Linear."
                     />
@@ -374,8 +326,5 @@ export const TaskViewer = () => {
         </form>
 
     </div>
-     </ModalMotion>
-    
-    </ModalOverlay>
   );
 };

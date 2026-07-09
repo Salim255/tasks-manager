@@ -119,7 +119,7 @@ export const Backlog = () => {
 
       {/* Backlog */}
       <Panel defaultSize="50%"
-        minSize="15%">
+        minSize="50%">
         <section className="backlog">
 
           <header className="backlog__header">
