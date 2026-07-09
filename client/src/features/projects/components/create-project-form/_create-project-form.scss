@@ -2,635 +2,326 @@
 
 /* ============================================
    CREATE PROJECT
+   compact / premium / page-fit
 ============================================ */
 
 .project-create {
-
-  width: min(90rem, 100%);
-
+  width: min(82rem, 100%);
+  min-height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 3.2rem;
+  gap: 2.4rem;
+  padding: 2.4rem;
+  color: var(--text-primary);
 
-  padding: 2.4rem 2.4rem;
-
-  height: 100vh;
-  //overflow-y: auto;
-
- 
   /* ============================================
-     HERO
+     PAGE HEADER
   ============================================ */
 
-  &__hero {
-
+  &__header {
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
-
     gap: 2rem;
+    padding-bottom: 1.8rem;
+    border-bottom: 1px solid var(--border-color);
   }
 
-
-  &__hero-copy {
-
+  &__header-copy {
     display: flex;
     flex-direction: column;
-
-    gap: 1.2rem;
-
-    max-width: 60rem;
+    gap: 1rem;
+    min-width: 0;
+    max-width: 62rem;
   }
-
-
-
-  &__eyebrow {
-
-    width: fit-content;
-
-    padding: .55rem 1.1rem;
-
-    border-radius: 999px;
-
-    background-color:
-      rgba(59,130,246,.1);
-
-    color:
-      var(--primary-700);
-
-
-    font-size:
-      var(--text-xs);
-
-    font-weight: 800;
-
-    letter-spacing: .05em;
-
-    text-transform: uppercase;
-  }
-
-
-
 
   &__title {
-
     margin: 0;
-
-    color: var(--text-primary);
-
-
     font-size: 3rem;
-
-
-    font-weight: 850;
-
-    line-height: 1.05;
-
-    letter-spacing: -.05em;
+    font-weight: 800;
+    line-height: 1.02;
+    letter-spacing: -0.04em;
+    color: var(--text-primary);
   }
-
-
-
 
   &__subtitle {
-
-    margin:0;
-
-    max-width:55rem;
-
-    color:
-      var(--text-secondary);
-
-
-    font-size:1.6rem;
-
-    line-height:1.7;
+    margin: 0;
+    max-width: 58rem;
+    color: var(--text-secondary);
+    font-size: 1.6rem;
+    line-height: 1.75;
   }
 
+  &__header-note {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    min-height: 4rem;
+    padding: 0 1.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+    background: var(--surface);
+    color: var(--text-secondary);
+    font-size: 1.4rem;
+    font-weight: 650;
+    white-space: nowrap;
+  }
 
+  /* ============================================
+     CARD
+  ============================================ */
 
-
-
-  &__hero-note {
-
-    display:flex;
-
-    align-items:center;
-
-    gap:.8rem;
-
-
-    padding:.9rem 1.3rem;
-
-
-    border:
-      1px solid var(--border-color);
-
-
-    border-radius:999px;
-
-
+  &__card {
+    width: 100%;
+    padding: 2.4rem;
+    border: 1px solid var(--border-color);
+    border-radius: 2rem;
     background:
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.75),
+        rgba(255, 255, 255, 0.96)
+      ),
       var(--surface);
 
-
-    color:
-      var(--text-secondary);
-
-
-    font-size:1.3rem;
-
-    font-weight:650;
-
-    white-space:nowrap;
-
-
-    p {
-      margin:0;
-    }
   }
-
-
-
-
-  &__required-dot {
-
-    width:.8rem;
-
-    height:.8rem;
-
-    border-radius:50%;
-
-    background:
-      var(--primary-500);
-  }
-
-  /* ============================================
-     FORM CONTAINER
-  ============================================ */
-  &__card {
-
-    width: 100%;
-
-    padding-top: 3rem;
-
-
-    border-top: 1px solid var(--border-color);
-    
-    padding: 2.4rem; 
-    border: 1px solid var(--border-color);
-    border-radius: 1.4rem; 
-    //box-shadow: 0 6px 10px rgba(15, 23, 42, 0.05), 0 1px 0 rgba(255, 255, 255, 0.7) inset;
-  }
-
-
-
 
   &__form {
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:2.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2.2rem;
   }
 
-
-
-
-
-
   /* ============================================
-     PROJECT KEY PREVIEW
+     KEY FIELD
   ============================================ */
-
 
   &__key-field {
-
-    display:grid;
-
-    grid-template-columns:
-      minmax(0,1fr)
-      14rem;
-
-
-    gap:1.2rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 15rem;
+    gap: 1.4rem;
   }
-
-
-
-
 
   &__input-key {
-
-    text-transform:uppercase;
-
-    letter-spacing:.06em;
-
-    font-weight:750;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 800;
   }
-
-
-
-
 
   &__key-preview {
-
-    display:flex;
-
-    flex-direction:column;
-
-    justify-content:center;
-
-    gap:.3rem;
-
-
-    padding:
-      0 1.4rem;
-
-
-    border-radius:
-      1.3rem;
-
-
-    border:
-      1px solid rgba(59,130,246,.14);
-
-
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 0 1.4rem;
+    border-radius: 1.4rem;
+    border: 1px solid rgba(59, 130, 246, 0.14);
     background:
-      rgba(59,130,246,.06);
+      linear-gradient(
+        180deg,
+        rgba(59, 130, 246, 0.08),
+        rgba(59, 130, 246, 0.03)
+      );
   }
-
-
-
-
 
   &__key-preview-label {
-
-    color:
-      var(--text-muted);
-
-
-    font-size:1.1rem;
-
-    font-weight:800;
-
-    text-transform:uppercase;
-
-    letter-spacing:.05em;
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
   }
-
-
-
-
 
   &__key-preview-value {
-
-    color:
-      var(--text-primary);
-
-
-    font-size:1.5rem;
-
-    font-weight:800;
-
-    letter-spacing:-.02em;
+    color: var(--text-primary);
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
   }
 
-
-
-
-
-
   /* ============================================
-     ACTION
+     ACTIONS
   ============================================ */
-
 
   &__actions {
-
-    display:flex;
-
-    justify-content:flex-end;
-
-
-    padding-top:1.8rem;
-
-
-    border-top:
-      1px solid var(--border-color);
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 1.8rem;
+    margin-top: 0.4rem;
+    border-top: 1px solid var(--border-color);
   }
-
-
-
-
-
-
 
   /* ============================================
-     FORM ELEMENTS
+     FORM SYSTEM
   ============================================ */
 
-
   .form__group {
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
   }
-
-
-
-
 
   .form__field-header {
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:.45rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
   }
-
-
-
-
-
 
   .form__label {
-
-    display:flex;
-
-    align-items:center;
-
-    gap:.4rem;
-
-
-    color:
-      var(--text-primary);
-
-
-    font-size:1.4rem;
-
-    font-weight:750;
-
-    letter-spacing:-.01em;
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
   }
-
-
-
 
   .form__label-required {
-
-    color:
-      var(--primary-600);
+    color: var(--primary-600);
   }
-
-
-
-
 
   .form__hint {
-
-    margin:0;
-
-
-    max-width:48rem;
-
-
-    color:
-      var(--text-muted);
-
-
-    font-size:1.25rem;
-
-
-    line-height:1.55;
+    margin: 0;
+    max-width: 56rem;
+    color: var(--text-muted);
+    font-size: 1.35rem;
+    line-height: 1.65;
   }
-
-
-
-
 
   .form__input,
   .form__textarea {
-
-
-    width:100%;
-
-
-    border:
-      1px solid var(--border-color);
-
-
-    border-radius:
-      1.2rem;
-
-
-    background:
-      var(--surface-secondary);
-
-
-    color:
-      var(--text-primary);
-
-
-
+    width: 100%;
+    border: 1px solid var(--border-color);
+    border-radius: 1.4rem;
+    background: var(--surface-secondary);
+    color: var(--text-primary);
+    font-family: var(--bodyFont);
     transition:
-
-      border-color .2s ease,
-      background-color .2s ease,
-      box-shadow .2s ease;
+      border-color 0.2s ease,
+      background-color 0.2s ease,
+      box-shadow 0.2s ease,
+      transform 0.18s ease;
   }
-
-
-
-
 
   .form__input {
-
-
-    height:5.2rem;
-
-    padding:
-      0 1.5rem;
-
-
-    font-size:1.5rem;
+    height: 5.4rem;
+    padding: 0 1.6rem;
+    font-size: 1.55rem;
   }
-
-
-
-
 
   .form__textarea {
-
-
-    min-height:13rem;
-
-
-    padding:
-      1.4rem 1.5rem;
-
-
-    resize:vertical;
-
-
-    font-size:1.45rem;
-
-    line-height:1.7;
+    min-height: 12.5rem;
+    padding: 1.45rem 1.6rem;
+    resize: vertical;
+    font-size: 1.5rem;
+    line-height: 1.75;
   }
-
-
-
-
 
   .form__input::placeholder,
   .form__textarea::placeholder {
-
-    color:
-      var(--text-muted);
+    color: var(--text-muted);
+    font-size: 1.45rem;
   }
-
-
-
-
 
   .form__input:hover,
   .form__textarea:hover {
-
-    border-color:
-      var(--grey-300);
+    border-color: var(--grey-300);
+    background: var(--surface);
   }
-
-
-
-
 
   .form__input:focus,
   .form__textarea:focus {
-
-
-    outline:none;
-
-
-    background:
-      var(--surface);
-
-
-    border-color:
-      var(--primary-400);
-
-
-
-    box-shadow:
-      0 0 0 4px rgba(59,130,246,.12);
+    outline: none;
+    background: var(--surface);
+    border-color: var(--primary-400);
+    box-shadow: 0 0 0 0.4rem rgba(59, 130, 246, 0.12);
   }
-
-
-
-
-
 
   .form__error {
-
-    margin:0;
-
-
-    color:
-      var(--danger-text);
-
-
-    font-size:1.25rem;
-
-    font-weight:600;
+    margin: 0;
+    color: var(--danger-text);
+    font-size: 1.3rem;
+    font-weight: 600;
   }
-
-
-
-
-
 
   /* ============================================
      RESPONSIVE
   ============================================ */
 
+  @include respond(tab-port) {
+    padding: 1.8rem;
+    gap: 1.8rem;
 
-  @include respond("tab-port") {
-
-
-    padding:
-      1.6rem 1.6rem 6rem;
-
-
-
-    &__hero {
-
-      flex-direction:column;
-
-      align-items:flex-start;
+    &__header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.4rem;
+      padding-bottom: 1.6rem;
     }
 
-
-
-
-    &__hero-note {
-
-      width:100%;
+    &__header-note {
+      width: 100%;
+      justify-content: flex-start;
     }
 
+    &__card {
+      padding: 1.8rem;
+      border-radius: 1.8rem;
+    }
 
-
+    &__form {
+      gap: 1.8rem;
+    }
 
     &__key-field {
-
-      grid-template-columns:1fr;
+      grid-template-columns: 1fr;
     }
-
   }
 
-
-
-
-
-  @include respond("phone") {
-
-
-    padding:
-      1rem 1rem 5rem;
-
-
-
-
+  @include respond(phone-lg) {
     &__title {
-
-      font-size:2.8rem;
+      font-size: 3rem;
     }
-
-
-
 
     &__subtitle {
-
-      font-size:1.45rem;
+      font-size: 1.5rem;
     }
 
+    .form__label {
+      font-size: 1.45rem;
+    }
 
+    .form__hint {
+      font-size: 1.3rem;
+    }
+  }
 
+  @include respond(phone) {
+    padding: 1.2rem;
+
+    &__card {
+      padding: 1.5rem;
+      border-radius: 1.6rem;
+    }
 
     &__actions {
-
-      justify-content:stretch;
-
+      justify-content: stretch;
 
       .btn {
-
-        width:100%;
+        width: 100%;
       }
     }
 
-  }
+    .form__input {
+      height: 5rem;
+      font-size: 1.5rem;
+    }
 
+    .form__textarea {
+      font-size: 1.45rem;
+    }
+  }
 }

@@ -6,8 +6,9 @@ import { FiPlusSquare } from "react-icons/fi";
 import { FiBarChart2 } from "react-icons/fi";
 
 export const links  = [
-  {  id: 1, text: 'Projects', path: '/projects', icon: <FiLayers />},
+  {  id: 1, text: 'workspaces', path: '/workspaces', icon: <FiLayers />},
   {  id: 2, text: 'create project', path: '/create-project', icon: <FiPlusSquare />},
+  {  id: 3, text: 'dashboard', path: '/dashboard', icon: <FiPlusSquare />},
 ]
 
 export const tasksLinks = [
@@ -20,25 +21,25 @@ export const projectLinks = [
   {
     id: 1,
     text: 'board',
-    path: (projectId: string) => `/projects/${projectId}/board`,
+    path: (projectId: string) => `/workspaces/${projectId}/board`,
     icon: <GrTasks />
   },
   {
     id: 2,
     text: 'backlog',
-    path: (projectId: string) => `/projects/${projectId}/backlog`,
+    path: (projectId: string) => `/workspaces/${projectId}/backlog`,
     icon: <FaWpforms />
   },
   {
     id: 3,
     text: 'tasks',
-    path: (projectId: string) => `/projects/${projectId}/tasks`,
+    path: (projectId: string) => `/workspaces/${projectId}/tasks`,
     icon: <ImProfile />
   },
     {
     id: 4,
-    text: 'Summary',
-    path: (projectId: string) => `/projects/${projectId}/statistics`,
+    text: 'summary',
+    path: (projectId: string) => `/workspaces/${projectId}/statistics`,
     icon: <FiBarChart2 />
   }
 

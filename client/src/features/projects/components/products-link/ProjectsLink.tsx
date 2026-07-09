@@ -27,7 +27,7 @@ export const ProjectsLinks = ({ project }: { project: Project }) => {
             ? "projects-item__link projects-item__link--active"
             : "projects-item__link"
         }
-        to={`/projects/${project.key}/board`}
+        to={`/workspaces/${project.key}/board`}
       >
         <span className="projects-item__badge">
           <SiCloudflareworkers className="projects-item__icon" />

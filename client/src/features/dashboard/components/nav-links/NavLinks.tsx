@@ -1,23 +1,32 @@
 import { links } from '../../../../shared/utils/links';
 import './_nav-links.scss';
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { ProjectsLinks } from '../../../projects/components/products-link/ProjectsLink';
 import { Fragment, useEffect, useState } from 'react';
-import {useSelectProjects} from "../../../projects/states/projectsSelectors";
+import { useSelectProjects} from "../../../projects/states/projectsSelectors";
 
 export const NavLinks = ({ toggleSidebar }: { toggleSidebar?: () => void}) => {
     const projects  = useSelectProjects();
+   
     const [toggleProjects, setToggleProjects] = useState<boolean>(false);
 
     const handleClick = (text: string) => {
-        if(text === 'Projects') {
+        if(text === 'workspaces') {
+            // Set the recent active project;
+
+           
+          
+            //
             setToggleProjects((prev) => !prev);
+            
         }
         // To run on small bar
         if (toggleSidebar) toggleSidebar();
     }
 
+  
     useEffect(() => {
+        
     },[projects])
 
     return  ( 
@@ -38,7 +47,7 @@ export const NavLinks = ({ toggleSidebar }: { toggleSidebar?: () => void}) => {
                         <span className='icon'>  { icon } </span>
                         { text }
                     </NavLink>
-                    {   text==='Projects' && 
+                    {   text==='workspaces' && 
                        
                         <ul key={id}  className={`nav-links__projects ${toggleProjects ? 'nav-links__projects--active': ''} `}>
                             {

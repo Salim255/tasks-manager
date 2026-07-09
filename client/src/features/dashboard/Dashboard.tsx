@@ -12,6 +12,5 @@ export const Dashboard = ({ children }:{children: React.ReactNode}) => {
         dispatch(fetchProjectsHttp());
     }, [dispatch]);
     
-
-    return  children 
+    return  children;
 }

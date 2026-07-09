@@ -1,19 +1,17 @@
 import "./_projects.scss";
-import { Outlet, useParams } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { ProjectNavbar } from "./components/project-navbar/ProjectNavbar";
 import { useTaskViewerOpen } from "../tasks/states/taskSelectors";
 import { TaskViewer } from "../tasks/components/task-viewer/TaskViewer";
 import { QuickActionLayout } from "../../shared/components/quick-action-layout/QuickActionLayout";
-import { TaskQuickAction } from "../tasks/components/task-quick-action/TaskQuickAction";
-import { useQuickActionType } from "../../shared/modals/states/quickActionsSelectors";
 import { QuickActionRenderer } from "./components/quick-action-renderer/QuickActionRenderer";
+import { useActiveProject, useSelectProjects } from "./states/projectsSelectors";
+
 
 export const Projects = () => {
     const isOpenTaskViewer = useTaskViewerOpen();
-    const quickActionType = useQuickActionType();
-   
-    const { projectId } = useParams();
-
+    const activeProject = useActiveProject();
+    const projects = useSelectProjects();
 
   return (
    <>
@@ -22,10 +20,11 @@ export const Projects = () => {
 
     <div className="projects-layout__content">
 
-      { projectId && <ProjectNavbar /> }
+      { activeProject?.id  && <ProjectNavbar /> }
 
       <div className="projects-layout__outlet">
         <div className="projects-layout__page">
+          
           <Outlet />
         </div>
       </div>

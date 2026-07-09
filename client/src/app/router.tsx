@@ -35,7 +35,7 @@ const routes: RouteObject[] = [
         children: [
             {
                 index: true,
-                element: <Navigate to="/projects" replace />
+                element: <Navigate to="/workspace" replace />
             },
             {   
                 path: 'profile',
@@ -76,17 +76,17 @@ const routes: RouteObject[] = [
                         }))
                     },
                     {
-                        path: 'projects',
+                        path: 'dashboard',
+                        lazy: () => import("../features/projects/pages/projects-home/ProjectsHome").then((m) => ({
+                            Component: m.ProjectsHome
+                        }))
+                    },
+                    {
+                        path: 'workspaces',
                         lazy: () => import("../features/projects/Projects").then((m) => ({
                             Component: m.Projects,
                         })),
                         children: [
-                                {
-                                    index: true,
-                                    lazy: () => import("../features/projects/pages/projects-home/ProjectsHome").then((m) => ({
-                                        Component: m.ProjectsHome
-                                    }))
-                                },
                                 {
                                     path: ':projectId/board',
                                     lazy: () => import("../features/projects/pages/board/Board")

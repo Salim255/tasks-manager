@@ -60,28 +60,16 @@ export const CreateProjectForm = () => {
 
     <div className="project-create__hero-copy">
 
-      <span className="project-create__eyebrow">
-        New project
-      </span>
-
       <h1 className="project-create__title">
         Create a new project
       </h1>
 
       <p className="project-create__subtitle">
-        Set up your workspace and start organizing tasks with your team.
+        Set up your workspace and start organizing your tasks.
       </p>
 
     </div>
-
-
-    <div className="project-create__hero-note">
-      <span className="project-create__required-dot" />
-      <p>Required fields</p>
-    </div>
-
   </header>
-
 
 
   <section className="project-create__card">

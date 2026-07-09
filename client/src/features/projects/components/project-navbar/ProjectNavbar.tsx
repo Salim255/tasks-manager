@@ -1,15 +1,12 @@
 import { projectLinks } from "../../../../shared/utils/links";
 import "./_project-navbar.scss";
 import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
-import type { RootState } from "../../../../redux/store";
 import { IoMdOptions } from "react-icons/io";
 import { AddMemberForm } from "../../../members/components/add-member-form/AddMemberForm";
+import { useActiveProject } from "../../states/projectsSelectors";
 
 export const ProjectNavbar = () => {
-  const { activeProject  } = useSelector(
-    (store: RootState) => store.projectReducer
-  );
+  const activeProject = useActiveProject();
 
   const projectId = activeProject?.id;
   const projectKey = activeProject?.key;
