@@ -29,7 +29,7 @@ export const Navbar = () => {
 
           <div className="navbar__brand">
             <h1 className="navbar__logo">FlowBoard</h1>
-            <p className="navbar__subtitle">Project workspace</p>
+            <p className="navbar__subtitle">Agile project management</p>
           </div>
         </div>
 

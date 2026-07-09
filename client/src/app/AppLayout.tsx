@@ -37,7 +37,7 @@ export const AppLayout = ({ children }: { children: React.ReactNode }) => {
               </div>
 
               <div className="dashboard-brand__content">
-                <span className="dashboard-brand__label">Workspace</span>
+                <span className="dashboard-brand__label">Plan. Build. Deliver.</span>
                 <strong className="dashboard-brand__name">Flowboard</strong>
               </div>
             </header>

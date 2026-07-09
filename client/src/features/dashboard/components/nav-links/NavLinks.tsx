@@ -1,8 +1,8 @@
 import { links } from '../../../../shared/utils/links';
 import './_nav-links.scss';
-import { NavLink, replace, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { ProjectsLinks } from '../../../projects/components/products-link/ProjectsLink';
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useState } from 'react';
 import { useActiveProject, useSelectProjects} from "../../../projects/states/projectsSelectors";
 import { setActiveProject } from '../../../projects/states/projectSlice';
 import { fetchSingleProjectHttp } from '../../../projects/http/project.http';
@@ -42,11 +42,6 @@ export const NavLinks = ({ toggleSidebar }: { toggleSidebar?: () => void}) => {
         // To run on small bar
         if (toggleSidebar) toggleSidebar();
     }
-
-  
-    useEffect(() => {
-        
-    },[projects])
 
     return  ( 
         <div className="nav-links u-p-xl">
