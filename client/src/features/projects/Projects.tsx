@@ -14,7 +14,7 @@ export const Projects = () => {
   const projects = useSelectProjects();
 
   const hasProjects = projects.length > 0
-
+  console.log(hasProjects);
   return (
     <>
       <div className="projects-layout">

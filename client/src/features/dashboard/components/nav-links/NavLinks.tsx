@@ -1,8 +1,8 @@
 import { links } from '../../../../shared/utils/links';
 import './_nav-links.scss';
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { ProjectsLinks } from '../../../projects/components/products-link/ProjectsLink';
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useActiveProject, useSelectProjects} from "../../../projects/states/projectsSelectors";
 import { setActiveProject } from '../../../projects/states/projectSlice';
 import { fetchSingleProjectHttp } from '../../../projects/http/project.http';
@@ -15,33 +15,41 @@ export const NavLinks = ({ toggleSidebar }: { toggleSidebar?: () => void}) => {
     const activeProject = useActiveProject();
     const navigate = useNavigate();
     const  dispatch = useDispatch<AppDispatch>();
+    const location = useLocation();
 
     const [toggleProjects, setToggleProjects] = useState<boolean>(false);
 
     const handleClick = (text: string) => {
         if(text === 'workspaces') {
-            console.log("Hello", activeProject);
-
-            // If there are current project do me this
-            if(activeProject?.key) {
-                queueMicrotask(() => {
-                    navigate(`/workspaces/${activeProject?.key}/board`, { replace: true });
-                });
-            }
-
-            // If projects and no active project
+             // If projects and no active project
             // we go to project in index 0
             if (!activeProject && projects?.length) {
                 const firstProject = projects[0];
                 dispatch(setActiveProject({ projectId: firstProject.id }));
                 dispatch(fetchSingleProjectHttp({ projectId: firstProject.id }));
             }
-            
+
+            // If there are current project do me this
+            if (activeProject?.key) {
+                queueMicrotask(() => {
+                    navigate(`/workspaces/${activeProject?.key}/board`, { replace: true });
+                });
+            }
+
             setToggleProjects((prev) => !prev);
         }
         // To run on small bar
         if (toggleSidebar) toggleSidebar();
     }
+
+    useEffect(() => {
+        if (!activeProject?.key) return;
+
+        const targetPath = `/workspaces/${activeProject.key}/board`;
+        if (location.pathname !== targetPath) {
+            navigate(targetPath, { replace: true });
+        }
+    }, [activeProject])
 
     return  ( 
         <div className="nav-links u-p-xl">
