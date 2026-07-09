@@ -121,7 +121,7 @@ const projectSlice = createSlice({
         onAddMemberModal: (state) => {
             state.isAddMember = !state.isAddMember;
         },
-        setActiveProjectId: (state, action: PayloadAction<{ projectId: string}>) => {
+        setActiveProject: (state, action: PayloadAction<{ projectId: string}>) => {
             const { projectId } = action.payload;
             const project = state.projects.find((p) => p.id === projectId);
             state.activeProject = project;
@@ -130,5 +130,5 @@ const projectSlice = createSlice({
     }
 });
 
-export const { setActiveProjectId, onAddMemberModal, clearProjects } = projectSlice.actions;
+export const { setActiveProject, onAddMemberModal, clearProjects } = projectSlice.actions;
 export default projectSlice.reducer;

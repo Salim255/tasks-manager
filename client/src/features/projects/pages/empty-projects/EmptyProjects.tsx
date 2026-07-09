@@ -1,35 +1,47 @@
 import "./_empty-projects.scss";
+import { HiOutlineFolderPlus } from "react-icons/hi2";
+import { NavLink } from "react-router-dom";
+
 
 export const EmptyProjects = () => {
   return (
     <section className="empty-projects">
 
-      <div className="empty-projects__card">
+      <section className="empty-projects__content">
+
 
         <div className="empty-projects__icon">
-          ✦
+          <HiOutlineFolderPlus />
         </div>
 
-        <div className="empty-projects__content">
 
-          <h1 className="empty-projects__title">
-            Create your first project
-          </h1>
+
+        <div className="empty-projects__body">
+
+          <h2 className="empty-projects__heading">
+            No projects yet
+          </h2>
+
 
           <p className="empty-projects__description">
-            Your workspace is ready. Create a project to start
-            organizing tasks, managing sprints, and collaborating
-            with your team.
+            Create a project to define your workspace, invite members and
+            start tracking progress.
           </p>
+
+
+
+          <NavLink
+            to="/create-project"
+            className="empty-projects__action"
+        
+          >
+            Create your first project
+          </NavLink>
 
         </div>
 
 
-        <button className="btn btn--primary">
-          Create project
-        </button>
-
-      </div>
+      </section>
 
     </section>
   );

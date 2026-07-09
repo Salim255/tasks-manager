@@ -105,7 +105,7 @@ export const ProjectsHome = () => {
             <div className="projects-home__projects-list">
               {
                 dashboardData?.recentProjects.map((p) => {
-                  return <article className="projects-home__project-card">
+                  return <article key={p.id} className="projects-home__project-card">
                     <div key={p.id} className="projects-home__project-top">
                       <div className="projects-home__project-badge"   style={{ backgroundColor: stringToColor(p.key) }}>{p.key.slice(0,2)}</div>
                       <div>
@@ -180,7 +180,7 @@ export const ProjectsHome = () => {
             <div className="projects-home__tasks-list">
               {
                 dashboardData?.assignedToMe?.needsAttention?.today?.map((t) => {
-                  return <article className="projects-home__task-item">
+                  return <article key={t.id} className="projects-home__task-item">
                     <div className="projects-home__task-type projects-home__task-type--task" />
                     <div className="projects-home__task-content">
                       <p className="projects-home__task-title">{t.title}</p>
@@ -192,7 +192,7 @@ export const ProjectsHome = () => {
               
               {
                 dashboardData?.assignedToMe?.needsAttention?.tomorrow?.map((t) => {
-                  return <article className="projects-home__task-item">
+                  return <article key={t.id} className="projects-home__task-item">
                     <div className="projects-home__task-type projects-home__task-type--story" />
                     <div className="projects-home__task-content">
                       <p className="projects-home__task-title">{t.title}</p>
@@ -204,7 +204,7 @@ export const ProjectsHome = () => {
 
               {
                 dashboardData?.assignedToMe?.needsAttention?.highPriority?.map((t) => {
-                  return  <article className="projects-home__task-item">
+                  return  <article key={t.id} className="projects-home__task-item">
                     <div className="projects-home__task-type projects-home__task-type--bug" />
                     <div className="projects-home__task-content">
                       <p className="projects-home__task-title">{t.title}</p>

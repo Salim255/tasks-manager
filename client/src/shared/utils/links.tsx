@@ -4,11 +4,12 @@ import { GrTasks } from "react-icons/gr";
 import { FiLayers } from "react-icons/fi";
 import { FiPlusSquare } from "react-icons/fi";
 import { FiBarChart2 } from "react-icons/fi";
+import { HiOutlineSquares2X2 } from "react-icons/hi2";
 
 export const links  = [
-  {  id: 1, text: 'workspaces', path: '/workspaces', icon: <FiLayers />},
-  {  id: 2, text: 'create project', path: '/create-project', icon: <FiPlusSquare />},
-  {  id: 3, text: 'dashboard', path: '/dashboard', icon: <FiPlusSquare />},
+  {  id: 1, text: 'create project', path: '/create-project', icon: <FiPlusSquare />},
+  {  id: 2, text: 'workspaces', path: '/workspaces', icon: <FiLayers />},
+  {  id: 3, text: 'dashboard', path: '/dashboard', icon: <HiOutlineSquares2X2 />},
 ]
 
 export const tasksLinks = [

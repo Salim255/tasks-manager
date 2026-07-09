@@ -35,7 +35,7 @@ const routes: RouteObject[] = [
         children: [
             {
                 index: true,
-                element: <Navigate to="/workspace" replace />
+                element: <Navigate to="/workspaces" replace />
             },
             {   
                 path: 'profile',

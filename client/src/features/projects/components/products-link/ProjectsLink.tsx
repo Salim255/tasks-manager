@@ -2,7 +2,7 @@ import "./_projects-link.scss";
 import { NavLink, useParams } from "react-router-dom";
 import type { Project } from "../../models/project.model";
 import { useDispatch } from "react-redux";
-import { setActiveProjectId } from "../../states/projectSlice";
+import { setActiveProject } from "../../states/projectSlice";
 import { SiCloudflareworkers } from "react-icons/si";
 import { type AppDispatch } from "../../../../redux/store";
 import { fetchSingleProjectHttp } from "../../http/project.http";
@@ -14,7 +14,7 @@ export const ProjectsLinks = ({ project }: { project: Project }) => {
   const isCurrentProject = projectId === project?.key;
 
   const updateActiveProjectId = () => {
-    dispatch(setActiveProjectId({ projectId: project.id }));
+    dispatch(setActiveProject({ projectId: project.id }));
     dispatch(fetchSingleProjectHttp({ projectId: project.id }));
   };
 

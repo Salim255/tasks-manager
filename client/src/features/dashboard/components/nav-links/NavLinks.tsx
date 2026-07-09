@@ -1,24 +1,43 @@
 import { links } from '../../../../shared/utils/links';
 import './_nav-links.scss';
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, replace, useNavigate } from "react-router-dom";
 import { ProjectsLinks } from '../../../projects/components/products-link/ProjectsLink';
 import { Fragment, useEffect, useState } from 'react';
-import { useSelectProjects} from "../../../projects/states/projectsSelectors";
+import { useActiveProject, useSelectProjects} from "../../../projects/states/projectsSelectors";
+import { setActiveProject } from '../../../projects/states/projectSlice';
+import { fetchSingleProjectHttp } from '../../../projects/http/project.http';
+import { useDispatch } from 'react-redux';
+import { type AppDispatch } from '../../../../redux/store';
+
 
 export const NavLinks = ({ toggleSidebar }: { toggleSidebar?: () => void}) => {
     const projects  = useSelectProjects();
-   
+    const activeProject = useActiveProject();
+    const navigate = useNavigate();
+    const  dispatch = useDispatch<AppDispatch>();
+
     const [toggleProjects, setToggleProjects] = useState<boolean>(false);
 
     const handleClick = (text: string) => {
         if(text === 'workspaces') {
-            // Set the recent active project;
+            console.log("Hello", activeProject);
 
-           
-          
-            //
-            setToggleProjects((prev) => !prev);
+            // If there are current project do me this
+            if(activeProject?.key) {
+                queueMicrotask(() => {
+                    navigate(`/workspaces/${activeProject?.key}/board`, { replace: true });
+                });
+            }
+
+            // If projects and no active project
+            // we go to project in index 0
+            if (!activeProject && projects?.length) {
+                const firstProject = projects[0];
+                dispatch(setActiveProject({ projectId: firstProject.id }));
+                dispatch(fetchSingleProjectHttp({ projectId: firstProject.id }));
+            }
             
+            setToggleProjects((prev) => !prev);
         }
         // To run on small bar
         if (toggleSidebar) toggleSidebar();
