@@ -1,22 +1,49 @@
 import type { Task } from "../../models/task.model";
+import { useTaskUpdating } from "../../states/taskSelectors";
+import { EditableField } from "../editable-field/EditableField";
 
-export const EditableTitle = ({ task }: { task: Task}) => {
+export const EditableTitle = ({ task, handleSave }: { task: Task; handleSave: () => void}) => {
+    const isLoadingWithUpdate =  useTaskUpdating();
     return (
         <EditableField
-            value={task.title}
-            renderView={(value) => (
-                <span>{value}</span>
-            )}
-            renderEdit={(value, onChange) => (
+           value={task.title}  
+           onSave={handleSave}
+           renderView={({value, edit}) => (
+                <div className="editable-title">
+                    <span className="editable-title__text">
+                        {value}
+                    </span>
+
+                    <button
+                        type="button"
+                        className="editable-title__edit-btn"
+                        onClick={edit}
+                        aria-label="Edit title"
+                    >
+                        ✏️
+                    </button>
+                </div>
+           )}       
+           renderEdit={({value, setValue, save, cancel }) => (
+            <>
                 <input
                     value={value}
-                    onChange={(e) => onChange(e.target.value)}
+                    name="title"
+                    disabled={isLoadingWithUpdate}
+                    onChange={(e) => setValue(e.target.value)}
                 />
-            )}
-            onSave={(value) => {
-                // update title
-            }}
+                <button
+                    disabled={isLoadingWithUpdate}
+                    onClick={save}
+                >
+                    save
+                </button>
+
+                <button onClick={cancel}>
+                    cancel
+                </button>
+            </>
+           )}
         />
     );
-}
 }

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-type EditableFieldProps<T> = {
+export type EditableFieldProps<T> = {
   value: T;
 
   renderView: (props: {
