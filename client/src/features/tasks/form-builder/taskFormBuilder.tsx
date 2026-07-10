@@ -34,17 +34,17 @@ type Action =
 export const initialTaskFormState: TaskFormState = {
   title: "",
   projectId: "",
-  assigneeId: "",
-  description: "",
+  assigneeId: null,
+  description: null,
   taskType: "task",
+  sprintId: null,
   status: "todo",
   priority: "low",
-  dueAt: "",
+  dueAt: null,
   errors: {},
 };
 
 function reducer(state: TaskFormState, action: Action): TaskFormState {
-  console.log("Hello from reducer✅✅", action)
   switch (action.type) {
   
     case "SET_FIELD":
@@ -76,15 +76,15 @@ function reducer(state: TaskFormState, action: Action): TaskFormState {
 
 const mapTaskToFormState = (task: Task): TaskFormState => {
   return {
-    title: task.title ?? undefined,
-    description: task.description ?? undefined,
+    title: task.title,
+    description: task.description,
     status: task.status ?? "todo" ,
     taskType: task.taskType ?? "task",
-    dueAt: task.dueAt ?? undefined,
+    dueAt: task.dueAt,
     priority: task.priority ?? "low",
-    projectId: task.projectId ?? undefined,
-    sprintId: task.sprintId ?? undefined,
-    assigneeId: task.assigneeId ?? undefined,
+    projectId: task.projectId,
+    sprintId: task.sprintId,
+    assigneeId: task.assigneeId ?? "unassigned",
     errors: {},
   };
 }

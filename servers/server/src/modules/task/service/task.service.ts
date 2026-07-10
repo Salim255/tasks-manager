@@ -27,13 +27,18 @@ export class TaskService {
   async updateTask(payload: UpdateTaskDto & { taskId: string }): Promise<Task> {
     try {
       const fields: string[] = [];
-      const values: string[] = [];
+      const values: (string| null)[] = [];
       let index = 1;
 
       for (const column of Object.keys(payload)) {
         if (column === 'taskId') continue; // skip primary key
 
-        const value: string | undefined = payload[column] as string | undefined;
+        let value = payload[column] as string | undefined | null ;
+
+        // Special case: unassign member
+        if (column === "assigneeId" && value === "unassigned") {
+          value = null;
+        }
 
         if (value !== undefined) {
           const normalizedColumn = quoteIfNeeded(column);

@@ -5,12 +5,12 @@ import { TaskViewer } from "../tasks/components/task-viewer/TaskViewer";
 import { QuickActionLayout } from "../../shared/components/quick-action-layout/QuickActionLayout";
 import { useSelectProjects } from "./states/projectsSelectors";
 import { EmptyProjects } from "./pages/empty-projects/EmptyProjects";
-
+import { useQuickActionIsOpen } from "../../shared/modals/states/quickActionsSelectors";
 
 export const Projects = () => {
 
   const projects = useSelectProjects();
-
+  const quickActionIsOpen = useQuickActionIsOpen();
   const hasProjects = projects.length > 0
   
   return (
@@ -32,9 +32,9 @@ export const Projects = () => {
             }
           </div>
 
-          <QuickActionLayout>
+          { quickActionIsOpen && <QuickActionLayout>
             <TaskViewer />
-          </QuickActionLayout>
+          </QuickActionLayout> }
         </section>
       </div>
     </>

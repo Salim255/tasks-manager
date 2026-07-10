@@ -3,7 +3,6 @@ import { type ApiErrorDto } from "../../../shared/interfaces/shared.interfaces";
 import api from "../../../api/axios";
 import type { CreateTaskPayload, CreateTaskResponseDto, GetTasksResponseDto, UpdatedTaskResponseDto, UpdateTaskPayload, UpdateTaskSprintPayload } from "../dto/task-dto";
 import { handleHttpError } from "../../../shared/http/handleHttpError";
-import { setTaskViewerTask } from "../states/taskSlice";
 
 export const updateTasHttp = createAsyncThunk<
     UpdatedTaskResponseDto,
@@ -20,7 +19,6 @@ export const updateTasHttp = createAsyncThunk<
                     { withCredentials: true }
                 );
                 // Update current task we update
-                thunkApi.dispatch(setTaskViewerTask({taskId }));
                 return response.data;
             } catch (error) {
                 return thunkApi.rejectWithValue(handleHttpError(error, thunkApi));

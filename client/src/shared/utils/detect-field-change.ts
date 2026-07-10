@@ -11,7 +11,11 @@ export const removedUnchangedField = <T extends Record<string, any>>(
     const oldValue = original[k];
 
     // only include changed + defined values
-    if (newValue !== undefined && newValue !== oldValue) {
+    if (
+      newValue !== undefined &&
+      newValue !== "" &&
+      newValue !== oldValue
+    ) {
       payload[k] = newValue;
     }
   });

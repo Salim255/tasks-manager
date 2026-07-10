@@ -10,32 +10,48 @@ import { updateTasHttp } from "../../http/task.http";
 import type { AppDispatch } from "../../../../redux/store";
 import { useDispatch } from "react-redux";
 import { SelectDropdown } from "../../../../shared/kits/select-dropdown/SelectDropdown";
-import type { TaskPriority, TaskStatus } from "../../dto/task-dto";
+import { useMemberOptions } from "../../../members/hooks/MemberOptionsHook";
 
+ type EditableTaskField =
+    | "taskType"
+    | "title"
+    | "description"
+    | "status"
+    | "priority"
+    | "dueAt"
+    | "assigneeId";
 
 export const TaskViewer = () => {
+    const memberOptions = useMemberOptions();
     const dispatch = useDispatch<AppDispatch>();
     const task  = useSelectedTask();
     
     const { state, setField } = useTaskForm(task);
 
-       const handleChange = (
-         event: ChangeEvent<
-          HTMLInputElement |
-          HTMLSelectElement |
-          HTMLTextAreaElement
-          >) => {
+   
 
-          if (event.target.name==="dueAt") {
-            setField("dueAt", new Date(event.target.value).toISOString());
-          } else {
-            setField(
-                event.target.name as
-                "taskType" | "title" | "description" | "status" | "priority" | "dueAt",
-                event.target.value,
-            );
-          }
-      }
+    const handleFieldChange = (
+        field: EditableTaskField,
+        value: string
+        ) => {
+        if (field === "dueAt") {
+            setField("dueAt", value ? new Date(value).toISOString() : "");
+            return;
+        }
+    
+        setField(field, value);
+    };
+
+    const handleChange = (
+        event: ChangeEvent<
+            HTMLInputElement |
+            HTMLSelectElement |
+            HTMLTextAreaElement
+        >
+        ) => {
+        const { name, value } = event.target;
+        handleFieldChange(name as EditableTaskField, value);
+    };
 
      
       const clickSubmit = (e: ChangeEvent<HTMLFormElement>) => {
@@ -46,19 +62,10 @@ export const TaskViewer = () => {
         
         // Nothing changed it has always error: {}
         if(Object.keys(payload).length === 1) return;
-
+    
         dispatch(updateTasHttp({ ...payload, taskId: task.id }));
-
-        //reset();
+        console.log(payload);
       }
-
-
-      const memberOptions = [
-        { value: "1", label: "John Smith" },
-        { value: "2", label: "Sarah Johnson" },
-        { value: "3", label: "David Brown" },
-        { value: "4", label: "Emma Wilson" },
-    ];
 
      const taskStatuses = [
         { value: "todo", label: "To Do" },
@@ -72,25 +79,33 @@ export const TaskViewer = () => {
         { value: "high", label: "High" },
     ];
 
-    const onCancel = (fieldName: "status" | "priority" | "dueAt" | "assigneeId" | "description" | "title") => {
+    const onCancel = (fieldName: EditableTaskField) => {
         const currentValue = state[fieldName] ?? null;
         const taskValue = task?.[fieldName] ?? null;
-        console.log(currentValue !== taskValue, currentValue, taskValue)
         if (currentValue !== taskValue) {
             setField(fieldName, taskValue!);
         }
     };
 
     const getActionClass = (
-        fieldName: "status" | "priority" | "dueAt" | "assigneeId" | "description" | "title"
+        fieldName: EditableTaskField
     ) => {
-        const currentValue = state[fieldName] ?? null;
+        const rawValue = state[fieldName];
+        const currentValue =
+            rawValue === undefined ||
+            rawValue === null ||
+            rawValue === "" ||
+            rawValue === "unassigned"
+                ? null
+                : rawValue;
+
         const taskValue = task?.[fieldName] ?? null;
-        
-        return currentValue === taskValue
+  
+        return currentValue === taskValue 
             ? "task-viewer__actions"
             : "task-viewer__actions task-viewer__actions--active";
     };
+
 
   return (
   
@@ -199,7 +214,7 @@ export const TaskViewer = () => {
                                       value={state.status}
                                       options={taskStatuses}
                                       onChange={(val) =>
-                                        setField("status", val as TaskStatus)
+                                        handleFieldChange("status", val)
                                       }
                                     />
                         </div>
@@ -236,7 +251,7 @@ export const TaskViewer = () => {
                         value={state.priority}
                         options={taskPriorities}
                         onChange={(val) =>
-                            setField("priority", val as TaskPriority)
+                            handleFieldChange("priority", val)
                         }
                         />
                       
@@ -269,10 +284,10 @@ export const TaskViewer = () => {
                         </label>
 
                          <SelectDropdown
-                            value={state?.assigneeId ?? ""}
+                            value={state?.assigneeId ?? "unassigned"}
                             options={memberOptions}
                             onChange={(val) =>
-                                setField("assigneeId", val)
+                                handleFieldChange("assigneeId", val)
                             }
                             />
 

@@ -9,8 +9,8 @@ export const useMemberOptions = () => {
     return useMemo(() => {
         return [
             {
-                label: "Unassigned",
-                value: "",
+                label: "unassigned",
+                value: "unassigned",
             },
 
             ...(profile

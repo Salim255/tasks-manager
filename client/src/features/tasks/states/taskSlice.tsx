@@ -107,6 +107,7 @@ const taskSlice = createSlice({
             state.tasks = state.tasks.map((t) => {
                 return  t.id === task.id ? task: t;
             });
+            state.task = {...task};
             state.isUpdating = false;
         })
         .addCase(updateTasHttp.rejected, (state) => {

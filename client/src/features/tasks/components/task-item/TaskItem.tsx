@@ -5,7 +5,7 @@ import { OptionsBtn } from '../../../../shared/components/options-btn/OptionsBtn
 import { typeIcon } from '../../../../shared/utils/methods';
 import { Assignee } from '../../../../shared/components/assignee/Assignee';
 import { Status } from '../../../../shared/components/task-status/TaskStatus';
-import { setIsOpenTaskModal, setTaskViewerTask } from '../../states/taskSlice';
+import { setTaskViewerTask } from '../../states/taskSlice';
 import { useDispatch } from 'react-redux';
 import type { AppDispatch } from 'recharts/types/state/store';
 import { setQuickActionType, type QuickActionType } from '../../../../shared/modals/states/quickActionsSlice';
