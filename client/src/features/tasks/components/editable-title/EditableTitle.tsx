@@ -1,12 +1,11 @@
-import type { Task } from "../../models/task.model";
 import { useTaskUpdating } from "../../states/taskSelectors";
 import { EditableField } from "../editable-field/EditableField";
 
-export const EditableTitle = ({ task, handleSave }: { task: Task; handleSave: () => void}) => {
+export const EditableTitle = ({ title, handleSave }: { title: string; handleSave: () => void}) => {
     const isLoadingWithUpdate =  useTaskUpdating();
     return (
         <EditableField
-           value={task.title}  
+           value={title}  
            onSave={handleSave}
            renderView={({value, edit}) => (
                 <div className="editable-title">

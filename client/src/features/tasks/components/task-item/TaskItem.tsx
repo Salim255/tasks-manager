@@ -4,11 +4,12 @@ import type { Task } from "../../models/task.model";
 import { OptionsBtn } from '../../../../shared/components/options-btn/OptionsBtn';
 import { typeIcon } from '../../../../shared/utils/methods';
 import { Assignee } from '../../../../shared/components/assignee/Assignee';
-import { Status } from '../../../../shared/components/task-status/TaskStatus';
 import { setTaskViewerTask } from '../../states/taskSlice';
 import { useDispatch } from 'react-redux';
 import type { AppDispatch } from 'recharts/types/state/store';
 import { setQuickActionType, type QuickActionType } from '../../../../shared/modals/states/quickActionsSlice';
+import { EditableTitle } from '../editable-title/EditableTitle';
+import { EditableStatus } from '../editable-status/EditableStatus';
 
 
 export type TaskItemProps = { task: Task; } & React.HTMLAttributes<HTMLDivElement>;
@@ -27,6 +28,9 @@ export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
         dispatch(setQuickActionType({actionType: item}));
     }
 
+    const handleSave = () => {
+        console.log("hello from save")
+    }
 
     return (
         <div  
@@ -44,11 +48,12 @@ export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
                     {typeIcon(task.taskType)}
                 </div>
                 <div className='task-item__title'>
-                    <span> {task.title} </span>
+                    <EditableTitle title={task.title} handleSave={handleSave}/>
                 </div>
                 </section>
                 <section className='task-item__status'>
-                    <Status status={task.status} />
+                    <EditableStatus taskStatus={task.status}  handleSave={handleSave}/>
+                   {/*   */}
                 </section>
                
                 <section className='task-item__assignee'>
