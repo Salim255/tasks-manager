@@ -21,10 +21,7 @@ export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
        dispatch(setTaskViewerTask({taskId}))
     }
     
-    const openEditTaskModal =() => {
-      dispatch(setIsOpenTaskModal({taskId: task.id}))
-    }
-
+  
     const onQuickAction = (item: QuickActionType ) => {
         onViewTask(task.id);
         dispatch(setQuickActionType({actionType: item}));
