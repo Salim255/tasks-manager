@@ -30,6 +30,7 @@ export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
         dispatch(setQuickActionType({actionType: item}));
     }
 
+
     return (
         <div  
             className={`task-item ${
@@ -66,10 +67,13 @@ export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
                 >
                     <ul className='options-list'>
                         <li 
-                            onClick={openEditTaskModal}
+                            onClick={() => {
+                                onQuickAction("createTask");
+                                setOptionsOpen(null);
+                            }}
                             className='options-list__item task-aside-container'>
                             Edit Task
-                           {/*  <AsidePopup >
+                           {/* <AsidePopup >
                                 <div className='task-aside-container__item-aside'>
                                     < MemberItem key={task.id} task={task} />
                                 </div>

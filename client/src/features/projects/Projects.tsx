@@ -1,7 +1,6 @@
 import "./_projects.scss";
 import { Outlet } from "react-router-dom";
 import { ProjectNavbar } from "./components/project-navbar/ProjectNavbar";
-import { useTaskViewerOpen } from "../tasks/states/taskSelectors";
 import { TaskViewer } from "../tasks/components/task-viewer/TaskViewer";
 import { QuickActionLayout } from "../../shared/components/quick-action-layout/QuickActionLayout";
 import { useSelectProjects } from "./states/projectsSelectors";
@@ -9,7 +8,7 @@ import { EmptyProjects } from "./pages/empty-projects/EmptyProjects";
 
 
 export const Projects = () => {
-  const isOpenTaskViewer = useTaskViewerOpen();
+
   const projects = useSelectProjects();
 
   const hasProjects = projects.length > 0
@@ -38,8 +37,6 @@ export const Projects = () => {
           </QuickActionLayout>
         </section>
       </div>
-
-      {isOpenTaskViewer && <TaskViewer />}
     </>
   );
 };
