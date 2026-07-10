@@ -1,20 +1,22 @@
-type EditableFieldProps<T> = {
-    value: T;
+import type { Task } from "../../models/task.model";
 
-    renderView: (value: T) => React.ReactNode;
-
-    renderEdit: (
-        value: T,
-        onChange: (value: T) => void,
-    ) => React.ReactNode;
-
-    onSave: (value: T) => void | Promise<void>;
-
-    onCancel?: () => void;
-};
-
-export const EditableTitle = () => {
-    return   <div className='editable-title'>
-            <span> {task.title} </span>
-        </div>
+export const EditableTitle = ({ task }: { task: Task}) => {
+    return (
+        <EditableField
+            value={task.title}
+            renderView={(value) => (
+                <span>{value}</span>
+            )}
+            renderEdit={(value, onChange) => (
+                <input
+                    value={value}
+                    onChange={(e) => onChange(e.target.value)}
+                />
+            )}
+            onSave={(value) => {
+                // update title
+            }}
+        />
+    );
+}
 }
