@@ -206,8 +206,8 @@
   &__label {
     color: var(--text-secondary);
 
-    font-size: 1.25rem;
-    font-weight: 800;
+    font-size: var(--text-sm);
+    font-weight: var(--font-bold);
     line-height: 1.2;
     letter-spacing: 0.06em;
     text-transform: uppercase;
@@ -264,7 +264,7 @@
   }
 
   &__textarea {
-    min-height: 16rem;
+    min-height: 10rem;
     padding: 1.4rem 1.5rem;
     resize: vertical;
     line-height: 1.75;

@@ -19,20 +19,23 @@ export type TaskFormState = {
   errors: Partial<Record< "taskType" | "title" | "description" | "status" | "priority" | "dueAt", string>>;
 };
 
+type TaskFormFields = Omit<TaskFormState, "errors">;
+
 type Action =
-  | { type: "SET_FIELD"; field: keyof Omit<TaskFormState, "errors">; value: string }
+  | { type: "SET_FIELD"; field: keyof Omit<TaskFormState, "errors">; value: TaskFormState[keyof TaskFormFields] }
   | { type: "SET_ERROR"; field: keyof TaskFormState["errors"]; message: string }
   | { type: "CLEAR_ERRORS" }
   | { type: "RESET" }
   | {
       type: "HYDRATE";
       payload: TaskFormState;
-    };;
+    };
 
 export const initialTaskFormState: TaskFormState = {
   title: "",
   projectId: "",
   assigneeId: "",
+  description: "",
   taskType: "task",
   status: "todo",
   priority: "low",
@@ -41,6 +44,7 @@ export const initialTaskFormState: TaskFormState = {
 };
 
 function reducer(state: TaskFormState, action: Action): TaskFormState {
+  console.log("Hello from reducer✅✅", action)
   switch (action.type) {
   
     case "SET_FIELD":
@@ -71,30 +75,25 @@ function reducer(state: TaskFormState, action: Action): TaskFormState {
 }
 
 const mapTaskToFormState = (task: Task): TaskFormState => {
-
-  console.log("Task from mapper", task)
   return {
-  
-  title: task.title ?? undefined,
-  description: task.description ?? undefined,
-  status: task.status ?? "todo" ,
-  taskType: task.taskType ?? "task",
-  dueAt: task.dueAt ?? undefined,
-  priority: task.priority ?? "low",
-  projectId: task.projectId ?? undefined,
-  sprintId: task.sprintId ?? undefined,
-  assigneeId: task.assigneeId ?? undefined,
-  errors: {},
-};
+    title: task.title ?? undefined,
+    description: task.description ?? undefined,
+    status: task.status ?? "todo" ,
+    taskType: task.taskType ?? "task",
+    dueAt: task.dueAt ?? undefined,
+    priority: task.priority ?? "low",
+    projectId: task.projectId ?? undefined,
+    sprintId: task.sprintId ?? undefined,
+    assigneeId: task.assigneeId ?? undefined,
+    errors: {},
+  };
 }
 
 export const useTaskForm = (initialTask?: Task) => {
-  console.log(initialTask, "hello from action")
   const [state, dispatch] = useReducer(
     reducer,
     initialTask,
     (comingTask) => {
-      console.log(comingTask, "hello from coming task")
       if (comingTask) {
         return mapTaskToFormState(comingTask)
       }
@@ -114,8 +113,10 @@ export const useTaskForm = (initialTask?: Task) => {
     dispatch({ type: "RESET" });
   }, [initialTask?.id]);
 
-  const setField = (field: keyof Omit<TaskFormState, "errors">, value: string) =>
-    dispatch({ type: "SET_FIELD", field, value });
+  const setField = <k extends keyof Omit<TaskFormState, "errors">>(field: k, value: TaskFormState[k]) => {
+      dispatch({ type: "SET_FIELD", field, value });
+  }
+
 
   const setError = (field: keyof TaskFormState["errors"], message: string) =>
     dispatch({ type: "SET_ERROR", field, message });
