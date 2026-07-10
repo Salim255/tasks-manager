@@ -8,10 +8,9 @@ import { EmptyProjects } from "./pages/empty-projects/EmptyProjects";
 import { useQuickActionIsOpen } from "../../shared/modals/states/quickActionsSelectors";
 
 export const Projects = () => {
-
   const projects = useSelectProjects();
   const quickActionIsOpen = useQuickActionIsOpen();
-  const hasProjects = projects.length > 0
+  const hasProjects = projects?.length > 0;
   
   return (
     <>
@@ -32,9 +31,12 @@ export const Projects = () => {
             }
           </div>
 
-          { quickActionIsOpen && <QuickActionLayout>
-            <TaskViewer />
-          </QuickActionLayout> }
+          { 
+            quickActionIsOpen 
+            && <QuickActionLayout>
+                <TaskViewer />
+            </QuickActionLayout> 
+          }
         </section>
       </div>
     </>

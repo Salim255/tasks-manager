@@ -17,7 +17,6 @@ import { PageMotion } from '../../../../shared/motion/PageMotion';
 import { Group, Panel, Separator  } from 'react-resizable-panels';
 import { useActiveProject } from '../../states/projectsSelectors';
 
-
 export const Backlog = () => {
     const dispatch = useDispatch<AppDispatch>();
     const activeProject = useActiveProject();

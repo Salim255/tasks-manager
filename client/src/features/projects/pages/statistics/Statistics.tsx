@@ -9,10 +9,9 @@ import { PageMotion } from "../../../../shared/motion/PageMotion";
 
 export const  Statistics = () => {
     const tasks = useTasks();
-    const sprints  = useSprints();
+  
     const { barChartDataPercentage, circleChartDataPercentage } = useStatisticsData(tasks);
 
-    useEffect(() => {}, [tasks, sprints])
     return <PageMotion>
         <section className="statistics">
             <div className="statistics__work-status">

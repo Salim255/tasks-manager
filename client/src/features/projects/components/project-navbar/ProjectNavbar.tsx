@@ -11,6 +11,8 @@ export const ProjectNavbar = () => {
   const projectId = activeProject?.id;
   const projectKey = activeProject?.key;
 
+
+  
   return (
     <header className="project-header">
       <div className="project-header__top">
@@ -37,7 +39,7 @@ export const ProjectNavbar = () => {
             return (
               <NavLink
                 key={link.id}
-                to={link.path(projectKey ?? "")}
+                to={projectKey ? link.path(projectKey) : "/workspaces"}
                 className={({ isActive }) =>
                   isActive
                     ? "project-header__link project-header__link--active"
