@@ -26,6 +26,7 @@ export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
     }
 
     const onQuickAction = (item: QuickActionType ) => {
+        onViewTask(task.id);
         dispatch(setQuickActionType({actionType: item}));
     }
 

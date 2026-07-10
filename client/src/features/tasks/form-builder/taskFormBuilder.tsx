@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import type { Task } from "../models/task.model";
 import type { TaskType } from "../dto/task-dto";
 
@@ -23,7 +23,11 @@ type Action =
   | { type: "SET_FIELD"; field: keyof Omit<TaskFormState, "errors">; value: string }
   | { type: "SET_ERROR"; field: keyof TaskFormState["errors"]; message: string }
   | { type: "CLEAR_ERRORS" }
-  | { type: "RESET" };
+  | { type: "RESET" }
+  | {
+      type: "HYDRATE";
+      payload: TaskFormState;
+    };;
 
 export const initialTaskFormState: TaskFormState = {
   title: "",
@@ -58,12 +62,19 @@ function reducer(state: TaskFormState, action: Action): TaskFormState {
     case "RESET":
       return initialTaskFormState;
 
+    case "HYDRATE":
+      return action.payload;
+
     default:
       return state;
   }
 }
 
-const mapTaskToFormState = (task: Task): TaskFormState => ({
+const mapTaskToFormState = (task: Task): TaskFormState => {
+
+  console.log("Task from mapper", task)
+  return {
+  
   title: task.title ?? undefined,
   description: task.description ?? undefined,
   status: task.status ?? "todo" ,
@@ -74,16 +85,34 @@ const mapTaskToFormState = (task: Task): TaskFormState => ({
   sprintId: task.sprintId ?? undefined,
   assigneeId: task.assigneeId ?? undefined,
   errors: {},
-});
+};
+}
 
 export const useTaskForm = (initialTask?: Task) => {
+  console.log(initialTask, "hello from action")
   const [state, dispatch] = useReducer(
     reducer,
     initialTask,
-    (comingTask) => comingTask ?
-      mapTaskToFormState(comingTask)
-      : initialTaskFormState
+    (comingTask) => {
+      console.log(comingTask, "hello from coming task")
+      if (comingTask) {
+        return mapTaskToFormState(comingTask)
+      }
+      return initialTaskFormState
+    }
   );
+
+  useEffect(() => {
+    if (initialTask) {
+      dispatch({
+        type: "HYDRATE",
+        payload: mapTaskToFormState(initialTask),
+      });
+      return;
+    }
+
+    dispatch({ type: "RESET" });
+  }, [initialTask?.id]);
 
   const setField = (field: keyof Omit<TaskFormState, "errors">, value: string) =>
     dispatch({ type: "SET_FIELD", field, value });

@@ -1,17 +1,54 @@
 // 1 Header with close cross,
 // 2 update section
 // 3 task details section
-import type { AppDispatch } from "recharts/types/state/store";
 import "./_task-viewer.scss";
+import { useSelectedTask } from "../../states/taskSelectors";
+import { useTaskForm } from "../../form-builder/taskFormBuilder";
+import type { ChangeEvent } from "react";
+import { removedUnchangedField } from "../../../../shared/utils/detect-field-change";
+import { updateTasHttp } from "../../http/task.http";
+import type { AppDispatch } from "../../../../redux/store";
 import { useDispatch } from "react-redux";
-import { closeTaskViewer } from "../../states/taskSlice";
 
 export const TaskViewer = () => {
     const dispatch = useDispatch<AppDispatch>();
-    const onCloseTaskViewer = () => {
-        dispatch(closeTaskViewer())
-    }
+    const task  = useSelectedTask();
+    
+    const { state, setField, reset } = useTaskForm(task);
 
+       const handleChange = (
+         event: ChangeEvent<
+          HTMLInputElement |
+          HTMLSelectElement |
+          HTMLTextAreaElement
+          >) => {
+
+          if (event.target.name==="dueAt") {
+            setField("dueAt", new Date(event.target.value).toISOString());
+          } else {
+            setField(
+                event.target.name as
+                "taskType" | "title" | "description" | "status" | "priority" | "dueAt",
+                event.target.value,
+            );
+          }
+      }
+
+     
+      const clickSubmit = (e: ChangeEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        if (!task?.id) return;
+        
+        const payload = removedUnchangedField(state, task);
+        
+        // Nothing changed it has always error: {}
+        if(Object.keys(payload).length === 1) return;
+
+        dispatch(updateTasHttp({ ...payload, taskId: task.id }));
+
+        //reset();
+      }
+      console.log(task, state)
   return (
   
         <div className="task-viewer">
@@ -20,7 +57,7 @@ export const TaskViewer = () => {
             FORM
         =====================================*/}
 
-        <form className="task-viewer__form scroll-bar">
+        <form  onSubmit={clickSubmit} className="task-viewer__form scroll-bar">
 
             {/*=====================================
                 UPDATE TASK
@@ -30,11 +67,14 @@ export const TaskViewer = () => {
 
                 <div className="task-viewer__group">
 
-                    <label className="task-viewer__label">
+                    <label htmlFor="title" className="task-viewer__label">
                         Summary
                     </label>
 
                     <input
+                        onChange={handleChange}
+                        value={state.title}
+                        name="title"
                         type="text"
                         className="task-viewer__input"
                         defaultValue="Improve Task Viewer"
@@ -62,11 +102,13 @@ export const TaskViewer = () => {
 
                 <div className="task-viewer__group">
 
-                    <label className="task-viewer__label">
+                    <label className="task-viewer__label" htmlFor="description">
                         Description
                     </label>
 
                     <textarea
+                        onChange={handleChange}
+                        value={state.description}
                         rows={4}
                         className="task-viewer__textarea"
                         defaultValue="Build a modern task viewer inspired by Linear."
@@ -108,11 +150,13 @@ export const TaskViewer = () => {
 
                     <div className="task-viewer__group">
 
-                        <label className="task-viewer__label">
+                        <label htmlFor="status" className="task-viewer__label">
                             Status
                         </label>
 
-                        <select className="task-viewer__select">
+                        <select 
+                             onChange={handleChange}   
+                            value={state.status} className="task-viewer__select">
 
                             <option>Todo</option>
                             <option selected>In Progress</option>
@@ -142,11 +186,11 @@ export const TaskViewer = () => {
 
                     <div className="task-viewer__group">
 
-                        <label className="task-viewer__label">
+                        <label htmlFor="priority" className="task-viewer__label">
                             Priority
                         </label>
 
-                        <select className="task-viewer__select">
+                        <select   onChange={handleChange}  value={state.priority} className="task-viewer__select">
 
                             <option>Highest</option>
                             <option selected>High</option>
@@ -177,11 +221,11 @@ export const TaskViewer = () => {
 
                     <div className="task-viewer__group">
 
-                        <label className="task-viewer__label">
+                        <label htmlFor="" className="task-viewer__label">
                             Assignee
                         </label>
 
-                        <select className="task-viewer__select">
+                        <select value={state.assigneeId} className="task-viewer__select">
 
                             <option>Unassigned</option>
 
@@ -209,42 +253,27 @@ export const TaskViewer = () => {
 
                     <div className="task-viewer__group">
 
-                        <label className="task-viewer__label">
+                        <label htmlFor="reporter" className="task-viewer__label">
                             Reporter
                         </label>
 
                         <input
+                            readOnly
                             className="task-viewer__input"
                             defaultValue="Salim Hassan"
                         />
-
-                        <div className="task-viewer__actions">
-
-                            <button
-                                type="button"
-                                className="task-viewer__cancel"
-                            >
-                                Cancel
-                            </button>
-
-                            <button
-                                type="submit"
-                                className="task-viewer__save"
-                            >
-                                Save
-                            </button>
-
-                        </div>
-
                     </div>
 
                     <div className="task-viewer__group">
 
-                        <label className="task-viewer__label">
+                        <label htmlFor="dueAt" className="task-viewer__label">
                             Due Date
                         </label>
 
                         <input
+                            name="dueAt"
+                            value={state.dueAt?.split("T")[0]}
+                            onChange={handleChange}
                             type="date"
                             className="task-viewer__input"
                         />
@@ -268,7 +297,7 @@ export const TaskViewer = () => {
                         </div>
 
                     </div>
-
+{/* 
                     <div className="task-viewer__group">
 
                         <label className="task-viewer__label">
@@ -299,7 +328,7 @@ export const TaskViewer = () => {
 
                         </div>
 
-                    </div>
+                    </div> */}
 
                 </div>
 
@@ -309,7 +338,7 @@ export const TaskViewer = () => {
                 ACTIVITY
             =====================================*/}
 
-            <section className="task-viewer__section">
+            {/* <section className="task-viewer__section">
 
                 <h3 className="task-viewer__section-title">
                     Activity
@@ -321,7 +350,7 @@ export const TaskViewer = () => {
 
                 </div>
 
-            </section>
+            </section> */}
 
         </form>
 
