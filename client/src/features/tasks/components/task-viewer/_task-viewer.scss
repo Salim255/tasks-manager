@@ -7,16 +7,14 @@
 
 .task-viewer {
   
-  //height: min(92vh, 90rem);
+  height: min(92vh, 90rem);
 
   display: flex;
   flex-direction: column;
 
-  //background: var(--surface);
+
   border: 1px solid var(--border-color);
   overflow: hidden;
-
-  //box-shadow: 0 2.4rem 7rem rgba(15, 23, 42, 0.12);
 
   color: var(--text-primary);
 
@@ -146,7 +144,7 @@
 
     background: var(--backgroundColor);
 
-    padding-bottom: 50%;
+    padding-bottom: 30%;
   }
 
   /* ======================================
@@ -315,11 +313,6 @@
     }
   }
 
-  &__group:focus-within &__actions {
-  /* opacity: 1;
-  visibility: visible;
-  transform: translateY(0); */
-  }
 
   &__cancel,
   &__save {

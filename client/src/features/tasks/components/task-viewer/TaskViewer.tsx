@@ -10,6 +10,7 @@ import { updateTasHttp } from "../../http/task.http";
 import type { AppDispatch } from "../../../../redux/store";
 import { useDispatch } from "react-redux";
 import { SelectDropdown } from "../../../../shared/kits/select-dropdown/SelectDropdown";
+import type { TaskPriority, TaskStatus } from "../../dto/task-dto";
 
 
 export const TaskViewer = () => {
@@ -146,7 +147,7 @@ export const TaskViewer = () => {
 
                     <textarea
                         onChange={handleChange}
-                        value={state?.description}
+                        value={state?.description ?? ""}
                         name="description"
                         rows={2}
                         className="task-viewer__textarea"
@@ -198,7 +199,7 @@ export const TaskViewer = () => {
                                       value={state.status}
                                       options={taskStatuses}
                                       onChange={(val) =>
-                                        setField("status", val)
+                                        setField("status", val as TaskStatus)
                                       }
                                     />
                         </div>
@@ -235,7 +236,7 @@ export const TaskViewer = () => {
                         value={state.priority}
                         options={taskPriorities}
                         onChange={(val) =>
-                            setField("priority", val)
+                            setField("priority", val as TaskPriority)
                         }
                         />
                       
@@ -268,7 +269,7 @@ export const TaskViewer = () => {
                         </label>
 
                          <SelectDropdown
-                            value={state.assigneeId}
+                            value={state?.assigneeId ?? ""}
                             options={memberOptions}
                             onChange={(val) =>
                                 setField("assigneeId", val)

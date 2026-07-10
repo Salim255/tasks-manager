@@ -8,14 +8,14 @@ export type TaskPriority = "low" | "medium" | "high";
 
 export type TaskFormState = {
   title: string;
-  description?: string;
+  description?: string | null;
   status: TaskStatus;
   taskType: TaskType,
   priority: TaskPriority;
   projectId: string;
-  sprintId?: string;
-  assigneeId?: string;
-  dueAt?: string; // keep string for <input type="date">
+  sprintId?: string | null;
+  assigneeId?: string | null;
+  dueAt?: string | null; // keep string for <input type="date">
   errors: Partial<Record< "taskType" | "title" | "description" | "status" | "priority" | "dueAt", string>>;
 };
 

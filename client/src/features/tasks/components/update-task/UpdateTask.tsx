@@ -10,6 +10,8 @@ import { useSelectedTask } from "../../states/taskSelectors";
 import { updateTasHttp } from "../../http/task.http";
 import { removedUnchangedField } from "../../../../shared/utils/detect-field-change";
 import type { AppDispatch } from "../../../../redux/store";
+import type { TaskStatus, TaskType } from "../../models/task.model";
+import type { TaskPriority } from "../../dto/task-dto";
 
 export const UpdateTask = () => {
     const formRef = useRef<HTMLFormElement | null>(null);
@@ -127,7 +129,7 @@ export const UpdateTask = () => {
             name="description"
             className="form__textarea"
             placeholder="Describe the task..."
-            value={state.description}
+            value={state.description ?? ""}
             onChange={handleChange}
           />
         </div>
@@ -141,7 +143,7 @@ export const UpdateTask = () => {
               value={state.taskType}
               options={taskTypes}
               onChange={(val) =>
-                setField("taskType", val)
+                setField("taskType", val as TaskType)
               }
             />
           </div>
@@ -151,8 +153,8 @@ export const UpdateTask = () => {
             <SelectDropdown
               value={state.status}
               options={taskStatuses}
-              onChange={(val) =>
-                setField("status", val)
+              onChange={(val) => 
+                setField("status", val as TaskStatus)
               }
             />
           </div>
@@ -163,7 +165,7 @@ export const UpdateTask = () => {
               value={state.priority}
               options={taskPriorities}
               onChange={(val) =>
-                setField("priority", val)
+                setField("priority", val as TaskPriority)
               }
             />
           </div>
@@ -175,7 +177,7 @@ export const UpdateTask = () => {
           <div className="form__group">
             <label className="form__label">Assignee</label>
             <SelectDropdown
-              value={state.assigneeId}
+              value={state.assigneeId ?? ""}
               options={memberOptions}
               onChange={(val) =>
                 setField("assigneeId", val)
