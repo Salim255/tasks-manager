@@ -228,8 +228,8 @@
     background: var(--surface-secondary);
     color: var(--text-primary);
 
-    font-family: var(--bodyFont);
-    font-size: 1.5rem;
+    font-family: var(--font-medium);
+    font-size: var(--text-base);
     line-height: 1.55;
 
     outline: none;
@@ -288,7 +288,9 @@
   /* ======================================
      INLINE ACTIONS
   ====================================== */
-
+  .test {
+    position: relative;
+  }
   &__actions {
     position: absolute;
     right: 0;
@@ -306,12 +308,17 @@
       opacity 0.2s ease,
       visibility 0.2s ease,
       transform 0.2s ease;
+    &--active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
   }
 
   &__group:focus-within &__actions {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
+  /* opacity: 1;
+  visibility: visible;
+  transform: translateY(0); */
   }
 
   &__cancel,

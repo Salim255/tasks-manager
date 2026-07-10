@@ -9,6 +9,7 @@ import { removedUnchangedField } from "../../../../shared/utils/detect-field-cha
 import { updateTasHttp } from "../../http/task.http";
 import type { AppDispatch } from "../../../../redux/store";
 import { useDispatch } from "react-redux";
+import { SelectDropdown } from "../../../../shared/kits/select-dropdown/SelectDropdown";
 
 export const TaskViewer = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -48,7 +49,21 @@ export const TaskViewer = () => {
 
         //reset();
       }
-      console.log(task, state)
+
+
+      const memberOptions = [
+        { value: "1", label: "John Smith" },
+        { value: "2", label: "Sarah Johnson" },
+        { value: "3", label: "David Brown" },
+        { value: "4", label: "Emma Wilson" },
+    ];
+
+     const taskStatuses = [
+        { value: "todo", label: "To Do" },
+        { value: "in_progress", label: "In Progress" },
+        { value: "done", label: "Done" },
+    ];
+
   return (
   
         <div className="task-viewer">
@@ -153,8 +168,16 @@ export const TaskViewer = () => {
                         <label htmlFor="status" className="task-viewer__label">
                             Status
                         </label>
-
-                        <select 
+                        <div className="text">
+                             <SelectDropdown
+                                      value={state.status}
+                                      options={taskStatuses}
+                                      onChange={(val) =>
+                                        setField("status", val)
+                                      }
+                                    />
+                        </div>
+                       {/*  <select 
                              onChange={handleChange}   
                             value={state.status} className="task-viewer__select">
 
@@ -162,9 +185,9 @@ export const TaskViewer = () => {
                             <option selected>In Progress</option>
                             <option>Done</option>
 
-                        </select>
+                        </select> */}
 
-                        <div className="task-viewer__actions">
+                        <div className={task?.status === state.status ? "task-viewer__actions": "task-viewer__actions task-viewer__actions--active"}>
 
                             <button
                                 type="button"
