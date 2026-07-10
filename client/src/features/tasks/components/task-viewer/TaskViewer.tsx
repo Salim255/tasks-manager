@@ -151,7 +151,7 @@ export const TaskViewer = () => {
                         name="description"
                         rows={2}
                         className="task-viewer__textarea"
-                        placeholder="Build a modern task viewer inspired by Linear."
+                        placeholder="Describe the task, goals, requirements, and any important details..."
                     />
 
                     <div className={getActionClass("description")}>

@@ -23,6 +23,7 @@
   /* Better horizontal scrolling */
   scrollbar-width: thin;
 
+  height: 100vh;
   &::-webkit-scrollbar {
     height: 0.5rem;
   }
