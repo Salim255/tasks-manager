@@ -13,6 +13,11 @@ type SelectDropdownProps = {
   placeholder?: string;
   options: SelectOption[];
   onChange: (value: string) => void;
+
+  renderTrigger?: (
+    selectedOption: SelectOption | undefined,
+    open: () => void
+  ) => React.ReactNode;
 };
 
 export const SelectDropdown = ({
@@ -21,79 +26,98 @@ export const SelectDropdown = ({
   placeholder = "Select option",
   options,
   onChange,
+  renderTrigger,
 }: SelectDropdownProps) => {
+
   const [isOpen, setIsOpen] = useState(false);
 
   const selectedOption = options.find(
     option => option.value === value
   );
 
-  const selectOption = (option: SelectOption) => {
-    onChange(option.value);
 
-    setIsOpen(false);
-
-    console.log("Hello from update")
+  const openDropdown = () => {
+    setIsOpen(true);
   };
 
- return (
-  <div className="select-dropdown">
 
-    {/* ============================================
-        LABEL
-    ============================================ */}
-    {label && (
-      <label className="select-dropdown__label">
-        {label}
-      </label>
-    )}
+  const toggleDropdown = () => {
+    setIsOpen(prev => !prev);
+  };
 
-    {/* ============================================
-        TRIGGER
-    ============================================ */}
-    <button
-      type="button"
-      className="select-dropdown__trigger"
-      onClick={() => setIsOpen(prev => !prev)}
-    >
-      <span className="select-dropdown__value">
-        {selectedOption?.label ?? placeholder}
-      </span>
 
-      <IoChevronDown
-        className={`select-dropdown__icon ${
-          isOpen ? "select-dropdown__icon--open" : ""
-        }`}
-      />
-    </button>
+  const selectOption = (option: SelectOption) => {
+    onChange(option.value);
+    setIsOpen(false);
+  };
 
-    {/* ============================================
-        MENU
-    ============================================ */}
-    {isOpen && (
-      <div className="select-dropdown__menu">
 
-        <ul className="select-dropdown__list">
+  return (
+    <div className="select-dropdown">
 
-          {options.map(option => (
-            <li
-              key={option.value}
-              className={`select-dropdown__option ${
-                option.value === value
-                  ? "select-dropdown__option--active"
-                  : ""
-              }`}
-              onClick={() => selectOption(option)}
-            >
-              {option.label}
-            </li>
-          ))}
 
-        </ul>
+      {label && (
+        <label className="select-dropdown__label">
+          {label}
+        </label>
+      )}
 
-      </div>
-    )}
 
-  </div>
-);
+      {/* CUSTOM TRIGGER */}
+      {renderTrigger ? (
+        renderTrigger(
+          selectedOption,
+          openDropdown
+        )
+      ) : (
+
+        /* CURRENT DEFAULT BEHAVIOR */
+        <button
+          type="button"
+          className="select-dropdown__trigger"
+          onClick={toggleDropdown}
+        >
+          <span className="select-dropdown__value">
+            {selectedOption?.label ?? placeholder}
+          </span>
+
+          <IoChevronDown
+            className={`select-dropdown__icon ${
+              isOpen
+                ? "select-dropdown__icon--open"
+                : ""
+            }`}
+          />
+
+        </button>
+
+      )}
+
+
+      {isOpen && (
+        <div className="select-dropdown__menu">
+
+          <ul className="select-dropdown__list">
+
+            {options.map(option => (
+              <li
+                key={option.value}
+                className={`select-dropdown__option ${
+                  option.value === value
+                    ? "select-dropdown__option--active"
+                    : ""
+                }`}
+                onClick={() => selectOption(option)}
+              >
+                {option.label}
+              </li>
+            ))}
+
+          </ul>
+
+        </div>
+      )}
+
+    </div>
+  );
 };

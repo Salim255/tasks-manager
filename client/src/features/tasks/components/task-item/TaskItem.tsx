@@ -10,11 +10,13 @@ import type { AppDispatch } from 'recharts/types/state/store';
 import { setQuickActionType, type QuickActionType } from '../../../../shared/modals/states/quickActionsSlice';
 import { EditableTitle } from '../editable-title/EditableTitle';
 import { EditableStatus } from '../editable-status/EditableStatus';
+import { useMemberOptions } from '../../../members/hooks/MemberOptionsHook';
 
 
 export type TaskItemProps = { task: Task; } & React.HTMLAttributes<HTMLDivElement>;
 
 export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
+    const memberOptions = useMemberOptions();
     const [isOptionsOpen, setOptionsOpen ] = useState<string | null>(null);
     const dispatch = useDispatch<AppDispatch>();
 
@@ -52,7 +54,10 @@ export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
                 </div>
                 </section>
                 <section className='task-item__status'>
-                    <EditableStatus taskStatus={task.status}  handleSave={handleSave}/>
+                    <EditableStatus 
+                        taskStatuses={memberOptions}
+                        taskStatus={task.status} 
+                        handleSave={handleSave}/>
                    {/*   */}
                 </section>
                
