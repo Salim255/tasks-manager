@@ -33,7 +33,10 @@ export const EditableAssignee = ({
                 <button
                     type="button"
                     className="editable-assignee__trigger"
-                    onClick={open}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        open();
+                    }}
                 >
                    <Assignee
                         assigneeId={TaskAssigneeId ?? null}

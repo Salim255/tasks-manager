@@ -115,7 +115,10 @@ export const SelectDropdown = ({
                     ? "select-dropdown__option--active"
                     : ""
                 }`}
-                onClick={() => selectOption(option)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  selectOption(option);
+                }}
               >
                 {option.label}
               </li>

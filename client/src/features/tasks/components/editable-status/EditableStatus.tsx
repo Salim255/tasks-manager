@@ -36,7 +36,10 @@ export const EditableStatus = ({
                 <button
                     type="button"
                     className="editable-status__trigger"
-                    onClick={open}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        open()
+                    }}
                 >
                     <Status
                         status={

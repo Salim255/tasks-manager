@@ -43,6 +43,7 @@ export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
 
     return (
         <div  
+            
             className={`task-item ${
                 isOptionsOpen === task.id
                 ? "task-item--menu-open"
@@ -50,14 +51,14 @@ export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
             }`} {...props} >
             <div 
                 className="task-item__body"
-                
+                onClick={() => onQuickAction("createTask")}
                >
                 <section className='task-item__content'>
                 <div className={`task-item__checkbox task-item__checkbox--${task.taskType}`}>
                     {typeIcon(task.taskType)}
                 </div>
-                <div className='task-item__title'>
-                    <EditableTitle title={task.title} handleSave={handleSave}/>
+                <div className='task-item__title' >
+                    <EditableTitle title={task.title} handleSave={() => onQuickAction("createTask")}/>
                 </div>
                 </section>
                 <section className='task-item__status'>
@@ -87,16 +88,11 @@ export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
                     <ul className='options-list'>
                         <li 
                             onClick={() => {
-                                onQuickAction("createTask");
                                 setOptionsOpen(null);
+                                onQuickAction("createTask")
                             }}
                             className='options-list__item task-aside-container'>
                             Edit Task
-                           {/*  <AsidePopup >
-                                <div className='task-aside-container__item-aside'>
-                                    < MemberItem key={task.id} task={task} />
-                                </div>
-                            </AsidePopup>  */}
                         </li>
                         <li className='options-list__item'>Delete Task</li>
                         
