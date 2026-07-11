@@ -119,7 +119,11 @@
     min-width: 20rem;
     border: 1px solid var(--border-color);
     border-radius: 1.6rem;
-
+    &--right {
+      right: 0;
+      left: unset;
+    }
+    
     background:
       linear-gradient(
         180deg,

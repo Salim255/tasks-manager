@@ -11,6 +11,7 @@ import { setQuickActionType, type QuickActionType } from '../../../../shared/mod
 import { EditableTitle } from '../editable-title/EditableTitle';
 import { EditableStatus } from '../editable-status/EditableStatus';
 import { useMemberOptions } from '../../../members/hooks/MemberOptionsHook';
+import { EditableAssignee } from '../editable-assignee/EditableAssignee';
 
 
 export type TaskItemProps = { task: Task; } & React.HTMLAttributes<HTMLDivElement>;
@@ -68,12 +69,17 @@ export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
                 </section>
                
                 <section className='task-item__assignee'>
-                    <Assignee assigneeId={task.assigneeId} />
+                   {/*  <Assignee assigneeId={task.assigneeId} /> */}
+                   < EditableAssignee
+                    TaskAssigneeId={task.assigneeId ?? undefined}
+                    taskMembers={memberOptions}
+                    handleSave={handleSave}
+                    />
                 </section>
               
             </div>
             <section className='task-item__actions'>
-                <OptionsBtn 
+               <OptionsBtn 
                     item={task} 
                     isOptionsOpen={isOptionsOpen}
                     setOptionsOpen={setOptionsOpen}
@@ -86,16 +92,16 @@ export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
                             }}
                             className='options-list__item task-aside-container'>
                             Edit Task
-                           {/* <AsidePopup >
+                           {/*  <AsidePopup >
                                 <div className='task-aside-container__item-aside'>
                                     < MemberItem key={task.id} task={task} />
                                 </div>
-                            </AsidePopup> */}
+                            </AsidePopup>  */}
                         </li>
                         <li className='options-list__item'>Delete Task</li>
                         
                     </ul>
-                </OptionsBtn>
+                </OptionsBtn> 
             </section>
         </div>
     )

@@ -18,6 +18,7 @@ type SelectDropdownProps = {
     selectedOption: SelectOption | undefined,
     open: () => void
   ) => React.ReactNode;
+  placement?: "right";
 };
 
 export const SelectDropdown = ({
@@ -27,6 +28,7 @@ export const SelectDropdown = ({
   options,
   onChange,
   renderTrigger,
+  placement
 }: SelectDropdownProps) => {
 
   const [isOpen, setIsOpen] = useState(false);
@@ -95,7 +97,13 @@ export const SelectDropdown = ({
 
 
       {isOpen && (
-        <div className="select-dropdown__menu">
+        <div   className={
+                `select-dropdown__menu ${
+                    placement
+                        ? "select-dropdown__menu--right"
+                        : ""
+                }`
+            }>
 
           <ul className="select-dropdown__list">
 
