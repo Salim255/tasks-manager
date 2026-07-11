@@ -17,6 +17,12 @@ export type TaskItemProps = { task: Task; } & React.HTMLAttributes<HTMLDivElemen
 
 export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
     const memberOptions = useMemberOptions();
+     const taskStatuses = [
+        { value: "todo", label: "To Do" },
+        { value: "in_progress", label: "In Progress" },
+        { value: "done", label: "Done" },
+    ];
+
     const [isOptionsOpen, setOptionsOpen ] = useState<string | null>(null);
     const dispatch = useDispatch<AppDispatch>();
 
@@ -44,7 +50,7 @@ export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
             <div 
                 className="task-item__body"
                 
-                onClick={() => onQuickAction("createTask")}>
+               >
                 <section className='task-item__content'>
                 <div className={`task-item__checkbox task-item__checkbox--${task.taskType}`}>
                     {typeIcon(task.taskType)}
@@ -55,7 +61,7 @@ export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
                 </section>
                 <section className='task-item__status'>
                     <EditableStatus 
-                        taskStatuses={memberOptions}
+                        taskStatuses={taskStatuses}
                         taskStatus={task.status} 
                         handleSave={handleSave}/>
                    {/*   */}
