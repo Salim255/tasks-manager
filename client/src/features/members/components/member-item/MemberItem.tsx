@@ -2,11 +2,9 @@ import { useEffect, useMemo } from "react";
 import { useMemberSelector } from "../../states/memberSelectors";
 import type { Member } from "../../models/member.model";
 import { useProfileSelector } from "../../../profile/states/profileSelectors";
-
 import { getInitialsFromProfile } from "../../../../shared/utils/methods";
 import type { Profile } from "../../../profile/model/profile.model";
 import { useDispatch } from "react-redux";
-
 import type { AppDispatch } from "../../../../redux/store";
 import type { Task } from "../../../tasks/models/task.model";
 import { updateTasHttp } from "../../../tasks/http/task.http";

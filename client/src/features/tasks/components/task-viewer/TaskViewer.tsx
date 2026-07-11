@@ -113,9 +113,6 @@ export const TaskViewer = () => {
 
     
         <form  onSubmit={clickSubmit} className="task-viewer__form scroll-bar">
-
-      
-
             <section className="task-viewer__section">
 
                 <div className="task-viewer__group">

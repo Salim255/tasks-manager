@@ -3,20 +3,22 @@ import { useState } from 'react';
 import type { Task } from "../../models/task.model";
 import { OptionsBtn } from '../../../../shared/components/options-btn/OptionsBtn';
 import { typeIcon } from '../../../../shared/utils/methods';
-import { Assignee } from '../../../../shared/components/assignee/Assignee';
 import { setTaskViewerTask } from '../../states/taskSlice';
 import { useDispatch } from 'react-redux';
-import type { AppDispatch } from 'recharts/types/state/store';
 import { setQuickActionType, type QuickActionType } from '../../../../shared/modals/states/quickActionsSlice';
 import { EditableTitle } from '../editable-title/EditableTitle';
 import { EditableStatus } from '../editable-status/EditableStatus';
 import { useMemberOptions } from '../../../members/hooks/MemberOptionsHook';
 import { EditableAssignee } from '../editable-assignee/EditableAssignee';
+import { updateTasHttp } from '../../http/task.http';
+import type { AppDispatch } from '../../../../redux/store';
 
 
 export type TaskItemProps = { task: Task; } & React.HTMLAttributes<HTMLDivElement>;
 
+
 export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
+    const dispatch = useDispatch<AppDispatch>();
     const memberOptions = useMemberOptions();
      const taskStatuses = [
         { value: "todo", label: "To Do" },
@@ -25,7 +27,7 @@ export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
     ];
 
     const [isOptionsOpen, setOptionsOpen ] = useState<string | null>(null);
-    const dispatch = useDispatch<AppDispatch>();
+
 
     const onViewTask = (taskId: string) => {
        dispatch(setTaskViewerTask({taskId}))
@@ -37,9 +39,16 @@ export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
         dispatch(setQuickActionType({actionType: item}));
     }
 
-    const handleSave = () => {
-        console.log("hello from save")
-    }
+    const handleSave = (field: "status" | "assigneeId", value: string) => {
+        if (!field || !value) return;
+
+        dispatch(
+            updateTasHttp({
+                taskId: task.id,
+                [field]: value,
+            })
+        );
+    };
 
     return (
         <div  
@@ -65,16 +74,14 @@ export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
                     <EditableStatus 
                         taskStatuses={taskStatuses}
                         taskStatus={task.status} 
-                        handleSave={handleSave}/>
-                   {/*   */}
+                        handleSave={(v) => handleSave("status", v)}/>
                 </section>
                
                 <section className='task-item__assignee'>
-                   {/*  <Assignee assigneeId={task.assigneeId} /> */}
                    < EditableAssignee
-                    TaskAssigneeId={task.assigneeId ?? undefined}
+                    TaskAssigneeId={task.assigneeId ?? "unassigned"}
                     taskMembers={memberOptions}
-                    handleSave={handleSave}
+                    handleSave={(v) => handleSave("assigneeId", v)}
                     />
                 </section>
               

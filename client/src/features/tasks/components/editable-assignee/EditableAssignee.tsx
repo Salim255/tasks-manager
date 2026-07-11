@@ -19,16 +19,18 @@ export const EditableAssignee = ({
     taskMembers,
 }: EditableAssigneeProps) => {
 
-
     return (
         <SelectDropdown
-            value={TaskAssigneeId }
+            value={TaskAssigneeId}
+
             options={taskMembers}
 
             onChange={(value) =>
                 handleSave(value as  string)
             }
+
             placement={"right"}
+
             renderTrigger={(selected, open) => (
                 <button
                     type="button"
@@ -39,9 +41,11 @@ export const EditableAssignee = ({
                     }}
                 >
                    <Assignee
-                        assigneeId={TaskAssigneeId ?? null}
+                        assigneeId={selected?.value ?? null}
                     /> 
+                  
                 </button>
+                
             )}
         />
     );

@@ -10,7 +10,7 @@ export const MemberInitial = ({ profile }: {profile?: Profile}) => {
         profile ? "member-initial--assigned" : ""
         }`}
     >
-        {profile ? (
+        { profile ? (
         <span className="member-initial__text">
             {getInitialsFromProfile(profile)}
         </span>
