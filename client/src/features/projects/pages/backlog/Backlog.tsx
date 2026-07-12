@@ -63,7 +63,7 @@ export const Backlog = () => {
     useEffect(() => {
     }, [tasks, isCreating, sprints, projectId]);
 
-    if (!projectId) return <Navigate to="/projects" replace />;
+    if (!projectId) return <Navigate to="/workspaces" replace />;
 
     return (
   <PageMotion>

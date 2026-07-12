@@ -42,6 +42,7 @@ export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
     const handleSave = (field: "status" | "assigneeId", value: string) => {
         if (!field || !value) return;
 
+        //TODO: If the task's value equal the onchange value ignore the change
         dispatch(
             updateTasHttp({
                 taskId: task.id,
@@ -63,12 +64,12 @@ export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
                 onClick={() => onQuickAction("createTask")}
                >
                 <section className='task-item__content'>
-                <div className={`task-item__checkbox task-item__checkbox--${task.taskType}`}>
-                    {typeIcon(task.taskType)}
-                </div>
-                <div className='task-item__title' >
-                    <EditableTitle title={task.title} handleSave={() => onQuickAction("createTask")}/>
-                </div>
+                    <div className={`task-item__checkbox task-item__checkbox--${task.taskType}`}>
+                        {typeIcon(task.taskType)}
+                    </div>
+                    <div className='task-item__title' >
+                        <EditableTitle title={task.title} handleSave={() => onQuickAction("createTask")}/>
+                    </div>
                 </section>
                 <section className='task-item__status'>
                     <EditableStatus 
@@ -98,7 +99,7 @@ export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
                                 setOptionsOpen(null);
                                 onQuickAction("createTask")
                             }}
-                            className='options-list__item task-aside-container'>
+                            className='options-list__item'>
                             Edit Task
                         </li>
                         <li className='options-list__item'>Delete Task</li>

@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { IoChevronDown } from "react-icons/io5";
 import "./_select-dropdown.scss";
+import { useClickOutside } from "../../hooks/useClickOutside";
 
 export type SelectOption = {
   value: string;
@@ -44,7 +45,7 @@ export const SelectDropdown = ({
 
 
   const toggleDropdown = () => {
-    setIsOpen(prev => !prev);
+    setIsOpen(false);
   };
 
 
@@ -53,9 +54,21 @@ export const SelectDropdown = ({
     setIsOpen(false);
   };
 
+ 
+    
+    const ref = useRef<HTMLDivElement>(null!);
+
+    const { register, unregister } = useClickOutside();
+
+    useEffect(() => {
+        if (ref.current) {
+            register(ref, () => toggleDropdown());
+        }
+        return () => unregister(ref);
+    }, [setIsOpen, register, unregister]);
 
   return (
-    <div className="select-dropdown">
+    <div    ref={ref} className="select-dropdown">
 
 
       {label && (

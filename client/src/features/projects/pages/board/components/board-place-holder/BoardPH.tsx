@@ -14,7 +14,7 @@ export const  BoardPH = ({projectId}: {projectId: string} ) => {
                 to start tracking progress on your board.
             </p>
             <NavLink 
-                to={`/projects/${projectId}/backlog`}>
+                to={`/workspaces/${projectId}/backlog`}>
                 Go to backlog
             </NavLink>
         </div>

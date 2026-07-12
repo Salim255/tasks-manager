@@ -47,7 +47,6 @@ export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
                         
                     </ul>
                 </OptionsBtn>
-              
             </section>
         </div>
     )
