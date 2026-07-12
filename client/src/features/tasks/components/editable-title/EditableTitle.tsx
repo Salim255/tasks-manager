@@ -33,7 +33,7 @@ export const EditableTitle = ({
                 >
 
                     <span className="editable-title__text">
-                        {value}
+                        {value} 
                     </span>
 
 

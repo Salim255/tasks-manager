@@ -85,8 +85,8 @@
 
     overflow: hidden;
 
-    opacity: 0;
-    visibility: hidden;
+    display: none;
+    //visibility: hidden;
 
     transform: translateY(-.6rem) scale(.98);
 
@@ -99,8 +99,7 @@
   }
 
   &__modal--active {
-    opacity: 1;
-    visibility: visible;
+    display: block;
 
     transform: translateY(0) scale(1);
 

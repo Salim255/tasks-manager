@@ -48,15 +48,12 @@ export const SelectDropdown = ({
     setIsOpen(false);
   };
 
-
   const selectOption = (option: SelectOption) => {
     onChange(option.value);
     setIsOpen(false);
   };
-
- 
-    
-    const ref = useRef<HTMLDivElement>(null!);
+  
+  const ref = useRef<HTMLDivElement>(null!);
 
     const { register, unregister } = useClickOutside();
 
