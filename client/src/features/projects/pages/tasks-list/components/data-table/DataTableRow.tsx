@@ -17,7 +17,6 @@ export const DataTableRow = <TData,>({
                     ? "data-table__row--selected"
                     : ""
             }`}
-            onClick={row.getToggleSelectedHandler()}
         >
 
             {row.getVisibleCells().map(cell => (

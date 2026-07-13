@@ -9,6 +9,9 @@ type DataTableHeaderCellProps<TData> = {
 export const DataTableHeaderCell = <TData,>({
     header,
 }: DataTableHeaderCellProps<TData>) => {
+    const canSort = header.column.getCanSort();
+
+    const sortingState = header.column.getIsSorted();
 
     return (
         <div
@@ -16,12 +19,37 @@ export const DataTableHeaderCell = <TData,>({
             style={{
                 width: header.getSize(),
             }}
+
+            onClick={
+                canSort
+                    ? header.column.getToggleSortingHandler()
+                    : undefined
+            }
         >
 
-            {flexRender(
-                header.column.columnDef.header,
-                header.getContext()
-            )}
+            <span>
+                {flexRender(
+                    header.column.columnDef.header,
+                    header.getContext()
+                )}
+            </span>
+
+            {
+                sortingState === "asc" && (
+                    <span className="data-table__sort-icon">
+                        ↑
+                    </span>
+                )
+            }
+
+
+            {
+                sortingState === "desc" && (
+                    <span className="data-table__sort-icon">
+                        ↓
+                    </span>
+                )
+            }
 
             {header.column.getCanResize() && (
                 <div

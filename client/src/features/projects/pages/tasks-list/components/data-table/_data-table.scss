@@ -99,13 +99,22 @@
 
     &--selected {
 
-      background:
-        color-mix(
-          in srgb,
-          var(--primary-500) 8%,
-          white
-        );
+        background:
+            color-mix(
+                in srgb,
+                var(--primary-400) 8%,
+                var(--surface)
+            );
 
+
+        &:hover {
+            background:
+                color-mix(
+                    in srgb,
+                    var(--primary-400) 12%,
+                    var(--surface)
+                );
+        }
     }
 
   }
@@ -114,8 +123,18 @@
 
 
   /* ============================================
-     CELL
+    CELL
   ============================================ */
+
+   &__sort-icon {
+
+      font-size: 1.4rem;
+
+      color: var(--primary-500);
+
+      font-weight: 700;
+
+  }
 
   &__cell {
 
@@ -147,6 +166,25 @@
 
 
     overflow: hidden;
+
+    &--sortable {
+
+      cursor: pointer;
+
+      user-select: none;
+
+      &:hover {
+        background: var(--grey-50);
+    
+      }
+    }
+
+
+    span:first-child {
+        display: flex;
+        align-items: center;
+        gap: .6rem;
+    }
 
   }
 

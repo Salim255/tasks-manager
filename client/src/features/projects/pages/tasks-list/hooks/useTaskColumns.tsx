@@ -44,6 +44,7 @@ export const useTaskColumns = (): ColumnDef<Task>[] => {
 
             header: "Task",
             size: 320,
+            enableSorting: true,
             enableResizing: true,
             cell: ({ row }) => (
                 <TaskLabel

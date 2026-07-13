@@ -5,6 +5,7 @@ import {
 
 import type {
     ColumnDef,
+    SortingState,
     Table,
 } from "@tanstack/react-table";
 
@@ -19,6 +20,7 @@ export const useDataTable = <TData,>({
     data,
     columns,
 }: UseDataTableProps<TData>): Table<TData> => {
+    const [sorting, setSorting] = useState<SortingState>([]);
 
     const [columnSizing, setColumnSizing] = useState({});
 
@@ -54,7 +56,7 @@ export const useDataTable = <TData,>({
 
             rowSelection,
 
-            // sorting,
+            sorting,
 
             // columnFilters,
 
@@ -70,8 +72,8 @@ export const useDataTable = <TData,>({
         onRowSelectionChange:
             setRowSelection,
 
-        // onSortingChange:
-        // setSorting,
+        onSortingChange:
+         setSorting,
 
         // onColumnFiltersChange:
         // setColumnFilters,
