@@ -1,45 +1,35 @@
-import type {
-    HeaderGroup,
-    Row,
-} from "@tanstack/react-table";
+import type { Row } from "@tanstack/react-table";
 
 import { DataTableCell } from "./DataTableCell";
-import { DataTableHeaderCell } from "./DataTableHeaderCell";
 
 type DataTableRowProps<TData> = {
-    row?: Row<TData>;
-    headerGroup?: HeaderGroup<TData>;
+    row: Row<TData>;
 };
 
 export const DataTableRow = <TData,>({
     row,
-    headerGroup,
 }: DataTableRowProps<TData>) => {
 
     return (
         <div
             className={`data-table__row ${
-                row?.getIsSelected()
+                row.getIsSelected()
                     ? "data-table__row--selected"
                     : ""
             }`}
-            onClick={
-                row
-                    ? row.getToggleSelectedHandler()
-                    : undefined
-            }
+            onClick={row.getToggleSelectedHandler()}
         >
-           
-            {headerGroup?.headers.map(header => (
-                <DataTableHeaderCell key={header.id} header={header} />
-            ))}
 
-            {row?.getVisibleCells().map(cell => (
+            {row.getVisibleCells().map(cell => (
+
                 <DataTableCell
                     key={cell.id}
                     cell={cell}
                 />
+
             ))}
+
         </div>
     );
+
 };

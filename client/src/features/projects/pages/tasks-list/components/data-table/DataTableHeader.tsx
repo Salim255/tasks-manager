@@ -1,6 +1,6 @@
 import type { Table } from "@tanstack/react-table";
 
-import { DataTableRow } from "./DataTableRow";
+import { DataTableHeaderRow } from "./DataTableHeaderRow";
 
 type DataTableHeaderProps<TData> = {
     table: Table<TData>;
@@ -11,18 +11,16 @@ export const DataTableHeader = <TData,>({
 }: DataTableHeaderProps<TData>) => {
 
     return (
-        <div className="data-table__header">
-
+        <>
             {table.getHeaderGroups().map(headerGroup => (
 
-                <DataTableRow
+                <DataTableHeaderRow
                     key={headerGroup.id}
                     headerGroup={headerGroup}
                 />
 
             ))}
-
-        </div>
+        </>
     );
 
 };
