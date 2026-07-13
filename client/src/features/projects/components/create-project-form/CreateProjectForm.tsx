@@ -190,10 +190,6 @@ export const CreateProjectForm = () => {
       </div>
 
 
-
-
-
-
       {/* DESCRIPTION */}
 
       <div className="form__group">

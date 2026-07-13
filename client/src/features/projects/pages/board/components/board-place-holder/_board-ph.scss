@@ -1,36 +1,50 @@
+@use "../../../../../../themes/styles/abstracts/queries"  as *;
+
 /* ============================================
    BOARD PLACEHOLDER
 ============================================ */
 
 .board-place-holder {
+
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+
+  min-height: 0;
+  height: 100%;
+
+  padding:
+    var(--space-8)
+    var(--space-6);
+
+  gap:
+    var(--space-5);
 
   text-align: center;
 
-  gap: 1rem;
+  background:
+    var(--surface-primary);
 
-  padding: 3rem 2rem;
+  border:
+    1px dashed var(--border-default);
 
-  min-height: 320px;
-
-  justify-content: center;
-
-  background: var(--white);
-
-  border: 1px dashed var(--grey-200);
-
-  border-radius: 20px;
+  border-radius:
+    var(--radius-xl);
 
   transition:
-    border-color 0.2s ease,
-    background-color 0.2s ease;
+    border-color var(--transition-fast),
+    background-color var(--transition-fast),
+    transform var(--transition-fast);
 
   &:hover {
-    border-color: var(--primary-200);
 
-    background: var(--primary-50);
+    background:
+      var(--surface-secondary);
+
+    border-color:
+      var(--grey-300);
+
   }
 
   /* ============================================
@@ -38,43 +52,52 @@
   ============================================ */
 
   svg {
-    font-size: 4rem;
 
-    color: var(--primary-500);
+    font-size:
+      4.8rem;
 
-    opacity: 0.9;
+    color:
+      var(--action-primary);
+
+    opacity:
+      .85;
+
+    transition:
+      color var(--transition-fast),
+      transform var(--transition-fast);
+
+  }
+
+  &:hover svg {
+
+    transform:
+      scale(1.05);
+
   }
 
   /* ============================================
      TITLE
   ============================================ */
 
-  h3 {
-    margin: 0;
 
-    font-size: 1.25rem;
-
-    font-weight: 700;
-
-    letter-spacing: -0.02em;
-
-    color: var(--grey-900);
-  }
 
   /* ============================================
      DESCRIPTION
   ============================================ */
 
   p {
-    margin: 0;
+    max-width:
+      42rem;
 
-    max-width: 320px;
+    color:
+      var(--text-secondary);
 
-    font-size: 0.95rem;
+    font-size:
+      var(--text-lg);
 
-    line-height: 1.6;
+    line-height:
+      1.7;
 
-    color: var(--grey-500);
   }
 
   /* ============================================
@@ -82,37 +105,85 @@
   ============================================ */
 
   a {
-    margin-top: 0.5rem;
 
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    margin-top:
+      var(--space-2);
 
-    padding: 0.75rem 1.25rem;
+    text-decoration:
+      none;
 
-    border-radius: 12px;
+    /* Uses your global .btn system */
 
-    background: var(--primary-600);
-
-    color: var(--white);
-
-    text-decoration: none;
-
-    font-size: 0.9rem;
-
-    font-weight: 600;
-
-    transition:
-      transform 0.2s ease,
-      background-color 0.2s ease,
-      box-shadow 0.2s ease;
-
-    &:hover {
-      background: var(--primary-700);
-
-      transform: translateY(-1px);
-
-      box-shadow: var(--shadow-2);
-    }
   }
+
+}
+
+/* ============================================
+   RESPONSIVE
+============================================ */
+
+@include respond("tab-port") {
+
+  .board-place-holder {
+
+    min-height:
+      32rem;
+
+    padding:
+      var(--space-6);
+
+    gap:
+      var(--space-4);
+
+    h3 {
+
+      font-size:
+        var(--text-xl);
+
+    }
+
+    p {
+
+      font-size:
+        var(--text-base);
+
+    }
+
+  }
+
+}
+
+@include respond("phone") {
+
+  .board-place-holder {
+
+    min-height:
+      28rem;
+
+    padding:
+      var(--space-5);
+
+    svg {
+
+      font-size:
+        4rem;
+
+    }
+
+    h3 {
+
+      font-size:
+        var(--text-lg);
+
+    }
+
+    p {
+
+      font-size:
+        var(--text-sm);
+
+    }
+
+  }
+
 }

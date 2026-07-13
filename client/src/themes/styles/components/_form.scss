@@ -57,6 +57,16 @@
     }
   }
 
+  &__hint {
+    margin: 0;
+
+    color: var(--text-secondary);
+
+    font-size: var(--text-base);
+
+    line-height: 1.6;
+  }
+
   &__select {
     appearance: none;
 
