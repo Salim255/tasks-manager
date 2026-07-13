@@ -9,6 +9,7 @@ import type {
 } from "@tanstack/react-table";
 
 import "./_data-table.scss";
+import { useState } from "react";
 
 
 type DataTableProps<TData> = {
@@ -22,13 +23,32 @@ export const DataTable = <TData,>({
     data,
 }: DataTableProps<TData>) => {
 
+    const [columnSizing, setColumnSizing] = useState({});
+   const table = useReactTable({
 
-    const table = useReactTable({
         data,
+
         columns,
-        columnResizeMode: "onChange",
-        getCoreRowModel: getCoreRowModel(),
+
+
+        getCoreRowModel:
+            getCoreRowModel(),
+
+
+        columnResizeMode:
+            "onChange",
+
+
+        state: {
+            columnSizing,
+        },
+
+
+        onColumnSizingChange:
+            setColumnSizing,
+
     });
+
 
 
     return (
@@ -36,54 +56,56 @@ export const DataTable = <TData,>({
 
             <div className="data-table__header">
 
-                {table.getHeaderGroups().map(
+                {
+                    table.getHeaderGroups().map(
                     headerGroup => (
                         <div
                             key={headerGroup.id}
                             className="data-table__row"
                         >
+                            {
+                                headerGroup.headers.map(
+                                    header => (
+                                        <div
+                                            key={header.id}
+                                            className="data-table__cell"
+                                            style={{
+                                                width: header.getSize(),
+                                            }}
+                                        >
+                                            {
+                                                flexRender(
+                                                    header.column.columnDef.header,
+                                                    header.getContext()
+                                                )
+                                            }
 
-                            {headerGroup.headers.map(
-                                header => (
-                                   <div
-    key={header.id}
-    className="data-table__cell"
-    style={{
-        width: header.getSize(),
-    }}
->
-
-    {
-        flexRender(
-            header.column.columnDef.header,
-            header.getContext()
-        )
-    }
-
-
-    {
-        header.column.getCanResize() && (
-            <div
-                className="data-table__resize-handle"
-                onMouseDown={
-                    header.getResizeHandler()
-                }
-                onTouchStart={
-                    header.getResizeHandler()
-                }
-            />
-        )
-    }
-
-
-</div>
+                                            {
+                                                header.column.getCanResize() && (
+                                                    <div
+                                                        className={`data-table__resize-handle ${
+    header.column.getIsResizing()
+        ? "data-table__resize-handle--active"
+        : ""
+}`}
+                                                        onMouseDown={
+                                                            header.getResizeHandler()
+                                                        }
+                                                        onTouchStart={
+                                                            header.getResizeHandler()
+                                                        }
+                                                    />
+                                                )
+                                            }
+                                    </div>
+                                    )
                                 )
-                            )}
+                            }
 
                         </div>
+                        )
                     )
-                )}
-
+                }
             </div>
 
 

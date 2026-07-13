@@ -29,6 +29,7 @@ export const useTaskColumns = (): ColumnDef<Task>[] => {
             accessorKey: "status",
 
             header: "Status",
+            enableResizing: true,
             size: 140,
             cell: ({ row }) => (
                 <Status
@@ -42,6 +43,7 @@ export const useTaskColumns = (): ColumnDef<Task>[] => {
             accessorKey: "assigneeId",
 
             header: "Assignee",
+            enableResizing: true,
             size: 180,
             cell: ({ row }) => (
                 <Assignee
