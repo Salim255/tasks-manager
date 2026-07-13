@@ -18,7 +18,7 @@
 
   overflow: visible;
 
-  padding-bottom: 10rem;
+  padding-bottom: 4rem;
 
   /* ============================================
      HEADER
@@ -196,19 +196,15 @@
   ============================================ */
 
 
-  &__resize-handle {
-
+   &__resize-handle {
 
     position: absolute;
 
-
     top: 0;
-
-    right: -0.4rem;
+    right: 0;
 
 
     width: 0.8rem;
-
     height: 100%;
 
 
@@ -222,14 +218,45 @@
 
 
     transition:
-
       background-color 0.18s ease,
-
       opacity 0.18s ease;
 
 
 
-    &:hover {
+    &::after {
+
+      content: "";
+
+      position: absolute;
+
+
+      top: 0;
+
+      bottom: 0;
+
+      left: 50%;
+
+
+      width: 1px;
+
+
+      transform: translateX(-50%);
+
+
+      background: var(--grey-200);
+
+
+      transition:
+        background-color 0.18s ease,
+        width 0.18s ease;
+
+    }
+
+
+
+    &:hover::after {
+
+      width: 2px;
 
       background:
         var(--primary-400);
@@ -238,7 +265,9 @@
 
 
 
-    &--active {
+    &--active::after {
+
+      width: 2px;
 
       background:
         var(--primary-500);

@@ -160,32 +160,77 @@ ul {
 }
 
 .scroll-bar {
-    &::-webkit-scrollbar {
-    //height: .2rem; // Horizontal scrollbar thickness
-    width: .6rem;  // Vertical scrollbar thickness
+
+  /* ============================================
+     SCROLLBAR SIZE
+  ============================================ */
+
+  &::-webkit-scrollbar {
+
+    width: 0.8rem;   // vertical scrollbar
+
+    height: 0.8rem;  // horizontal scrollbar
+
   }
+
+
+
+  /* ============================================
+     TRACK
+  ============================================ */
 
   &::-webkit-scrollbar-track {
-   background: transparent;
+
+    background: transparent;
+
   }
 
+
+
+  /* ============================================
+     THUMB
+  ============================================ */
+
   &::-webkit-scrollbar-thumb {
+
     background: var(--grey-300);
+
 
     border-radius: 999rem;
 
-    border: 0.15rem solid transparent;
+
+    border: 0.2rem solid transparent;
+
 
     background-clip: padding-box;
+
+
+    transition:
+      background-color 0.2s ease;
+
   }
+
+
 
   &::-webkit-scrollbar-thumb:hover {
+
     background: var(--grey-400);
 
+
     background-clip: padding-box;
+
   }
 
+
+
+  /* ============================================
+     CORNER (where V + H meet)
+  ============================================ */
+
   &::-webkit-scrollbar-corner {
+
     background: transparent;
+
   }
+
 }

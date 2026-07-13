@@ -95,7 +95,7 @@ export const TasksList = () => {
     <PageMotion>
         <div className="data-table-container">
 
-            <div className="data-table-scroll">
+            <div className="data-table-scroll scroll-bar">
                 <DataTable  columns={columns} data={tasks}/>
             </div>
 
