@@ -26,7 +26,7 @@ export const DataTable = <TData,>({
     const table = useReactTable({
         data,
         columns,
-
+        columnResizeMode: "onChange",
         getCoreRowModel: getCoreRowModel(),
     });
 
@@ -45,17 +45,38 @@ export const DataTable = <TData,>({
 
                             {headerGroup.headers.map(
                                 header => (
-                                    <div
-                                        key={header.id}
-                                        className="data-table__cell"
-                                    >
-                                        {
-                                            flexRender(
-                                                header.column.columnDef.header,
-                                                header.getContext()
-                                            )
-                                        }
-                                    </div>
+                                   <div
+    key={header.id}
+    className="data-table__cell"
+    style={{
+        width: header.getSize(),
+    }}
+>
+
+    {
+        flexRender(
+            header.column.columnDef.header,
+            header.getContext()
+        )
+    }
+
+
+    {
+        header.column.getCanResize() && (
+            <div
+                className="data-table__resize-handle"
+                onMouseDown={
+                    header.getResizeHandler()
+                }
+                onTouchStart={
+                    header.getResizeHandler()
+                }
+            />
+        )
+    }
+
+
+</div>
                                 )
                             )}
 
@@ -82,6 +103,9 @@ export const DataTable = <TData,>({
                                     <div
                                         key={cell.id}
                                         className="data-table__cell"
+                                        style={{
+                                            width: cell.column.getSize(),
+                                        }}
                                     >
 
                                         {
