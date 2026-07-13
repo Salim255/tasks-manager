@@ -1,10 +1,12 @@
 @use "../../../../themes/styles/abstracts/queries" as *;
 
+
 /* ============================================
    NAVIGATION LINKS
 ============================================ */
 
 .nav-links {
+
 
   display:flex;
 
@@ -12,6 +14,7 @@
 
 
   gap:
+
     var(--space-2);
 
 
@@ -39,34 +42,53 @@
     position:relative;
 
 
+
     display:flex;
 
 
     align-items:center;
 
 
+
     gap:
+
       var(--space-3);
 
 
 
+
+
     min-height:
+
       4.8rem;
 
 
 
+
+
     padding:
-      0 var(--space-4);
+
+      0
+
+      var(--space-4);
+
+
 
 
 
     border-radius:
+
       var(--radius-md);
 
 
 
+
+
     color:
+
       var(--text-secondary);
+
+
 
 
 
@@ -74,18 +96,31 @@
 
 
 
+
+
+    /*
+      Main application navigation
+      has the strongest hierarchy
+    */
+
     font-size:
+
       var(--text-base);
 
 
 
     font-weight:
+
       var(--font-semibold);
 
 
 
+
+
     letter-spacing:
+
       var(--letterSpacing);
+
 
 
 
@@ -96,73 +131,9 @@
 
       color var(--transition-fast),
 
-      transform var(--transition-fast),
-
-      box-shadow var(--transition-fast);
+      transform var(--transition-fast);
 
 
-
-
-
-
-
-    /* Active indicator */
-
-    &::before {
-
-
-      content:"";
-
-
-      position:absolute;
-
-
-      left:
-        var(--space-2);
-
-
-
-      top:
-        var(--space-3);
-
-
-
-      bottom:
-        var(--space-3);
-
-
-
-      width:
-        .3rem;
-
-
-
-      border-radius:
-        var(--radius-full);
-
-
-
-      background:
-        var(--action-primary);
-
-
-
-      opacity:0;
-
-
-
-      transform:
-        scaleY(.6);
-
-
-
-      transition:
-
-        opacity var(--transition-fast),
-
-        transform var(--transition-fast);
-
-    }
 
 
 
@@ -172,29 +143,32 @@
 
 
       background:
+
         var(--surface-muted);
 
 
 
       color:
+
         var(--text-primary);
 
 
 
       .icon {
 
-
         color:
+
           var(--action-primary);
 
 
-
         transform:
+
           scale(1.05);
 
       }
 
     }
+
 
 
 
@@ -219,56 +193,26 @@
 
 
       color:
+
         var(--action-primary);
 
-
-
-
-      box-shadow:
-
-        inset 0 0 0 1px
-
-        color-mix(
-
-          in srgb,
-
-          var(--action-primary) 12%,
-
-          transparent
-
-        );
-
-
-
-
-
-
-      &::before {
-
-
-        opacity:1;
-
-
-        transform:
-          scaleY(1);
-
-      }
 
 
 
 
       .icon {
 
-
         color:
+
           var(--action-primary);
 
       }
 
-
     }
 
+
   }
+
 
 
 
@@ -289,30 +233,44 @@
 
 
 
-    display:grid;
+    display:flex;
 
 
-    place-items:center;
+    align-items:center;
+
+
+    justify-content:center;
+
+
 
 
 
     width:
-      2.2rem;
+
+      2.4rem;
 
 
 
     height:
-      2.2rem;
+
+      2.4rem;
+
+
 
 
 
     color:
+
       var(--grey-400);
 
 
 
+
+
     font-size:
+
       var(--text-xl);
+
 
 
 
@@ -331,16 +289,14 @@
 
 
 
+
+
   /* ============================================
-     PROJECTS GROUP
+     PROJECT GROUP
   ============================================ */
 
 
   &__projects {
-
-
-    overflow:hidden;
-
 
 
     display:flex;
@@ -350,54 +306,68 @@
 
 
 
+
+
     gap:
+
       var(--space-2);
 
 
 
 
-    margin:
 
-      var(--space-1)
+    margin-top:
 
-      0
+      var(--space-4);
 
-      var(--space-3);
 
 
 
 
     padding-left:
 
-      var(--space-6);
+      var(--space-4);
 
 
 
     padding-right:
 
-      var(--space-1);
+      var(--space-2);
+
+
+
+
+
+    overflow:hidden;
+
+
 
 
 
     max-height:
+
       60rem;
 
 
 
-    opacity:1;
+    opacity:
+
+      1;
+
 
 
 
 
     transition:
 
-      max-height var(--transition-fast),
+      max-height var(--transition-normal),
 
-      opacity var(--transition-fast),
+      opacity var(--transition-normal),
 
-      margin var(--transition-fast);
+      margin var(--transition-normal);
 
   }
+
 
 
 
@@ -407,14 +377,23 @@
   &__projects--active {
 
 
-    max-height:0;
+    max-height:
+
+      0;
 
 
-    opacity:0;
+
+    opacity:
+
+      0;
 
 
-    margin:0;
+
+    margin:
+
+      0;
 
   }
+
 
 }
