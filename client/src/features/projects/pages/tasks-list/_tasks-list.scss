@@ -1,112 +1,197 @@
+@use "../../../../themes/styles/abstracts/queries" as *;
+
+
 /* ============================================
-   TASKS LIST PAGE
+   TASK LIST PAGE BOUNDARY
 ============================================ */
 
+.tasks-column {
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  min-height: 0;
+}
+
+.tasks-column__header {
+  flex-shrink: 0;
+}
+
+.tasks-column__body {
+  flex: 1;
+
+  min-height: 0;
+
+  overflow-y: auto;
+}
+
 .tasks-list {
+  width: 100%;
   min-width: 0;
   min-height: 0;
 
   display: flex;
   flex-direction: column;
 
-  gap: 1.6rem;
-
-  padding: 0.4rem 0 2rem;
-  overflow-y: auto;
-  height: 100vh;
-  /* ============================================
-     TABLE CARD
-  ============================================ */
-
-  &__tables {
+  height: 50rem;
+  position: relative;
+  &__viewport {
+   
+    flex: 1;
+    height: 100dvh;
     min-width: 0;
     min-height: 0;
 
-    display: flex;
-    flex-direction: column;
+    overflow-y: auto;
+    //overflow: hidden;
 
-    background: var(--surface);
-    border: 1px solid var(--border-color);
+
     border-radius: 2rem;
 
-    box-shadow: var(--shadow-1);
-
-    overflow: hidden;
-  }
-
-  /* ============================================
-     TABLE SCROLL AREA
-  ============================================ */
-
-  &__table-scroll {
-    min-width: 0;
-    overflow-x: auto;
-    overflow-y: hidden;
-  }
-
-  &__table-inner {
-    min-width: 150rem; // allows comfortable horizontal table layout
     background: var(--surface);
+   
+    border: 1px solid var(--border-color);
+
+    box-shadow:
+      0 1px 2px rgba(15,23,42,.04),
+      0 8px 30px rgba(15,23,42,.06);
   }
 
+
+
+  &__board {
+
+    width: 100vw;
+    height: 100vh;
+
+
+    overflow-y: hidden;
+
+
+    display: flex;
+
+
+    background: var(--surface);
+
+
+
+    /* smooth scrolling */
+
+    scroll-behavior: smooth;
+    position: relative;
+    .me {
+      position: sticky;
+      top: 0;
+    }
+
+    /* scrollbar */
+
+    &::-webkit-scrollbar {
+
+      width: .9rem;
+      height: .9rem;
+    }
+
+
+    &::-webkit-scrollbar-track {
+
+      background: transparent;
+    }
+
+
+    &::-webkit-scrollbar-thumb {
+
+      background: var(--grey-300);
+
+      border-radius: 999px;
+
+      border: 2px solid transparent;
+
+      background-clip: padding-box;
+    }
+
+
+    &::-webkit-scrollbar-thumb:hover {
+
+      background: var(--grey-400);
+    }
+  }
+
+
+
   /* ============================================
-     RESIZE SEPARATOR
+     COLUMN RESIZE
   ============================================ */
+
 
   &__separator {
-    position: relative;
-    width: 0.8rem;
-    flex: 0 0 0.8rem;
+
+
+    width: .5rem;
+
+    flex: 0 0 .8rem;
+
+
     cursor: col-resize;
-    background: transparent;
-    transition: background-color 0.18s ease;
+
+
+    background: var(--primary-50);
+
+
+    transition:
+      background-color .18s ease;
 
     &:hover {
-      background: var(--primary-50);
+      background: var(--primary-100);
     }
+
+
 
     &::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 50%;
-      width: 1px;
-      transform: translateX(-50%);
-      background: var(--grey-200);
-      transition: background-color 0.18s ease;
-    }
 
-    &:hover::before {
-      background: var(--primary-300);
+      content:"";
+
+
+      position:absolute;
+
+      top:0;
+      bottom:0;
+
+      left:50%;
+
+
+      width:1px;
+
+
+      transform:translateX(-50%);
+
     }
   }
 
-  /* ============================================
-     EMPTY STATE
-  ============================================ */
 
-  &__empty {
-    display: grid;
-    place-items: center;
-    min-height: 28rem;
-    padding: 3rem;
 
-    color: var(--text-secondary);
-    text-align: center;
+  @include respond(tab-port) {
 
-    h3 {
-      margin: 0 0 0.8rem;
-      font-size: var(--text-2xl);
-      color: var(--text-primary);
+    padding:1rem;
+
+
+    &__viewport {
+
+      border-radius:1.6rem;
     }
+  }
 
-    p {
-      margin: 0;
-      max-width: 48rem;
-      line-height: 1.6;
-      color: var(--text-secondary);
-      font-size: var(--text-base);
+
+
+  @include respond(phone) {
+
+    padding:.8rem;
+
+
+    &__viewport {
+
+      border-radius:1.4rem;
     }
   }
 }

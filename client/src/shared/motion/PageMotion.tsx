@@ -6,7 +6,7 @@ Dashboard
 Board
 Backlog
 Analytics */
-
+import "./_page-motion.scss"
 import { motion } from "motion/react";
 import { premiumTransition } from "./transitions";
 import type { ReactNode } from "react";
@@ -33,6 +33,7 @@ export const PageMotion = ({ children }: Props) => (
       scale: 0.995,
     }}
     transition={premiumTransition}
+    className="page-motion"
   >
     {children}
   </motion.div>

@@ -23,9 +23,9 @@ export const Projects = () => {
                     <ProjectNavbar />
 
                     <div className="projects-layout__outlet">
-                    <div className="projects-layout__page">
-                       <Outlet />
-                    </div>
+                      <div className="projects-layout__page">
+                        <Outlet />
+                      </div>
                     </div>
                 </>
             }

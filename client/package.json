@@ -16,6 +16,8 @@
     "@nivo/pie": "^0.99.0",
     "@nivo/radar": "^0.99.0",
     "@reduxjs/toolkit": "^2.11.2",
+    "@tanstack/react-table": "^8.21.3",
+    "@tanstack/react-virtual": "^3.14.6",
     "axios": "^1.13.6",
     "motion": "^12.42.0",
     "react": "^19.2.0",

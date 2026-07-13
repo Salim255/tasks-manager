@@ -23,10 +23,14 @@ export const TasksColumn = ({
   
 
   return (
-    <div className="tasks-column">
-      <div className="tasks-column__header">
-        <span>{title}</span>
-      </div>
+  <div className="tasks-column">
+
+   <div className="tasks-column__header">
+      <span>{title}</span>
+    </div> 
+
+
+    <div className="tasks-column__body">
 
       {tasks.map((task) => (
         <div
@@ -37,6 +41,9 @@ export const TasksColumn = ({
           {renderCell(task)}
         </div>
       ))}
+
     </div>
-  );
+
+  </div>
+);
 };

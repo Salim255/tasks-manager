@@ -88,34 +88,69 @@ export const TasksList = () => {
     },
     ];
     
-    return (
-     <PageMotion>
-        <div className="tasks-list scroll-bar">
-          <div className="tasks-list__tables">
-            <Group 
-            orientation="horizontal"
-            >
-              {
-                columns
-                ?.map((column, index) => (
-                  <Fragment key={column.title} >
-                      <Panel groupResizeBehavior="preserve-pixel-size" defaultSize={5}  >
-                      <TasksColumn
-                          title={column.title}
-                          tasks={tasks}
-                          renderCell={column.render}
-                      />
-                      </Panel>
+   return (
+  <PageMotion>
+    <div className="tasks-list">
 
-                      {index < columns.length - 1 && (
-                      <Separator className="tasks-list__separator" />
-                      )}
-                  </Fragment>
-                ))
-              }
-            </Group>
-          </div>
+      <div className="tasks-list__viewport">
+
+        <div className="tasks-list__board">
+
+          <Group orientation="horizontal">
+
+            {columns.map((column, index) => (
+              <Fragment key={column.title}>
+
+             {/*    <Panel
+                  groupResizeBehavior="preserve-pixel-size"
+                  defaultSize={30}
+                >  
+                    <div>
+                       {column.title}
+                    </div>
+                  <TasksColumn
+                    title={column.title}
+                    tasks={tasks}
+                    renderCell={column.render}
+                  />
+                  
+                </Panel> */}
+
+
+                <Panel  groupResizeBehavior="preserve-pixel-size"
+                  defaultSize={30}>
+
+                    <div className="tasks-column">
+
+                        <div className="tasks-column__header">
+                        {column.title}
+                        </div>
+
+                        <div className="tasks-column__body">
+                        <TasksColumn
+                            title={column.title}
+                            tasks={tasks}
+                            renderCell={column.render}
+                        />
+                        </div>
+
+                    </div>
+
+                </Panel>
+
+                  <Separator className="tasks-list__separator" />
+                
+
+              </Fragment>
+            ))}
+
+          </Group>
+
+        </div>
+
       </div>
-     </PageMotion>
-    )
+
+    </div>
+  </PageMotion>
+);
 }
