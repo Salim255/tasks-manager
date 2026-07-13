@@ -92,17 +92,15 @@ export const TasksList = () => {
     
     const columns = useTaskColumns();
    return (
-  <PageMotion>
-    <div className="data-table-container">
+    <PageMotion>
+        <div className="data-table-container">
 
-        <div className="data-table-scroll">
-
-        <DataTable  columns={columns} data={tasks}/>
+            <div className="data-table-scroll">
+                <DataTable  columns={columns} data={tasks}/>
+            </div>
 
         </div>
-
-    </div>
-    
-  </PageMotion>
-);
+        
+    </PageMotion>
+    );
 }

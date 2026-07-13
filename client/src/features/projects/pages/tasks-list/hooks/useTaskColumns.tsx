@@ -6,6 +6,10 @@ import { Status } from "../../../../../shared/components/task-status/TaskStatus"
 import { Assignee } from "../../../../../shared/components/assignee/Assignee";
 import { TaskLabel } from "../../../../../shared/components/task-label/TaskLabel";
 import { TaskDescription } from "../../../../../shared/components/task-description/TasDescription";
+import { Reporter } from "../../../../../shared/components/reporter/Reporter";
+import { Priority } from "../../../../../shared/components/priority/Priority";
+import { Resolution } from "../../../../../shared/components/resolution/Resolution";
+import { DateItem } from "../../../../../shared/components/date-item/DateItem";
 
 
 export const useTaskColumns = (): ColumnDef<Task>[] => {
@@ -26,7 +30,7 @@ export const useTaskColumns = (): ColumnDef<Task>[] => {
             ),
         },
 
-         {
+        {
             accessorKey: "description",
 
             header: "Description",
@@ -41,6 +45,27 @@ export const useTaskColumns = (): ColumnDef<Task>[] => {
         },
 
         {
+            accessorKey: "reporter",
+
+            header: "Reporter",
+            size: 320,
+            enableResizing: true,
+            cell: ({ row }) => (
+                <Reporter reporterId={row.original.reporterId!} />
+                
+            ),
+        },
+        {
+            accessorKey: "priority",
+
+            header: "Priority",
+            enableResizing: true,
+            size: 140,
+            cell: ({ row }) => (
+                <Priority priority={row.original.priority} />
+            ),
+        },
+        {
             accessorKey: "status",
 
             header: "Status",
@@ -51,8 +76,17 @@ export const useTaskColumns = (): ColumnDef<Task>[] => {
                     status={row.original.status}
                 />
             ),
-        },
+        }
+        ,{
+            accessorKey: "resolution",
 
+            header: "Resolution",
+            enableResizing: true,
+            size: 140,
+            cell: ({ row }) => (
+                <Resolution status={row.original.status}/>
+            ),
+        },
 
         {
             accessorKey: "assigneeId",
@@ -67,6 +101,35 @@ export const useTaskColumns = (): ColumnDef<Task>[] => {
                 />
             ),
         },
+        {
+            accessorKey: "updated at",
 
+            header: "updated at",
+            enableResizing: true,
+            size: 180,
+            cell: ({ row }) => (
+                   <DateItem date={row.original.updatedAt}/>
+            ),
+        },
+          {
+            accessorKey: "due date",
+
+            header: "due date",
+            enableResizing: true,
+            size: 180,
+            cell: ({ row }) => (
+                <DateItem date={row.original.dueAt}/>
+            ),
+        },
+          {
+            accessorKey: "created at",
+
+            header: "Created at",
+            enableResizing: true,
+            size: 180,
+            cell: ({ row }) => (
+                <DateItem date={row.original.createdAt}/>
+            ),
+        },
     ];
 };

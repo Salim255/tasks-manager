@@ -3,7 +3,7 @@
   position: relative;
 
   min-height: 100%;
-  
+ 
   
   &__main {
 
@@ -46,7 +46,7 @@
 
     height:100%;
 
-    overflow: auto;
-
+    overflow: hidden;
+    height: 100dvh;
   }
 }
