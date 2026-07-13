@@ -84,10 +84,10 @@ export const DataTable = <TData,>({
                                                 header.column.getCanResize() && (
                                                     <div
                                                         className={`data-table__resize-handle ${
-    header.column.getIsResizing()
-        ? "data-table__resize-handle--active"
-        : ""
-}`}
+                                                            header.column.getIsResizing()
+                                                                ? "data-table__resize-handle--active"
+                                                                : ""
+                                                        }`}
                                                         onMouseDown={
                                                             header.getResizeHandler()
                                                         }
@@ -146,10 +146,7 @@ export const DataTable = <TData,>({
 
                     ))
                 }
-
             </div>
-
-
         </div>
     );
 };
