@@ -4,6 +4,7 @@ import type {
 } from "@tanstack/react-table";
 
 import { DataTableCell } from "./DataTableCell";
+import { DataTableHeaderCell } from "./DataTableHeaderCell";
 
 type DataTableRowProps<TData> = {
     row?: Row<TData>;
@@ -28,11 +29,9 @@ export const DataTableRow = <TData,>({
                     : undefined
             }
         >
+           
             {headerGroup?.headers.map(header => (
-                <DataTableCell
-                    key={header.id}
-                    header={header}
-                />
+                <DataTableHeaderCell key={header.id} header={header} />
             ))}
 
             {row?.getVisibleCells().map(cell => (

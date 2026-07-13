@@ -1,5 +1,4 @@
 import {
-    flexRender,
     getCoreRowModel,
     useReactTable,
 } from "@tanstack/react-table";
@@ -10,8 +9,6 @@ import type {
 
 import "./_data-table.scss";
 import { useState } from "react";
-import { DataTableCell } from "./DataTableCell";
-import { DataTableRow } from "./DataTableRow";
 import { DataTableHeader } from "./DataTableHeader";
 import { DataTableBody } from "./DataTableBody";
 
