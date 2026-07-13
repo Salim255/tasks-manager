@@ -13,6 +13,7 @@ import { useState } from "react";
 import { DataTableCell } from "./DataTableCell";
 import { DataTableRow } from "./DataTableRow";
 import { DataTableHeader } from "./DataTableHeader";
+import { DataTableBody } from "./DataTableBody";
 
 
 type DataTableProps<TData> = {
@@ -55,8 +56,6 @@ export const DataTable = <TData,>({
 
     });
 
-
-
     return (
         <div className="data-table">
 
@@ -64,13 +63,8 @@ export const DataTable = <TData,>({
                 <DataTableHeader table={table}/>
             </div>
 
-
             <div className="data-table__body">
-                {
-                    table.getRowModel().rows.map(row => (
-                        <DataTableRow key={row.id} row={row}/>
-                    ))
-                }
+                <DataTableBody table={table}/>
             </div>
         </div>
     );
