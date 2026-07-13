@@ -13,10 +13,12 @@ import { Resolution } from "../../../../shared/components/resolution/Resolution"
 import { DateItem } from "../../../../shared/components/date-item/DateItem";
 import { TaskDescription } from "../../../../shared/components/task-description/TasDescription";
 import { PageMotion } from "../../../../shared/motion/PageMotion";
+import { DataTable } from "./components/data-table/DataTable";
+import { useTaskColumns } from "./hooks/useTaskColumns";
 
 export const TasksList = () => {
     const tasks = useTasks();
-    const columns = [
+/*     const columns = [
     {
         title: "Task",
         size: 12,
@@ -86,71 +88,12 @@ export const TasksList = () => {
         render: (task: Task) =>
         <DateItem date={task.createdAt}/>
     },
-    ];
+    ]; */
     
+    const columns = useTaskColumns();
    return (
   <PageMotion>
-    <div className="tasks-list">
-
-      <div className="tasks-list__viewport">
-
-        <div className="tasks-list__board">
-
-          <Group orientation="horizontal">
-
-            {columns.map((column, index) => (
-              <Fragment key={column.title}>
-
-             {/*    <Panel
-                  groupResizeBehavior="preserve-pixel-size"
-                  defaultSize={30}
-                >  
-                    <div>
-                       {column.title}
-                    </div>
-                  <TasksColumn
-                    title={column.title}
-                    tasks={tasks}
-                    renderCell={column.render}
-                  />
-                  
-                </Panel> */}
-
-
-                <Panel  groupResizeBehavior="preserve-pixel-size"
-                  defaultSize={30}>
-
-                    <div className="tasks-column">
-
-                        <div className="tasks-column__header">
-                        {column.title}
-                        </div>
-
-                        <div className="tasks-column__body">
-                        <TasksColumn
-                            title={column.title}
-                            tasks={tasks}
-                            renderCell={column.render}
-                        />
-                        </div>
-
-                    </div>
-
-                </Panel>
-
-                  <Separator className="tasks-list__separator" />
-                
-
-              </Fragment>
-            ))}
-
-          </Group>
-
-        </div>
-
-      </div>
-
-    </div>
+    <DataTable  columns={columns} data={tasks}/>
   </PageMotion>
 );
 }
