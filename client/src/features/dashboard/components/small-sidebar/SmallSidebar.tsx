@@ -22,7 +22,7 @@ export const SmallSidebar = () => {
                         <FaTimes />
                     </button>
 
-                    <header> FlowBoard</header>
+                    <header> FlowBoard sss</header>
 
                     <NavLinks toggleSidebar={toggle} />
                 </div>

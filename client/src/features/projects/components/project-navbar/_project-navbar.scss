@@ -1,298 +1,678 @@
 @use "../../../../themes/styles/abstracts/queries" as *;
 
+
 /* ============================================
    PROJECT HEADER
 ============================================ */
 
 .project-header {
-  display: flex;
-  flex-direction: column;
-  gap: 1.8rem;
 
-  padding: 2rem 2rem 1rem 2rem;
-  //margin-bottom: 2rem;
 
+  display:flex;
+
+  flex-direction:column;
+
+
+  gap:
+    var(--space-5);
+
+
+
+  padding:
+
+    var(--space-5)
+
+    var(--space-6)
+
+    var(--space-4);
 
 
 
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(248, 250, 252, 0.98)),
-    var(--surface);
+    var(--surface-primary);
 
-  box-shadow:
-    0 14px 36px rgba(15, 23, 42, 0.05),
-    0 1px 0 rgba(255, 255, 255, 0.7) inset;
 
-  /* ============================================
-     TOP ROW
-  ============================================ */
 
-  &__top {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 1.6rem;
+  border-bottom:
+
+    1px solid var(--border-default);
+
+}
+
+
+
+/* ============================================
+   TOP ROW
+============================================ */
+
+.project-header__top {
+
+
+  display:flex;
+
+
+  align-items:flex-start;
+
+
+  justify-content:space-between;
+
+
+
+  gap:
+    var(--space-4);
+
+}
+
+
+
+
+/* ============================================
+   IDENTITY
+============================================ */
+
+.project-header__identity {
+
+
+  display:flex;
+
+
+  flex-direction:column;
+
+
+
+  gap:
+    var(--space-2);
+
+
+
+  min-width:0;
+
+}
+
+
+
+
+
+/* ============================================
+   EYEBROW
+============================================ */
+
+.project-header__eyebrow {
+
+
+  display:inline-flex;
+
+
+  align-items:center;
+
+
+
+  width:fit-content;
+
+
+
+  padding:
+
+    var(--space-1)
+
+    var(--space-3);
+
+
+
+  border-radius:
+    var(--radius-full);
+
+
+
+  background:
+    var(--primary-50);
+
+
+
+  color:
+    var(--primary-700);
+
+
+
+  font-size:
+    var(--text-xs);
+
+
+
+  font-weight:
+    var(--font-bold);
+
+
+
+  letter-spacing:
+    .04em;
+
+
+
+  text-transform:
+    uppercase;
+
+
+
+  line-height:
+    1;
+
+}
+
+
+
+
+
+/* ============================================
+   TITLE
+============================================ */
+
+.project-header__title-row {
+
+
+  display:flex;
+
+
+  align-items:center;
+
+
+
+  gap:
+    var(--space-3);
+
+
+
+  min-width:
+    0;
+
+}
+
+
+
+
+.project-header__title {
+
+
+  margin:0;
+
+
+
+  color:
+    var(--text-primary);
+
+
+
+  font-size: var(--text-4xl);
+
+
+
+  font-weight: var(--font-bold);
+
+
+  line-height: 1.1;
+
+
+
+  letter-spacing: var(--letterSpacing);
+
+
+
+  overflow:hidden;
+
+
+  text-overflow:ellipsis;
+
+
+  white-space:nowrap;
+
+}
+
+
+
+
+
+/* ============================================
+   ACTIONS
+============================================ */
+
+.project-header__actions {
+
+
+  flex-shrink:0;
+
+
+
+  display:flex;
+
+
+  align-items:center;
+
+
+
+  gap:
+    var(--space-3);
+
+}
+
+
+
+
+
+/* ============================================
+   BOTTOM ROW
+============================================ */
+
+.project-header__bottom {
+
+
+  display:flex;
+
+
+  align-items:center;
+
+
+
+  gap:
+    var(--space-3);
+
+}
+
+
+
+
+
+
+/* ============================================
+   PROJECT NAVIGATION
+============================================ */
+
+.project-header__nav {
+
+
+  flex:1;
+
+
+
+  display:flex;
+
+
+  align-items:center;
+
+
+
+  gap:
+    var(--space-2);
+
+
+
+  overflow-x:auto;
+
+
+
+  scrollbar-width:none;
+
+
+
+  &::-webkit-scrollbar {
+
+    display:none;
+
   }
 
-  &__identity {
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
+}
+
+
+
+
+
+
+
+/* ============================================
+   NAV LINKS
+============================================ */
+
+.project-header__link {
+
+
+  position:relative;
+
+
+
+  display:inline-flex;
+
+
+  align-items:center;
+
+
+
+  gap:
+    var(--space-2);
+
+
+
+  flex-shrink:0;
+
+
+
+  min-height: 4.4rem;
+
+
+
+  padding: 0 var(--space-4);
+
+
+
+  border-radius:
+    var(--radius-md);
+
+
+
+  color:
+    var(--text-secondary);
+
+
+
+  text-decoration:none;
+
+
+
+  font-size:
+    var(--text-base);
+
+
+
+  font-weight:
+    var(--font-medium);
+
+
+
+  transition:
+
+    background-color var(--transition-fast),
+
+    color var(--transition-fast);
+
+
+
+  &:hover {
+
+
+    background:
+      var(--surface-muted);
+
+
+
+    color:
+      var(--text-primary);
+
   }
 
-  &__eyebrow {
-    display: inline-flex;
-    align-items: center;
-    width: fit-content;
 
-    padding: 0.45rem 0.9rem;
 
-    border: 1px solid rgba(59, 130, 246, 0.12);
-    border-radius: 999px;
 
-    background: var(--primary-50);
-    color: var(--primary-700);
 
-    font-size: 1.2rem;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    line-height: 1;
+  &--active {
+
+
+    background:
+      var(--primary-50);
+
+
+
+    color:
+      var(--primary-700);
+
+
+
+    font-weight:
+      var(--font-semibold);
+
+
   }
 
-  &__title-row {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    min-width: 0;
+}
+
+
+
+
+
+
+
+/* ============================================
+   LINK ICON
+============================================ */
+
+.project-header__link-icon {
+
+
+  display:flex;
+
+
+  align-items:center;
+
+
+  justify-content:center;
+
+
+
+  flex-shrink:0;
+
+
+
+  font-size: var(--text-xl);
+
+  color: var(--grey-400);
+
+  transition:
+    color var(--transition-fast);
+
+}
+
+.project-header__link:hover
+.project-header__link-icon,
+.project-header__link--active
+.project-header__link-icon {
+  color: var(--primary-600);
+
+}
+
+
+/* ============================================
+   LINK TEXT
+============================================ */
+.project-header__link-text {
+
+
+  white-space:nowrap;
+
+  font-size: var(--text-base);
+
+  letter-spacing: var(--letterSpacing);
+
+}
+
+
+/* ============================================
+   OPTIONS BUTTON
+============================================ */
+
+.project-header__options {
+
+
+  flex-shrink:0;
+
+  width: 4.4rem;
+
+  height: 4.4rem;
+
+
+
+  display:flex;
+
+
+  align-items:center;
+
+
+  justify-content:center;
+
+
+
+  border:none;
+
+
+
+  border-radius:
+    var(--radius-md);
+
+
+
+  background:
+    transparent;
+
+
+
+  color:
+    var(--text-secondary);
+
+
+
+  cursor:pointer;
+
+
+
+  transition:
+
+    background-color var(--transition-fast),
+
+    color var(--transition-fast);
+
+
+
+  .icon {
+
+    font-size: var(--text-2xl);
+
   }
 
-  &__title {
-    margin: 0;
 
-    color: var(--text-primary);
-    font-size: clamp(2.2rem, 2vw, 3rem);
-    font-weight: 800;
-    line-height: 1.1;
-    letter-spacing: -0.03em;
 
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+
+
+  &:hover {
+    background: var(--surface-muted);
+
+    color: var(--primary-600);
+
   }
 
-  &__actions {
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+
+
+
+  &:active {
+
+    transform: scale(.97);
+
   }
 
-  /* ============================================
-     BOTTOM ROW
-  ============================================ */
+}
 
-  &__bottom {
-    display: flex;
-    align-items: center;
-    gap: 1.2rem;
-    min-width: 0;
+
+
+
+
+
+
+
+/* ============================================
+   RESPONSIVE
+============================================ */
+
+@include respond("tab-port") {
+
+
+  .project-header {
+
+
+    padding:
+
+      var(--space-4)
+
+      var(--space-5)
+
+      var(--space-3);
+
   }
 
-  &__nav {
-    flex: 1;
-    min-width: 0;
 
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    flex-wrap: wrap;
 
-    padding: 0.8rem;
+  .project-header__top {
 
-    border: 1px solid var(--border-color);
-    border-radius: 1.8rem;
 
-    background: var(--surface-secondary);
+    flex-direction:column;
+
+
+    align-items:stretch;
+
   }
 
-  /* ============================================
-     PROJECT NAV LINKS
-  ============================================ */
 
-  &__link {
-    position: relative;
 
-    display: inline-flex;
-    align-items: center;
-    gap: 0.8rem;
 
-    min-height: 4.6rem;
-    padding: 0 1.4rem;
+  .project-header__bottom {
 
-    border-radius: 1.3rem;
 
-    text-decoration: none;
-    color: var(--grey-600);
+    flex-direction:column;
 
-    transition:
-      background-color 0.2s ease,
-      color 0.2s ease,
-      transform 0.2s ease,
-      box-shadow 0.2s ease;
 
-    &:hover {
-      background: var(--white);
-      color: var(--grey-900);
-      transform: translateY(-1px);
-      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.05);
+    align-items:stretch;
 
-      .project-header__link-icon {
-        color: var(--primary-600);
-        transform: scale(1.04);
-      }
-    }
-
-    &--active {
-      background: var(--white);
-      color: var(--primary-700);
-      box-shadow:
-        0 10px 24px rgba(59, 130, 246, 0.12),
-        0 1px 0 rgba(255, 255, 255, 0.8) inset;
-
-      .project-header__link-icon {
-        color: var(--primary-600);
-      }
-
-      .project-header__link-text {
-        font-weight: 700;
-      }
-    }
   }
 
-  &__link-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
 
-    font-size: 1.9rem;
-    color: var(--grey-400);
 
-    transition:
-      color 0.2s ease,
-      transform 0.2s ease;
+  .project-header__actions {
+
+
+    justify-content:flex-end;
+
   }
 
-  &__link-text {
-    font-size: 1.45rem;
-    font-weight: 600;
-    letter-spacing: -0.01em;
-    text-transform: capitalize;
-    white-space: nowrap;
+
+}
+
+
+
+
+
+@include respond("phone") {
+
+
+  .project-header {
+
+
+    padding:
+
+      var(--space-3)
+
+      var(--space-4);
+
   }
 
-  /* ============================================
-     OPTIONS BUTTON
-  ============================================ */
 
-  &__options {
-    flex-shrink: 0;
 
-    width: 4.8rem;
-    height: 4.8rem;
 
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+  .project-header__title {
+    font-size: var(--text-3xl);
 
-    border: 1px solid var(--border-color);
-    border-radius: 1.4rem;
+    white-space:normal;
 
-    background: var(--surface);
-    color: var(--grey-600);
-
-    cursor: pointer;
-
-    transition:
-      transform 0.2s ease,
-      color 0.2s ease,
-      background-color 0.2s ease,
-      border-color 0.2s ease,
-      box-shadow 0.2s ease;
-
-    .icon {
-      font-size: 2rem;
-    }
-
-    &:hover {
-      color: var(--primary-700);
-      background: var(--primary-50);
-      border-color: rgba(59, 130, 246, 0.18);
-      box-shadow: 0 8px 18px rgba(59, 130, 246, 0.12);
-      transform: translateY(-1px);
-    }
-
-    &:active {
-      transform: scale(0.98);
-    }
   }
 
-  /* ============================================
-     RESPONSIVE
-  ============================================ */
-
-  @include respond("tab-port") {
-    padding: 1.6rem;
-    border-radius: 2rem;
-    gap: 1.4rem;
-
-    &__top {
-      flex-direction: column;
-      align-items: stretch;
-    }
-
-    &__actions {
-      width: 100%;
-      justify-content: flex-start;
-    }
-
-    &__bottom {
-      flex-direction: column;
-      align-items: stretch;
-    }
-
-    &__nav {
-      width: 100%;
-    }
-
-    &__options {
-      align-self: flex-end;
-    }
+  .project-header__link {
+    padding: 0 var(--space-3);
   }
 
-  @include respond("phone") {
-    padding: 1.4rem;
-    border-radius: 1.8rem;
-
-    &__title {
-      font-size: 2.1rem;
-      white-space: normal;
-    }
-
-    &__nav {
-      gap: 0.6rem;
-      padding: 0.65rem;
-    }
-
-    &__link {
-      min-height: 4.2rem;
-      padding: 0 1.2rem;
-    }
-
-    &__link-text {
-      font-size: 1.35rem;
-    }
+  .project-header__link-text {
+    font-size: var(--text-sm);
   }
 }
