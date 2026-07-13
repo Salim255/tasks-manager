@@ -1,16 +1,8 @@
-import {
-    getCoreRowModel,
-    useReactTable,
-} from "@tanstack/react-table";
-
-import type {
-    ColumnDef,
-} from "@tanstack/react-table";
-
 import "./_data-table.scss";
-import { useState } from "react";
+import type { ColumnDef } from "@tanstack/react-table";
 import { DataTableHeader } from "./DataTableHeader";
 import { DataTableBody } from "./DataTableBody";
+import { useDataTable } from "../../hooks/useTaskTable";
 
 
 type DataTableProps<TData> = {
@@ -23,30 +15,8 @@ export const DataTable = <TData,>({
     columns,
     data,
 }: DataTableProps<TData>) => {
-    const [rowSelection, setRowSelection] = useState({});
-    const [columnSizing, setColumnSizing] = useState({});
-   const table = useReactTable({
-
-        data,
-
-        columns,
-
-
-        getCoreRowModel:
-            getCoreRowModel(),
-
-
-        columnResizeMode:
-            "onChange",
-
-
-        state: {
-            columnSizing,
-            rowSelection
-        },
-
-
-    });
+  
+   const table = useDataTable({data: data, columns: columns})
 
     return (
         <div className="data-table">

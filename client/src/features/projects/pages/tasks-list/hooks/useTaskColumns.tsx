@@ -15,6 +15,29 @@ import { DateItem } from "../../../../../shared/components/date-item/DateItem";
 export const useTaskColumns = (): ColumnDef<Task>[] => {
 
     return [
+        {
+            id: "select",
+
+            size: 50,
+
+            enableResizing: false,
+
+            header: ({ table }) => (
+                <input
+                    type="checkbox"
+                    checked={table.getIsAllRowsSelected()}
+                    onChange={table.getToggleAllRowsSelectedHandler()}
+                />
+            ),
+
+            cell: ({ row }) => (
+                <input
+                    type="checkbox"
+                    checked={row.getIsSelected()}
+                    onChange={row.getToggleSelectedHandler()}
+                />
+            ),
+        },
 
         {
             accessorKey: "title",
