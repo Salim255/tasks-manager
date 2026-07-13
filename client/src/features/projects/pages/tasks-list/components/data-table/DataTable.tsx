@@ -46,11 +46,6 @@ export const DataTable = <TData,>({
         },
 
 
-        onColumnSizingChange:
-            setColumnSizing,
-        onRowSelectionChange: 
-            setRowSelection,
-
     });
 
     return (
