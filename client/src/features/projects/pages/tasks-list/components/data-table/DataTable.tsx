@@ -12,6 +12,7 @@ import "./_data-table.scss";
 import { useState } from "react";
 import { DataTableCell } from "./DataTableCell";
 import { DataTableRow } from "./DataTableRow";
+import { DataTableHeader } from "./DataTableHeader";
 
 
 type DataTableProps<TData> = {
@@ -60,33 +61,14 @@ export const DataTable = <TData,>({
         <div className="data-table">
 
             <div className="data-table__header">
-
-                {
-                    table.getHeaderGroups().map(
-                    headerGroup => (
-                        <div
-                            key={headerGroup.id}
-                            className="data-table__row"
-                        >
-                            {
-                                headerGroup.headers.map(
-                                    header => {
-                                        return < DataTableCell header={header}/>
-                                    }
-                                )
-                            }
-                        </div>
-                        )
-                    )
-                }
+                <DataTableHeader table={table}/>
             </div>
 
 
             <div className="data-table__body">
-
                 {
                     table.getRowModel().rows.map(row => (
-                        <DataTableRow row={row}/>
+                        <DataTableRow key={row.id} row={row}/>
                     ))
                 }
             </div>
