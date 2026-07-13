@@ -10,6 +10,8 @@ import type {
 
 import "./_data-table.scss";
 import { useState } from "react";
+import { DataTableCell } from "./DataTableCell";
+import { DataTableRow } from "./DataTableRow";
 
 
 type DataTableProps<TData> = {
@@ -68,43 +70,11 @@ export const DataTable = <TData,>({
                         >
                             {
                                 headerGroup.headers.map(
-                                    header => (
-                                        <div
-                                            key={header.id}
-                                            className="data-table__cell"
-                                            style={{
-                                                width: header.getSize(),
-                                            }}
-                                        >
-                                            {
-                                                flexRender(
-                                                    header.column.columnDef.header,
-                                                    header.getContext()
-                                                )
-                                            }
-
-                                            {
-                                                header.column.getCanResize() && (
-                                                    <div
-                                                        className={`data-table__resize-handle ${
-                                                            header.column.getIsResizing()
-                                                                ? "data-table__resize-handle--active"
-                                                                : ""
-                                                        }`}
-                                                        onMouseDown={
-                                                            header.getResizeHandler()
-                                                        }
-                                                        onTouchStart={
-                                                            header.getResizeHandler()
-                                                        }
-                                                    />
-                                                )
-                                            }
-                                    </div>
-                                    )
+                                    header => {
+                                        return < DataTableCell header={header}/>
+                                    }
                                 )
                             }
-
                         </div>
                         )
                     )
@@ -116,42 +86,7 @@ export const DataTable = <TData,>({
 
                 {
                     table.getRowModel().rows.map(row => (
-
-                        <div
-                            key={row.id}
-                            className={`data-table__row ${
-                                row.getIsSelected()
-                                    ? "data-table__row--selected"
-                                    : ""
-                            }`}
-                            onClick={row.getToggleSelectedHandler()}
-                        >
-
-                            {
-                                row.getVisibleCells().map(cell => (
-
-                                    <div
-                                        key={cell.id}
-                                        className="data-table__cell"
-                                        style={{
-                                            width: cell.column.getSize(),
-                                        }}
-                                    >
-
-                                        {
-                                            flexRender(
-                                                cell.column.columnDef.cell,
-                                                cell.getContext()
-                                            )
-                                        }
-
-                                    </div>
-
-                                ))
-                            }
-
-                        </div>
-
+                        <DataTableRow row={row}/>
                     ))
                 }
             </div>
