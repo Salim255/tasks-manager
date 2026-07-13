@@ -1,3 +1,4 @@
+@use "../../../../../../themes/styles/abstracts/queries" as *;
 /* ============================================
    BOARD TASK ITEM
 ============================================ */
@@ -6,31 +7,29 @@
   display: flex;
   flex-direction: column;
 
-  gap: 1rem;
+  gap: var(--space-4);
 
-  padding: 1rem;
+  padding: var(--space-5);
 
-  background: var(--white);
+  background: var(--surface-primary);
 
-  border: 1px solid var(--grey-100);
+  border: 1px solid var(--border-default);
 
-  border-radius: 8px;
-
-  box-shadow: var(--shadow-1);
+  border-radius: var(--radius-lg);
 
   cursor: grab;
 
   transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    border-color 0.2s ease;
+    border-color var(--transition-fast),
+    transform var(--transition-fast),
+    background-color var(--transition-fast);
 
   &:hover {
-    transform: translateY(-2px);
+    background: var(--surface-muted);
 
-    border-color: var(--grey-200);
+    border-color: var(--grey-300);
 
-    box-shadow: var(--shadow-2);
+    transform: translateY(-1px);
   }
 
   &:active {
@@ -43,10 +42,10 @@
 
   &__content {
     display: flex;
-    justify-content: space-between;
     align-items: flex-start;
+    justify-content: space-between;
 
-    gap: 1rem;
+    gap: var(--space-4);
   }
 
   /* ============================================
@@ -58,14 +57,15 @@
 
     margin: 0;
 
-    color: var(--grey-500);
+    color: var(--text-primary);
 
-    font-size: var(--text-base);
-   
-    
-    line-height: 1.5;
+    font-size: var(--text-lg);
 
-    letter-spacing: -0.01em;
+    font-weight: var(--font-medium);
+
+    line-height: 1.55;
+
+    letter-spacing: var(--letterSpacing);
 
     overflow: hidden;
 
@@ -91,7 +91,7 @@
 
     opacity: 0;
 
-    transition: opacity 0.2s ease;
+    transition: opacity var(--transition-fast);
   }
 
   &:hover &__actions {
@@ -106,34 +106,39 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    gap: var(--space-4);
   }
 
   /* ============================================
-     TASK TYPE BADGE
+     TASK TYPE
   ============================================ */
 
   &__checkbox {
-    display: flex;
+    display: inline-flex;
+
     align-items: center;
 
-    gap: 0.4rem;
+    gap: var(--space-2);
 
-    padding: 0.5rem 1rem;
+    min-height: 3.4rem;
 
-    border-radius: 999px;
+    padding: 0 var(--space-3);
 
-    font-size: var(--text-base);
+    border-radius: var(--radius-full);
 
-    font-weight: 600;
+    font-size: var(--text-sm);
 
-    background: var(--grey-50);
+    font-weight: var(--font-semibold);
+
     span {
       display: flex;
       align-items: center;
+      font-size: var(--text-base);
     }
 
     &--task {
-      background: rgba(59, 130, 246, 0.08);
+      background: rgba(59,130,246,.08);
 
       color: var(--primary-700);
 
@@ -143,7 +148,7 @@
     }
 
     &--story {
-      background: rgba(65, 187, 122, 0.08);
+      background: rgba(65,187,122,.08);
 
       color: var(--green-dark);
 
@@ -153,7 +158,7 @@
     }
 
     &--bug {
-      background: rgba(236, 98, 6, 0.08);
+      background: rgba(236,98,6,.08);
 
       color: #b45309;
 
@@ -168,27 +173,35 @@
   ============================================ */
 
   &__assignee {
-    width: 3rem;
-    height: 3rem;
-
     display: flex;
+
     align-items: center;
+
     justify-content: center;
 
-    border-radius: 50%;
+    flex-shrink: 0;
 
-    background: var(--grey-100);
+    width: 3.6rem;
 
-    color: var(--grey-700);
+    height: 3.6rem;
 
-    font-size: 1.4rem;
+    border-radius: var(--radius-full);
+
+    background: var(--surface-muted);
+
+    color: var(--text-secondary);
+
+    font-size: var(--text-base);
 
     transition:
-      background-color 0.2s ease,
-      transform 0.2s ease;
+      background-color var(--transition-fast),
+      color var(--transition-fast),
+      transform var(--transition-fast);
 
     &:hover {
       background: var(--grey-200);
+
+      color: var(--text-primary);
 
       transform: scale(1.05);
     }
@@ -200,46 +213,136 @@
 ============================================ */
 
 .options-list {
-  padding: 0.4rem;
-
-  margin: 0;
-
-  list-style: none;
-
-  min-width: 18rem;
-
-  background: var(--white);
-
-  border: 1px solid var(--grey-100);
-
-  border-radius: 14px;
-
-  box-shadow: var(--shadow-3);
-
   display: flex;
   flex-direction: column;
 
-  gap: 0.15rem;
+  gap: .2rem;
+
+  min-width: 20rem;
+
+  margin: 0;
+
+  padding: var(--space-2);
+
+  list-style: none;
+
+  background: var(--surface-primary);
+
+  border: 1px solid var(--border-default);
+
+  border-radius: var(--radius-lg);
 
   &__item {
-    padding: 0.75rem 0.9rem;
+    display: flex;
 
-    border-radius: 10px;
+    align-items: center;
 
-    color: var(--grey-700);
+    min-height: 4rem;
+
+    padding: 0 var(--space-3);
+
+    border-radius: var(--radius-md);
+
+    color: var(--text-secondary);
 
     font-size: var(--text-base);
 
+    font-weight: var(--font-medium);
+
     transition:
-      background-color 0.15s ease,
-      color 0.15s ease;
+      background-color var(--transition-fast),
+      color var(--transition-fast);
 
     &:hover {
-      background: var(--grey-50);
-
-      color: var(--grey-900);
-
       cursor: pointer;
+
+      background: var(--surface-muted);
+
+      color: var(--text-primary);
     }
   }
+}
+
+/* ============================================
+   RESPONSIVE
+============================================ */
+
+@include respond("tab-port") {
+
+  .board-task-item {
+
+    padding: var(--space-4);
+
+    gap: var(--space-3);
+
+    &__task {
+      font-size: var(--text-base);
+    }
+
+    &__checkbox {
+      min-height: 3.2rem;
+      padding: 0 var(--space-2);
+    }
+
+    &__assignee {
+      width: 3.4rem;
+      height: 3.4rem;
+    }
+
+  }
+
+  .options-list {
+
+    min-width: 18rem;
+
+  }
+
+}
+
+@include respond("phone") {
+
+  .board-task-item {
+
+    padding: var(--space-3);
+
+    gap: var(--space-3);
+
+    &__content {
+      gap: var(--space-3);
+    }
+
+    &__footer {
+      gap: var(--space-3);
+    }
+
+    &__task {
+      font-size: var(--text-base);
+      line-height: 1.5;
+    }
+
+    &__checkbox {
+      min-height: 3rem;
+      font-size: var(--text-xs);
+    }
+
+    &__assignee {
+      width: 3.2rem;
+      height: 3.2rem;
+      font-size: var(--text-sm);
+    }
+
+  }
+
+  .options-list {
+
+    width: 100%;
+    min-width: 16rem;
+
+    &__item {
+      min-height: 3.8rem;
+      font-size: var(--text-sm);
+    }
+
+  }
+
 }
