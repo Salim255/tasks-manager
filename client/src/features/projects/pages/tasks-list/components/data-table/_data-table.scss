@@ -97,6 +97,17 @@
 
     }
 
+    &--selected {
+
+      background:
+        color-mix(
+          in srgb,
+          var(--primary-500) 8%,
+          white
+        );
+
+    }
+
   }
 
 

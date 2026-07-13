@@ -22,7 +22,7 @@ export const DataTable = <TData,>({
     columns,
     data,
 }: DataTableProps<TData>) => {
-
+    const [rowSelection, setRowSelection] = useState({});
     const [columnSizing, setColumnSizing] = useState({});
    const table = useReactTable({
 
@@ -41,11 +41,14 @@ export const DataTable = <TData,>({
 
         state: {
             columnSizing,
+            rowSelection
         },
 
 
         onColumnSizingChange:
             setColumnSizing,
+        onRowSelectionChange: 
+            setRowSelection,
 
     });
 
@@ -116,7 +119,12 @@ export const DataTable = <TData,>({
 
                         <div
                             key={row.id}
-                            className="data-table__row"
+                            className={`data-table__row ${
+                                row.getIsSelected()
+                                    ? "data-table__row--selected"
+                                    : ""
+                            }`}
+                            onClick={row.getToggleSelectedHandler()}
                         >
 
                             {

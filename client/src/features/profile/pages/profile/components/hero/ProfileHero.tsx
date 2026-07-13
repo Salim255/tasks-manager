@@ -8,7 +8,7 @@ export const ProfileHero = ({ profile }: { profile: Profile }) => {
         alt='hero'/>
 
         <h1 className='profile-hero__name heading-primary u-mt-xl'>
-             { profile!.firstName } { profile!.lastName }
+             { profile?.firstName } { profile?.lastName }
         </h1>
     </div>
 }
