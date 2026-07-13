@@ -39,34 +39,34 @@ export const Board = () => {
     return (
          <PageMotion>
              <section className="board">
-            <BoardColumn 
-                title="To Do"
-                status="todo"
-                sprintsSize={boardData.sprintSize}
-                tasks={boardData.tasksByStatus.todo}
-                onDragStart={onDragStart}
-                onDrop={(e) => onDrop(e, "todo")}
-                onDragOver={onDragOver}
-            />
-            <BoardColumn 
-                title="In Progress"
-                status="in_progress"
-                sprintsSize={boardData.sprintSize}
-                tasks={boardData.tasksByStatus.in_progress}
-                onDragStart={onDragStart}
-                onDrop={(e) => onDrop(e, "in_progress")}
-                onDragOver={onDragOver}
-            />
-            <BoardColumn 
-                title="Done"
-                status="done"
-                sprintsSize={boardData.sprintSize}
-                tasks={boardData.tasksByStatus.done}
-                onDragStart={onDragStart}
-                onDrop={(e) => onDrop(e, "done")}
-                onDragOver={onDragOver}
-            />
-        </section>
+                <BoardColumn 
+                    title="To Do"
+                    status="todo"
+                    sprintsSize={boardData.sprintSize}
+                    tasks={boardData.tasksByStatus.todo}
+                    onDragStart={onDragStart}
+                    onDrop={(e) => onDrop(e, "todo")}
+                    onDragOver={onDragOver}
+                />
+                <BoardColumn 
+                    title="In Progress"
+                    status="in_progress"
+                    sprintsSize={boardData.sprintSize}
+                    tasks={boardData.tasksByStatus.in_progress}
+                    onDragStart={onDragStart}
+                    onDrop={(e) => onDrop(e, "in_progress")}
+                    onDragOver={onDragOver}
+                />
+                <BoardColumn 
+                    title="Done"
+                    status="done"
+                    sprintsSize={boardData.sprintSize}
+                    tasks={boardData.tasksByStatus.done}
+                    onDragStart={onDragStart}
+                    onDrop={(e) => onDrop(e, "done")}
+                    onDragOver={onDragOver}
+                />
+            </section>
          </PageMotion>
        
     )

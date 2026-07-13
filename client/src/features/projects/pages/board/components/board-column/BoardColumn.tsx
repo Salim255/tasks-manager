@@ -34,15 +34,21 @@ export const BoardColumn = ({
         onDrop={(e) => onDrop(e, status)}
         onDragOver={onDragOver}
       >
-      <div className="board-column__header">
+        <div className="board-column__header">
 
-        <h3 className="board-column__title heading-tertiary">
-          {title}
-        </h3>
+          <div className="board-column__title-group">
 
-        <span className="board-column__count">
-          {tasks.length}
-        </span>
+              <span className="board-column__indicator" />
+
+              <h3 className="board-column__title">
+                  {title}
+              </h3>
+
+          </div>
+
+          <span className="board-column__count">
+              {tasks.length}
+          </span>
 
       </div>
 
