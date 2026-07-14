@@ -40,9 +40,9 @@ export const BoardColumn = ({
 
               <span className="board-column__indicator" />
 
-              <h3 className="board-column__title">
+              <h4 className="board-column__title">
                   {title}
-              </h3>
+              </h4>
 
           </div>
 
