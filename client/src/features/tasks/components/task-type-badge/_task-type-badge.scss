@@ -1,0 +1,241 @@
+/* ============================================
+   TASK TYPE BADGE
+============================================ */
+
+.task-type-badge {
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+
+  color: var(--text-secondary);
+
+
+  transition:
+
+    transform var(--transition-fast),
+
+    background-color var(--transition-fast),
+
+    border-color var(--transition-fast);
+
+
+
+  &__icon {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+
+  }
+
+
+
+  &__label {
+
+    text-transform: capitalize;
+
+    font-size: var(--text-sm);
+
+    font-weight: var(--font-semibold);
+
+    line-height: 1;
+
+  }
+
+
+
+  /* ============================================
+     BADGE MODE
+  ============================================ */
+
+
+  &--badge {
+
+    gap: var(--space-2);
+
+    min-height: 3.2rem;
+
+    padding: 0 var(--space-3);
+
+    border-radius: var(--radius-lg);
+
+    border: 1px solid transparent;
+
+
+    .task-type-badge__icon {
+
+      font-size: var(--text-base);
+
+    }
+
+  }
+
+
+
+
+  /* ============================================
+     ICON MODE
+  ============================================ */
+
+
+  &--icon {
+
+    width: 3.6rem;
+
+    height: 3.6rem;
+
+
+    border-radius: var(--radius-lg);
+
+    border: 1px solid var(--border-default);
+
+
+    .task-type-badge__icon {
+
+      font-size: var(--text-lg);
+
+    }
+
+
+    &:hover {
+
+      transform: translateY(-1px);
+
+    }
+
+  }
+
+
+
+
+  /* ============================================
+     TASK
+  ============================================ */
+
+
+  &--task {
+
+    color: var(--task-color);
+
+
+    &.task-type-badge--badge {
+
+      background:
+        color-mix(
+          in srgb,
+          var(--task-color) 8%,
+          white
+        );
+
+
+      border-color:
+        color-mix(
+          in srgb,
+          var(--task-color) 18%,
+          white
+        );
+
+    }
+
+
+    &.task-type-badge--icon {
+
+      background:
+        color-mix(
+          in srgb,
+          var(--task-color) 8%,
+          white
+        );
+
+      border-color:
+        color-mix(
+          in srgb,
+          var(--task-color) 18%,
+          white
+        );
+
+    }
+
+  }
+
+
+
+
+  /* ============================================
+     STORY
+  ============================================ */
+
+
+  &--story {
+
+    color: var(--story-color);
+
+
+
+    &.task-type-badge--badge,
+    &.task-type-badge--icon {
+
+      background:
+        color-mix(
+          in srgb,
+          var(--story-color) 10%,
+          white
+        );
+
+
+      border-color:
+        color-mix(
+          in srgb,
+          var(--story-color) 18%,
+          white
+        );
+
+    }
+
+  }
+
+
+
+
+  /* ============================================
+     BUG
+  ============================================ */
+
+
+  &--bug {
+
+    color: var(--bug-color);
+
+
+
+    &.task-type-badge--badge,
+    &.task-type-badge--icon {
+
+      background:
+        color-mix(
+          in srgb,
+          var(--bug-color) 10%,
+          white
+        );
+
+
+      border-color:
+        color-mix(
+          in srgb,
+          var(--bug-color) 18%,
+          white
+        );
+
+    }
+
+  }
+
+}
