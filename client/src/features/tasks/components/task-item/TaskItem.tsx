@@ -66,10 +66,10 @@ export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
                 <section className='task-item__content'>
                     <div>
                         <EditableTaskType
-                        badgeType={"icon"} 
-                        taskType={task.taskType} 
-                        handleSave={(v) => handleSave("taskType", v)}/>
-                    {/* <TaskTypeBadge variant={'icon'} type={task.taskType}/> */}
+                            badgeType={"icon"} 
+                            taskType={task.taskType} 
+                            handleSave={(v) => handleSave("taskType", v)}/>
+                
                     </div>
                  
                     <div className='task-item__title' >

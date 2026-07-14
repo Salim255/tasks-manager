@@ -10,13 +10,8 @@
   white-space: nowrap;
 
   font-size: var(--text-base);
-  
+  color: var(--grey-700);
+  font-weight: var(--font-semibold);
   line-height: 1.2;
-
-
-  transition: color 0.15s ease;
-  
-  &:hover {
-    color: var(--primary-700);
-  }
+  letter-spacing: .1;
 }

@@ -64,21 +64,7 @@
 
 
     &--active {
-      background:
-
-        color-mix(
-
-          in srgb,
-
-          var(--action-primary) 8%,
-
-          transparent
-
-        );
-
-
-
-      color: var(--action-primary);
+      color: var(--primary-600);
 
       .projects-item__badge {
 
@@ -108,10 +94,7 @@
 
   &__badge {
 
-
     flex-shrink:0;
-
-
 
     display:flex;
 

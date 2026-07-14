@@ -4,6 +4,7 @@ import { useTaskUpdating } from "../../states/taskSelectors";
 import { EditableField } from "../editable-field/EditableField";
 
 import "./_editable-title.scss";
+import { TaskLabel } from "../../../../shared/components/task-label/TaskLabel";
 
 
 type EditableTitleProps = {
@@ -31,12 +32,9 @@ export const EditableTitle = ({
                 <div
                     className="editable-title"
                 >
-
-                    <span className="editable-title__text">
-                        {value} 
-                    </span>
-
-
+   
+                    <TaskLabel name={value}/>
+                 
                     <button
                         type="button"
                         className="editable-title__edit-btn"

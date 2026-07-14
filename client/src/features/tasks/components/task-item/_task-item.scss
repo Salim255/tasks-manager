@@ -73,70 +73,11 @@
     gap: 1rem;
   }
 
-  &__checkbox {
-    width: 3.6rem;
-    height: 3.6rem;
-
-    flex-shrink: 0;
-
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 1rem;
-
-    background: var(--grey-50);
-    border: 1px solid var(--grey-100);
-
-    font-size: 1.8rem;
-
-    transition:
-      transform 0.18s ease,
-      border-color 0.18s ease,
-      background-color 0.18s ease;
-
-    #{$self}:hover & {
-      transform: translateY(-1px);
-    }
-
-    &--task {
-      color: var(--task-color);
-      background: color-mix(in srgb, var(--task-color) 8%, white);
-      border-color: color-mix(in srgb, var(--task-color) 18%, white);
-    }
-
-    &--story {
-      color: var(--story-color);
-      background: color-mix(in srgb, var(--story-color) 10%, white);
-      border-color: color-mix(in srgb, var(--story-color) 18%, white);
-    }
-
-    &--bug {
-      color: var(--bug-color);
-      background: color-mix(in srgb, var(--bug-color) 10%, white);
-      border-color: color-mix(in srgb, var(--bug-color) 18%, white);
-    }
-  }
-
   &__title {
     min-width: 0;
 
     display: flex;
     align-items: center;
-
-    span {
-      display: block;
-
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-
-      color: var(--text-primary);
-      font-size: var(--text-base);
-      font-weight: 700;
-      line-height: 1.35;
-      letter-spacing: -0.01em;
-    }
   }
 
   /* ============================================
