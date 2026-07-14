@@ -3,14 +3,19 @@ import { useState } from "react";
 import { OptionsBtn } from "../../../../../../shared/components/options-btn/OptionsBtn";
 import type { TaskItemProps } from "../../../../../tasks/components/task-item/TaskItem";
 import { GoPerson } from "react-icons/go";
-import { typeIcon } from '../../../../../../shared/utils/methods';
 import type { AppDispatch } from '../../../../../../redux/store';
 import { useDispatch } from 'react-redux';
 import { setTaskViewerTask } from '../../../../../tasks/states/taskSlice';
 import { setQuickActionType, type QuickActionType } from '../../../../../../shared/modals/states/quickActionsSlice';
+import { EditableTaskType } from '../../../../../tasks/components/editable-task-type/EditableTaskType';
+import { updateTasHttp } from '../../../../../tasks/http/task.http';
+import { EditableAssignee } from '../../../../../tasks/components/editable-assignee/EditableAssignee';
+import { useMemberOptions } from '../../../../../members/hooks/MemberOptionsHook';
 
 export const BoardTaskItem =  ({ task, ...props }: TaskItemProps) => {
     const [isOptionsOpen, setOptionsOpen ] = useState<string | null>(null);
+
+    const memberOptions = useMemberOptions();
 
     const onQuickAction = (item: QuickActionType ) => {
         onViewTask(task.id);
@@ -22,6 +27,18 @@ export const BoardTaskItem =  ({ task, ...props }: TaskItemProps) => {
     const onViewTask = (taskId: string) => {
        dispatch(setTaskViewerTask({taskId}))
     }
+
+    const handleSave = (field: "status" | "assigneeId" | "taskType", value: string) => {
+        if (!field || !value) return;
+
+        //TODO: If the task's value equal the onchange value ignore the change
+        dispatch(
+            updateTasHttp({
+                taskId: task.id,
+                [field]: value,
+            })
+        );
+    };
 
     return (
         <div className="board-task-item" {...props} onClick={() => onQuickAction("createTask")} >
@@ -45,14 +62,19 @@ export const BoardTaskItem =  ({ task, ...props }: TaskItemProps) => {
                 </div>
             </section>
             <section className='board-task-item__footer'>
-                <div className={`board-task-item__checkbox board-task-item__checkbox--${task.taskType}`} onClick={(e) => e.stopPropagation()}>
-                    <span>
-                        { typeIcon(task.taskType) }
-                    </span>
-                    {task.taskType}
+                <div className="board-task-item__task-type" onClick={(e) => e.stopPropagation()}>
+                    <EditableTaskType
+                        badgeType={"badge"} 
+                        taskType={task.taskType} 
+                        handleSave={(v) => handleSave("taskType", v)}/>
+    
                 </div>
                 <div className='board-task-item__assignee' onClick={(e) => e.stopPropagation()}>
-                    {/* {task.assigneeId} */}
+                     < EditableAssignee
+                        TaskAssigneeId={task.assigneeId ?? "unassigned"}
+                        taskMembers={memberOptions}
+                        handleSave={(v) => handleSave("assigneeId", v)}
+                        />
                     <GoPerson/>
                 </div>
             </section>

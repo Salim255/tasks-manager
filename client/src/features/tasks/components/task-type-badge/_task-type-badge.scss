@@ -35,7 +35,7 @@
 
     border: 1px solid var(--grey-100);
 
-    font-size: 1.8rem;
+    font-size: var(--text-xl);
 
 
     transition:
@@ -45,7 +45,6 @@
       border-color 0.18s ease,
 
       background-color 0.18s ease;
-
 
 
     &:hover {
@@ -66,14 +65,25 @@
 
     min-height: 3.4rem;
 
-    padding: 0 var(--space-3);
+    padding: 0 var(--space-4);
 
     border-radius: var(--radius-lg);
 
     font-size: var(--text-base);
 
-    font-weight: var(--font-semibold);
+    font-weight: var(--font-medium);
 
+    transition:
+
+      transform 0.18s ease,
+
+      border-color 0.18s ease,
+
+      background-color 0.18s ease;
+
+    &:hover {
+      transform: translateY(-1px);
+    }
 
     .task-type-badge__icon {
 

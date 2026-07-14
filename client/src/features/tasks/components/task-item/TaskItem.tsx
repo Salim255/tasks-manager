@@ -2,7 +2,6 @@ import './_task-item.scss';
 import { useState } from 'react';
 import type { Task } from "../../models/task.model";
 import { OptionsBtn } from '../../../../shared/components/options-btn/OptionsBtn';
-import { typeIcon } from '../../../../shared/utils/methods';
 import { setTaskViewerTask } from '../../states/taskSlice';
 import { useDispatch } from 'react-redux';
 import { setQuickActionType, type QuickActionType } from '../../../../shared/modals/states/quickActionsSlice';
@@ -12,7 +11,7 @@ import { useMemberOptions } from '../../../members/hooks/MemberOptionsHook';
 import { EditableAssignee } from '../editable-assignee/EditableAssignee';
 import { updateTasHttp } from '../../http/task.http';
 import type { AppDispatch } from '../../../../redux/store';
-import { TaskTypeBadge } from '../task-type-badge/TaskTypeBadge';
+import { EditableTaskType } from '../editable-task-type/EditableTaskType';
 
 
 export type TaskItemProps = { task: Task; } & React.HTMLAttributes<HTMLDivElement>;
@@ -40,7 +39,7 @@ export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
         dispatch(setQuickActionType({actionType: item}));
     }
 
-    const handleSave = (field: "status" | "assigneeId", value: string) => {
+    const handleSave = (field: "status" | "assigneeId" | "taskType", value: string) => {
         if (!field || !value) return;
 
         //TODO: If the task's value equal the onchange value ignore the change
@@ -65,7 +64,13 @@ export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
                 onClick={() => onQuickAction("createTask")}
                >
                 <section className='task-item__content'>
-                    <TaskTypeBadge variant={'icon'} type={task.taskType}/>
+                    <div>
+                        <EditableTaskType
+                        badgeType={"icon"} 
+                        taskType={task.taskType} 
+                        handleSave={(v) => handleSave("taskType", v)}/>
+                    {/* <TaskTypeBadge variant={'icon'} type={task.taskType}/> */}
+                    </div>
                  
                     <div className='task-item__title' >
                         <EditableTitle title={task.title} handleSave={() => onQuickAction("createTask")}/>

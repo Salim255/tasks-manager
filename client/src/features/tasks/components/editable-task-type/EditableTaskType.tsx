@@ -1,4 +1,4 @@
-import { SelectDropdown } from "../../../../shared/kits/select-dropdown/SelectDropdown";
+import { SelectDropdown, type SelectOption } from "../../../../shared/kits/select-dropdown/SelectDropdown";
 import type { TaskType } from "../../models/task.model";
 import { TaskTypeBadge } from "../task-type-badge/TaskTypeBadge";
 
@@ -6,18 +6,30 @@ type EditableTypeProps = {
     taskType: TaskType;
     badgeType: 'icon' | 'badge';
     handleSave: (taskType: TaskType) => void;
-    taskTypes: {
-        label: TaskType;
-        value: TaskType;
-    }[];
 };
 
+const TASKTYPES:  SelectOption [] =
+    [
+        {
+            value:"task",
+            label: "task"
+        },
+        {
+            value:"story",
+            label: "story"
+        },
+        {
+            label:"bug",
+            value: "bug"
+        }
+    ];
 
-export const EditableTaskType = ({ badgeType, taskType, handleSave, taskTypes}: EditableTypeProps) => {
+
+export const EditableTaskType = ({ badgeType, taskType, handleSave}: EditableTypeProps) => {
     return (
         <SelectDropdown
             value={taskType}
-            options={taskTypes}
+            options={TASKTYPES}
             onChange={(v) =>handleSave(v as TaskType)}
             renderTrigger={(selected, open) => (
                 <button
@@ -28,7 +40,7 @@ export const EditableTaskType = ({ badgeType, taskType, handleSave, taskTypes}: 
                         open()
                     }}
                 >
-                    <TaskTypeBadge variant={badgeType} type={selected?.value as TaskType }/>
+                  <TaskTypeBadge variant={badgeType} type={selected?.value as TaskType }/>
                 </button>
             )}
         />

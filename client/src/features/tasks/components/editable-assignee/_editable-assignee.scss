@@ -1,49 +1,40 @@
 
 .editable-assignee {
-
     &__trigger {
-        background-color: red;
-        display: inline-flex;
-        align-items: center;
-        gap: .45rem;
-
-        padding: .25rem .45rem;
-
         border: none;
         background: transparent;
 
-        border-radius: 999px;
+        display: flex;
 
-        cursor: pointer;
+        align-items: center;
 
+        justify-content: center;
+
+        flex-shrink: 0;
+
+        width: 3.6rem;
+
+        height: 3.6rem;
+
+        border-radius: var(--radius-full);
+
+        background: var(--surface-muted);
+
+        color: var(--text-secondary);
+
+        font-size: var(--text-base);
 
         transition:
-            background-color .18s ease,
-            transform .18s ease;
+        background-color var(--transition-fast),
+        color var(--transition-fast),
+        transform var(--transition-fast);
 
+        &:hover {
+            background: var(--grey-200);
 
+            color: var(--text-primary);
 
-        &:hover:not(:disabled) {
-
-            background: var(--surface-secondary);
-
-            transform: translateY(-1px);
-
-
-            .editable-assignee__icon {
-
-                opacity: 1;
-
-                transform: translateX(0);
-            }
-        }
-
-
-        &:disabled {
-
-            opacity: .55;
-
-            cursor: not-allowed;
+            transform: scale(1.05);
         }
     }
 }
