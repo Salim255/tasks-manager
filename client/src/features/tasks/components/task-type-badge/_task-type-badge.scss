@@ -11,16 +11,91 @@
   justify-content: center;
 
 
-  color: var(--text-secondary);
+  /* ============================================
+     ICON ONLY
+  ============================================ */
+
+  &--icon {
+
+    width: 3.6rem;
+
+    height: 3.6rem;
+
+    flex-shrink: 0;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 1rem;
+
+    background: var(--grey-50);
+
+    border: 1px solid var(--grey-100);
+
+    font-size: 1.8rem;
 
 
-  transition:
+    transition:
 
-    transform var(--transition-fast),
+      transform 0.18s ease,
 
-    background-color var(--transition-fast),
+      border-color 0.18s ease,
 
-    border-color var(--transition-fast);
+      background-color 0.18s ease;
+
+
+
+    &:hover {
+      transform: translateY(-1px);
+
+    }
+
+  }
+
+
+  /* ============================================
+     BADGE WITH LABEL
+  ============================================ */
+
+  &--badge {
+
+    gap: var(--space-2);
+
+    min-height: 3.4rem;
+
+    padding: 0 var(--space-3);
+
+    border-radius: var(--radius-lg);
+
+    font-size: var(--text-base);
+
+    font-weight: var(--font-semibold);
+
+
+    .task-type-badge__icon {
+
+      display: flex;
+
+      align-items: center;
+
+      font-size: var(--text-base);
+
+    }
+
+  }
+
+
+
+  &__label {
+
+    text-transform: capitalize;
+
+    line-height: 1;
+
+  }
 
 
 
@@ -32,87 +107,7 @@
 
     justify-content: center;
 
-    flex-shrink: 0;
-
   }
-
-
-
-  &__label {
-
-    text-transform: capitalize;
-
-    font-size: var(--text-sm);
-
-    font-weight: var(--font-semibold);
-
-    line-height: 1;
-
-  }
-
-
-
-  /* ============================================
-     BADGE MODE
-  ============================================ */
-
-
-  &--badge {
-
-    gap: var(--space-2);
-
-    min-height: 3.2rem;
-
-    padding: 0 var(--space-3);
-
-    border-radius: var(--radius-lg);
-
-    border: 1px solid transparent;
-
-
-    .task-type-badge__icon {
-
-      font-size: var(--text-base);
-
-    }
-
-  }
-
-
-
-
-  /* ============================================
-     ICON MODE
-  ============================================ */
-
-
-  &--icon {
-
-    width: 3.6rem;
-
-    height: 3.6rem;
-
-
-    border-radius: var(--radius-lg);
-
-    border: 1px solid var(--border-default);
-
-
-    .task-type-badge__icon {
-
-      font-size: var(--text-lg);
-
-    }
-
-
-    &:hover {
-
-      transform: translateY(-1px);
-
-    }
-
-  }
-
 
 
 
@@ -120,10 +115,28 @@
      TASK
   ============================================ */
 
-
   &--task {
 
-    color: var(--task-color);
+    &.task-type-badge--icon {
+
+      color: var(--task-color);
+
+      background:
+        color-mix(
+          in srgb,
+          var(--task-color) 8%,
+          white
+        );
+
+      border-color:
+        color-mix(
+          in srgb,
+          var(--task-color) 18%,
+          white
+        );
+
+    }
+
 
 
     &.task-type-badge--badge {
@@ -135,32 +148,7 @@
           white
         );
 
-
-      border-color:
-        color-mix(
-          in srgb,
-          var(--task-color) 18%,
-          white
-        );
-
-    }
-
-
-    &.task-type-badge--icon {
-
-      background:
-        color-mix(
-          in srgb,
-          var(--task-color) 8%,
-          white
-        );
-
-      border-color:
-        color-mix(
-          in srgb,
-          var(--task-color) 18%,
-          white
-        );
+      color: var(--task-color);
 
     }
 
@@ -168,20 +156,15 @@
 
 
 
-
   /* ============================================
      STORY
   ============================================ */
 
-
   &--story {
 
-    color: var(--story-color);
-
-
-
-    &.task-type-badge--badge,
     &.task-type-badge--icon {
+
+      color: var(--story-color);
 
       background:
         color-mix(
@@ -189,7 +172,6 @@
           var(--story-color) 10%,
           white
         );
-
 
       border-color:
         color-mix(
@@ -200,8 +182,21 @@
 
     }
 
-  }
 
+    &.task-type-badge--badge {
+
+      background:
+        color-mix(
+          in srgb,
+          var(--story-color) 10%,
+          white
+        );
+
+      color: var(--story-color);
+
+    }
+
+  }
 
 
 
@@ -209,15 +204,11 @@
      BUG
   ============================================ */
 
-
   &--bug {
 
-    color: var(--bug-color);
-
-
-
-    &.task-type-badge--badge,
     &.task-type-badge--icon {
+
+      color: var(--bug-color);
 
       background:
         color-mix(
@@ -226,13 +217,26 @@
           white
         );
 
-
       border-color:
         color-mix(
           in srgb,
           var(--bug-color) 18%,
           white
         );
+
+    }
+
+
+    &.task-type-badge--badge {
+
+      background:
+        color-mix(
+          in srgb,
+          var(--bug-color) 10%,
+          white
+        );
+
+      color: var(--bug-color);
 
     }
 

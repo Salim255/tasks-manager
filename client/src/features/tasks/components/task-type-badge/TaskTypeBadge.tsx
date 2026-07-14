@@ -1,7 +1,9 @@
+import "./_task-type-badge.scss";
 import { typeIcon } from "../../../../shared/utils/methods";
+import type { TaskType } from "../../models/task.model";
 
 interface TaskTypeBadgeProps {
-  type: "task" | "story" | "bug";
+  type: TaskType;
   variant?: "icon" | "badge";
 }
 

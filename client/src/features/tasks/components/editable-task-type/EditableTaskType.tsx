@@ -1,8 +1,10 @@
 import { SelectDropdown } from "../../../../shared/kits/select-dropdown/SelectDropdown";
 import type { TaskType } from "../../models/task.model";
+import { TaskTypeBadge } from "../task-type-badge/TaskTypeBadge";
 
 type EditableTypeProps = {
     taskType: TaskType;
+    badgeType: 'icon' | 'badge';
     handleSave: (taskType: TaskType) => void;
     taskTypes: {
         label: TaskType;
@@ -11,7 +13,7 @@ type EditableTypeProps = {
 };
 
 
-export const EditableTaskType = ({taskType, handleSave, taskTypes}: EditableTypeProps) => {
+export const EditableTaskType = ({ badgeType, taskType, handleSave, taskTypes}: EditableTypeProps) => {
     return (
         <SelectDropdown
             value={taskType}
@@ -26,11 +28,7 @@ export const EditableTaskType = ({taskType, handleSave, taskTypes}: EditableType
                         open()
                     }}
                 >
-                    <Status
-                        status={
-                            selected?.value as TaskStatus
-                        }
-                    />
+                    <TaskTypeBadge variant={badgeType} type={selected?.value as TaskType }/>
                 </button>
             )}
         />

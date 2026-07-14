@@ -12,6 +12,7 @@ import { useMemberOptions } from '../../../members/hooks/MemberOptionsHook';
 import { EditableAssignee } from '../editable-assignee/EditableAssignee';
 import { updateTasHttp } from '../../http/task.http';
 import type { AppDispatch } from '../../../../redux/store';
+import { TaskTypeBadge } from '../task-type-badge/TaskTypeBadge';
 
 
 export type TaskItemProps = { task: Task; } & React.HTMLAttributes<HTMLDivElement>;
@@ -64,9 +65,8 @@ export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
                 onClick={() => onQuickAction("createTask")}
                >
                 <section className='task-item__content'>
-                    <div className={`task-item__checkbox task-item__checkbox--${task.taskType}`}>
-                        {typeIcon(task.taskType)}
-                    </div>
+                    <TaskTypeBadge variant={'icon'} type={task.taskType}/>
+                 
                     <div className='task-item__title' >
                         <EditableTitle title={task.title} handleSave={() => onQuickAction("createTask")}/>
                     </div>
