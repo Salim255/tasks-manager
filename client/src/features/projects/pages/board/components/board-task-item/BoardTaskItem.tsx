@@ -70,12 +70,11 @@ export const BoardTaskItem =  ({ task, ...props }: TaskItemProps) => {
     
                 </div>
                 <div className='board-task-item__assignee' onClick={(e) => e.stopPropagation()}>
-                     < EditableAssignee
+                     <EditableAssignee
                         TaskAssigneeId={task.assigneeId ?? "unassigned"}
                         taskMembers={memberOptions}
                         handleSave={(v) => handleSave("assigneeId", v)}
                         />
-                    <GoPerson/>
                 </div>
             </section>
         </div>

@@ -25,9 +25,9 @@
         font-size: var(--text-base);
 
         transition:
-        background-color var(--transition-fast),
-        color var(--transition-fast),
-        transform var(--transition-fast);
+            background-color var(--transition-fast),
+            color var(--transition-fast),
+            transform var(--transition-fast);
 
         &:hover {
             background: var(--grey-200);

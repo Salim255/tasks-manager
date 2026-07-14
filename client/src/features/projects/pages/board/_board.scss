@@ -8,10 +8,12 @@
   display: flex;
   align-items: flex-start;
 
-  gap: var(--space-5);
+  gap: var(--space-6);
 
   width: 100%;
   height: 100vh;
+
+  padding-bottom: 10rem;
 
   overflow-x: auto;
   overflow-y: hidden;
@@ -42,17 +44,4 @@
      TABLET
   ============================================ */
 
-  @include respond("tab-port") {
-    gap: var(--space-4);
-    padding: var(--space-4);
-  }
-
-  /* ============================================
-     MOBILE
-  ============================================ */
-
-  @include respond("phone") {
-    gap: var(--space-3);
-    padding: var(--space-3);
-  }
 }
