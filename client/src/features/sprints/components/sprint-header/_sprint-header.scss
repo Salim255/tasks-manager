@@ -1,359 +1,645 @@
 @use "../../../../themes/styles/abstracts/queries" as *;
 
+
 /* ============================================
    SPRINT HEADER
 ============================================ */
 
 .sprint-header {
-  position: relative;
 
   display: grid;
+
   grid-template-columns: minmax(0, 1fr) auto auto;
+
   align-items: center;
 
-  gap: 1.4rem;
+  gap: var(--space-4);
 
-  padding: 1.2rem 1.4rem;
+  width: 100%;
 
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(248, 250, 252, 0.96));
+  padding: var(--space-4);
 
-  border: 1px solid var(--grey-100);
-  border-radius: 1.8rem;
-
-  box-shadow: var(--shadow-1);
+  border-bottom: 1px solid var(--border-default);
 
   transition:
-    border-color 0.2s ease,
-    box-shadow 0.2s ease,
-    transform 0.2s ease;
+    border-color var(--transition-fast);
 
   &:hover {
-    border-color: var(--grey-200);
-    box-shadow: var(--shadow-2);
+    border-color: var(--grey-300);
   }
 
+
+
   /* ============================================
-     LEFT / TITLE AREA
+     TITLE AREA
   ============================================ */
+
 
   &__title {
-    min-width: 0;
 
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
+    min-width:0;
 
-    gap: 0.9rem;
+    display:flex;
+
+    align-items:center;
+
+    flex-wrap:wrap;
+
+    gap:var(--space-3);
+
   }
+
+
+
+  /* ============================================
+     SPRINT NAME
+  ============================================ */
+
 
   .sprint-name {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.7rem;
 
-    min-width: 0;
 
-    padding: 0.55rem 1rem;
+    display:inline-flex;
 
-    border-radius: 999px;
+    align-items:center;
 
-    background: var(--primary-50);
-    border: 1px solid var(--primary-100);
+    gap:var(--space-2);
 
-    color: var(--primary-700);
 
-    font-size: var(--text-base);
-    font-weight: var(--font-semibold);
-    letter-spacing: -0.01em;
+    min-width:0;
+
+
+    color:var(--grey-700);
+
+
+    font-size:var(--text-lg);
+
+    font-weight:var(--font-bold);
+
+
+    letter-spacing:-0.02em;
+
+
 
     span {
-      display: block;
 
       overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
 
-    &::before {
-      content: "";
-      width: 0.9rem;
-      height: 0.9rem;
-      border-radius: 999px;
-      background: var(--primary-500);
-      flex-shrink: 0;
-      box-shadow: 0 0 0 0.3rem rgba(59, 130, 246, 0.12);
+      white-space: nowrap;
+
+      text-overflow: ellipsis;
+
     }
   }
+
+
+
+
+
+  /* ============================================
+     WORK ITEMS COUNT
+  ============================================ */
+
 
   .sprint-items {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
 
-    min-height: 3.4rem;
 
-    padding: 0.55rem 1rem;
+    display:inline-flex;
 
-    border-radius: 999px;
 
-    background: var(--grey-50);
-    border: 1px solid var(--grey-100);
+    align-items:center;
 
-    color: var(--grey-600);
+    justify-content:center;
 
-    font-size: var(--text-sm);
-    font-weight: var(--font-medium);
-    white-space: nowrap;
+
+    min-height:3rem;
+
+
+    padding:0 var(--space-3);
+
+
+    border-radius:var(--radius-lg);
+
+
+    background:var(--surface-muted);
+
+
+    border:1px solid var(--border-default);
+
+
+    color:var(--text-secondary);
+
+
+    font-size:var(--text-base);
+
+
+    font-weight:var(--font-semibold);
+
+
+    white-space:nowrap;
+
+
   }
 
+
+
+
+
+
   /* ============================================
-     DATE CHIP WRAPPER
+     DATE COMPONENT WRAPPER
   ============================================ */
 
-  /* This targets the wrapper where EditSprintDate renders */
+
   &__title > *:not(.sprint-name):not(.sprint-items) {
-    display: inline-flex;
-    align-items: center;
 
-    min-height: 3.4rem;
-    padding: 0.55rem 1rem;
 
-    border-radius: 999px;
+    display:inline-flex;
 
-    background: var(--white);
-    border: 1px solid var(--grey-100);
 
-    color: var(--grey-600);
+    align-items:center;
 
-    font-size: var(--text-sm);
+
+
+    min-height:3rem;
+
+
+    padding:0 var(--space-3);
+
+
+
+    border-radius:var(--radius-md);
+
+
+
+    background:var(--surface-primary);
+
+
+    border:1px solid var(--border-default);
+
+
+
+    color:var(--text-secondary);
+
+
+
+    font-size: var(--text-base);
+
+
     font-weight: var(--font-medium);
 
+
+
     transition:
-      border-color 0.2s ease,
-      background-color 0.2s ease;
+
+      background-color var(--transition-fast),
+
+      border-color var(--transition-fast);
+
+
 
     &:hover {
-      background: var(--grey-50);
-      border-color: var(--grey-200);
+
+      background:var(--surface-muted);
+
+      border-color:var(--grey-300);
+
     }
+
+
   }
 
+
   /* ============================================
-     ACTION AREA
+     ACTION BUTTON
   ============================================ */
+
 
   &__actions {
-    position: relative;
 
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
+
+    display:flex;
+
+
+    align-items:center;
+
+
+    justify-content:flex-end;
+
+
+    flex-shrink:0;
+
+
   }
+
+
+
 
   .actions-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
 
-    min-height: 4.2rem;
 
-    padding: 0 1.4rem;
+    display:inline-flex;
 
-    border: 1px solid var(--primary-200);
-    border-radius: 1.2rem;
 
-    background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
-    color: var(--white);
+    align-items:center;
 
-    font-size: var(--text-sm);
-    font-weight: var(--font-semibold);
-    letter-spacing: 0.01em;
 
-    cursor: pointer;
+    justify-content:center;
 
-    box-shadow: 0 10px 24px rgba(37, 99, 235, 0.16);
+
+
+    min-height:4rem;
+
+
+
+    padding:0 var(--space-5);
+
+
+
+    border-radius:var(--radius-md);
+
+
+
+    border:1px solid var(--primary-500);
+
+
+
+    background:var(--primary-500);
+
+
+
+    color:var(--white);
+
+
+
+    font-size:var(--text-base);
+
+
+
+    font-weight:var(--font-semibold);
+
+
+
+    cursor:pointer;
+
+
 
     transition:
-      transform 0.2s ease,
-      box-shadow 0.2s ease,
-      filter 0.2s ease,
-      opacity 0.2s ease;
+
+
+      background-color var(--transition-fast),
+
+      border-color var(--transition-fast),
+
+      transform var(--transition-fast),
+
+      box-shadow var(--transition-fast);
+
+
+
 
     &:hover:not(:disabled) {
-      transform: translateY(-1px);
-      box-shadow: 0 14px 30px rgba(37, 99, 235, 0.22);
-      filter: brightness(1.02);
+
+
+      background:var(--primary-600);
+
+
+      border-color:var(--primary-600);
+
+
+
+      transform:translateY(-1px);
+
+
+
+      box-shadow:var(--shadow-2);
+
+
     }
+
+
+
 
     &:active:not(:disabled) {
-      transform: translateY(0);
+
+
+      transform:translateY(0);
+
+
     }
+
+
+
+
 
     &:disabled {
-      cursor: not-allowed;
-      opacity: 0.55;
-      box-shadow: none;
-      filter: none;
+
+
+      cursor:not-allowed;
+
+
+      opacity:.45;
+
+
+      box-shadow:none;
+
+
     }
+
+
   }
 
-  /* ============================================
-     TOOLTIP
-  ============================================ */
 
-  &__actions::before {
-    content: "Add work items to start sprint";
 
-    position: absolute;
-    left: 50%;
-    bottom: calc(100% + 0.9rem);
 
-    transform: translateX(-50%) translateY(0.4rem);
 
-    padding: 0.75rem 1rem;
-
-    border-radius: 1rem;
-
-    background: var(--grey-900);
-    color: var(--white);
-
-    font-size: 1.2rem;
-    line-height: 1.3;
-    white-space: nowrap;
-
-    opacity: 0;
-    visibility: hidden;
-
-    box-shadow: var(--shadow-3);
-
-    transition:
-      opacity 0.2s ease,
-      visibility 0.2s ease,
-      transform 0.2s ease;
-
-    pointer-events: none;
-  }
-
-  &__actions:hover::before {
-    opacity: var(--show-tooltip);
-    visibility: visible;
-    transform: translateX(-50%) translateY(0);
-  }
 
   /* ============================================
      OPTIONS
   ============================================ */
 
+
   &__options {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+
+
+    display:flex;
+
+
+    align-items:center;
+
+
+    justify-content:center;
+
+
+    flex-shrink:0;
+
+
   }
+
+
+
+
+
 
   .options-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
 
-    min-width: 18rem;
 
-    margin: 0;
-    padding: 0.5rem;
+    display:flex;
 
-    list-style: none;
 
-    background: var(--white);
+    flex-direction:column;
 
-    border: 1px solid var(--grey-100);
-    border-radius: 1.4rem;
 
-    box-shadow: var(--shadow-3);
+    gap:var(--space-1);
+
+
+
+    min-width:18rem;
+
+
+
+    padding:var(--space-2);
+
+
+
+    margin:0;
+
+
+
+    list-style:none;
+
+
+
+    background:var(--surface);
+
+
+
+    border:1px solid var(--border-default);
+
+
+
+    border-radius:var(--radius-lg);
+
+
+
+    box-shadow:var(--shadow-3);
+
+
   }
+
+
+
+
+
 
   .options-list__item {
-    display: flex;
-    align-items: center;
 
-    min-height: 4rem;
 
-    padding: 0.8rem 1rem;
+    display:flex;
 
-    border-radius: 1rem;
 
-    color: var(--grey-700);
+    align-items:center;
 
-    font-size: var(--text-sm);
-    font-weight: var(--font-medium);
-    text-transform: capitalize;
 
-    cursor: pointer;
+
+    min-height:3.8rem;
+
+
+
+    padding:0 var(--space-3);
+
+
+
+    border-radius:var(--radius-md);
+
+
+
+    color:var(--text-secondary);
+
+
+
+    font-size:var(--text-base);
+
+
+
+    font-weight:var(--font-medium);
+
+
+
+    cursor:pointer;
+
+
+
+    text-transform:capitalize;
+
+
 
     transition:
-      background-color 0.15s ease,
-      color 0.15s ease,
-      transform 0.15s ease;
+
+
+      background-color var(--transition-fast),
+
+      color var(--transition-fast);
+
+
 
     &:hover {
-      background: var(--grey-50);
-      color: var(--grey-900);
-      transform: translateX(2px);
+
+
+      background:var(--surface-muted);
+
+
+      color:var(--text-primary);
+
+
     }
+
+
   }
+
+
+
+
+
+
 
   /* ============================================
      RESPONSIVE
   ============================================ */
 
-  @include respond(tab-land) {
-    grid-template-columns: minmax(0, 1fr) auto;
-    row-gap: 1rem;
 
-    &__options {
-      justify-self: end;
-    }
+  @include respond("tab-port") {
 
-    &__actions {
-      grid-column: 1 / -1;
-      justify-content: flex-start;
-    }
-  }
 
-  @include respond(tab-port) {
-    padding: 1.2rem;
+    grid-template-columns:minmax(0,1fr) auto;
+
+
+    row-gap:var(--space-4);
+
+
 
     &__title {
-      gap: 0.75rem;
+
+
+      grid-column:1 / -1;
+
+
     }
 
-    .sprint-name,
-    .sprint-items,
-    &__title > *:not(.sprint-name):not(.sprint-items) {
-      min-height: 3.2rem;
-      padding: 0.5rem 0.9rem;
+
+
+    &__actions {
+
+
+      justify-content:flex-start;
+
+
     }
+
+
+  }
+
+
+
+
+
+
+
+  @include respond("phone") {
+
+
+    display:flex;
+
+
+    flex-direction:column;
+
+
+    align-items:stretch;
+
+
+    gap:var(--space-3);
+
+
+
+    position:relative;
+
+
+
+    &__title {
+
+
+      width:100%;
+
+
+      flex-direction:column;
+
+
+      align-items:flex-start;
+
+
+    }
+
+
+
+
+    .sprint-name,
+
+
+    .sprint-items,
+
+
+    &__title > *:not(.sprint-name):not(.sprint-items) {
+
+
+      width:100%;
+
+
+    }
+
+
+
+
+
+
+    &__actions {
+
+
+      width:100%;
+
+
+    }
+
+
+
+
 
     .actions-btn {
-      width: 100%;
-      min-height: 4rem;
+
+
+      width:100%;
+
+
     }
 
-    &__actions {
-      width: 100%;
+
+
+
+
+    &__options {
+
+
+      position:absolute;
+
+
+      top:var(--space-3);
+
+
+      right:0;
+
+
     }
+
+
   }
 
-  @include respond(phone-lg) {
-    &__title {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-
-    .sprint-name,
-    .sprint-items,
-    &__title > *:not(.sprint-name):not(.sprint-items) {
-      width: 100%;
-      justify-content: flex-start;
-    }
-  }
 }

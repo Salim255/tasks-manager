@@ -63,7 +63,7 @@ export const SprintHeader = ({sprint}: { sprint: Sprint}) => {
                     {
                        
                         <button 
-                            className='actions-btn'
+                            className='btn btn--primary'
                             disabled={countWorkItem===0}
                             onClick={() => updateSprintStatus()}>
                             {

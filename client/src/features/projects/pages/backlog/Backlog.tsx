@@ -134,7 +134,7 @@ export const Backlog = () => {
             </div>
 
             <button
-              className="backlog__create-btn"
+              className="btn btn--primary"
               onClick={createSprintHandler}
             >
               Create sprint

@@ -34,7 +34,7 @@ export const EditableTaskType = ({ badgeType, taskType, handleSave}: EditableTyp
             renderTrigger={(selected, open) => (
                 <button
                     type="button"
-                    className="editable-status__trigger"
+                    className="edit-task-type-btn"
                     onClick={(e) => {
                         e.stopPropagation();
                         open()

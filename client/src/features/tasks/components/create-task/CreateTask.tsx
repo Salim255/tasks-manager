@@ -3,13 +3,13 @@ import { useState, type ChangeEvent } from "react";
 import { BiPlus } from "react-icons/bi";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../../../redux/store";
-import { TaskTypeDropdown } from '../../../../shared/components/task-type-dropdown/TaskTypeDropdown';
 import { createTaskHttp } from '../../http/task.http';
-import { typeIcon } from '../../../../shared/utils/methods';
 import { useTaskForm } from '../../form-builder/taskFormBuilder';
 import type { CreateTaskPayload } from '../../dto/task-dto';
 import { motion } from 'motion/react';
 import { premiumTransition } from '../../../../shared/motion/transitions';
+import { EditableTaskType } from '../editable-task-type/EditableTaskType';
+
 
 export const CreateTask = ( { projectId, sprintId }: { projectId: string; sprintId: string | null}) => {
   const [isCreateBtn, setCreateBtn] = useState<boolean>(true);
@@ -80,17 +80,15 @@ export const CreateTask = ( { projectId, sprintId }: { projectId: string; sprint
                 transition={premiumTransition}
 
                 onSubmit={handleSubmit} className='create-task-form'>
+
+                <div>
+                   <EditableTaskType
+                        badgeType={"badge"} 
+                        taskType={state.taskType} 
+                        handleSave={(v) => setField("taskType", v)}/>
+                </div>
                 {/* Title */}
                 <div className="create-task-form__form-group-title">
-                    <TaskTypeDropdown
-                    name="taskType"
-                    value={state.taskType}
-                    onChange={handleChange}
-                    >
-                        <option value="task"> Task </option>
-                        <option value="bug"> { typeIcon('task') } Bug </option>
-                        <option value="story"> {typeIcon('story')} Story</option>
-                    </TaskTypeDropdown>
                     <input
                         id="title"
                         type="text"
@@ -107,7 +105,7 @@ export const CreateTask = ( { projectId, sprintId }: { projectId: string; sprint
                         id="dueAt"
                         type="date"
                         name="dueAt"
-                        value={state.dueAt}
+                        value={state.dueAt ?? ""}
                         onChange={handleChange}
                     />
                 </div>
