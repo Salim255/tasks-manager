@@ -151,7 +151,8 @@ export class ProjectController {
       name,
       key,
       description,
-      demoClientId: demoClientId ? demoClientId : undefined,
+      demoClientId: undefined,
+      /* demoClientId: demoClientId ? demoClientId : undefined, */
       ownerId: userId,
     });
 
@@ -198,8 +199,10 @@ export class ProjectController {
       {
         ownerId: userId,
         relations: dataToInclude?.length ? dataToInclude : [],
-        demoClientId: demoClientId,
-        isDemo: isDemo ?? false,
+       /*  demoClientId: demoClientId, */
+        demoClientId: null,
+        isDemo: false,
+       /*  isDemo: isDemo ?? false, */
        }
     );
 
