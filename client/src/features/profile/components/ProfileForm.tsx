@@ -31,25 +31,33 @@ export const ProfileForm = () => {
   
 return (
  <section className="profile-setup">
-  <div className="container">
+    <div className="profile-setup__hero">
 
-    <div className="profile-setup__content">
-
-      <div className="profile-setup__header">
+      <div className="profile-setup__hero-copy">
         <h1 className="profile-setup__title">
-          Let’s set up your profile
+          Create your profile
         </h1>
 
         <p className="profile-setup__subtitle">
-          This helps us personalize your experience.
+          Complete your personal information to personalize your workspace and
+          collaborate more effectively across your projects.
         </p>
       </div>
 
-      <form onSubmit={handleSubmit} className="card form">
+    </div>
 
-        {/* First Name */}
+    <div className="profile-setup__card">
+
+      <form
+        onSubmit={handleSubmit}
+        className="form"
+      >
+
         <div className="form__group">
-          <label htmlFor="firstName" className="form__label">
+          <label
+            htmlFor="firstName"
+            className="form__label"
+          >
             First name
           </label>
 
@@ -68,9 +76,11 @@ return (
           )}
         </div>
 
-        {/* Last Name */}
         <div className="form__group">
-          <label htmlFor="lastName" className="form__label">
+          <label
+            htmlFor="lastName"
+            className="form__label"
+          >
             Last name
           </label>
 
@@ -89,7 +99,7 @@ return (
           )}
         </div>
 
-        <div className="form__actions">
+        <div className="profile-setup__actions">
           <button className="btn btn--primary">
             Continue
           </button>
@@ -98,7 +108,6 @@ return (
       </form>
 
     </div>
-  </div>
 </section>
 );
 };

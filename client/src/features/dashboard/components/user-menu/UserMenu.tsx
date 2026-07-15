@@ -51,13 +51,13 @@ export const UserMenu = ({ profile }: { profile?: Profile }) => {
           setOpen((prev) => !prev);
         }}
       >
-        <FaUserCircle className="user-menu__icon" />
+       { profile?.firstName && <FaUserCircle className="user-menu__icon" />}
 
         <span className="user-menu__name">
           { 
             userData?.isDemo
             ? "Demo account"
-            : profile?.firstName ?? "User"
+            : profile?.firstName ?? "Logout"
           }
         </span>
 

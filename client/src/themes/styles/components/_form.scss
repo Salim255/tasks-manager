@@ -86,8 +86,9 @@
     color: var(--danger);
 
     font-size: var(--text-lg);
-
-    text-transform: lowercase;
+    &::first-letter {
+      text-transform: capitalize;
+    }
   }
 
   &__actions {
