@@ -38,7 +38,6 @@ export const ClickOutsideProvider = ({ children }: PropsWithChildren) => {
   }
 
   useEffect(() => {
-    console.log("Hello from error")
     function handleClick(e: MouseEvent) {
       const target = e.target as HTMLElement;
   
