@@ -9,9 +9,9 @@ import { useSelectedSprint } from "../../states/sprintSelectors";
 import { removedUnchangedField } from "../../../../shared/utils/detect-field-change";
 import type { UpdateSprintPayload } from "../../dto/sprint-dto";
 import { EntityModal } from "../../../../shared/modals/entity-modal/EntityModal";
+import { getMaxStartDate, getMinEndDate, getMinStartDate } from "../../../../shared/utils/date.utils";
 
 export const EditSprintForm = () => {
-   const today = new Date().toISOString().split("T")[0];
    const formRef = useRef<HTMLFormElement | null>(null);
    const sprint  = useSelectedSprint();
    const { state, setField, reset } = useSprintForm(sprint);
@@ -116,7 +116,8 @@ export const EditSprintForm = () => {
                     id="startDate"
                     type="date"
                     name="startDate"
-                    min={today}
+                    min={getMinStartDate()}
+                    max={getMaxStartDate(state.endDate)}
                     value={state.startDate ?? ""}
                     onChange={handleChange}
                     className="form__input"
@@ -129,7 +130,7 @@ export const EditSprintForm = () => {
                     id="endDate"
                     type="date"
                     name="endDate"
-                    min={state.startDate || today}
+                    min={getMinEndDate(state?.startDate)}
                     value={state.endDate ?? ""}
                     onChange={handleChange}
                     className="form__input"
