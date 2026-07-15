@@ -18,7 +18,7 @@ export const CreateProjectForm = () => {
       const { name, value } = e.target;
       setField(
         name as 'name' | 'description' | 'key',
-        name === 'key' ? value.toUpperCase() : value
+        name === 'key' ? value.replace(/[^a-zA-Z]/g, "").toUpperCase() : value
       );
   }
 
@@ -111,6 +111,7 @@ export const CreateProjectForm = () => {
           name="name"
           value={state.name}
           onChange={handleInput}
+          maxLength={50}
           placeholder="FlowBoard Mobile App"
         />
 
@@ -122,12 +123,6 @@ export const CreateProjectForm = () => {
         )}
 
       </div>
-
-
-
-
-
-      {/* KEY */}
 
       <div className="form__group">
 
@@ -161,6 +156,7 @@ export const CreateProjectForm = () => {
             value={state.key}
             onChange={handleInput}
             placeholder="FLOW"
+            maxLength={8}
           />
 
 
@@ -217,6 +213,7 @@ export const CreateProjectForm = () => {
           className="form__textarea"
           value={state.description}
           onChange={handleInput}
+          maxLength={400}
           name="description"
           placeholder="Describe your project..."
         />
