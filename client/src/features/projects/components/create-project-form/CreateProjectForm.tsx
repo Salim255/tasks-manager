@@ -161,12 +161,6 @@ export const CreateProjectForm = () => {
 
 
           <div className="project-create__key-preview">
-
-            <span className="project-create__key-preview-label">
-              Preview
-            </span>
-
-
             <span className="project-create__key-preview-value">
               {(state.key || "KEY").toUpperCase()}-1
             </span>

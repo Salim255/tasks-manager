@@ -57,8 +57,8 @@ function reducer(state: SprintFormState, action: Action): SprintFormState {
 const mapSprintToFormState = (sprint: Sprint): SprintFormState => ({
   name: sprint.name ?? "",
   status: sprint.status ?? 'planned',
-  startDate: sprint.startDate ?? null,
-  endDate: sprint.endDate ?? null,
+  startDate: sprint.startDate?.slice(0, 10) ?? null,
+  endDate: sprint.endDate?.slice(0, 10) ?? null,
   goal: sprint.goal ?? null,
   completeDate: sprint.completeDate ??  null,
   errors: {},

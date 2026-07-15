@@ -11,11 +11,12 @@ import type { UpdateSprintPayload } from "../../dto/sprint-dto";
 import { EntityModal } from "../../../../shared/modals/entity-modal/EntityModal";
 
 export const EditSprintForm = () => {
-    const formRef = useRef<HTMLFormElement | null>(null);
+   const today = new Date().toISOString().split("T")[0];
+   const formRef = useRef<HTMLFormElement | null>(null);
    const sprint  = useSelectedSprint();
    const { state, setField, reset } = useSprintForm(sprint);
    const dispatch = useDispatch<AppDispatch>();
-
+    console.log(sprint, state)
    const handleChange = (
     event: ChangeEvent<
         HTMLInputElement |
@@ -82,7 +83,7 @@ export const EditSprintForm = () => {
              onSubmit={clickSubmit}
             >
                 <div className="form__group">
-                    <label htmlFor="name" className="form_label">Sprint Name</label>
+                    <label htmlFor="name" className="form__label">Sprint Name</label>
 
                     <input
                         id="name"
@@ -115,6 +116,7 @@ export const EditSprintForm = () => {
                     id="startDate"
                     type="date"
                     name="startDate"
+                    min={today}
                     value={state.startDate ?? ""}
                     onChange={handleChange}
                     className="form__input"
@@ -127,6 +129,7 @@ export const EditSprintForm = () => {
                     id="endDate"
                     type="date"
                     name="endDate"
+                    min={state.startDate || today}
                     value={state.endDate ?? ""}
                     onChange={handleChange}
                     className="form__input"
