@@ -1,6 +1,5 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import type { Task } from "../../../../tasks/models/task.model";
-import { Assignee } from "../../../../../shared/components/assignee/Assignee";
 import { TaskLabel } from "../../../../../shared/components/task-label/TaskLabel";
 import { TaskDescription } from "../../../../../shared/components/task-description/TasDescription";
 import { Reporter } from "../../../../../shared/components/reporter/Reporter";
@@ -136,11 +135,13 @@ export const useTaskColumns = (): ColumnDef<Task>[] => {
             enableResizing: true,
             size: 180,
             cell: ({ row }) => (
+               <>
                 <EditableAssignee
-                TaskAssigneeId={row.original.assigneeId ?? "unassigned"}
-                taskMembers={memberOptions}
-                handleSave={(v) => handleSave("assigneeId", v, row.original.id)}
+                    TaskAssigneeId={row.original.assigneeId ?? "unassigned"}
+                    taskMembers={memberOptions}
+                    handleSave={(v) => handleSave("assigneeId", v, row.original.id)}
                 />
+               </>
             ),
         },
         {

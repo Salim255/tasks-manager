@@ -22,11 +22,6 @@ export type AddMemberPayload = {
   projectName: string;
 };
 
-type QuickActionPayloadMap = {
-  createTask: CreateTaskPayload;
-  createSprint: CreateSprintPayload;
-  addMember: AddMemberPayload;
-};
 
 type QuickActionState = {
   isOpen: boolean;

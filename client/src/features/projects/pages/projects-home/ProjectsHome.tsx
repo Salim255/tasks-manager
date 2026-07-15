@@ -5,8 +5,6 @@ import { useDashboardView, useIsFetchingDashboard } from "../../states/projectsS
 import { useDispatch } from "react-redux";
 import { fetchDashboardOverviewHttp } from "../../http/project.http";
 import type { AppDispatch } from "../../../../redux/store";
-import { setQuickActionType, type QuickActionType } from "../../../../shared/modals/states/quickActionsSlice";
-
 
 export function stringToColor(value: string): string {
   let hash = 0;
@@ -29,10 +27,6 @@ export const ProjectsHome = () => {
   const navigate = useNavigate();
   const onCreateProject = () => {
     navigate("/create-project");
-  }
-
-  const onQuickAction = (item: QuickActionType ) => {
-    dispatch(setQuickActionType({actionType: item}));
   }
 
   useEffect(() => {
@@ -58,13 +52,9 @@ export const ProjectsHome = () => {
           <div className="projects-home__hero-actions">
             <button
                 onClick={onCreateProject}
-                className="projects-home__button
-                projects-home__button--primary">
+                className="btn btn--primary">
               Create project
             </button>
-          {/*   <button className="projects-home__button projects-home__button--secondary">
-              Start sprint
-            </button> */}
           </div>
         </div>
 
@@ -135,37 +125,6 @@ export const ProjectsHome = () => {
               }
             </div>
           </section>
-
-          <section className="projects-home__panel">
-            <div className="projects-home__panel-header">
-              <div>
-                <h2 className="projects-home__panel-title">Current sprint</h2>
-                <p className="projects-home__panel-subtitle">
-                  Sprint 12 · Platform stabilization
-                </p>
-              </div>
-              <button className="projects-home__text-button">Open board</button>
-            </div>
-
-            <div className="projects-home__sprint-overview">
-              <article className="projects-home__metric-card">
-                <span className="projects-home__metric-label">To do</span>
-                <strong className="projects-home__metric-value">09</strong>
-              </article>
-              <article className="projects-home__metric-card">
-                <span className="projects-home__metric-label">In progress</span>
-                <strong className="projects-home__metric-value">06</strong>
-              </article>
-              <article className="projects-home__metric-card">
-                <span className="projects-home__metric-label">Done</span>
-                <strong className="projects-home__metric-value">12</strong>
-              </article>
-              <article className="projects-home__metric-card">
-                <span className="projects-home__metric-label">Blocked</span>
-                <strong className="projects-home__metric-value">02</strong>
-              </article>
-            </div>
-          </section>
         </div>
 
         <aside className="projects-home__sidebar">
@@ -213,40 +172,6 @@ export const ProjectsHome = () => {
                   </article>
                 })
               }
-
-          
-            </div>
-          </section>
-
-          <section className="projects-home__panel">
-            <div className="projects-home__panel-header" >
-              <div >
-                <h2 className="projects-home__panel-title">Quick actions</h2>
-                <p className="projects-home__panel-subtitle">Jump into the next step</p>
-              </div>
-            </div>
-
-            <div className="projects-home__actions" >
-              <button className="projects-home__action-card" onClick={() => onQuickAction("createTask")}>
-                <span className="projects-home__action-title">Create task</span>
-                <span className="projects-home__action-text">
-                  Add a new task to the active sprint.
-                </span>
-              </button>
-
-              <button className="projects-home__action-card" onClick={() => onQuickAction("createSprint")}>
-                <span className="projects-home__action-title">Add sprint</span>
-                <span className="projects-home__action-text">
-                  Plan the next iteration and goals.
-                </span>
-              </button>
-
-              <button className="projects-home__action-card" onClick={() => onQuickAction("addMember")}>
-                <span className="projects-home__action-title">Invite member</span>
-                <span className="projects-home__action-text">
-                  Bring teammates into the workspace.
-                </span>
-              </button>
             </div>
           </section>
         </aside>

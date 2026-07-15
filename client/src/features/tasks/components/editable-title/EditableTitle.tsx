@@ -27,7 +27,7 @@ export const EditableTitle = ({
             onSave={handleSave}
 
 
-            renderView={({ value, edit }) => (
+            renderView={({ value }) => (
 
                 <div
                     className="editable-title"
