@@ -9,6 +9,7 @@ import type { CreateTaskPayload } from '../../dto/task-dto';
 import { motion } from 'motion/react';
 import { premiumTransition } from '../../../../shared/motion/transitions';
 import { EditableTaskType } from '../editable-task-type/EditableTaskType';
+import { getMinEndDate } from '../../../../shared/utils/date.utils';
 
 
 export const CreateTask = ( { projectId, sprintId }: { projectId: string; sprintId: string | null}) => {
@@ -105,7 +106,8 @@ export const CreateTask = ( { projectId, sprintId }: { projectId: string; sprint
                         id="dueAt"
                         type="date"
                         name="dueAt"
-                        value={state.dueAt ?? ""}
+                        value={state.dueAt?.slice(0, 10) ?? ""}
+                        min={getMinEndDate()}
                         onChange={handleChange}
                     />
                 </div>
