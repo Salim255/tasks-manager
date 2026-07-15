@@ -8,18 +8,19 @@ import "./_editable-status.scss";
 
 type EditableStatusProps = {
     taskStatus: TaskStatus;
-    handleSave: (status: TaskStatus) => void;
-    taskStatuses: {
-        label: string;
-        value: string;
-    }[];
+    handleSave: (status: TaskStatus) => void
 };
 
+
+const taskStatuses = [
+        { value: "todo", label: "To Do" },
+        { value: "in_progress", label: "In Progress" },
+        { value: "done", label: "Done" },
+    ];
 
 export const EditableStatus = ({
     taskStatus,
     handleSave,
-    taskStatuses,
 }: EditableStatusProps) => {
 
 
@@ -38,6 +39,7 @@ export const EditableStatus = ({
                     className="editable-status__trigger"
                     onClick={(e) => {
                         e.stopPropagation();
+                        console.log("Hello world")
                         open()
                     }}
                 >

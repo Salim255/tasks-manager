@@ -8,17 +8,18 @@
   width: max-content;
 
   display: flex;
+
   flex-direction: column;
 
   background: var(--surface);
 
   border: 1px solid var(--border-color);
 
-  border-radius: 1.8rem;
+  //border-radius: 1.8rem;
 
   overflow: visible;
 
-  padding-bottom: 4rem;
+  //padding-bottom: 4rem;
 
   /* ============================================
      HEADER
@@ -32,21 +33,15 @@
 
     border-bottom: 1px solid var(--border-color);
 
-    
-
     position: sticky;
 
     top: 0;
 
     z-index: 20;
 
-
     background: var(--surface-secondary);
 
-
-    border-bottom: 1px solid var(--border-color);
-
-  
+    border-bottom: 1px solid var(--border-color);  
   }
 
 
@@ -119,9 +114,6 @@
 
   }
 
-
-
-
   /* ============================================
     CELL
   ============================================ */
@@ -159,14 +151,14 @@
 
 
     color: var(--text-primary);
-
+    
     font-size: var(--text-base);
 
     line-height: 1.4;
 
 
-    overflow: hidden;
-
+    //overflow: hidden;
+    overflow: visible;
     &--sortable {
 
       cursor: pointer;
@@ -204,16 +196,15 @@
     color: var(--text-secondary);
 
 
-    font-size: var(--text-sm);
+    font-size: var(--text-base);
 
 
-    font-weight: var(--font-bold);
+    font-weight: var(--font-semibold);
 
 
     letter-spacing: 0.02em;
 
-
-    text-transform: uppercase;
+    text-transform: capitalize;
 
   }
 

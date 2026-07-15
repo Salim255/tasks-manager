@@ -148,7 +148,8 @@ export const Backlog = () => {
             onDrop={onReverseDrop}
           >
             {tasks.some((task) => !task.sprintId) ? (
-              tasks
+              <div className="backlog__tasks">
+                { tasks
                 .filter((task) => !task.sprintId)
                 .map((task) => (
                   <TaskItem
@@ -157,7 +158,8 @@ export const Backlog = () => {
                     draggable
                     onDragStart={(e) => onDragStart(task, e)}
                   />
-                ))
+                ))}
+              </div>
             ) : (
               <div className="backlog-container__empty">
                 Your backlog is empty

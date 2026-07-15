@@ -20,11 +20,6 @@ export type TaskItemProps = { task: Task; } & React.HTMLAttributes<HTMLDivElemen
 export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
     const dispatch = useDispatch<AppDispatch>();
     const memberOptions = useMemberOptions();
-     const taskStatuses = [
-        { value: "todo", label: "To Do" },
-        { value: "in_progress", label: "In Progress" },
-        { value: "done", label: "Done" },
-    ];
 
     const [isOptionsOpen, setOptionsOpen ] = useState<string | null>(null);
 
@@ -78,7 +73,6 @@ export const TaskItem =  ({ task, ...props }: TaskItemProps) => {
                 </section>
                 <section className='task-item__status'>
                     <EditableStatus 
-                        taskStatuses={taskStatuses}
                         taskStatus={task.status} 
                         handleSave={(v) => handleSave("status", v)}/>
                 </section>

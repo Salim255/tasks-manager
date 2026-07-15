@@ -5,6 +5,7 @@ import "./_editable-assignee.scss";
 
 type EditableAssigneeProps = {
     TaskAssigneeId?: string;
+    pageName?: string;
     handleSave: (memberId: string) => void;
     taskMembers: {
         label: string; // user name
@@ -14,6 +15,7 @@ type EditableAssigneeProps = {
 
 
 export const EditableAssignee = ({
+    pageName,
     TaskAssigneeId,
     handleSave,
     taskMembers,
@@ -42,6 +44,7 @@ export const EditableAssignee = ({
                 >
                    <Assignee
                         assigneeId={selected?.value ?? null}
+                        pageName={pageName}
                     /> 
                   
                 </button>

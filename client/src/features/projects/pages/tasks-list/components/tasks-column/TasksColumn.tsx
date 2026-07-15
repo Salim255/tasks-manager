@@ -23,25 +23,20 @@ export const TasksColumn = ({
   
 
   return (
-  <div className="tasks-column">
+    <div className="tasks-column">
+      <div className="tasks-column__body">
 
-  {/* ‡ */}
+        {tasks.map((task) => (
+          <div
+            key={task.id}
+            className="tasks-column__cell"
+            onClick={() => onViewTask(task.id)}
+          >
+            { renderCell(task) }
+          </div>
+        ))}
 
-
-    <div className="tasks-column__body">
-
-      {tasks.map((task) => (
-        <div
-          key={task.id}
-          className="tasks-column__cell"
-          onClick={() => onViewTask(task.id)}
-        >
-          {renderCell(task)}
-        </div>
-      ))}
-
+      </div>
     </div>
-
-  </div>
-);
+  );
 };
