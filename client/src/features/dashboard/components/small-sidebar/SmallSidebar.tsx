@@ -6,15 +6,17 @@ import type { RootState } from '../../../../redux/store';
 import { updateSidebarOpenState } from '../../states/dashboardSlice';
 import { NavLinks } from '../nav-links/NavLinks';
 
-
 export const SmallSidebar = () => {
     const { isSideBarIsOpen } = useSelector((store: RootState) => store.dashboard);
     const dispatch = useDispatch();
     function toggle() {
         dispatch(updateSidebarOpenState())
     }
+
+    console.log(isSideBarIsOpen);
     return (
-      <aside className='sm-aside'>
+    
+        <aside className='sm-aside'>
             <div className={isSideBarIsOpen ? 'sm-aside__sidebar-container  sm-aside--show-sidebar'
                 : 'sm-aside__sidebar-container'} >
                 <div className="sm-aside__content">
@@ -22,7 +24,7 @@ export const SmallSidebar = () => {
                         <FaTimes />
                     </button>
 
-                    <header> FlowBoard sss</header>
+                    <header> FlowBoard </header>
 
                     <NavLinks toggleSidebar={toggle} />
                 </div>

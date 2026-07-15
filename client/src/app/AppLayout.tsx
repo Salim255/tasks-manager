@@ -20,28 +20,18 @@ export const AppLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <motion.main
-      className={`dashboard ${
-        isSideBarIsOpen ? "dashboard--sidebar-open" : "dashboard--sidebar-closed"
+      className={`app-layout ${
+        isSideBarIsOpen ? "app-layout--sidebar-open" : "app-layout--sidebar-closed"
       }`}
     >
-      <aside className="dashboard__aside">
-        <div className="dashboard__sm-bar">
+      <aside className="app-layout__aside">
+        <div className="app-layout__sm-bar">
           <SmallSidebar />
         </div>
 
-        <div className="dashboard__bg-bar">
+        <div className="app-layout__bg-bar">
           <BigSidebar>
-            <header className="dashboard-brand">
-              <div className="dashboard-brand__mark">
-                <DiScrum />
-              </div>
-
-              <div className="dashboard-brand__content">
-                <span className="dashboard-brand__label">Plan. Build. Deliver.</span>
-                <strong className="dashboard-brand__name">Flowboard</strong>
-              </div>
-            </header>
-
+        
             <NavLinks />
           </BigSidebar>
         </div>

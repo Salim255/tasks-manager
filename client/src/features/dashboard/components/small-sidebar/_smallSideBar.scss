@@ -6,13 +6,15 @@
 ============================================ */
 
 .sm-aside {
-
-
-  @include respond(desktop) {
-
-    display:none;
-
+  height: 100dvh;
+  width: 100dvw;
+  //display:none;
+  position: absolute;
+  
+  @include respond(tab-port) {
+   // display: block;
   }
+
 
 
 
