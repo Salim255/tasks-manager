@@ -10,6 +10,7 @@ import { EditableTaskType } from '../../../../../tasks/components/editable-task-
 import { updateTasHttp } from '../../../../../tasks/http/task.http';
 import { EditableAssignee } from '../../../../../tasks/components/editable-assignee/EditableAssignee';
 import { useMemberOptions } from '../../../../../members/hooks/MemberOptionsHook';
+import { EditableTitle } from '../../../../../tasks/components/editable-title/EditableTitle';
 
 export const BoardTaskItem =  ({ task, ...props }: TaskItemProps) => {
     const [isOptionsOpen, setOptionsOpen ] = useState<string | null>(null);
@@ -42,9 +43,10 @@ export const BoardTaskItem =  ({ task, ...props }: TaskItemProps) => {
     return (
         <div className="board-task-item" {...props} onClick={() => onQuickAction("createTask")} >
             <section className='board-task-item__content'>
-                <p className='board-task-item__task'>
-                    {task.title}
-                </p>
+                
+               
+                <EditableTitle title={task.title} handleSave={() => onQuickAction("createTask")}/>
+               
                 <div className='board-task-item__actions' onClick={(e) => e.stopPropagation()}>
                     <OptionsBtn 
                         item={task} 
