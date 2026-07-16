@@ -1,7 +1,6 @@
-import "../features/dashboard/_dashboard.scss";
+import "./_app-layout.scss";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { DiScrum } from "react-icons/di";
 import { motion } from "motion/react";
 import type { AppDispatch, RootState } from "../redux/store";
 import { fetchProjectsHttp } from "../features/projects/http/project.http";
@@ -9,6 +8,7 @@ import { SmallSidebar } from "../features/dashboard/components/small-sidebar/Sma
 import { Navbar } from "../features/dashboard/components/navbar/Navbar";
 import { NavLinks } from "../features/dashboard/components/nav-links/NavLinks";
 import { BigSidebar } from "../features/dashboard/components/big-sidebar/BigSidebar";
+import { AppBrand } from "./components/app-brand/AppBrand";
 
 export const AppLayout = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useDispatch<AppDispatch>();
@@ -24,22 +24,22 @@ export const AppLayout = ({ children }: { children: React.ReactNode }) => {
         isSideBarIsOpen ? "app-layout--sidebar-open" : "app-layout--sidebar-closed"
       }`}
     >
-      <aside className="app-layout__aside">
+      <div className="app-layout__aside">
         <div className="app-layout__sm-bar">
-          <SmallSidebar />
+        <SmallSidebar />
         </div>
 
         <div className="app-layout__bg-bar">
           <BigSidebar>
-        
+            <AppBrand />
             <NavLinks />
           </BigSidebar>
         </div>
-      </aside>
+      </div>
 
-      <div className="dashboard__content">
+      <div className="app-layout__content">
         <Navbar />
-        <div className="dashboard__outlet">{children}</div>
+        <div className="app-layout__outlet">{children}</div>
       </div>
     </motion.main>
   );

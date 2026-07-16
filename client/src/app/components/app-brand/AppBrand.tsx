@@ -1,4 +1,5 @@
 import { DiScrum } from "react-icons/di";
+import "./_app-brand.scss";
 
 export const AppBrand = () => {
     return (

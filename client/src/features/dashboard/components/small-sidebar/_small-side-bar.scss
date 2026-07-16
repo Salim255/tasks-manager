@@ -1,0 +1,171 @@
+@use "../../../../themes/styles/abstracts/queries" as *;
+
+/* ============================================
+   SMALL SIDEBAR (MOBILE DRAWER)
+============================================ */
+
+.sm-aside {
+
+  display: none;
+  @include respond(tab-port) {
+    display: contents;
+  }
+
+  /* ============================================
+     OVERLAY
+  ============================================ */
+
+  &__sidebar-container {
+
+    position: fixed;
+    inset: 0;
+
+    display: flex;
+    justify-content: flex-start;
+
+    background: rgba(15, 23, 42, .45);
+    backdrop-filter: blur(4px);
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transition:
+      opacity var(--transition-normal),
+      visibility var(--transition-normal);
+
+    z-index: var(--z-modal);
+
+  }
+
+  &--show-sidebar {
+
+    .sm-aside__sidebar-container {
+
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+
+    }
+
+  }
+
+  /* ============================================
+     DRAWER
+  ============================================ */
+
+  &__content {
+
+    width: min(90vw, 40rem);
+    height: 100dvh;
+
+    display: flex;
+    flex-direction: column;
+
+    background: var(--surface-primary);
+
+    border-right: 1px solid var(--border-default);
+
+    box-shadow: var(--shadow-xl);
+
+    transform: translateX(-100%);
+
+    transition: transform var(--transition-normal);
+
+    overflow-y: auto;
+
+  }
+
+  &--show-sidebar {
+
+    .sm-aside__content {
+
+      transform: translateX(0);
+
+    }
+
+  }
+
+  /* ============================================
+     HEADER
+  ============================================ */
+
+  &__header {
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    min-height: 7rem;
+
+    padding: 0 var(--space-5);
+
+    border-bottom: 1px solid var(--border-default);
+
+    flex-shrink: 0;
+
+  }
+
+  &__title {
+
+    color: var(--text-primary);
+
+    font-size: var(--text-lg);
+
+    font-weight: var(--font-bold);
+
+    letter-spacing: -.02em;
+
+  }
+
+  /* ============================================
+     CLOSE BUTTON
+  ============================================ */
+
+  &__close {
+
+    display: grid;
+    place-items: center;
+
+    width: 4rem;
+    height: 4rem;
+
+    border: none;
+
+    border-radius: var(--radius-md);
+
+    background: transparent;
+
+    color: var(--text-secondary);
+
+    cursor: pointer;
+
+    transition:
+      background-color var(--transition-fast),
+      color var(--transition-fast);
+
+    &:hover {
+
+      background: var(--surface-secondary);
+
+      color: var(--text-primary);
+
+    }
+
+  }
+
+  /* ============================================
+     NAVIGATION
+  ============================================ */
+
+  &__nav {
+
+    flex: 1;
+
+    overflow-y: auto;
+
+    padding: var(--space-5);
+
+  }
+
+}

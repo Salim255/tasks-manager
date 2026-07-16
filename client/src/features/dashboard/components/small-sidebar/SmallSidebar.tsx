@@ -1,4 +1,4 @@
-import './_smallSideBar.scss';
+import "./_small-side-bar.scss";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { FaTimes } from "react-icons/fa";
@@ -13,22 +13,36 @@ export const SmallSidebar = () => {
         dispatch(updateSidebarOpenState())
     }
 
-    console.log(isSideBarIsOpen);
     return (
     
-        <aside className='sm-aside'>
-            <div className={isSideBarIsOpen ? 'sm-aside__sidebar-container  sm-aside--show-sidebar'
-                : 'sm-aside__sidebar-container'} >
-                <div className="sm-aside__content">
-                    <button type="button" className="close-btn" onClick={toggle}>
-                        <FaTimes />
-                    </button>
+       <div className={`sm-aside ${isSideBarIsOpen ? "sm-aside--show-sidebar" : ""}`}>
+    <div className="sm-aside__sidebar-container">
 
-                    <header> FlowBoard </header>
+        <aside className="sm-aside__content">
 
-                    <NavLinks toggleSidebar={toggle} />
-                </div>
-            </div>
+            <header className="sm-aside__header">
+
+                <h2 className="sm-aside__title">
+                    FlowBoard
+                </h2>
+
+                <button
+                    type="button"
+                    className="sm-aside__close"
+                    onClick={toggle}
+                >
+                    <FaTimes />
+                </button>
+
+            </header>
+
+            <nav className="sm-aside__nav">
+                <NavLinks toggleSidebar={toggle} />
+            </nav>
+
         </aside>
+
+    </div>
+</div>
     )
 }
