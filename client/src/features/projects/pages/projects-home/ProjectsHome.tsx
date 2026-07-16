@@ -5,6 +5,7 @@ import { useDashboardView, useIsFetchingDashboard } from "../../states/projectsS
 import { useDispatch } from "react-redux";
 import { fetchDashboardOverviewHttp } from "../../http/project.http";
 import type { AppDispatch } from "../../../../redux/store";
+import { setActiveProject } from "../../states/projectSlice";
 
 export function stringToColor(value: string): string {
   let hash = 0;
@@ -36,6 +37,13 @@ export const ProjectsHome = () => {
   
   const hasMoreProjects =
     (dashboardData?.recentProjects?.length ?? 0) > 6;
+
+  const onNavigateProject = (project: any ) => {
+    dispatch(setActiveProject({projectId: project?.id}));
+    queueMicrotask(() => {
+      navigate(`/workspaces/${project?.key}/board`);
+    })
+  }
 
   useEffect(() => {
     if(!dashboardData && !isFetchingDashboard) {
@@ -111,7 +119,7 @@ export const ProjectsHome = () => {
             <div className="projects-home__projects-list">
               {
                 visibleProjects.map((p) => {
-                  return <article key={p.id} className="projects-home__project-card">
+                  return <article key={p.id}  onClick={() => onNavigateProject(p)} className="projects-home__project-card">
                     <div key={p.id} className="projects-home__project-top">
                       <div className="projects-home__project-badge"   style={{ backgroundColor: stringToColor(p.key) }}>{p.key.slice(0,2)}</div>
                       <div>
