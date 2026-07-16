@@ -9,12 +9,15 @@ import { type AppDispatch } from '../../../../redux/store';
 import { BoardColumn } from './components/board-column/BoardColumn';
 import { useBoardData } from './board-hooks/boardData';
 import { PageMotion } from '../../../../shared/motion/PageMotion';
+import { useActiveProject } from '../../states/projectsSelectors';
+import { BoardSkeleton } from '../../skeletons/BoardSkeleton';
 
 export const Board = () => { 
     const sprints = useSprints();
     const tasks = useTasks();
     const dispatch = useDispatch<AppDispatch>();
     const boardData = useBoardData(tasks, sprints);
+    const activeProject = useActiveProject();
 
     const onDragStart = (e: React.DragEvent<Element>, task: Task) => {
         e.dataTransfer.setData("text/plain", JSON.stringify(task)); // any payload
@@ -36,9 +39,12 @@ export const Board = () => {
     useEffect(() => {
     }, [tasks, sprints]);
 
+ 
     return (
          <PageMotion>
-             <section className="board">
+            {
+             activeProject 
+              ? (<section className="board">
                 <BoardColumn 
                     title="To Do"
                     status="todo"
@@ -66,8 +72,10 @@ export const Board = () => {
                     onDrop={(e) => onDrop(e, "done")}
                     onDragOver={onDragOver}
                 />
-            </section>
-         </PageMotion>
-       
+            </section>)
+            :
+           ( <BoardSkeleton />)
+            }
+         </PageMotion>  
     )
 }

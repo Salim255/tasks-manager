@@ -1,4 +1,5 @@
-import { SkeletonBase } from "../../../../../shared/kits/skeleton-base/SkeletonBase";
+import { SkeletonBase } from "../../../shared/kits/skeleton-base/SkeletonBase";
+import { BoardTaskItemSkeleton } from "./BoardTaskItemSkeleton";
 
 export const BoardColumnSkeleton = ({ title }: { title: string }) => {
   return (
