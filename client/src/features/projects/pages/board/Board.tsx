@@ -1,5 +1,4 @@
 import './_board.scss';
-import { useEffect } from 'react';
 import type { Task, TaskStatus } from '../../../tasks/models/task.model';
 import { useSprints } from '../../../sprints/states/sprintSelectors';
 import { useTasks } from '../../../tasks/states/taskSelectors';
@@ -9,8 +8,9 @@ import { type AppDispatch } from '../../../../redux/store';
 import { BoardColumn } from './components/board-column/BoardColumn';
 import { useBoardData } from './board-hooks/boardData';
 import { PageMotion } from '../../../../shared/motion/PageMotion';
-import { useActiveProject } from '../../states/projectsSelectors';
+import { useActiveProject, useIsLoadingActiveProject } from '../../states/projectsSelectors';
 import { BoardSkeleton } from '../../skeletons/BoardSkeleton';
+import { Navigate } from 'react-router-dom';
 
 export const Board = () => { 
     const sprints = useSprints();
@@ -18,6 +18,7 @@ export const Board = () => {
     const dispatch = useDispatch<AppDispatch>();
     const boardData = useBoardData(tasks, sprints);
     const activeProject = useActiveProject();
+    const isLoading =  useIsLoadingActiveProject();
 
     const onDragStart = (e: React.DragEvent<Element>, task: Task) => {
         e.dataTransfer.setData("text/plain", JSON.stringify(task)); // any payload
@@ -36,14 +37,14 @@ export const Board = () => {
         e.preventDefault();
     }
 
-    useEffect(() => {
-    }, [tasks, sprints]);
-
+    if (!isLoading && !activeProject) {
+        return <Navigate to="/workspaces" replace />;
+    }
  
     return (
          <PageMotion>
             {
-             activeProject 
+             !isLoading 
               ? (<section className="board">
                 <BoardColumn 
                     title="To Do"
