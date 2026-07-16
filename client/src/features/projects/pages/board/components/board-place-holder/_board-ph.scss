@@ -13,7 +13,10 @@
 
   min-height: 0;
   height: 100%;
-
+   &__title {
+    font-size: var(--text-2xl);
+    color: var(--grey-600);
+  }
   padding:
     var(--space-8)
     var(--space-6);
@@ -53,28 +56,22 @@
 
   svg {
 
-    font-size:
-      4.8rem;
+    font-size: 4.8rem;
 
-    color:
-      var(--action-primary);
+    color: var(--action-primary);
 
-    opacity:
-      .85;
+    opacity: .85;
 
     transition:
       color var(--transition-fast),
       transform var(--transition-fast);
-
   }
 
   &:hover svg {
-
-    transform:
-      scale(1.05);
-
+    transform: scale(1.05);
   }
 
+ 
   /* ============================================
      TITLE
   ============================================ */
@@ -86,18 +83,12 @@
   ============================================ */
 
   p {
-    max-width:
-      42rem;
+    max-width: 42rem;
+    color: var(--text-secondary);
 
-    color:
-      var(--text-secondary);
+    font-size: var(--text-base);
 
-    font-size:
-      var(--text-lg);
-
-    line-height:
-      1.7;
-
+    line-height: 1.7;
   }
 
   /* ============================================
@@ -121,68 +112,12 @@
 /* ============================================
    RESPONSIVE
 ============================================ */
-
-@include respond("tab-port") {
-
-  .board-place-holder {
-
-    min-height:
-      32rem;
-
-    padding:
-      var(--space-6);
-
-    gap:
-      var(--space-4);
-
-    h3 {
-
-      font-size:
-        var(--text-xl);
-
-    }
-
-    p {
-
-      font-size:
-        var(--text-base);
-
-    }
-
-  }
-
-}
-
 @include respond("phone") {
 
   .board-place-holder {
 
     min-height:
       28rem;
-
-    padding:
-      var(--space-5);
-
-    svg {
-
-      font-size:
-        4rem;
-
-    }
-
-    h3 {
-
-      font-size:
-        var(--text-lg);
-
-    }
-
-    p {
-
-      font-size:
-        var(--text-sm);
-
-    }
 
   }
 

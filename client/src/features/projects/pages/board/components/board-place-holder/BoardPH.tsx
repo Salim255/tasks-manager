@@ -7,7 +7,7 @@ export const  BoardPH = ({projectId}: {projectId: string} ) => {
         <div className='board-place-holder'>
            <div>
                 <DiScrum />
-                <h3 className="heading-tertiary u-mb-md">
+                <h3 className="board-place-holder__title u-mb-md">
                     No Active Sprint
                 </h3>
                 <p className="u-mb-2xl">
