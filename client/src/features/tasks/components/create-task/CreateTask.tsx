@@ -1,5 +1,5 @@
 import './_create-task.scss';
-import { useState, type ChangeEvent } from "react";
+import { useEffect, useRef, useState, type ChangeEvent } from "react";
 import { BiPlus } from "react-icons/bi";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../../../redux/store";
@@ -16,6 +16,9 @@ export const CreateTask = ( { projectId, sprintId }: { projectId: string; sprint
   const [isCreateBtn, setCreateBtn] = useState<boolean>(true);
   const { state, setField, setError, clearErrors, reset } = useTaskForm();
   const dispatch = useDispatch<AppDispatch>();
+
+
+  const containerRef = useRef<HTMLFormElement>(null!);
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
@@ -54,6 +57,37 @@ export const CreateTask = ( { projectId, sprintId }: { projectId: string; sprint
     dispatch(createTaskHttp(createPayload));
     reset();
   };
+
+
+   useEffect(() => {
+
+    const handleClickOutside = (event: MouseEvent) => {
+
+      const target = event.target as Node;
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(target)
+      ) {
+        setCreateBtn(true);
+      }
+
+    };
+
+
+    document.addEventListener(
+      "mousedown",
+      handleClickOutside
+    );
+
+
+    return () => {
+      document.removeEventListener(
+        "mousedown",
+        handleClickOutside
+      );
+    };
+
+  }, [setCreateBtn]);
    
   return (
     <>  
@@ -69,6 +103,7 @@ export const CreateTask = ( { projectId, sprintId }: { projectId: string; sprint
             </button>
             :
             <motion.form 
+                ref={containerRef}
                 whileHover={{
                     y: -2,
                     transition: {
