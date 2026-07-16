@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import "./_projects-home.scss";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDashboardView, useIsFetchingDashboard } from "../../states/projectsSelectors";
 import { useDispatch } from "react-redux";
 import { fetchDashboardOverviewHttp } from "../../http/project.http";
@@ -21,6 +21,7 @@ export function stringToColor(value: string): string {
 }
 
 export const ProjectsHome = () => {
+  const [showAllProjects, setShowAllProjects] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
   const isFetchingDashboard = useIsFetchingDashboard();
   const dashboardData = useDashboardView();
@@ -28,6 +29,13 @@ export const ProjectsHome = () => {
   const onCreateProject = () => {
     navigate("/create-project");
   }
+
+  const visibleProjects = showAllProjects
+    ? dashboardData?.recentProjects ?? [] 
+    : (dashboardData?.recentProjects ?? []).slice(0, 6);
+  
+  const hasMoreProjects =
+    (dashboardData?.recentProjects?.length ?? 0) > 6;
 
   useEffect(() => {
     if(!dashboardData && !isFetchingDashboard) {
@@ -87,12 +95,22 @@ export const ProjectsHome = () => {
                   Pick up where your team left off.
                 </p>
               </div>
-              <button className="projects-home__text-button">View all</button>
+              {
+                hasMoreProjects 
+                && 
+                <button
+                  onClick={() => setShowAllProjects(prev => !prev)}
+                  className="projects-home__text-button">
+                    
+                  { showAllProjects ? "Show less" : "View all" }
+                </button>
+              }
+              
             </div>
 
             <div className="projects-home__projects-list">
               {
-                dashboardData?.recentProjects.map((p) => {
+                visibleProjects.map((p) => {
                   return <article key={p.id} className="projects-home__project-card">
                     <div key={p.id} className="projects-home__project-top">
                       <div className="projects-home__project-badge"   style={{ backgroundColor: stringToColor(p.key) }}>{p.key.slice(0,2)}</div>
