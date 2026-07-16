@@ -15,6 +15,7 @@ import { UpdateTask } from '../../../tasks/components/update-task/UpdateTask';
 import { PageMotion } from '../../../../shared/motion/PageMotion';
 import { Group, Panel, Separator  } from 'react-resizable-panels';
 import { useActiveProject, useIsLoadingActiveProject } from '../../states/projectsSelectors';
+import { BacklogSkeleton } from "../../skeletons/BacklogSkeleton";
 
 export const Backlog = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -63,7 +64,10 @@ export const Backlog = () => {
 
     return (
   <PageMotion>
-  <section className="backlog-container scroll-bar">
+    {
+      isLoading 
+      ? <BacklogSkeleton />
+      : <section className="backlog-container scroll-bar">
 
     <Group orientation="vertical">
       <Separator className="backlog-container__separator" />
@@ -157,7 +161,7 @@ export const Backlog = () => {
                 ))}
 
                 <div className="backlog__footer">
-                  <CreateTask projectId={projectId} sprintId={null} />
+                  <CreateTask projectId={projectId!} sprintId={null} />
                 </div>
               </div>
             ) : (
@@ -166,7 +170,7 @@ export const Backlog = () => {
                  Your backlog is empty
                 </div>
                 <div className="backlog__footer">
-                  <CreateTask projectId={projectId} sprintId={null} />
+                  <CreateTask projectId={projectId!} sprintId={null} />
                 </div>
               </>
             )}
@@ -177,6 +181,8 @@ export const Backlog = () => {
     </Group>
 
   </section>
+    }
+  
 
   {isOpenModal && <EditSprintForm />}
   {isOpenTaskModal && <UpdateTask />}

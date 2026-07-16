@@ -1,3 +1,5 @@
+import { BacklogHeaderSkeleton } from "./BacklogHeaderSkeleton";
+import { BacklogTasksSkeleton } from "./BacklogTasksSkeleton";
 import { SprintSkeleton } from "./SprintSkeleton";
 
 export const BacklogSkeleton = () => {
