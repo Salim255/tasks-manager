@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import { addMemberHttp } from "../../members/http/member.http";
 import type { DashboardOverviewDto } from "../dto/dashboard-overview.dto";
 
+
 type InitialState = {
     projects: Project[];
     dashboardView?: DashboardOverviewDto;
@@ -82,9 +83,13 @@ const projectSlice = createSlice({
             state.projects[candidateIndex].members.push(member);
             state.isLoadingMember = false;
         })
-        .addCase(addMemberHttp.rejected, (state) => {
+        .addCase(addMemberHttp.rejected, (state, action) => {
+            let message = action.payload?.message ?? "Failed to add member. Please try again.";
+            if(message === "User not exist with the given email") {
+                message = "No account was found with this email address. Please verify the email and try again.";
+            }
             state.isLoadingMember = false;
-            toast.error("Failed to add member. Please try again.");
+            toast.error(message);
         })
         .addCase(createProjectHttp.pending, (state) => {
             state.isCreating = true;
