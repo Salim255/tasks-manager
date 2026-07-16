@@ -9,7 +9,6 @@ export const Profile = () => {
     const {isProfileLoading,  profile } = useProfileSelector();
     const userData = useUserData();
     
-
     if (isProfileLoading) {
         return  <ProfileSkeleton/>
     } 
