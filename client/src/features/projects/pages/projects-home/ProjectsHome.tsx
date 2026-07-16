@@ -33,8 +33,6 @@ export const ProjectsHome = () => {
     if(!dashboardData && !isFetchingDashboard) {
       dispatch(fetchDashboardOverviewHttp());
     }
-
-    console.log(dashboardData);
   }, [dispatch,dashboardData,  isFetchingDashboard]);
 
   

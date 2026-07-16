@@ -44,7 +44,6 @@ const taskSlice = createSlice({
             const task = state.tasks.find((ts) => ts.id === taskId);
             state.task = task;
             state.isOpenViewTask = true;
-            console.log("hello after update")
         },
         setIsOpenTaskModal:  (state, action: PayloadAction<{taskId: string}>) => {
             const {taskId} = action.payload;

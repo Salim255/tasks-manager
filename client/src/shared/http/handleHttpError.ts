@@ -3,8 +3,6 @@ import type { ApiErrorDto } from "../interfaces/shared.interfaces";
 import { clearUser } from "../../features/auth/states/authSlice";
 
 export const handleHttpError = (error: unknown, thunkApi: any): ApiErrorDto => {
-
-    console.log("Hello from dispatch: 1", (error as any).response)
    // 1. Handle unauthorized (from API interceptor)
     if ((error as any).isUnauthorized) {
         thunkApi.dispatch(clearUser());

@@ -16,7 +16,7 @@ export const EditSprintForm = () => {
    const sprint  = useSelectedSprint();
    const { state, setField, reset } = useSprintForm(sprint);
    const dispatch = useDispatch<AppDispatch>();
-    console.log(sprint, state)
+
    const handleChange = (
     event: ChangeEvent<
         HTMLInputElement |
@@ -49,7 +49,7 @@ export const EditSprintForm = () => {
        if (Object.keys(payload).length === 1) {
             return; // Nothing changed it has always error: {}
         }
-       console.log(payload, "hello world");
+
         dispatch(updateSprintHttp({...payload, sprintId: sprint.id}))
         reset();
     }

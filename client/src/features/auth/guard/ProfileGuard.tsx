@@ -4,8 +4,6 @@ import { Navigate } from "react-router-dom";
 
 export const ProfileGuard = ({ children }: { children: React.ReactNode }) => {
     const { profile, isProfileLoading } = useProfileSelector();
-
-    console.log("Hello from profile");
     if (isProfileLoading ) return <div>Loading Spinner</div>
     
     

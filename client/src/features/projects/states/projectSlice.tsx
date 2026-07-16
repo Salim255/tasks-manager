@@ -100,7 +100,6 @@ const projectSlice = createSlice({
             toast.error("Failed to create project. Please try again.");
         })
         .addCase(fetchProjectsHttp.pending, (state) => {
-            console.log("Its loading")
             state.isLoading = true;
         })
         .addCase(fetchProjectsHttp.fulfilled, (state, action) => {

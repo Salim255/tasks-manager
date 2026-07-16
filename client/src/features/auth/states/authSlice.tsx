@@ -41,9 +41,7 @@ const authSlice = createSlice({
             state.isLoading = false;
             //toast.success("Logged out successfully");
         })
-        .addCase('auth/logoutHttp/rejected', (state, action) => {
-            //const errorAction = action as PayloadAction<ApiErrorDto>;
-            console.log(action)
+        .addCase('auth/logoutHttp/rejected', (state) => {
             state.isLoading = false;
             //state.error = errorAction.payload.message;
             state.user = null; // Ensure user is cleared on logout failure
@@ -73,13 +71,11 @@ const authSlice = createSlice({
             state.user = successAction.payload.data.user;
             state.isLoading = false;
         })
-        .addCase("user/loadUserHttp/rejected", (state, action) => {
+        .addCase("user/loadUserHttp/rejected", (state) => {
             state.isLoading = false;
-            const errorAction = action as PayloadAction<ApiErrorDto>;
+            //const errorAction = action as PayloadAction<ApiErrorDto>;
             // Because your API ALWAYS returns ApiErrorDto,
             // we can safely cast the payload.
-         
-            console.log(errorAction.payload.message, "hello form error")
         })
         /*  */
         .addCase("authUser/authUserHttp/pending", (state) => {

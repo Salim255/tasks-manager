@@ -25,7 +25,6 @@ export const getUserProfileHttp = createAsyncThunk(
             const response = await api.get(`/profiles`, { withCredentials: true});
             return response?.data;
         } catch (error) {
-            console.log(error)
             return thunkApi.rejectWithValue(handleHttpError(error, thunkApi));
         }
     }
