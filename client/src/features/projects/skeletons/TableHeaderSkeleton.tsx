@@ -1,4 +1,4 @@
-import { SkeletonBase } from "../../../../../shared/kits/skeleton-base/SkeletonBase";
+import { SkeletonBase } from "../../../shared/kits/skeleton-base/SkeletonBase";
 
 export const TableHeaderSkeleton = () => {
   return (
