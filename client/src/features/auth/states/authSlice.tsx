@@ -55,7 +55,7 @@ const authSlice = createSlice({
              state.user = successAction.payload.data.user;
 
             state.isLoading = false;
-            toast.success("Welcome to the demo!");
+            //toast.success("Welcome to the demo!");
         })
         .addCase("demoLogin/demoLoginHttp/rejected", (state, action) => {
             const errorAction = action as PayloadAction<ApiErrorDto>;
@@ -85,7 +85,7 @@ const authSlice = createSlice({
             const successAction = action as PayloadAction<AuthResponseDto>;
             state.user = successAction.payload.data.user;
             state.isLoading = false;
-            toast.success("Welcome back!");
+            //toast.success("Welcome back!");
         })
         .addCase("authUser/authUserHttp/rejected", (state, action) => {
             const errorAction = action as PayloadAction<ApiErrorDto>;
