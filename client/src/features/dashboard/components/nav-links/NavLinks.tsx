@@ -71,7 +71,7 @@ export const NavLinks = ({ toggleSidebar }: { toggleSidebar?: () => void}) => {
                     </NavLink>
                     {   text==='workspaces' && 
                        
-                        <ul key={id}  className={`nav-links__projects ${toggleProjects ? 'nav-links__projects--active': ''} `}>
+                        <ul key={id}  className={`nav-links__projects scroll-bar ${toggleProjects ? 'nav-links__projects--active': ''} `}>
                             {
                                 projects?.map((project) => {
                                     return(

@@ -10,7 +10,7 @@ export const AppBrand = () => {
 
             <div className="app-brand__content">
             <span className="app-brand__label">Plan. Build. Deliver.</span>
-            <strong className="app-brand__name">Flowboard</strong>
+            <strong className="app-brand__name">FlowBoard</strong>
             </div>
         </header>
     )

@@ -3,7 +3,7 @@
 
     align-items:center;
 
-    gap: var(--space-3);
+    gap: var(--space-4);
 
     min-height: var(--dashboard-navbar-height);
 
@@ -19,10 +19,10 @@
 
         flex-shrink: 0;
 
-        width: 4.4rem;
+        //width: 4.4rem;
 
-        height: 4.4rem;
-
+        //height: 4.4rem;
+        padding: .5rem;
         border-radius: var(--radius-md);
 
         background:
@@ -35,7 +35,7 @@
 
         color: var(--action-primary);
 
-        font-size: var(--text-3xl);
+        font-size: var(--text-8xl);
 
         box-shadow:  var(--shadow-sm);
     }
@@ -61,12 +61,13 @@
     }
 
     &__name {
-        color: var(--text-primary);
+        color: var(--grey-700);
 
         font-size: var(--text-xl);
 
-        font-weight: var(--font-bold);
+        font-weight: var(--font-semibold);
 
         letter-spacing: var(--letterSpacing);
+        //text-transform: uppercase;
     }
 }

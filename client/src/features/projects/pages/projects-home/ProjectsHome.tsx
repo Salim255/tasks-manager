@@ -39,6 +39,8 @@ export const ProjectsHome = () => {
     (dashboardData?.recentProjects?.length ?? 0) > 6;
 
   const onNavigateProject = (project: any ) => {
+    if (!project?.id || !project?.key) return;
+    
     dispatch(setActiveProject({projectId: project?.id}));
     queueMicrotask(() => {
       navigate(`/workspaces/${project?.key}/board`);
