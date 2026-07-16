@@ -31,11 +31,6 @@
 
 
 
-    border-radius:
-
-      var(--radius-md);
-
-
 
     text-decoration:none;
 
@@ -98,34 +93,14 @@
 
 
     &--active {
-
-
-      background:
-
-        color-mix(
-          in srgb,
-          var(--primary-500) 10%,
-          transparent
-        );
-
-
-
       color:
 
         var(--primary-700);
 
-
-
       .projects-item__badge {
 
 
-        background:
-
-          color-mix(
-            in srgb,
-            var(--primary-500) 15%,
-            transparent
-          );
+        
 
 
         color:
@@ -212,9 +187,7 @@
 
   &__icon {
 
-    font-size:
-
-      var(--text-sm);
+    font-size: var(--text-base);
 
   }
 

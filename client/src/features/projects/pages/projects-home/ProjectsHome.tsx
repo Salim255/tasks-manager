@@ -71,7 +71,7 @@ export const ProjectsHome = () => {
 
           <article className="projects-home__stat-card">
             <span className="projects-home__stat-label">Assigned to me</span>
-            <strong className="projects-home__stat-value">{ dashboardData? dashboardData?.assignedToMe?.totalAssigned : '00' }</strong>
+            <strong className="projects-home__stat-value">{ dashboardData? dashboardData?.assignedToMe?.totalAssigned : '00' } tasks</strong>
             <span className="projects-home__stat-meta"> { dashboardData? dashboardData?.assignedToMe.dueThisWeek : '00' } due this week</span>
           </article>
         </div>
