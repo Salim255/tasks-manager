@@ -4,233 +4,393 @@
 
 .btn {
 
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
 
-  gap: .8rem;
+  display:inline-flex;
 
-  min-height: 4.4rem;
+  align-items:center;
 
-  padding: 0 1.8rem;
+  justify-content:center;
 
-  border-radius: 1.2rem;
 
-  border: 1px solid transparent;
+  gap:var(--space-2);
 
-  font-family: inherit;
 
-  font-size: var(--text-base);
 
-  font-weight: 700;
+  min-height:4.2rem;
 
-  line-height: 1;
 
-  white-space: nowrap;
+  padding:
 
-  user-select: none;
+    0
 
-  cursor: pointer;
+    var(--space-5);
+
+
+
+  border-radius:
+
+    var(--radius-md);
+
+
+
+  border:
+
+    1px solid transparent;
+
+
+
+  font-family:inherit;
+
+
+  font-size:
+
+    var(--text-base);
+
+
+
+  font-weight:
+
+    var(--font-semibold);
+
+
+
+  line-height:1;
+
+
+
+  white-space:nowrap;
+
+
+
+  user-select:none;
+
+
+
+  cursor:pointer;
+
 
 
   transition:
-    background-color .18s ease,
-    border-color .18s ease,
-    color .18s ease,
-    transform .18s ease,
-    box-shadow .18s ease;
+
+    background-color var(--transition-fast),
+
+    border-color var(--transition-fast),
+
+    color var(--transition-fast),
+
+    box-shadow var(--transition-fast),
+
+    transform var(--transition-fast);
+
+
+
+
+
+  &:hover {
+
+    transform:
+
+      translateY(-1px);
+
+  }
 
 
 
   &:active {
-    transform: translateY(1px);
+
+    transform:
+
+      translateY(0);
+
   }
+
+
 
 
   &:disabled {
 
-    opacity: .55;
+
+    opacity:.5;
+
 
     cursor:not-allowed;
 
+
     transform:none;
 
+
     box-shadow:none;
+
   }
 
 
 
-  /* ============================================
-     PRIMARY
-  ============================================ */
+
+
+/* ============================================
+   PRIMARY
+============================================ */
 
 
   &--primary {
 
+
     background:
+
       var(--primary-600);
 
+
+
     color:
+
       var(--white);
 
 
+
     box-shadow:
+
       0 1px 2px rgba(15,23,42,.08);
+
+
 
 
 
     &:hover {
 
+
       background:
+
         var(--primary-700);
 
 
-      transform:
-        translateY(-1px);
-
 
       box-shadow:
-        0 8px 20px rgba(37,99,235,.18);
+
+        0 6px 16px rgba(37,99,235,.16);
+
     }
+
   }
 
 
 
 
-  /* ============================================
-     SECONDARY
-  ============================================ */
+
+
+
+
+/* ============================================
+   SECONDARY
+============================================ */
 
 
   &--secondary {
 
+
     background:
-      var(--surface);
+
+      var(--surface-primary);
+
+
 
     border-color:
-      var(--border-color);
+
+      var(--border-default);
+
+
 
     color:
+
       var(--text-primary);
 
 
 
     &:hover {
 
+
       background:
+
         var(--surface-secondary);
 
 
+
       border-color:
+
         var(--grey-300);
 
 
-      transform:
-        translateY(-1px);
+
+      box-shadow:
+
+        var(--shadow-sm);
+
     }
+
   }
 
 
 
 
-  /* ============================================
-     GHOST
-  ============================================ */
+
+
+
+
+/* ============================================
+   GHOST
+============================================ */
 
 
   &--ghost {
 
+
     background:
+
       transparent;
 
+
+
     color:
+
       var(--text-secondary);
 
 
 
+
+
     &:hover {
 
+
       background:
+
         var(--surface-secondary);
 
 
+
       color:
+
         var(--text-primary);
+
     }
+
   }
 
 
 
 
 
-  /* ============================================
-     DANGER
-  ============================================ */
+
+
+
+/* ============================================
+   DANGER
+============================================ */
 
 
   &--danger {
 
+
     background:
+
       var(--danger);
 
 
+
     color:
+
       var(--white);
+
+
 
 
 
     &:hover {
 
+
       background:
+
         var(--danger-dark);
 
 
-      transform:
-        translateY(-1px);
-
 
       box-shadow:
-        0 8px 20px rgba(220,38,38,.16);
+
+        0 6px 16px rgba(220,38,38,.14);
+
     }
+
   }
 
 
 
 
-  /* ============================================
-     SIZES
-  ============================================ */
+
+
+
+
+
+/* ============================================
+   SIZES
+============================================ */
 
 
   &--sm {
 
-    min-height:3.6rem;
+
+    min-height:
+
+      3.6rem;
+
+
 
     padding:
-      0 1.3rem;
+
+      0 var(--space-4);
+
+
 
     border-radius:
-      1rem;
+
+      var(--radius-sm);
+
+
 
     font-size:
+
       var(--text-sm);
+
   }
+
+
+
 
 
 
   &--lg {
 
+
     min-height:
-      5.2rem;
+
+      5rem;
+
+
 
     padding:
-      0 2.2rem;
+
+      0 var(--space-6);
+
+
 
     border-radius:
-      1.4rem;
+
+      var(--radius-lg);
+
+
 
     font-size:
+
       var(--text-lg);
+
   }
+
 
 }
