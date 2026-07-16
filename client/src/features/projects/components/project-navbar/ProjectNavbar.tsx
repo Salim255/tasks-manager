@@ -1,5 +1,5 @@
 import "./_project-navbar.scss";
-import { useActiveProject } from "../../states/projectsSelectors";
+import { useActiveProject, useIsLoadingActiveProject } from "../../states/projectsSelectors";
 import { ProjectIdentity } from "../project-identity/ProjectIdentity";
 import { ProjectActions } from "../project-header-action/ProjectHeaderAction";
 import { ProjectNavigation } from "../project-navigation/ProjectNavigation";
@@ -7,8 +7,9 @@ import { ProjectNavbarSkeleton } from "../../skeletons/ProjectNavbarSkeleton";
 
 export const ProjectNavbar = () => {
   const activeProject = useActiveProject();
+  const isLoading = useIsLoadingActiveProject();
 
-  if (!activeProject) {
+  if (isLoading || !activeProject) {
     return <ProjectNavbarSkeleton />
   }
   

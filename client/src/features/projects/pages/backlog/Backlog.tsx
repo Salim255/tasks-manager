@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import "./_backlog.scss";
 import { useDispatch } from 'react-redux';
 import { type AppDispatch } from '../../../../redux/store';
@@ -11,22 +10,22 @@ import { useSprintModalOpen, useSprints } from '../../../sprints/states/sprintSe
 import { updateTaskSprintHttp } from '../../../tasks/http/task.http';
 import { createSprint } from '../../../sprints/http/sprint.http';
 import { EditSprintForm } from '../../../sprints/components/edit-sprint-form/EditSprintForm';
-import { useTaskCreating, useTaskModalOpen, useTasks } from '../../../tasks/states/taskSelectors';
+import { useTaskModalOpen, useTasks } from '../../../tasks/states/taskSelectors';
 import { UpdateTask } from '../../../tasks/components/update-task/UpdateTask';
 import { PageMotion } from '../../../../shared/motion/PageMotion';
 import { Group, Panel, Separator  } from 'react-resizable-panels';
-import { useActiveProject } from '../../states/projectsSelectors';
+import { useActiveProject, useIsLoadingActiveProject } from '../../states/projectsSelectors';
 
 export const Backlog = () => {
     const dispatch = useDispatch<AppDispatch>();
     const activeProject = useActiveProject();
     const tasks = useTasks();
-    const isCreating = useTaskCreating()
     const isOpenModal = useSprintModalOpen();
     const isOpenTaskModal = useTaskModalOpen();
     const sprints = useSprints();
     const  projectId  = activeProject?.id;
-    
+    const isLoading = useIsLoadingActiveProject();
+
     const onDragStart = (task: Task, e: React.DragEvent<HTMLDivElement>) => {
         e.dataTransfer.setData("text/plain", JSON.stringify(task)); // Any payload
     };
@@ -59,11 +58,8 @@ export const Backlog = () => {
     const countWorkItem = () => {
         return tasks.filter((task) => !task.sprintId).length;
     }
-    
-    useEffect(() => {
-    }, [tasks, isCreating, sprints, projectId]);
-
-    if (!projectId) return <Navigate to="/workspaces" replace />;
+  
+    if (!isLoading && !projectId) return <Navigate to="/workspaces" replace />;
 
     return (
   <PageMotion>
@@ -106,7 +102,7 @@ export const Backlog = () => {
                 </div>
 
                 <footer className="sprint__footer">
-                  <CreateTask projectId={projectId} sprintId={sprint.id} />
+                  <CreateTask projectId={projectId!} sprintId={sprint.id} />
                 </footer>
               </section>
             ))}
