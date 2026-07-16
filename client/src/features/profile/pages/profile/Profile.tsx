@@ -1,20 +1,13 @@
 import './_profile.scss';
-import { useNavigate } from "react-router-dom";
 import { useProfileSelector } from "../../states/profileSelectors";
-import { useEffect } from "react";
 import { ProfileHero } from './components/hero/ProfileHero';
 import { useUserData } from '../../../auth/states/authSelectors';
 import { formatDate } from '../../../../shared/utils/methods';
 
 export const Profile = () => {
-    const { isProfileLoading, profile } = useProfileSelector();
+    const { profile } = useProfileSelector();
     const userData = useUserData();
-    const navigate = useNavigate();
-
-    useEffect(() => {
-    },[profile, isProfileLoading, navigate]);
-    
-    
+  
    return (
    <section className="profile u-p-2xl">
     <div className="profile__container">

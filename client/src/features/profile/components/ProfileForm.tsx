@@ -4,10 +4,15 @@ import { useDispatch } from 'react-redux';
 import { type AppDispatch } from '../../../redux/store';
 import { useProfileForm } from '../form-builder/profileFormBuilder';
 import { validateProfileForm } from '../../../shared/utils/forms-validator';
+import { useProfileSelector } from "../states/profileSelectors";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const ProfileForm = () => {
+  const { profile } = useProfileSelector();
   const {setField, reset, state, setError } = useProfileForm();
   const dispatcher = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     setField(event.target.name as "firstName" | "lastName", event.target.value);
@@ -28,6 +33,13 @@ export const ProfileForm = () => {
     dispatcher(createProfileHttp(payload));
     reset();
   };
+  
+
+  useEffect(() => {
+    if(profile){
+      navigate("/workspaces")
+    }
+  }, [profile, navigate]);
   
 return (
  <section className="profile-setup">
