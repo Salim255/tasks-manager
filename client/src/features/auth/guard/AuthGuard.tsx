@@ -5,7 +5,7 @@ export const AuthGuard = ({children}: {children: React.ReactNode}) => {
   const isAuthenticated = useIsAuthenticated();
   
   if (!isAuthenticated) {
-    return <Navigate to="/auth" replace />;
+    return <Navigate to="/landing" replace />;
   }
 
   return  children;
