@@ -36,7 +36,10 @@ export const AuthForm = () => {
     }
 
     const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
-        setField(e.target.name as "password" | "email" | "confirmPassword", e.target.value);
+        const { name, value } = e.target;
+        setField(
+            name as "password" | "email" | "confirmPassword",
+            name === "email" ? value.toLowerCase() : value);
     }
 
     const handleAutMode = () => {
@@ -49,11 +52,11 @@ export const AuthForm = () => {
                 <div className="form__group">
                     <label className="form__label">Email</label>
                     <input 
-                    className="form__input"
-                    name="email"
-                    onChange={handleInput}
-                    value={state.email}
-                    placeholder="Enter your email"
+                        className="form__input"
+                        name="email"
+                        onChange={handleInput}
+                        value={state.email}
+                        placeholder="Enter your email"
                     />
                     {state.errors.email && (
                     <p className="form__error">{state.errors.email}</p>
@@ -63,11 +66,11 @@ export const AuthForm = () => {
                 <div className="form__group">
                     <label className="form__label">Password</label>
                     <input 
-                    className="form__input"
-                    name="password"
-                    onChange={handleInput}
-                    value={state.password}
-                    placeholder="Password"
+                        className="form__input"
+                        name="password"
+                        onChange={handleInput}
+                        value={state.password}
+                        placeholder="Password"
                     />
                     {state.errors.password && (
                     <p className="form__error">{state.errors.password}</p>
