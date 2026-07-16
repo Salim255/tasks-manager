@@ -1,3 +1,5 @@
+import { SkeletonBase } from "../../../shared/kits/skeleton-base/SkeletonBase";
+
 export const SprintHeaderSkeleton = () => (
   <header className="sprint__header">
 

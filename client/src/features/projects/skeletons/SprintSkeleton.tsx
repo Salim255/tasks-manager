@@ -1,6 +1,6 @@
-import { SkeletonBase } from "../../../../../shared/kits/skeleton-base/SkeletonBase";
+import { BoardTaskItemSkeleton } from "./BoardTaskItemSkeleton";
 import { SprintHeaderSkeleton } from "./SprintHeaderSkeleton";
-import { TaskItemSkeleton } from "./TaskItemSkeleton";
+import { SkeletonBase } from "../../../shared/kits/skeleton-base/SkeletonBase";
 
 export const SprintSkeleton = () => {
   return (
@@ -9,9 +9,9 @@ export const SprintSkeleton = () => {
       <SprintHeaderSkeleton />
 
       <div className="sprint__tasks">
-        <TaskItemSkeleton />
-        <TaskItemSkeleton />
-        <TaskItemSkeleton />
+        <BoardTaskItemSkeleton />
+        <BoardTaskItemSkeleton />
+        <BoardTaskItemSkeleton />
       </div>
 
       <footer className="sprint__footer">
