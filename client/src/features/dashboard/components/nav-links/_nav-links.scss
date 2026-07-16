@@ -14,7 +14,7 @@
 
 
   /* ============================================
-     MAIN NAV LINK
+     NAV ITEM
   ============================================ */
 
   &__nav-link {
@@ -27,35 +27,42 @@
 
     gap: var(--space-3);
 
-    height: 4.6rem;
 
-    padding: 0 var(--space-3);
+    height: 4.4rem;
+
+
+    padding:
+      0
+      var(--space-3);
 
 
     border-radius: var(--radius-md);
 
 
-    color: var(--grey-600);
+    color: var(--text-secondary);
+
 
     text-decoration: none;
 
 
-    font-size: var(--text-lg);
+    font-size: var(--text-base);
 
-    font-weight: var(--font-semibold);
+    font-weight: var(--font-medium);
 
-    letter-spacing: .01em;
+    letter-spacing: 0;
 
-    text-transform: capitalize;
 
     transition:
 
       background-color var(--transition-fast),
 
-      color var(--transition-fast);
+      color var(--transition-fast),
+
+      transform var(--transition-fast);
 
 
-    /* Active indicator */
+
+    /* subtle active background */
 
     &::before {
 
@@ -63,19 +70,17 @@
 
       position: absolute;
 
-      left: 0;
-
-      top: .8rem;
-
-      bottom: .8rem;
-
-      width: .3rem;
-
-      border-radius:
-        0 var(--radius-full) var(--radius-full) 0;
+      inset: .4rem 0;
 
 
-      background: transparent;
+      border-radius: inherit;
+
+
+      background:
+        transparent;
+
+
+      z-index: -1;
 
 
       transition:
@@ -85,113 +90,171 @@
 
 
 
+
     &:hover {
 
-      background: var(--surface-secondary);
+      color: var(--text-primary);
 
-      color: var(--action-primary);
+
+      background:
+        var(--surface-secondary);
+
 
 
       .icon {
 
-        color: var(--action-primary);
+        color:
+          var(--primary-500);
 
       }
 
     }
 
 
-  /* ============================================
-     ICON
-  ============================================ */
+
+
+
+    /* ============================================
+       ICON
+    ============================================ */
 
     .icon {
 
-      flex-shrink: 0;
+      display:flex;
+
+      align-items:center;
+
+      justify-content:center;
 
 
-      display: flex;
-
-      align-items: center;
-
-      justify-content: center;
+      flex-shrink:0;
 
 
-      width: 2rem;
+      width:2rem;
 
-      height: 2rem;
+      height:2rem;
 
-      font-size: var(--text-lg);
+
+      color:
+        var(--text-muted);
+
+
+      font-size:
+        var(--text-lg);
+
+
 
       transition:
-
         color var(--transition-fast);
 
-  }
+    }
 
+
+
+
+
+    /* ============================================
+       ACTIVE
+    ============================================ */
 
 
     &--active {
 
-      background: var(--primary-50);
 
-      color: var(--primary-700);
-
-
-      box-shadow:
-        inset 0 0 0 1px rgba(59,130,246,.08);
+      color:
+        var(--primary-700);
 
 
+      font-weight:
+        var(--font-semibold);
 
-      &::before {
 
-        background: var(--action-primary);
 
-      }
+      background:
+        color-mix(
+          in srgb,
+          var(--primary-500) 10%,
+          transparent
+        );
+
+
 
       .icon {
-        fill: var(--action-primary);
-        //background-color: red;
+
+        color:
+          var(--primary-500);
+
       }
 
+
+
+      &:hover {
+
+        background:
+          color-mix(
+            in srgb,
+            var(--primary-500) 14%,
+            transparent
+          );
+
+      }
+
+
     }
+
 
   }
 
 
+
+
   /* ============================================
-     PROJECT GROUP
+     PROJECT TREE
   ============================================ */
+
 
   &__projects {
 
-    display: flex;
 
-    flex-direction: column;
+    display:flex;
 
-
-    gap: var(--space-1);
+    flex-direction:column;
 
 
-
-    margin-top: var(--space-3);
-
-    margin-left: var(--space-5);
-
-
-    padding-left: var(--space-3);
-
-
-    border-left: 1px solid var(--border-default);
+    gap:
+      var(--space-1);
 
 
 
-    overflow: hidden;
+    margin:
+
+      var(--space-3)
+
+      0
+
+      0
+
+      var(--space-5);
 
 
-    max-height: 60rem;
 
-    opacity: 1;
+    padding-left:
+      var(--space-4);
+
+
+
+    border-left:
+      1px solid var(--border-default);
+
+
+
+    overflow:hidden;
+
+
+    max-height:60rem;
+
+
+    opacity:1;
 
 
 
@@ -207,13 +270,16 @@
 
 
 
-  &__projects--active {
 
-    max-height: 0;
+  &__projects--collapsed {
 
-    opacity: 0;
 
-    margin-top: 0;
+    max-height:0;
+
+    opacity:0;
+
+    margin-top:0;
+
 
   }
 

@@ -159,18 +159,22 @@ export const Backlog = () => {
                     onDragStart={(e) => onDragStart(task, e)}
                   />
                 ))}
+
+                <div className="backlog__footer">
+                  <CreateTask projectId={projectId} sprintId={null} />
+                </div>
               </div>
             ) : (
-              <div className="backlog-container__empty">
-                Your backlog is empty
-              </div>
+              <>
+                <div className="backlog-container__empty">
+                 Your backlog is empty
+                </div>
+                <div className="backlog__footer">
+                  <CreateTask projectId={projectId} sprintId={null} />
+                </div>
+              </>
             )}
           </section>
-
-          <footer className="backlog__footer">
-            <CreateTask projectId={projectId} sprintId={null} />
-          </footer>
-
         </section>
       </Panel>
         <Separator className="backlog-container__separator" />
