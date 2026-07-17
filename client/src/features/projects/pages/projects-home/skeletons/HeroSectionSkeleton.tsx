@@ -2,7 +2,6 @@ import { SkeletonBase } from "../../../../../shared/kits/skeleton-base/SkeletonB
 
 export const HeroSectionSkeleton = () => {
   return (
-    <section className="projects-home__hero">
       <div className="projects-home__hero-content">
 
         <SkeletonBase height={18} width={160} viewBox="0 0 160 18">
@@ -28,6 +27,5 @@ export const HeroSectionSkeleton = () => {
         </div>
 
       </div>
-    </section>
   );
 };
