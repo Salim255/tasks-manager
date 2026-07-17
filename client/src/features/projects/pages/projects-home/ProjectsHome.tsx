@@ -11,6 +11,7 @@ import { ProjectsPanel } from "./components/projects-panel/ProjectsPanel";
 import { AssignedToMePanel } from "./components/assigned-to-me-panel/AssignedToMePanel";
 import { PageMotion } from "../../../../shared/motion/PageMotion";
 import { ProjectsHomeSkeleton } from "./skeletons/ProjectsHomeSkeleton";
+import { fetchSingleProjectHttp } from "../../http/project.http";
 
 
 export const ProjectsHome = () => {
@@ -34,6 +35,7 @@ export const ProjectsHome = () => {
     if (!project?.id || !project?.key) return;
     
     dispatch(setActiveProject({projectId: project?.id}));
+    dispatch(fetchSingleProjectHttp({projectId: project.id}))
     queueMicrotask(() => {
       navigate(`/workspaces/${project?.key}/board`);
     })
