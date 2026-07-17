@@ -11,6 +11,7 @@ export class DashboardOverviewMapper {
                 assigneeId: string | null
             } []
         ) {
+            
         return tasks
             .reduce<ProjectTasksOverviewDto>(
             (

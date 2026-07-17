@@ -105,8 +105,8 @@ export class ProjectService {
       // and are due to tomorrow and today and height   
       const needsAttentionDto: NeedsAttentionDto = await this.getAssigneeToMeTasksNeedsAttentionDto(activeSprintsIds);
 
-      const assignedMeDueThisWeekCounter = await this.getAssigneeToMeTasksDueThisWeek(activeSprintsIds);
-
+  
+      const assignedMeDueThisWeekCounter: number = await this.getAssigneeToMeTasksDueThisWeek(activeSprintsIds);
       const result: DashboardOverviewDto = {
         projectsOverview: projectsOverviewDto,
         assignedToMe: {
@@ -340,6 +340,8 @@ export class ProjectService {
 }
 
   async getAssigneeToMeTasksDueThisWeek(activeSprintsIds: string[]): Promise<number>{
+    if(!activeSprintsIds?.length) return 0;
+
     const now = new Date();
     const startOfWeek = new Date(now);
     startOfWeek.setDate(now.getDate() - now.getDay()); // Sunday
@@ -360,7 +362,14 @@ export class ProjectService {
     return Number(result?.count) ?? 0;
   }
 
-  async getAssigneeToMeTasksNeedsAttentionDto(activeSprintsIds: string[]){
+  async getAssigneeToMeTasksNeedsAttentionDto(activeSprintsIds: string[]): Promise<NeedsAttentionDto>{
+    if (!activeSprintsIds?.length) {
+      return {
+        today: [],
+        tomorrow: [],
+        highPriority: [],
+      }
+    }
     const now = new Date();
 
     const todayStart = new Date(
@@ -375,7 +384,7 @@ export class ProjectService {
     const dayAfterTomorrowStart = new Date(tomorrowStart);
     dayAfterTomorrowStart.setDate(tomorrowStart.getDate() + 1);
 
-    return await this.data_source.manager
+    const result =  await this.data_source.manager
       .createQueryBuilder(Task, "task")
       .select(`
         COALESCE(
@@ -473,5 +482,11 @@ export class ProjectService {
         highPriority: "high",
       })
       .getRawOne();
+    
+    return result ?? {
+      today: [],
+      tomorrow: [],
+      highPriority: [],
+    }
   }
 }
