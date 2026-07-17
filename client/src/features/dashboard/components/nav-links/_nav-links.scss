@@ -13,6 +13,8 @@
   padding: var(--space-4) 0;
 
   padding-left: 4rem;
+  min-height: 0;
+  height: 100%;
   /* ============================================
      NAV ITEM
   ============================================ */
@@ -176,7 +178,7 @@
     display:flex;
     flex-direction:column;
     overflow-y: auto;
-    flex: .3;
+    flex: .7;
     gap: var(--space-3);
 
     margin: var(--space-3) 0 0 var(--space-5);
