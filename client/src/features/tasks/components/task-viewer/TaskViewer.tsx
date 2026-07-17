@@ -320,7 +320,8 @@ export const TaskViewer = () => {
                         <input
                             readOnly
                             className="task-viewer__input"
-                            defaultValue={`${task?.reporter?.profile.firstName} ${task?.reporter?.profile.lastName}`}
+                            defaultValue={
+                                `${task?.reporter?.profile.firstName} ${task?.reporter?.profile.lastName}`}
                         />
                     </div>
 
