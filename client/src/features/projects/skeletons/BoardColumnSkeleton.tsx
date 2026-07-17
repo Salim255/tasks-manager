@@ -1,7 +1,7 @@
 import { SkeletonBase } from "../../../shared/kits/skeleton-base/SkeletonBase";
 import { BoardTaskItemSkeleton } from "./BoardTaskItemSkeleton";
 
-export const BoardColumnSkeleton = ({ title }: { title: string }) => {
+export const BoardColumnSkeleton = () => {
   return (
     <div className="board-column board-column--skeleton">
 
