@@ -1,6 +1,6 @@
-import React from "react";
+import { SkeletonBase } from "../../../../../shared/kits/skeleton-base/SkeletonBase";
 
-export const AssignedToMePanelSkeleton: React.FC = () => {
+export const AssignedToMePanelSkeleton = () => {
   return (
     <section className="projects-home__panel">
 
