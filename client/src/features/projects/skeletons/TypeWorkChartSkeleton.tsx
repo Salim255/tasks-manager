@@ -1,3 +1,5 @@
+import { SkeletonBase } from "../../../shared/kits/skeleton-base/SkeletonBase";
+
 export const TypeWorkChartSkeleton = () => {
   return (
     <div className="type-work-chart">
