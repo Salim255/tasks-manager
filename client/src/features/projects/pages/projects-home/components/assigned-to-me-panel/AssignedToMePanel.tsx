@@ -1,4 +1,7 @@
-export const AssignedToMePanel = ({ dashboardData }) => {
+import type { DashboardData } from "../../interfaces/project-home.interface";
+import { HomeTaskItem } from "../home-task-item/HomeTaskItem";
+
+export const AssignedToMePanel = ({ dashboardData }: {dashboardData: DashboardData}) => {
   const today = dashboardData?.assignedToMe?.needsAttention?.today ?? [];
   const tomorrow = dashboardData?.assignedToMe?.needsAttention?.tomorrow ?? [];
   const high = dashboardData?.assignedToMe?.needsAttention?.highPriority ?? [];
@@ -14,9 +17,9 @@ export const AssignedToMePanel = ({ dashboardData }) => {
       </div>
 
       <div className="projects-home__tasks-list">
-        {today.map((t) => <TaskItem key={t.id} task={t} type="task" meta="Today" />)}
-        {tomorrow.map((t) => <TaskItem key={t.id} task={t} type="story" meta="Tomorrow" />)}
-        {high.map((t) => <TaskItem key={t.id} task={t} type="bug" meta="High priority" />)}
+        {today.map((t) => <HomeTaskItem key={t.id} task={t} type="task" meta="Today" />)}
+        {tomorrow.map((t) => <HomeTaskItem key={t.id} task={t} type="story" meta="Tomorrow" />)}
+        {high.map((t) => <HomeTaskItem key={t.id} task={t} type="bug" meta="High priority" />)}
       </div>
 
     </section>

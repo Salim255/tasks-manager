@@ -1,10 +1,21 @@
+import type { ProjectCardData } from "../../interfaces/project-home.interface";
+import { ProjectCard } from "../project-card/ProjectCard";
+
+interface ProjectsPanelProps {
+  visibleProjects: ProjectCardData[];
+  hasMoreProjects: boolean;
+  showAllProjects: boolean;
+  setShowAllProjects: React.Dispatch<React.SetStateAction<boolean>>;
+  onNavigateProject: (p: ProjectCardData) => void;
+}
+
 export const ProjectsPanel = ({
   visibleProjects,
   hasMoreProjects,
   showAllProjects,
   setShowAllProjects,
   onNavigateProject,
-}) => (
+}: ProjectsPanelProps) => (
   <section className="projects-home__panel">
 
     <div className="projects-home__panel-header">

@@ -1,4 +1,4 @@
-export const HeroSection = ({ onCreateProject }) => (
+export const HeroSection = ({onCreateProject}: { onCreateProject: () => void }) => (
   <section className="projects-home__hero">
     <div className="projects-home__hero-content">
       <span className="projects-home__eyebrow">Workspace overview</span>

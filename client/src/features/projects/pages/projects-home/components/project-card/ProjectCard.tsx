@@ -1,4 +1,25 @@
-export const ProjectCard = ({ project, onClick }) => (
+import type { ProjectCardData } from "../../interfaces/project-home.interface";
+
+interface ProjectCardProps {
+  project: ProjectCardData;
+  onClick: () => void;
+}
+
+export function stringToColor(value: string): string {
+  let hash = 0;
+
+  for (let i = 0; i < value.length; i++) {
+    hash = value.charCodeAt(i) + ((hash << 5) - hash);
+  }
+
+  const hue = Math.abs(hash) % 360;
+  const saturation = 55 + (Math.abs(hash >> 8) % 25); // 55-80%
+  const lightness = 40 + (Math.abs(hash >> 16) % 20); // 40-60%
+
+  return `hsla(${hue}, ${saturation}%, ${lightness}%, 0.14)`;
+}
+
+export const ProjectCard = ({ project, onClick }: ProjectCardProps) => (
   <article className="projects-home__project-card" onClick={onClick}>
 
     <div className="projects-home__project-top">

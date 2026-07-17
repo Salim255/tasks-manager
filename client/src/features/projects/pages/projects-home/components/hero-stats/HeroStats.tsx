@@ -1,4 +1,7 @@
-export const HeroStats = ({ dashboardData }) => {
+import type { DashboardData } from "../../interfaces/project-home.interface";
+import { StatCard } from "../stat-card/StatCard";
+
+export const HeroStats = ({ dashboardData }: {dashboardData?: DashboardData}) => {
   const d = dashboardData?.projectsOverview;
 
   return (
@@ -6,7 +9,7 @@ export const HeroStats = ({ dashboardData }) => {
 
       <StatCard
         label="Active projects"
-        value={d?.activeProjectsCount}
+        value={d?.activeProjectsCount ?? 0}
         meta={`${d?.activeProjectsCount} updated today`}
       />
 
