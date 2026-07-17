@@ -35,6 +35,8 @@ export const fetchDashboardOverviewHttp = createAsyncThunk<
     { rejectValue: ApiErrorDto }
     > ('fetch/dashboard-overview-data', async (_, thunkApi) => {
         try {
+            // Simulate network latency
+            //await new Promise((resolve) => setTimeout(resolve, 3500)); // 1.5s delay
             const response = await api.get("projects/dashboard-overview", { withCredentials: true});
             return response.data;
         } catch (error) {

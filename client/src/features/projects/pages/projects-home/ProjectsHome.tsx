@@ -11,21 +11,8 @@ import { HeroStats } from "./components/hero-stats/HeroStats";
 import { ProjectsPanel } from "./components/projects-panel/ProjectsPanel";
 import { AssignedToMePanel } from "./components/assigned-to-me-panel/AssignedToMePanel";
 import { PageMotion } from "../../../../shared/motion/PageMotion";
-import { ProfileHeroSkeleton } from "../../../profile/pages/profile/skeletons/ ProfileSkeletons";
 import { ProjectsHomeSkeleton } from "./skeletons/ProjectsHomeSkeleton";
-export function stringToColor(value: string): string {
-  let hash = 0;
 
-  for (let i = 0; i < value.length; i++) {
-    hash = value.charCodeAt(i) + ((hash << 5) - hash);
-  }
-
-  const hue = Math.abs(hash) % 360;
-  const saturation = 55 + (Math.abs(hash >> 8) % 25); // 55-80%
-  const lightness = 40 + (Math.abs(hash >> 16) % 20); // 40-60%
-
-  return `hsla(${hue}, ${saturation}%, ${lightness}%, 0.14)`;
-}
 
 export const ProjectsHome = () => {
   const [showAllProjects, setShowAllProjects] = useState(false);
