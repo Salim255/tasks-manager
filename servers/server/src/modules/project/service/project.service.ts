@@ -4,7 +4,7 @@ import {
   InternalServerErrorException,
   Logger,
 } from '@nestjs/common';
-import { DATA_SOURCE, PROJECT_REPOSITORY } from 'src/common/constants/constants';
+import { DATA_SOURCE, EMPTY_DASHBOARD_OVERVIEW, PROJECT_REPOSITORY } from 'src/common/constants/constants';
 import {
   DataSource,
   FindOptionsRelations,
@@ -20,8 +20,6 @@ import { sortByDate } from 'src/common/utils/sort.utils';
 import { Task } from 'src/modules/task/entity/task.entity';
 import { DashboardOverviewDto, NeedsAttentionDto, ProjectsOverviewDto, ProjectSprintOverviewDto, ProjectTasksOverviewDto, RecentProjectDto, TasksOverviewDto } from '../dto/dashboard-overview.dto';
 import { Sprint } from 'src/modules/sprint/entity/sprint.entity';
-import { SprintStatus } from 'src/modules/sprint/dto/sprint.dto';
-import { take } from 'rxjs';
 import { DashboardOverviewMapper } from 'src/common/utils/dashboardOverviewMapper';
 
 @Injectable()
@@ -35,11 +33,15 @@ export class ProjectService {
   ) {}
 
 
-  async geDashboardOverViewDto(userId: string){
+  async geDashboardOverViewDto(userId: string): Promise<DashboardOverviewDto>{
     try {
       
       const recentProjects: RecentProjectDto[]  = await this.getRecentProjectsMetrics(userId);
       
+      if (!recentProjects?.length) {
+        return EMPTY_DASHBOARD_OVERVIEW;
+      }
+
       const projects = await this.projectRepo
         .createQueryBuilder("project")
         .leftJoin("project.members", "member")
@@ -118,6 +120,7 @@ export class ProjectService {
       //return getActiveSprints;
       //return activeSprintsIds
     } catch (error){
+        this.logger.error("Error in fetching dashboard data",error)
         throw error
     }
   }

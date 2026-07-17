@@ -1,9 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import "./_projects-home.scss";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDashboardView, useIsFetchingDashboard } from "../../states/projectsSelectors";
 import { useDispatch } from "react-redux";
-import { fetchDashboardOverviewHttp } from "../../http/project.http";
 import type { AppDispatch } from "../../../../redux/store";
 import { setActiveProject } from "../../states/projectSlice";
 import { HeroSection } from "./components/hero-section/HeroSection";
@@ -39,12 +38,6 @@ export const ProjectsHome = () => {
       navigate(`/workspaces/${project?.key}/board`);
     })
   }
-
-  useEffect(() => {
-    if(!dashboardData && !isFetchingDashboard) {
-      dispatch(fetchDashboardOverviewHttp());
-    }
-  }, [dispatch,dashboardData,  isFetchingDashboard]);
 
   return (
     <PageMotion>
