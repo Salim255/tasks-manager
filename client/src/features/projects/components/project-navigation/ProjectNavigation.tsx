@@ -1,7 +1,8 @@
 import { projectLinks } from "../../../../shared/utils/links";
 import { NavLink } from "react-router-dom";
+import { ProjectActions } from "../project-header-action/ProjectHeaderAction";
 
-export const ProjectNavigation = ({ projectKey }: { projectKey?: string }) => (
+export const ProjectNavigation = ({ projectKey, projectId }: { projectKey?: string, projectId: string }) => (
   <nav className="project-header__nav" aria-label="Project sections">
     {projectLinks.map((link) => (
       <NavLink
@@ -17,5 +18,6 @@ export const ProjectNavigation = ({ projectKey }: { projectKey?: string }) => (
         <span className="project-header__link-text">{link.text}</span>
       </NavLink>
     ))}
+    <ProjectActions projectId={projectId!} />
   </nav>
 );

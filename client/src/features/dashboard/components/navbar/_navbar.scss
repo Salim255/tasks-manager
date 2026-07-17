@@ -10,23 +10,16 @@
 
   top:0;
 
-  z-index:
-    var(--z-sticky);
+  z-index: var(--z-sticky);
 
 
 
-  backdrop-filter:
-    blur(10px);
-
-
-
-
+  backdrop-filter: blur(10px);
 
   &__container {
 
 
-    min-height:
-      var(--nav-height);
+    min-height: 10rem;
 
 
 

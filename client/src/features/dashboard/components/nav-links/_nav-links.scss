@@ -12,7 +12,7 @@
 
   padding: var(--space-4) 0;
 
-
+  padding-left: 4rem;
   /* ============================================
      NAV ITEM
   ============================================ */
@@ -25,7 +25,7 @@
 
     align-items: center;
 
-    gap: var(--space-3);
+    gap: var(--space-4);
 
 
     height: 5.4rem;
@@ -34,10 +34,8 @@
     padding: 0 var(--space-3);
 
     padding-left: var(--space-5);
-    //border-radius: var(--radius-md);
-
-
-    color: var(--text-secondary);
+   
+    color: var(--grey-700);
 
     text-transform: uppercase;
     text-decoration: none;
@@ -117,11 +115,10 @@
 
       flex-shrink:0;
 
-      color:
-        var(--text-muted);
+      color: var(--text-muted);
 
 
-      font-size: var(--text-4xl);
+      font-size: var(--text-2xl);
       transition: color var(--transition-fast);
 
     }
@@ -179,8 +176,8 @@
     display:flex;
     flex-direction:column;
     overflow-y: auto;
-    flex: .5;
-    gap: var(--space-1);
+    flex: .3;
+    gap: var(--space-3);
 
     margin: var(--space-3) 0 0 var(--space-5);
 

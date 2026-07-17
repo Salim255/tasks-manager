@@ -4,7 +4,7 @@
    DASHBOARD SHELL
 ============================================ */
 .app-layout {
-  --sidebar-width: 28rem;
+  --sidebar-width: 30rem;
 
   display: grid;
   grid-template-columns: 0 minmax(0,1fr);
@@ -20,6 +20,7 @@
     grid-template-columns:
       var(--sidebar-width)
       minmax(0,1fr);
+    
   }
 
   &__aside{
@@ -41,6 +42,8 @@
   &__bg-bar{
     width:var(--sidebar-width);
     flex-shrink:0;
+
+    //padding: 6rem 6rem 0 6rem;
   }
 
   &__content{
