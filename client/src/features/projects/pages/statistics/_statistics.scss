@@ -2,10 +2,13 @@
 
 .statistics {
     display: flex;
-    justify-content: center;
     gap: 2rem;
+    min-width: 0;
+    min-height: 0;
+    height: 100%;   
     &__work-status,
     &__work-types {
+     margin-top: 2rem;
      flex: 1;
     }
 }
@@ -15,5 +18,10 @@
     .statistics{
         flex-direction: column;
         overflow-y: auto;
+
+        &__work-status,
+        &__work-types {
+            flex: .5;
+        }
     }
 }
