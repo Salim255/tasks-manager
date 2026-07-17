@@ -1,4 +1,5 @@
 import { SkeletonBase } from "../../../../../shared/kits/skeleton-base/SkeletonBase";
+import { HomeTaskItemSkeleton } from "./TaskItemSkeleton";
 
 export const AssignedToMePanelSkeleton = () => {
   return (
@@ -17,9 +18,9 @@ export const AssignedToMePanelSkeleton = () => {
       </div>
 
       <div className="projects-home__tasks-list u-mt-md">
-        <TaskItemSkeleton />
-        <TaskItemSkeleton />
-        <TaskItemSkeleton />
+        <HomeTaskItemSkeleton />
+        <HomeTaskItemSkeleton />
+        <HomeTaskItemSkeleton />
       </div>
 
     </section>

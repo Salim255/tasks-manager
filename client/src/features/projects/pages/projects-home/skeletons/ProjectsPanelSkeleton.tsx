@@ -1,4 +1,5 @@
-import { SkeletonBase } from "../../../../../shared/kits/skeleton-base/SkeletonBase"
+import { SkeletonBase } from "../../../../../shared/kits/skeleton-base/SkeletonBase";
+import { ProjectCardSkeleton } from "./ProjectCardSkeleton";
 
 export const ProjectsPanelSkeleton = () => {
   return (
@@ -8,7 +9,6 @@ export const ProjectsPanelSkeleton = () => {
         <div>
           <SkeletonBase height={24} width={180} viewBox="0 0 180 24">
             <rect x="0" y="0" rx="6" ry="6" width="180" height="20" />
-          </rect>
           </SkeletonBase>
 
           <div className="u-mt-xs">
@@ -21,7 +21,7 @@ export const ProjectsPanelSkeleton = () => {
         <SkeletonBase height={20} width={80} viewBox="0 0 80 20">
           <rect x="0" y="0" rx="6" ry="6" width="80" height="16" />
         </SkeletonBase>
-     
+      </div>
 
       <div className="projects-home__projects-list u-mt-md">
         <ProjectCardSkeleton />

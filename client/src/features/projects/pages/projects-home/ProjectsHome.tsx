@@ -10,7 +10,9 @@ import { HeroSection } from "./components/hero-section/HeroSection";
 import { HeroStats } from "./components/hero-stats/HeroStats";
 import { ProjectsPanel } from "./components/projects-panel/ProjectsPanel";
 import { AssignedToMePanel } from "./components/assigned-to-me-panel/AssignedToMePanel";
-
+import { PageMotion } from "../../../../shared/motion/PageMotion";
+import { ProfileHeroSkeleton } from "../../../profile/pages/profile/skeletons/ ProfileSkeletons";
+import { ProjectsHomeSkeleton } from "./skeletons/ProjectsHomeSkeleton";
 export function stringToColor(value: string): string {
   let hash = 0;
 
@@ -57,32 +59,40 @@ export const ProjectsHome = () => {
     }
   }, [dispatch,dashboardData,  isFetchingDashboard]);
 
-  
   return (
-    <main className="projects-home">
-      
-      
-      <section className="projects-home__hero">
-        <HeroSection onCreateProject={onCreateProject} />
+    <PageMotion>
+      <main className="projects-home">
+        {
+          isFetchingDashboard
+          ? <ProjectsHomeSkeleton/>
+          : (
+            <>  
+              <section className="projects-home__hero">
+                  <HeroSection onCreateProject={onCreateProject} />
 
-        <HeroStats dashboardData={dashboardData} />
-      </section>
+                  <HeroStats dashboardData={dashboardData} />
+                </section>
 
-      <section className="projects-home__grid">
-        <div className="projects-home__main">
-           <ProjectsPanel
-            visibleProjects={visibleProjects}
-            hasMoreProjects={hasMoreProjects}
-            showAllProjects={showAllProjects}
-            setShowAllProjects={setShowAllProjects}
-            onNavigateProject={onNavigateProject}
-          />
-        </div>
+                <section className="projects-home__grid">
+                  <div className="projects-home__main">
+                    <ProjectsPanel
+                      visibleProjects={visibleProjects}
+                      hasMoreProjects={hasMoreProjects}
+                      showAllProjects={showAllProjects}
+                      setShowAllProjects={setShowAllProjects}
+                      onNavigateProject={onNavigateProject}
+                    />
+                  </div>
 
-        <aside className="projects-home__sidebar">
-          <AssignedToMePanel dashboardData={dashboardData} />
-        </aside>
-      </section>
-    </main>
+                  <aside className="projects-home__sidebar">
+                    <AssignedToMePanel dashboardData={dashboardData} />
+                  </aside>
+                </section>
+            </>
+          )
+          } 
+        </main>
+    </PageMotion>
+   
   );
 };

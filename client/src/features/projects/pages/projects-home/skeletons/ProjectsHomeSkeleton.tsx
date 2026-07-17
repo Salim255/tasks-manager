@@ -6,12 +6,12 @@ import { AssignedToMePanelSkeleton } from "./AssignedToMePanelSkeleton";
 
 export const ProjectsHomeSkeleton: React.FC = () => {
   return (
-    <main className="projects-home">
+     <>
+      <section className="projects-home__hero">
+        <HeroSectionSkeleton />
 
-      <HeroSectionSkeleton />
-
-      <HeroStatsSkeleton />
-
+        <HeroStatsSkeleton />
+      </section>
       <section className="projects-home__grid">
 
         <div className="projects-home__main">
@@ -23,6 +23,6 @@ export const ProjectsHomeSkeleton: React.FC = () => {
         </aside>
 
       </section>
-    </main>
+     </>
   );
 };
