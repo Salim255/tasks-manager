@@ -1,4 +1,4 @@
-const ProjectsPanel = ({
+export const ProjectsPanel = ({
   visibleProjects,
   hasMoreProjects,
   showAllProjects,
