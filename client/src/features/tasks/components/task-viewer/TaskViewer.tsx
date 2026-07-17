@@ -29,6 +29,7 @@ export const TaskViewer = () => {
     const { state, setField } = useTaskForm(task);
 
    
+    console.log(task, "Hello world");
 
     const handleFieldChange = (
         field: EditableTaskField,
@@ -208,12 +209,13 @@ export const TaskViewer = () => {
                         </label>
                         <div className="text">
                              <SelectDropdown
-                                      value={state.status}
-                                      options={taskStatuses}
-                                      onChange={(val) =>
-                                        handleFieldChange("status", val)
-                                      }
-                                    />
+                                value={state.status}
+                                options={taskStatuses}
+                                onChange={(val) =>
+                                handleFieldChange("status", val)
+                                }
+                                
+                            />
                         </div>
             
 
@@ -318,7 +320,7 @@ export const TaskViewer = () => {
                         <input
                             readOnly
                             className="task-viewer__input"
-                            defaultValue="Salim Hassan"
+                            defaultValue={`${task?.reporter?.profile.firstName} ${task?.reporter?.profile.lastName}`}
                         />
                     </div>
 

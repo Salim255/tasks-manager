@@ -2,7 +2,7 @@ import { ApiResponseData } from "src/common/interfaces/shared.interface";
 import { TaskDto } from "src/modules/task/dto/task.dto";
 
 export class DashboardViewDtoResponse extends ApiResponseData<{
-  dashboardData: DashboardOverviewDto | null;
+  dashboardData: DashboardOverviewDto;
 }> {}
 
 export interface DashboardOverviewDto {

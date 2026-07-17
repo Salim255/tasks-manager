@@ -39,14 +39,14 @@ export const SelectDropdown = ({
   );
 
 
-  const openDropdown = () => {
-    setIsOpen(true);
-  };
-
+  const openDropdown = () => setIsOpen(true);
+  const closeDropdown = () => setIsOpen(false);
 
   const toggleDropdown = () => {
-    setIsOpen(false);
+    setIsOpen(prev => !prev);
   };
+
+
 
   const selectOption = (option: SelectOption) => {
     onChange(option.value);
@@ -59,10 +59,10 @@ export const SelectDropdown = ({
 
     useEffect(() => {
         if (ref.current) {
-            register(ref, () => toggleDropdown());
+            register(ref, () => closeDropdown());
         }
         return () => unregister(ref);
-    }, [setIsOpen, register, unregister]);
+    }, [register, unregister]);
 
   return (
     <div    ref={ref} className="select-dropdown">
