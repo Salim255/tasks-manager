@@ -1,4 +1,6 @@
-const NavLinkSkeleton = () => (
+import { SkeletonBase } from "../../../shared/kits/skeleton-base/SkeletonBase";
+
+export const NavLinkSkeleton = () => (
   <div className="nav-links__nav-link nav-links__nav-link--skeleton">
 
     {/* Icon */}

@@ -7,8 +7,9 @@ const selectDashboardView = (store: RootState) => store.projectReducer.dashboard
 const selectIsFetchingDashboard = (store: RootState) => store.projectReducer.isFetchingDashboard;
 const selectIsAddMember = (store: RootState) => store.projectReducer.isAddMember;
 const selectIsLoadingActiveProject = (store: RootState) => store.projectReducer.isFetchingProject;
+const selectIsLoadingProjects = (store: RootState) => store.projectReducer.isLoading;
 
-
+export const useIsLoadingProjects = () => useSelector(selectIsLoadingProjects);
 export const useIsLoadingActiveProject = ()  => useSelector(selectIsLoadingActiveProject);
 export const useIsAddMember = () => useSelector(selectIsAddMember);
 export const useIsFetchingDashboard = () => useSelector(selectIsFetchingDashboard);

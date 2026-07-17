@@ -3,15 +3,17 @@ import './_nav-links.scss';
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { ProjectsLinks } from '../../../projects/components/products-link/ProjectsLink';
 import { Fragment, useEffect, useState } from 'react';
-import { useActiveProject, useSelectProjects} from "../../../projects/states/projectsSelectors";
+import { useActiveProject, useIsLoadingProjects, useSelectProjects} from "../../../projects/states/projectsSelectors";
 import { setActiveProject } from '../../../projects/states/projectSlice';
 import { fetchSingleProjectHttp } from '../../../projects/http/project.http';
 import { useDispatch } from 'react-redux';
 import { type AppDispatch } from '../../../../redux/store';
+import { NavbarSkeleton } from '../../skeletons/NavbarSkeleton';
 
 
 export const NavLinks = ({ toggleSidebar }: { toggleSidebar?: () => void}) => {
     const projects  = useSelectProjects();
+    const isLoadingProjects = useIsLoadingProjects();
     const activeProject = useActiveProject();
     const navigate = useNavigate();
     const  dispatch = useDispatch<AppDispatch>();
@@ -53,7 +55,10 @@ export const NavLinks = ({ toggleSidebar }: { toggleSidebar?: () => void}) => {
 
     return  ( 
         <div className="nav-links u-p-xl">
-            {
+          
+            {isLoadingProjects
+                ? <NavbarSkeleton />
+                :
                 links.map((link) => {
                 const {id, text, path, icon} = link;
                 return <Fragment key={id}>

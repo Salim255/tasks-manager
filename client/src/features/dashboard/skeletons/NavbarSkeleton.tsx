@@ -1,6 +1,7 @@
-import { SkeletonBase } from "../../../../../shared/kits/skeleton-base/SkeletonBase";
+import { NavLinkSkeleton } from "./NavLinkSkeleton";
+import { ProjectLinkSkeleton } from "./ProjectLinkSkeleton";
 
-export const AsideNavbarSkeleton = () => {
+export const NavbarSkeleton = () => {
   return (
     <div className="nav-links u-p-xl nav-links--skeleton">
 
@@ -15,8 +16,20 @@ export const AsideNavbarSkeleton = () => {
         <ProjectLinkSkeleton />
         <ProjectLinkSkeleton />
         <ProjectLinkSkeleton />
+        <ProjectLinkSkeleton />
+        <ProjectLinkSkeleton />
+        <ProjectLinkSkeleton />
+        <ProjectLinkSkeleton />
+        <ProjectLinkSkeleton />
+        <ProjectLinkSkeleton />
+        <ProjectLinkSkeleton />
+        <ProjectLinkSkeleton />
+        <ProjectLinkSkeleton />
       </div>
-
+      <NavLinkSkeleton />
+      <NavLinkSkeleton />
+      <NavLinkSkeleton />
+      <NavLinkSkeleton />
     </div>
   );
 };
