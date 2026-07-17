@@ -1,7 +1,7 @@
 import type { DashboardData } from "../../interfaces/project-home.interface";
 import { HomeTaskItem } from "../home-task-item/HomeTaskItem";
 
-export const AssignedToMePanel = ({ dashboardData }: {dashboardData: DashboardData}) => {
+export const AssignedToMePanel = ({ dashboardData }: {dashboardData?: DashboardData}) => {
   const today = dashboardData?.assignedToMe?.needsAttention?.today ?? [];
   const tomorrow = dashboardData?.assignedToMe?.needsAttention?.tomorrow ?? [];
   const high = dashboardData?.assignedToMe?.needsAttention?.highPriority ?? [];

@@ -1,5 +1,4 @@
 export const HeroSection = ({onCreateProject}: { onCreateProject: () => void }) => (
-  <section className="projects-home__hero">
     <div className="projects-home__hero-content">
       <span className="projects-home__eyebrow">Workspace overview</span>
       <h1 className="projects-home__title">Build with clarity.</h1>
@@ -13,5 +12,4 @@ export const HeroSection = ({onCreateProject}: { onCreateProject: () => void }) 
         </button>
       </div>
     </div>
-  </section>
 );
