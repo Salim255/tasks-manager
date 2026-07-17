@@ -47,10 +47,8 @@
 
 
   &__page {
-
-    height:100%;
-
     overflow: hidden;
     height: 100dvh;
+    min-height: 0;
   }
 }

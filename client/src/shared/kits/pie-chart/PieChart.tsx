@@ -19,7 +19,7 @@ export const PieChart = ({ data }: PieChartProps) => {
     return <ResponsivePie
         data={data}
         colors={{ datum: "data.color" }}
-        margin={{ top: 40, right: 40, bottom: 80, left: 80 }}
+        margin={{ top: 40, right: 40, bottom: 80, left: 40 }}
         innerRadius={0.75}
         padAngle={0.6}
         cornerRadius={2}

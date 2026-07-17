@@ -20,7 +20,7 @@ export const BarChart = ({ data }: BarChartProps) => {
       ]}
       indexBy="label"
       colors={({ data }) => data.color}
-      margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
+      margin={{ top: 50, right: 130, bottom: 50, left: 130 }}
       labelSkipWidth={12}
       labelSkipHeight={12}   
       padding={0.65}

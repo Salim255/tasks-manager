@@ -1,16 +1,14 @@
 .work-status-chart {
   display: flex;
   flex-direction: column;
-
-  height: 50%;
+  min-height: 0;
+  height: 100%;
   padding: 1.25rem;
 
   background: var(--white);
   border: 1px solid var(--grey-100);
   border-radius: 16px;
   box-shadow: var(--shadow-1);
-
-  min-height: 40rem;
 
   &__title {
     margin-bottom: 1rem;
