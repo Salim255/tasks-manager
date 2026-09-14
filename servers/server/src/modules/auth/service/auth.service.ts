@@ -7,19 +7,22 @@ import {
   BadRequestException,
 } from '@nestjs/common';
 import * as bcrypt from 'bcryptjs';
-import { LoginDto, RegisterDto, DataDto, DemoLoginDto, DataDtoWithTokens } from '../dto/auth.dto';
-import { USER_REPOSITORY } from 'src/common/constants/constants';
-import { Repository } from 'typeorm';
+import { LoginDto, RegisterDto, DemoLoginDto, DataDtoWithTokens } from '../dto/auth.dto';
+import { DATA_SOURCE, USER_REPOSITORY } from 'src/common/constants/constants';
+import { DataSource, Repository } from 'typeorm';
 import { User } from 'src/modules/user/entity/user.entity';
 import { JwtTokenService } from './jwt.token.service';
 import { ConfigService } from '@nestjs/config';
 import { getEnvVar } from 'src/common/utils/utils';
+import { Profile } from 'src/modules/profile/entity/profile.entity';
 
 @Injectable()
 export class AuthService {
   private logger = new Logger(AuthService.name);
 
   constructor(
+    @Inject(DATA_SOURCE)
+    private readonly dataSource: DataSource,
     private configService: ConfigService,
     private jwtService: JwtTokenService,
     @Inject(USER_REPOSITORY) private userRepo: Repository<User>,
@@ -205,16 +208,28 @@ export class AuthService {
 
       const hashedPassword = await bcrypt.hash(dto.password, 10);
 
-      const query = `
-        INSERT INTO users (email, password)
-        VALUES ($1, $2)
-        RETURNING email, role, "emailVerified", id, "createdAt";
-      `;
+      const user = await this.dataSource.manager.transaction(async (manager) => {
+          const userRepository = manager.getRepository(User);
+          const profileRepository = manager.getRepository(Profile);
 
-      const values = [dto.email, hashedPassword];
-      const createdUser: User[] = await this.userRepo.query(query, values);
+          const createdUser = userRepository.create({
+            email: dto.email,
+            password: hashedPassword,
+          });
 
-      const user = createdUser[0];
+          const savedUser = await userRepository.save(createdUser);
+
+          const profile = profileRepository.create({
+            userId: savedUser.id,
+            firstName: dto.firstName,
+            lastName: dto.lastName,
+          });
+
+          await profileRepository.save(profile);
+    
+          return savedUser;
+      });
+
 
       const { accessToken, refreshToken } =
         await this.generateAndStoreTokens({ user: user, demoClientId: null, isDemo: false });

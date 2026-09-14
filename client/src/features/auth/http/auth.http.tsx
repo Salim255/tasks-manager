@@ -61,7 +61,11 @@ export const authUserHttp = createAsyncThunk<
         try {
             const response = await api.post(
                 `/auth/${data.authType}`,
-                { email: data.email, password: data.password },
+                { 
+                    email: data.email, 
+                    password: data.password,
+                    ...(data.authType === 'register' ? { firstName: data.firstName, lastName: data.lastName } : {}),
+                 },
                 { withCredentials: true }
             )
             thunkApi.dispatch(getUserProfileHttp());

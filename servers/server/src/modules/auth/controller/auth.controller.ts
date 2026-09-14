@@ -258,12 +258,12 @@ export class AuthController {
     @Body() body: RegisterDto,
     @Res({ passthrough: true }) response: express.Response,
   ): Promise<RegisterResponseDto> {
-    const { email, password } = body;
+    const { email, password, firstName, lastName } = body;
 
-    if (!email || !password) {
-      throw new BadRequestException('Email and password are required');
+    if (!email || !password || !firstName || !lastName) {
+      throw new BadRequestException('All fields are required');
     }
-    const result = await this.authService.register({ email, password });
+    const result = await this.authService.register({ email, password, firstName, lastName });
 
     // Set HttpOnly cookies for access and refresh tokens
     this.tokenCookieService.setAuthCookies(

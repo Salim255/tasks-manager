@@ -59,6 +59,20 @@ export class RegisterDto {
   @IsNotEmpty()
   @MinLength(8)
   password!: string;
+
+
+  @ApiProperty({ example: 'John' })
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(4)
+  firstName!: string;
+
+  @ApiProperty({ example: 'Doe' })
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(4)
+  lastName!: string;
+
 }
 
 export class RegisterResponseDto {
@@ -81,4 +95,5 @@ export class RegisterResponseDto {
 }
 
 export class LoginResponseDto extends RegisterResponseDto {}
+
 export class RefreshSessionResponseDto extends LoginResponseDto {}

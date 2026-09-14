@@ -9,10 +9,12 @@ import { AuthService } from './service/auth.service';
 import { JwtAuthGuard } from './guard/jwt-auth.guard';
 import { TokenCookieService } from './service/token.cookie.service';
 import { getEnvVar } from 'src/common/utils/utils';
+import { ProfileRepository } from '../profile/repository/profile.repository';
 
 @Module({
   controllers: [AuthController],
   providers: [
+    ProfileRepository,
     JwtTokenService,
     AuthService,
     UserRepository,
