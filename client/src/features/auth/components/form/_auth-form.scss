@@ -1,5 +1,6 @@
 .auth {
   width: 100%;
+
   max-width: 60rem;
 
   padding: var(--space-8);
@@ -16,8 +17,12 @@
 
   &__actions {
     display: flex;
-    flex-direction: column;
+    align-items: center;
     gap: var(--space-4);
+
+    .btn--primary {
+      flex: 1;
+    }
   }
 
   &__switch {
@@ -47,6 +52,65 @@
 
     &:hover {
       color: var(--primary-500);
+    }
+  }
+
+  &__back {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 4.5rem;
+    height: 2.5rem;
+
+    padding: 0;
+
+    color: var(--text-secondary);
+
+    background: var(--surface-secondary);
+
+    border: 1px solid var(--border-color);
+
+    border-radius: 2rem;
+
+    cursor: pointer;
+
+    box-shadow:
+      0 1px 2px rgb(15 23 42 / 4%),
+      0 4px 10px rgb(15 23 42 / 5%);
+
+    transition:
+      color var(--transition-fast),
+      background-color var(--transition-fast),
+      border-color var(--transition-fast),
+      box-shadow var(--transition-fast),
+      transform var(--transition-fast);
+
+    svg {
+      font-size: 1.8rem;
+    }
+
+    &:hover {
+      color: var(--primary-600);
+
+      background: var(--primary-50);
+
+      border-color: var(--primary-200);
+
+      transform: translateX(-.125rem);
+
+      box-shadow:
+        0 1px 2px rgb(37 99 235 / 5%),
+        0 4px 12px rgb(37 99 235 / 8%);
+    }
+
+    &:active {
+      transform: translateX(0);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--primary-300);
+      outline-offset: 3px;
     }
   }
 }

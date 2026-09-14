@@ -5,7 +5,9 @@ export type AuthFormState = {
     email: string;
     password: string;
     confirmPassword: string;
-    errors: Partial<Record<"email" | "password" | "confirmPassword", string>>
+    firstName: string;
+    lastName: string;
+    errors: Partial<Record<"email" | "password" | "confirmPassword" | "firstName" | "lastName", string>>
 }
 
 
@@ -21,6 +23,8 @@ const initialUserState: AuthFormState = {
     email: '',
     password: '',
     confirmPassword: '',
+    firstName: '',
+    lastName: '',
     errors: {}
 }
 
