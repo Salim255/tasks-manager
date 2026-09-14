@@ -6,6 +6,8 @@ export type AuthPayload = {
     password: string; 
     email: string;
     authType: AuthType;
+    lastName?: string;
+    firstName?: string;
  };
 
 export type AuthResponseDto = {
