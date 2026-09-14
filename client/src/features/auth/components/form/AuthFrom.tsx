@@ -107,7 +107,6 @@ export const AuthForm = () => {
                 }),
         };
 
-        console.log("Payload:", payload);
         dispatch(authUserHttp(payload));
     };
 
