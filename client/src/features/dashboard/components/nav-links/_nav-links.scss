@@ -80,7 +80,7 @@
     ======================================== */
 
     &:hover {
-      color: var(--grey-600);
+   
 
       background-color: var(--surface-hover);
 
@@ -101,8 +101,7 @@
     ======================================== */
 
     &--active {
-      color: var(--grey-600);
-
+  
       background-color: var(--surface-secondary);
 
       border-color: var(--border-color);
