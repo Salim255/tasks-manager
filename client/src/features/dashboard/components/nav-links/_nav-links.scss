@@ -1,8 +1,3 @@
-/* ============================================
-   NAVIGATION
-   Clean modern task-manager navigation
-============================================ */
-
 .nav-links {
   display: flex;
   flex-direction: column;
@@ -11,14 +6,15 @@
   height: 100%;
   min-height: 0;
 
-  padding: var(--space-5) var(--space-4);
+  padding:
+    var(--space-6)
+    var(--space-5);
 
   background: var(--surface);
 
-  gap: var(--space-2);
-  /* ==========================================
-     NAVIGATION ITEM
-  ========================================== */
+  /* ============================================================
+     PRIMARY NAVIGATION
+     ============================================================ */
 
   &__nav-link {
     position: relative;
@@ -26,111 +22,112 @@
     display: flex;
     align-items: center;
 
-    min-height: 3.75rem;
+    width: 100%;
+    min-height: 4.25rem;
 
-    gap: var(--space-4);
+    margin-bottom: var(--space-4);
 
     padding:
       0
       var(--space-5);
 
-    color: var(--grey-500);
+    gap: var(--space-4);
 
-    border: 1px solid transparent;
-    border-radius: var(--radius-md);
+    color: var(--grey-600);
 
-    font-size: var(--text-lg);
+    background-color: var(--surface);
+
+    border-radius: var(--radius-lg);
+
+    font-size: var(--text-base);
     font-weight: var(--font-medium);
+    line-height: 1;
 
     text-decoration: none;
+
+    box-shadow:
+      0 1px 2px rgb(15 23 42 / 3%),
+      0 4px 10px rgb(15 23 42 / 4%),
+      0 12px 28px rgb(15 23 42 / 3%);
 
     transition:
       color var(--transition-fast),
       background-color var(--transition-fast),
-      border-color var(--transition-fast),
+      box-shadow var(--transition-fast),
       transform var(--transition-fast);
 
-
-    /* ========================================
+    /* ==========================================================
        ICON
-    ======================================== */
+       ========================================================== */
 
     .icon {
       display: flex;
       align-items: center;
       justify-content: center;
 
-      width: 1.625rem;
-      height: 1.625rem;
+      width: 2.5rem;
+      height: 2.5rem;
 
       flex-shrink: 0;
 
-      color: var(--grey-400);
+      color: var(--grey-500);
 
-      font-size: var(--text-2xl);
+      background-color: var(--grey-100);
+
+      border-radius: var(--radius-md);
+
+      font-size: var(--text-xl);
 
       transition:
         color var(--transition-fast),
-        transform var(--transition-fast);
+        background-color var(--transition-fast);
     }
 
-
-    /* ========================================
+    /* ==========================================================
        HOVER
-    ======================================== */
+       ========================================================== */
 
     &:hover {
-   
-
+  
       background-color: var(--surface-hover);
 
-      border-color: var(--border-color);
+      transform: translateY(-.125rem);
 
-      transform: translateX(.125rem);
+      box-shadow:
+        0 2px 4px rgb(15 23 42 / 4%),
+        0 8px 18px rgb(15 23 42 / 6%),
+        0 18px 38px rgb(15 23 42 / 5%);
 
       .icon {
-        color: var(--grey-500);
-
-        transform: scale(1.04);
+        color: var(--primary-600);
+        background-color: var(--primary-50);
       }
     }
 
-
-    /* ========================================
+    /* ==========================================================
        ACTIVE
-    ======================================== */
+       ========================================================== */
 
     &--active {
-  
-      background-color: var(--surface-secondary);
+      /*
+       * Keep the existing surface and elevation.
+       * Active state is communicated through content only.
+       */
 
-      border-color: var(--border-color);
+      color: var(--grey-500);
 
       font-weight: var(--font-semibold);
 
       .icon {
-        color: var(--primary-400);
-      }
-
-
-      &:hover {
-        background-color: var(--surface-hover);
-
-        transform: none;
-
-        .icon {
-          color: var(--primary-500);
-
-          transform: none;
-        }
+        color: var(--primary-600);
+        background-color: var(--primary-50);
       }
     }
   }
 
-
-  /* ==========================================
-     PROJECT TREE
-  ========================================== */
+  /* ============================================================
+     PROJECT NAVIGATION
+     ============================================================ */
 
   &__projects {
     display: flex;
@@ -143,15 +140,19 @@
 
     overflow-y: auto;
 
-    margin-top: var(--space-3);
+    margin-top: var(--space-1);
     margin-left: var(--space-5);
 
     padding:
-      var(--space-3)
-      0
-      var(--space-5)
+      var(--space-4)
+      var(--space-2)
+      var(--space-6)
       var(--space-5);
 
+    /*
+     * Subtle hierarchy line.
+     * Projects are intentionally quieter than primary navigation.
+     */
     border-left: 1px solid var(--grey-200);
 
     scrollbar-width: thin;
@@ -165,32 +166,11 @@
       padding var(--transition-normal);
   }
 
-
-  /* ==========================================
-     PROJECT TREE — ACTIVE
-  ========================================== */
+  /* ============================================================
+     PROJECTS — OPEN
+     ============================================================ */
 
   &__projects--active {
     opacity: 1;
-  }
-
-
-  /* ==========================================
-     PROJECT TREE — COLLAPSED
-  ========================================== */
-
-  &__projects--collapsed {
-    flex: 0;
-
-    max-height: 0;
-
-    margin-top: 0;
-
-    padding-top: 0;
-    padding-bottom: 0;
-
-    opacity: 0;
-
-    overflow: hidden;
   }
 }

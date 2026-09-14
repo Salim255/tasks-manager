@@ -19,13 +19,21 @@
 
   overflow: hidden;
 
+  background:
+    linear-gradient(
+      135deg,
+      var(--surface) 0%,
+      var(--surface-secondary) 100%
+    );
 
-
-  border-bottom: 1px solid var(--grey-200);
+  box-shadow:
+    0 1px 0 rgb(15 23 42 / 3%),
+    0 4px 12px rgb(15 23 42 / 3%),
+    0 12px 24px rgb(15 23 42 / 2%);
 
 
   /* ==========================================
-     SUBTLE BACKGROUND DETAIL
+     BACKGROUND DETAIL
   ========================================== */
 
   &::before {
@@ -33,15 +41,15 @@
 
     position: absolute;
 
-    top: -3rem;
+    top: -4rem;
     right: -3rem;
 
-    width: 8rem;
-    height: 8rem;
-
-    border: 1px solid var(--primary-100);
+    width: 9rem;
+    height: 9rem;
 
     border-radius: var(--radius-full);
+
+    background-color: var(--primary-50);
 
     opacity: .45;
 
@@ -54,10 +62,10 @@
 
     position: absolute;
 
-    right: 1.25rem;
-    bottom: -.0625rem;
+    right: var(--space-5);
+    bottom: 0;
 
-    width: 3rem;
+    width: 3.5rem;
     height: .125rem;
 
     background-color: var(--primary-400);
@@ -101,45 +109,51 @@
 
     flex-shrink: 0;
 
-    background-color: var(--white);
+    color: var(--primary-600);
 
-    border: 1px solid var(--primary-200);
+    background-color: var(--white);
 
     border-radius: var(--radius-md);
 
     box-shadow:
-      0 1px 2px rgb(15 23 42 / 4%),
-      0 4px 10px rgb(37 99 235 / 6%);
+      0 1px 2px rgb(15 23 42 / 5%),
+      0 3px 6px rgb(15 23 42 / 5%),
+      0 8px 16px rgb(37 99 235 / 7%);
 
     transition:
-      border-color var(--transition-fast),
+      color var(--transition-fast),
+      background-color var(--transition-fast),
       box-shadow var(--transition-fast),
       transform var(--transition-fast);
 
 
-    /* Inner frame */
+    /* Soft inner highlight */
 
     &::before {
       content: '';
 
       position: absolute;
 
-      inset: .25rem;
-
-      border: 1px solid var(--primary-100);
+      inset: .1875rem;
 
       border-radius: var(--radius-sm);
 
-      opacity: .8;
+      box-shadow:
+        inset 0 1px 1px rgb(255 255 255 / 80%);
+
+      pointer-events: none;
     }
 
 
     &:hover {
-      border-color: var(--primary-300);
+      color: var(--primary-700);
+
+      background-color: var(--primary-50);
 
       box-shadow:
-        0 2px 4px rgb(15 23 42 / 5%),
-        0 6px 14px rgb(37 99 235 / 10%);
+        0 2px 4px rgb(15 23 42 / 6%),
+        0 5px 10px rgb(15 23 42 / 6%),
+        0 10px 20px rgb(37 99 235 / 10%);
 
       transform: translateY(-.0625rem);
     }
@@ -161,19 +175,14 @@
     width: 100%;
     height: 100%;
 
-    color: var(--primary-600);
-
     font-size: var(--text-2xl);
 
     transition:
-      color var(--transition-fast),
       transform var(--transition-fast);
   }
 
 
   &__mark:hover &__mark-core {
-    color: var(--primary-700);
-
     transform: scale(1.04);
   }
 
@@ -245,12 +254,12 @@
 
     flex-shrink: 0;
 
-    background-color: var(--primary-400);
+    background-color: var(--status-done);
 
     border-radius: var(--radius-full);
 
     box-shadow:
-      0 0 0 3px var(--primary-50);
+      0 0 0 3px var(--success-bg);
   }
 
 
@@ -270,8 +279,6 @@
     height: 1.75rem;
 
     flex-shrink: 0;
-
-    opacity: .7;
   }
 
 
@@ -284,6 +291,7 @@
     border-radius: var(--radius-full);
 
     box-shadow:
-      0 0 0 4px var(--success-bg);
+      0 0 0 4px var(--success-bg),
+      0 2px 5px rgb(47 140 103 / 20%);
   }
 }
