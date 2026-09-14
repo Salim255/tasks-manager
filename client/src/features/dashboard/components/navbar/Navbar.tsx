@@ -17,6 +17,7 @@ export const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="navbar__container">
+
         <div className="navbar__left">
           <button
             type="button"
@@ -26,16 +27,12 @@ export const Navbar = () => {
           >
             <PiTextOutdentBold />
           </button>
-
-          <div className="navbar__brand">
-            <h1 className="navbar__logo">FlowBoard</h1>
-            <p className="navbar__subtitle">Agile project management</p>
-          </div>
         </div>
 
         <div className="navbar__right">
           <UserMenu profile={profile} />
         </div>
+
       </div>
     </nav>
   );

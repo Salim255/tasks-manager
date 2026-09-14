@@ -11,5 +11,6 @@ export const Dashboard = ({ children }:{children: React.ReactNode}) => {
         dispatch(fetchDashboardOverviewHttp());
     }, [dispatch]);
     
+    // TODO: Add loading state for dashboard overview and projects
     return  children;
 }

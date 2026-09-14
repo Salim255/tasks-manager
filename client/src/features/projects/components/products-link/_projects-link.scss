@@ -1,13 +1,23 @@
 /* ============================================
    PROJECT LINKS
    Secondary workspace navigation
-   Quiet hierarchy — rich detail
+
+   Soft tiles
+   Generous spacing
+   Quiet hierarchy
 ============================================ */
 
 .projects-item {
   position: relative;
 
   list-style: none;
+
+  /* Give every project its own breathing room */
+  margin-bottom: var(--space-3);
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 
 
   /* ==========================================
@@ -18,28 +28,48 @@
     position: relative;
 
     display: grid;
-    grid-template-columns: 2rem minmax(0, 1fr);
+    grid-template-columns: 2.25rem minmax(0, 1fr);
 
     align-items: center;
 
     width: 100%;
-    min-height: 3.5rem;
+    min-height: 4rem;
 
     column-gap: var(--space-3);
 
     padding:
-      var(--space-2)
-      var(--space-3);
+      var(--space-3)
+      var(--space-4);
 
     color: var(--grey-500);
 
-    border-radius: var(--radius-sm);
+    background-color: var(--surface);
+
+    /*
+     * Very soft definition.
+     * The border should be felt rather than noticed.
+     */
+    border: 1px solid var(  --grey-200);
+
+    border-radius: var(--radius-md);
 
     text-decoration: none;
+
+    /*
+     * Soft layered elevation.
+     *
+     * Less pronounced than the primary navigation.
+     */
+    
+    box-shadow:
+        0 2px 4px rgb(15 23 42 / 4%);
+      
 
     transition:
       color var(--transition-fast),
       background-color var(--transition-fast),
+      border-color var(--transition-fast),
+      box-shadow var(--transition-fast),
       transform var(--transition-fast);
 
 
@@ -48,20 +78,24 @@
     ======================================== */
 
     .projects-item__badge {
-      position: relative;
-
       display: flex;
       align-items: center;
       justify-content: center;
 
-      width: 2rem;
-      height: 2rem;
+      width: 2.25rem;
+      height: 2.25rem;
+
+      flex-shrink: 0;
 
       color: var(--grey-400);
 
+      background-color: var(--grey-50);
+
+      border-radius: var(--radius-sm);
+
       transition:
         color var(--transition-fast),
-        transform var(--transition-fast);
+        background-color var(--transition-fast);
     }
 
 
@@ -75,7 +109,7 @@
 
       min-width: 0;
 
-      gap: .3rem;
+      gap: .35rem;
     }
 
 
@@ -88,12 +122,12 @@
 
       color: var(--grey-500);
 
-      font-size: var(--text-base);
+      font-size: var(--text-md);
       font-weight: var(--font-medium);
 
       line-height: 1.25;
 
-      letter-spacing: -.01em;
+      letter-spacing: .05rem;
 
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -128,7 +162,8 @@
       text-transform: uppercase;
 
       transition:
-        color var(--transition-fast);
+        color var(--transition-fast),
+        font-weight var(--transition-fast);
     }
 
 
@@ -137,24 +172,25 @@
     ======================================== */
 
     &:hover {
+      color: var(--grey-500);
 
+      background-color: var(--surface);
 
-      background-color: var(--grey-50);
+      border-color: var(--grey-200);
 
-      transform: translateX(.125rem);
+      transform: translateY(-.0625rem);
 
+    
 
       .projects-item__badge {
-        color: var(--grey-500);
+        color: var(--primary-500);
 
-        transform: scale(1.05);
+        background-color: var(--primary-50);
       }
-
 
       .projects-item__name {
-        color: var(--grey-600);
+        color: var(--grey-500);
       }
-
 
       .projects-item__key {
         color: var(--grey-500);
@@ -167,44 +203,24 @@
     ======================================== */
 
     &--active {
+      color: var(--grey-500);
 
+      background-color: var(--surface);
 
-      //background-color: var(--surface-secondary);
+      border-color: var(--primary-200);
 
       transform: none;
 
-
-      /* --------------------------------------
-         Active signal
-      -------------------------------------- */
-
-      &::before {
-        content: '';
-
-        position: absolute;
-
-        left: -.75rem;
-        top: 50%;
-
-        width: .1875rem;
-        height: 1.75rem;
-
-        background-color: var(--primary-400);
-
-        border-radius: var(--radius-full);
-
-        transform: translateY(-50%);
-      }
-
+ 
 
       /* --------------------------------------
          Project mark
       -------------------------------------- */
 
       .projects-item__badge {
-        color: var(--primary-400);
+        color: var(--primary-600);
 
-        transform: none;
+        background-color: var(--primary-50);
       }
 
 
@@ -223,7 +239,7 @@
       -------------------------------------- */
 
       .projects-item__key {
-        color: var(--primary-400);
+        color: var(--primary-500);
 
         font-weight: var(--font-semibold);
 
@@ -231,14 +247,26 @@
       }
 
 
+      /* --------------------------------------
+         Active hover
+      -------------------------------------- */
+
       &:hover {
-        background-color: var(--surface-secondary);
+        background-color: var(--surface);
+
+        border-color: var(--primary-200);
 
         transform: none;
 
+        box-shadow:
+          0 1px 3px rgb(15 23 42 / 4%),
+          0 5px 12px rgb(37 99 235 / 6%),
+          0 12px 24px rgb(37 99 235 / 4%);
 
         .projects-item__badge {
-          transform: none;
+          color: var(--primary-600);
+
+          background-color: var(--primary-50);
         }
       }
     }
@@ -253,7 +281,6 @@
     font-size: var(--text-base);
 
     transition:
-      color var(--transition-fast),
-      transform var(--transition-fast);
+      color var(--transition-fast);
   }
 }

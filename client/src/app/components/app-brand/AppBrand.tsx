@@ -13,15 +13,21 @@ export const AppBrand = () => {
                 </div>
 
                 <div className="app-brand__content">
-                    <div className="app-brand__name">
-                        <span>Flow</span>
-                        <span className="app-brand__name-accent">Board</span>
-                    </div>
 
+                    {/* Eyebrow */}
                     <div className="app-brand__meta">
                         <span className="app-brand__meta-dot" />
-                        <span>Workspace platform</span>
+                        <span>Project workspace</span>
                     </div>
+
+                    {/* Brand name */}
+                    <div className="app-brand__name">
+                        <span>Flow</span>
+                        <span className="app-brand__name-accent">
+                            Board
+                        </span>
+                    </div>
+
                 </div>
 
             </div>
