@@ -1,219 +1,197 @@
 /* ============================================
-   NAVIGATION LINKS
+   NAVIGATION
+   Clean modern task-manager navigation
 ============================================ */
 
 .nav-links {
-
   display: flex;
-
   flex-direction: column;
 
-  gap: var(--space-1);
-
-  padding: var(--space-4) 0;
-
-  padding-left: 4rem;
-  min-height: 0;
+  width: 100%;
   height: 100%;
-  /* ============================================
-     NAV ITEM
-  ============================================ */
+  min-height: 0;
+
+  padding: var(--space-5) var(--space-4);
+
+  background: var(--surface);
+
+  gap: var(--space-2);
+  /* ==========================================
+     NAVIGATION ITEM
+  ========================================== */
 
   &__nav-link {
-
     position: relative;
 
     display: flex;
-
     align-items: center;
+
+    min-height: 3.75rem;
 
     gap: var(--space-4);
 
+    padding:
+      0
+      var(--space-5);
 
-    height: 5.4rem;
+    color: var(--grey-500);
 
+    border: 1px solid transparent;
+    border-radius: var(--radius-md);
 
-    padding: 0 var(--space-3);
-
-    padding-left: var(--space-5);
-   
-    color: var(--grey-700);
-
-    text-transform: uppercase;
-    text-decoration: none;
-
-
-    font-size: var(--text-base);
-
+    font-size: var(--text-lg);
     font-weight: var(--font-medium);
 
-    letter-spacing: 0;
-
+    text-decoration: none;
 
     transition:
-
-      background-color var(--transition-fast),
-
       color var(--transition-fast),
-
+      background-color var(--transition-fast),
+      border-color var(--transition-fast),
       transform var(--transition-fast);
 
 
+    /* ========================================
+       ICON
+    ======================================== */
 
-    /* subtle active background */
+    .icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-    &::before {
+      width: 1.625rem;
+      height: 1.625rem;
 
-      content: "";
+      flex-shrink: 0;
 
-      position: absolute;
+      color: var(--grey-400);
 
-      inset: .4rem 0;
-
-
-      border-radius: inherit;
-
-
-      background:
-        transparent;
-
-
-      z-index: -1;
-
+      font-size: var(--text-2xl);
 
       transition:
-        background-color var(--transition-fast);
-
+        color var(--transition-fast),
+        transform var(--transition-fast);
     }
 
 
-
+    /* ========================================
+       HOVER
+    ======================================== */
 
     &:hover {
+      color: var(--grey-600);
 
-      color: var(--text-primary);
+      background-color: var(--surface-hover);
 
+      border-color: var(--border-color);
 
-      background: var(--surface-secondary);
+      transform: translateX(.125rem);
 
       .icon {
-        color: var(--primary-500);
+        color: var(--grey-500);
+
+        transform: scale(1.04);
       }
     }
 
 
-    /* ============================================
-       ICON
-    ============================================ */
-
-    .icon {
-
-      display:flex;
-
-      align-items:center;
-
-      justify-content:center;
-
-
-      flex-shrink:0;
-
-      color: var(--text-muted);
-
-
-      font-size: var(--text-2xl);
-      transition: color var(--transition-fast);
-
-    }
-
-    /* ============================================
+    /* ========================================
        ACTIVE
-    ============================================ */
+    ======================================== */
+
     &--active {
-      color: var(--primary-700);
+      color: var(--grey-600);
+
+      background-color: var(--surface-secondary);
+
+      border-color: var(--border-color);
 
       font-weight: var(--font-semibold);
 
-      background:
-        color-mix(
-          in srgb,
-          var(--primary-500) 10%,
-          transparent
-        );
-
-
-
       .icon {
-
-        color:
-          var(--primary-500);
-
+        color: var(--primary-400);
       }
-
 
 
       &:hover {
+        background-color: var(--surface-hover);
 
-        background:
-          color-mix(
-            in srgb,
-            var(--primary-500) 14%,
-            transparent
-          );
+        transform: none;
 
+        .icon {
+          color: var(--primary-500);
+
+          transform: none;
+        }
       }
-
-
     }
-
-
   }
 
 
-
-
-  /* ============================================
+  /* ==========================================
      PROJECT TREE
-  ============================================ */
+  ========================================== */
+
   &__projects {
-    display:flex;
-    flex-direction:column;
+    display: flex;
+    flex-direction: column;
+
+    min-height: 0;
+    flex: 1;
+
+    gap: var(--space-2);
+
     overflow-y: auto;
-    flex: .7;
-    gap: var(--space-3);
 
-    margin: var(--space-3) 0 0 var(--space-5);
+    margin-top: var(--space-3);
+    margin-left: var(--space-5);
 
-    padding-left: var(--space-4);
+    padding:
+      var(--space-3)
+      0
+      var(--space-5)
+      var(--space-5);
 
-    border-left: 1px solid var(--border-default);
+    border-left: 1px solid var(--grey-200);
 
-  
-    opacity:1;
+    scrollbar-width: thin;
+
+    opacity: 1;
 
     transition:
-
-      max-height var(--transition-normal),
-
       opacity var(--transition-normal),
-
-      margin var(--transition-normal);
-
+      max-height var(--transition-normal),
+      margin var(--transition-normal),
+      padding var(--transition-normal);
   }
 
 
+  /* ==========================================
+     PROJECT TREE — ACTIVE
+  ========================================== */
 
+  &__projects--active {
+    opacity: 1;
+  }
+
+
+  /* ==========================================
+     PROJECT TREE — COLLAPSED
+  ========================================== */
 
   &__projects--collapsed {
+    flex: 0;
 
+    max-height: 0;
 
-    max-height:0;
+    margin-top: 0;
 
-    opacity:0;
+    padding-top: 0;
+    padding-bottom: 0;
 
-    margin-top:0;
+    opacity: 0;
 
-
+    overflow: hidden;
   }
-
-
 }
