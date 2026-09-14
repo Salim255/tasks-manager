@@ -1,0 +1,111 @@
+/* ============================================
+   PROJECT NAVIGATION
+============================================ */
+
+.project-navigation {
+  display: flex;
+  align-items: center;
+
+  gap: var(--space-1);
+
+  min-width: 0;
+
+  overflow-x: auto;
+
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* ============================================
+     NAV LINK
+  ============================================ */
+
+  &__link {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    flex-shrink: 0;
+
+    min-height: 4.6rem;
+
+    gap: var(--space-2);
+
+    padding: 0 var(--space-4);
+
+    color: var(--text-secondary);
+
+    font-size: var(--text-base);
+    font-weight: var(--font-medium);
+
+    line-height: 1;
+
+    text-decoration: none;
+
+    transition:
+      color var(--transition-fast),
+      background-color var(--transition-fast);
+
+    &:hover {
+      color: var(--text-primary);
+    }
+
+    /* ============================================
+       ACTIVE
+    ============================================ */
+
+    &--active {
+      color: var(--primary-600);
+
+      font-weight: var(--font-semibold);
+
+      &::after {
+        content: "";
+
+        position: absolute;
+
+        left: var(--space-4);
+        right: var(--space-4);
+        bottom: 0;
+
+        height: .2rem;
+
+        background: var(--primary-600);
+
+        border-radius: var(--radius-full);
+      }
+    }
+  }
+
+  /* ============================================
+     ICON
+  ============================================ */
+
+  &__link-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: var(--text-muted);
+
+    font-size: var(--text-lg);
+
+    transition: color var(--transition-fast);
+  }
+
+  &__link:hover &__link-icon,
+  &__link--active &__link-icon {
+    color: var(--primary-600);
+  }
+
+  /* ============================================
+     TEXT
+  ============================================ */
+
+  &__link-text {
+    white-space: nowrap;
+  }
+}

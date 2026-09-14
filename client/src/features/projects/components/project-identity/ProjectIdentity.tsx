@@ -1,3 +1,4 @@
+import "./_project-identity.scss";
 export const ProjectIdentity = ({
   projectKey,
   projectName
@@ -5,11 +6,13 @@ export const ProjectIdentity = ({
   projectKey?: string;
   projectName?: string;
 }) => (
-  <div className="project-header__identity">
-  
-    <h2 className="project-header__title u-mt-sm">
+  <div className="project-identity">
+    <h2 className="project-identity__title">
       {projectName ?? "Project workspace"}
     </h2>
-    <span className="project-header__eyebrow">{projectKey}</span>
+
+    <span className="project-identity__eyebrow">
+      {projectKey}
+    </span>
   </div>
 );
