@@ -3,7 +3,7 @@ import { CreateMemberDto } from '../dto/member.dto';
 
 import { MEMBER_REPOSITORY } from 'src/common/constants/constants';
 import { Repository } from 'typeorm';
-import { Member } from '../entity/member.entity';
+import { Member } from '../member.entity';
 
 export class MemberService {
   private logger = new Logger(MemberService.name);

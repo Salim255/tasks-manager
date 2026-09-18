@@ -11,15 +11,15 @@ import {
   FindOptionsWhere,
   Repository,
 } from 'typeorm';
-import { Project } from '../entity/project.entity';
+import { Project } from '../project.entity';
 import { CreateProjectDto, ProjectDto, ProjectOwnerDto, ProjectStatus } from '../dto/project.dto';
-import { User } from 'src/modules/user/entity/user.entity';
+import { User } from 'src/modules/user/user.entity';
 import { DtoMapper } from 'src/common/utils/dtoMapper';
 import { TableRelationBuilder } from 'src/common/utils/tableRelationBuilder';
 import { sortByDate } from 'src/common/utils/sort.utils';
-import { Task } from 'src/modules/task/entity/task.entity';
+import { Task } from 'src/modules/task/task.entity';
 import { DashboardOverviewDto, NeedsAttentionDto, ProjectsOverviewDto, ProjectSprintOverviewDto, ProjectTasksOverviewDto, RecentProjectDto, TasksOverviewDto } from '../dto/dashboard-overview.dto';
-import { Sprint } from 'src/modules/sprint/entity/sprint.entity';
+import { Sprint } from '../../sprint/sprint.entity';
 import { DashboardOverviewMapper } from 'src/common/utils/dashboardOverviewMapper';
 
 @Injectable()

@@ -3,7 +3,7 @@ import {
   PROFILE_REPOSITORY,
 } from 'src/common/constants/constants';
 import { DataSource } from 'typeorm';
-import { Profile } from '../entity/profile.entity';
+import { Profile } from './profile.entity';
 
 export const ProfileRepository = {
   provide: PROFILE_REPOSITORY,

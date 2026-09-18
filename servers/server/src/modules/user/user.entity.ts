@@ -9,11 +9,12 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-import { Profile } from 'src/modules/profile/entity/profile.entity';
-import { Task } from 'src/modules/task/entity/task.entity';
-import { Sprint } from 'src/modules/sprint/entity/sprint.entity';
-import { Project } from 'src/modules/project/entity/project.entity';
-import { Member } from 'src/modules/member/entity/member.entity';
+import { Profile } from 'src/modules/profile/profile.entity';
+import { Task } from 'src/modules/task/task.entity';
+
+import { Project } from 'src/modules/project/project.entity';
+import { Member } from 'src/modules/member/member.entity';
+import { Sprint } from '../sprint/sprint.entity';
 
 export enum UserRole {
   USER = 'user',

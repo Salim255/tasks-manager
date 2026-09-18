@@ -10,11 +10,11 @@ import {
   OneToMany,
 } from 'typeorm';
 
-import { ProjectStatus } from '../dto/project.dto';
-import { User } from 'src/modules/user/entity/user.entity';
-import { Task } from 'src/modules/task/entity/task.entity';
-import { Sprint } from 'src/modules/sprint/entity/sprint.entity';
-import { Member } from 'src/modules/member/entity/member.entity';
+import { ProjectStatus } from './dto/project.dto';
+import { User } from 'src/modules/user/user.entity';
+import { Task } from 'src/modules/task/task.entity';
+import { Sprint } from '../sprint/sprint.entity';
+import { Member } from 'src/modules/member/member.entity';
 
 @Entity('projects')
 @Unique(["ownerId", "name"])

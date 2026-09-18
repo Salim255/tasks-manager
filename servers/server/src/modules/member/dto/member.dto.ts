@@ -1,7 +1,7 @@
 export type MemberRole = 'admin' | 'member';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum, IsString, IsNotEmpty, IsEmail } from 'class-validator';
-import { Member } from '../entity/member.entity';
+import { Member } from '../member.entity';
 import { ApiResponseData } from 'src/common/interfaces/shared.interface';
 
 export enum ProjectMemberRole {

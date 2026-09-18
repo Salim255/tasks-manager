@@ -1,4 +1,4 @@
-import { Project } from "src/modules/project/entity/project.entity";
+import { Project } from "src/modules/project/project.entity";
 import { FindOptionsRelations } from "typeorm";
 
 export class TableRelationBuilder {

@@ -10,11 +10,11 @@ import * as bcrypt from 'bcryptjs';
 import { LoginDto, RegisterDto, DemoLoginDto, DataDtoWithTokens } from '../dto/auth.dto';
 import { DATA_SOURCE, USER_REPOSITORY } from 'src/common/constants/constants';
 import { DataSource, Repository } from 'typeorm';
-import { User } from 'src/modules/user/entity/user.entity';
+import { User } from 'src/modules/user/user.entity';
 import { JwtTokenService } from './jwt.token.service';
 import { ConfigService } from '@nestjs/config';
 import { getEnvVar } from 'src/common/utils/utils';
-import { Profile } from 'src/modules/profile/entity/profile.entity';
+import { Profile } from 'src/modules/profile/profile.entity';
 
 @Injectable()
 export class AuthService {

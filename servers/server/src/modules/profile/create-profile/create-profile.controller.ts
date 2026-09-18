@@ -13,7 +13,7 @@ import {
 } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/modules/auth/guard/jwt-auth.guard';
 import { CreateProfileService } from './create-profile.service';
-import { Profile } from '../entity/profile.entity';
+import { Profile } from '../profile.entity';
 import { Request } from 'express';
 import { CreateProfileDto, CreateProfileResponse } from './create-profile.dto';
 

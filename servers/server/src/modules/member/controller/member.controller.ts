@@ -18,8 +18,8 @@ import { ApiErrorResponseDto } from 'src/common/interfaces/shared.interface';
 
 import { MemberService } from '../service/member.service';
 import { CreateMemberDto, CreateMemberResponse } from '../dto/member.dto';
-import { User } from 'src/modules/user/entity/user.entity';
-import { Member } from '../entity/member.entity';
+import { User } from 'src/modules/user/user.entity';
+import { Member } from '../member.entity';
 import { GetUserService } from 'src/modules/user/get-user/get-user.service';
 
 @ApiTags('Members')

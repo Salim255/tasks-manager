@@ -7,10 +7,10 @@ import {
   ManyToOne,
   OneToMany,
 } from 'typeorm';
-import type { SprintStatus } from '../dto/sprint.dto';
-import { Project } from 'src/modules/project/entity/project.entity';
-import { User } from 'src/modules/user/entity/user.entity';
-import { Task } from 'src/modules/task/entity/task.entity';
+import type { SprintStatus } from './dto/sprint.dto';
+import { Project } from 'src/modules/project/project.entity';
+import { User } from 'src/modules/user/user.entity';
+import { Task } from 'src/modules/task/task.entity';
 
 @Entity('sprints')
 export class Sprint {

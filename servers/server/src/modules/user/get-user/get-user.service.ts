@@ -1,7 +1,7 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { USER_REPOSITORY } from 'src/common/constants/constants';
 import { Repository } from 'typeorm';
-import { User } from '../entity/user.entity';
+import { User } from '../user.entity';
 
 @Injectable()
 export class GetUserService {

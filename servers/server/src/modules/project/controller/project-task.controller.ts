@@ -27,7 +27,7 @@ import {
 } from 'src/modules/task/dto/task.dto';
 
 import { TaskService } from 'src/modules/task/service/task.service';
-import { Task } from 'src/modules/task/entity/task.entity';
+import { Task } from 'src/modules/task/task.entity';
 import { Request } from 'express';
 
 @ApiTags('Projects')

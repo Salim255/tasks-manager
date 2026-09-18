@@ -7,12 +7,12 @@ import {
 } from '@nestjs/common';
 import { DATA_SOURCE, TASK_REPOSITORY } from 'src/common/constants/constants';
 import { DataSource, Repository } from 'typeorm';
-import { Task } from '../entity/task.entity';
+import { Task } from '../task.entity';
 import { CreateTaskDto, TaskType, UpdateTaskDto } from '../dto/task.dto';
 import { quoteIfNeeded } from 'src/common/utils/utils';
-import { Project } from 'src/modules/project/entity/project.entity';
-import { Sprint } from 'src/modules/sprint/entity/sprint.entity';
-import { User } from 'src/modules/user/entity/user.entity';
+import { Project } from 'src/modules/project/project.entity';
+import { User } from 'src/modules/user/user.entity';
+import { Sprint } from 'src/modules/sprint/sprint.entity';
 
 @Injectable()
 export class TaskService {

@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Project } from '../entity/project.entity';
+import { Project } from '../project.entity';
 import { IsOptional, IsString, IsNotEmpty, IsUppercase, Length } from 'class-validator';
-import { Profile } from 'src/modules/profile/entity/profile.entity';
+import { Profile } from 'src/modules/profile/profile.entity';
 import { ApiResponseData } from 'src/common/interfaces/shared.interface';
 import { TaskDto } from 'src/modules/task/dto/task.dto';
 import { SprintDto } from 'src/modules/sprint/dto/sprint.dto';

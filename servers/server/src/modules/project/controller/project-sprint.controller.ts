@@ -22,7 +22,7 @@ import {
   SprintsListResponseDto,
 } from 'src/modules/sprint/dto/sprint.dto';
 import { SprintService } from 'src/modules/sprint/service/sprint.service';
-import { Sprint } from 'src/modules/sprint/entity/sprint.entity';
+import { Sprint } from '../../sprint/sprint.entity';
 import { Request } from 'express';
 
 @ApiTags('Projects')

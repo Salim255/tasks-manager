@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { CreateProfileService } from './create-profile/create-profile.service';
-import { ProfileRepository } from './repository/profile.repository';
+import { ProfileRepository } from './profile.repository';
 import { DatabaseModule } from 'src/database/database.module';
 import { CreateProfileController } from './create-profile/create-profile.controller';
 import { AuthModule } from '../auth/auth.module';

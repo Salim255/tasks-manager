@@ -1,10 +1,10 @@
-import { Member } from "src/modules/member/entity/member.entity";
+import { Member } from "src/modules/member/member.entity";
 import { ProjectMemberDto, ProjectProfileDto } from "src/modules/project/dto/project.dto";
 import { SprintCreatorDto, SprintDto } from "src/modules/sprint/dto/sprint.dto";
-import { Sprint } from "src/modules/sprint/entity/sprint.entity";
+import { Sprint } from "../../modules/sprint/sprint.entity";
 import { TaskDto, TaskUserDto } from "src/modules/task/dto/task.dto";
-import { Task } from "src/modules/task/entity/task.entity";
-import { User } from "src/modules/user/entity/user.entity";
+import { Task } from "src/modules/task/task.entity";
+import { User } from "src/modules/user/user.entity";
 
 export class DtoMapper {
     static projectTaskMapper = (task: Task): TaskDto => {

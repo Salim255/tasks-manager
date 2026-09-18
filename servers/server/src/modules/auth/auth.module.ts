@@ -3,13 +3,13 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthController } from './controller/auth.controller';
 import { JwtTokenService } from './service/jwt.token.service';
-import { UserRepository } from '../user/repository/user.repository';
+import { UserRepository } from '../user/user.repository';
 import { DatabaseModule } from 'src/database/database.module';
 import { AuthService } from './service/auth.service';
 import { JwtAuthGuard } from './guard/jwt-auth.guard';
 import { TokenCookieService } from './service/token.cookie.service';
 import { getEnvVar } from 'src/common/utils/utils';
-import { ProfileRepository } from '../profile/repository/profile.repository';
+import { ProfileRepository } from '../profile/profile.repository';
 
 @Module({
   controllers: [AuthController],

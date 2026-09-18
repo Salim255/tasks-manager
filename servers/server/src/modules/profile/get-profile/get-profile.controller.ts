@@ -12,7 +12,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/modules/auth/guard/jwt-auth.guard';
-import { Profile } from '../entity/profile.entity';
+import { Profile } from '../profile.entity';
 import { Request } from 'express';
 import { GetProfileService } from './get-profile.service';
 import { GetProfileResponse } from './get-profile.dto';

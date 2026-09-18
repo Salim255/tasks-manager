@@ -3,7 +3,7 @@ import {
   PROJECT_REPOSITORY,
 } from 'src/common/constants/constants';
 import { DataSource } from 'typeorm';
-import { Project } from '../entity/project.entity';
+import { Project } from './project.entity';
 
 export const ProjectRepository = {
   provide: PROJECT_REPOSITORY,

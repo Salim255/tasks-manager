@@ -8,9 +8,10 @@ import {
   JoinColumn,
   Index,
 } from 'typeorm';
-import { Project } from 'src/modules/project/entity/project.entity';
-import { User } from 'src/modules/user/entity/user.entity';
-import { Sprint } from 'src/modules/sprint/entity/sprint.entity';
+import { Project } from 'src/modules/project/project.entity';
+import { User } from 'src/modules/user/user.entity';
+import { Sprint } from '../sprint/sprint.entity';
+
 
 export type TaskStatus = 'todo' | 'in_progress' | 'done';
 export type TaskPriority = 'low' | 'medium' | 'high';

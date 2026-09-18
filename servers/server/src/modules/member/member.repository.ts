@@ -1,6 +1,6 @@
 import { DATA_SOURCE, MEMBER_REPOSITORY } from 'src/common/constants/constants';
 import { DataSource } from 'typeorm';
-import { Member } from '../entity/member.entity';
+import { Member } from './member.entity';
 
 export const MemberRepository = {
   provide: MEMBER_REPOSITORY,

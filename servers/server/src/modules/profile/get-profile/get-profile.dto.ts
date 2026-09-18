@@ -1,6 +1,6 @@
 import { ApiResponseData } from "src/common/interfaces/shared.interface";
     
-import { Profile } from "../entity/profile.entity";
+import { Profile } from "../profile.entity";
 import { ApiProperty } from "@nestjs/swagger/dist/decorators/api-property.decorator";
 
 export class UserProfile {

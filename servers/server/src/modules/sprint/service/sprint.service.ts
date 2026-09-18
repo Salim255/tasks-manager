@@ -7,10 +7,10 @@ import {
 } from '@nestjs/common';
 import { DATA_SOURCE, SPRINT_REPOSITORY } from 'src/common/constants/constants';
 import { DataSource, Repository } from 'typeorm';
-import { Sprint } from '../entity/sprint.entity';
-import { Task } from 'src/modules/task/entity/task.entity';
+import { Sprint } from '../sprint.entity';
+import { Task } from 'src/modules/task/task.entity';
 import { UpdateSprintDto } from '../dto/sprint.dto';
-import { Project } from 'src/modules/project/entity/project.entity';
+import { Project } from 'src/modules/project/project.entity';
 
 @Injectable()
 export class SprintService {

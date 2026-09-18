@@ -24,7 +24,7 @@ import {
   UpdateTaskSprintDto,
   UpdateTaskSprintResponseDto,
 } from '../dto/task.dto';
-import { Task } from '../entity/task.entity';
+import { Task } from '../task.entity';
 import { ApiErrorResponseDto } from 'src/common/interfaces/shared.interface';
 
 @ApiTags('Tasks')
