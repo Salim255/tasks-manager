@@ -12,12 +12,10 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/modules/auth/guard/jwt-auth.guard';
-import {
-  GetProfileResponse,
-} from '../dto/profile.dto';
 import { Profile } from '../entity/profile.entity';
 import { Request } from 'express';
 import { GetProfileService } from './get-profile.service';
+import { GetProfileResponse } from './get-profile.dto';
 
 @ApiTags('Projects')
 @Controller('Profiles')

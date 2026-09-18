@@ -1,6 +1,10 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { MinLength } from "class-validator/types/decorator/string/MinLength";
-import { IsString } from "class-validator/types/decorator/typechecker/IsString";
+import { ApiResponseData } from "src/common/interfaces/shared.interface";
+import { IsString, MinLength } from 'class-validator';
+import { UserProfile } from "../get-profile/get-profile.dto";
+
+
+export class CreateProfileResponse extends ApiResponseData<UserProfile> {}
 
 export class CreateProfileDto {
   @ApiProperty({

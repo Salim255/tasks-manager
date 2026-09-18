@@ -12,13 +12,10 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/modules/auth/guard/jwt-auth.guard';
-import {
-  CreateProfileDto,
-  CreateProfileResponse,
-} from '../dto/profile.dto';
 import { CreateProfileService } from './create-profile.service';
 import { Profile } from '../entity/profile.entity';
 import { Request } from 'express';
+import { CreateProfileDto, CreateProfileResponse } from './create-profile.dto';
 
 @ApiTags('Projects')
 @Controller('Profiles')
@@ -53,7 +50,8 @@ export class CreateProfileController {
     description: 'Internal server error.',
   })
   async createProfile(
-    @Body() dto: CreateProfileDto,
+    @Body() dto: CreateProfileDto
+    ,
     @Req()
     req: Request & { user: { id: string }; refresh_token: { token: string } },
   ): Promise<CreateProfileResponse> {
