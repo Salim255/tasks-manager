@@ -7,12 +7,12 @@ import { CreateProfileDto } from '../dto/profile.dto';
 @Injectable()
 export class CreateProfileService {
   private logger = new Logger(CreateProfileService.name);
-  
+
   constructor(
     @Inject(PROFILE_REPOSITORY) private profileRepo: Repository<Profile>,
   ) {}
 
-  async create(
+  async create_profile(
     payload: CreateProfileDto & { userId: string },
   ): Promise<Profile> {
     try {

@@ -2,7 +2,6 @@ import { Inject, Injectable, Logger } from '@nestjs/common';
 import { PROFILE_REPOSITORY } from 'src/common/constants/constants';
 import { Repository } from 'typeorm';
 import { Profile } from '../entity/profile.entity';
-import { CreateProfileDto } from '../dto/profile.dto';
 
 @Injectable()
 export class GetProfileService {

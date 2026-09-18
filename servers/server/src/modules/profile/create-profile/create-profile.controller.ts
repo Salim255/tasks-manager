@@ -1,8 +1,6 @@
 import {
-  BadRequestException,
   Body,
   Controller,
-  Get,
   Post,
   Req,
   UseGuards,
@@ -62,11 +60,14 @@ export class CreateProfileController {
     const { id: userId } = req.user;
     const { lastName, firstName } = dto;
   
-    const profile: Profile = await this.createProfileService.create({
-      lastName,
-      firstName,
-      userId,
-    });
+    const profile: Profile = await this.createProfileService
+      .create_profile(
+        {
+          lastName: lastName,
+          firstName: firstName,
+          userId: userId,
+        }
+    );
 
     return {
       status: 'success',

@@ -5,7 +5,7 @@ import { ApiResponseData } from 'src/common/interfaces/shared.interface';
 
 export class UserProfile {
   @ApiProperty({ type: Profile })
-  profile: Profile;
+  profile?: Profile;
 }
 
 export class CreateProfileResponse extends ApiResponseData<UserProfile> {}
@@ -19,7 +19,7 @@ export class CreateProfileDto {
   })
   @IsString()
   @MinLength(2)
-  firstName: string;
+  firstName!: string;
 
   @ApiProperty({
     example: 'Hassan',
@@ -27,5 +27,5 @@ export class CreateProfileDto {
   })
   @IsString()
   @MinLength(2)
-  lastName: string;
+  lastName!: string;
 }
