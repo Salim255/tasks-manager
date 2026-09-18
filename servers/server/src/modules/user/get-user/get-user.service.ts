@@ -4,8 +4,8 @@ import { Repository } from 'typeorm';
 import { User } from '../entity/user.entity';
 
 @Injectable()
-export class UserService {
-  private logger = new Logger(UserService.name);
+export class GetUserService {
+  private logger = new Logger(GetUserService.name);
   constructor(@Inject(USER_REPOSITORY) private userRepo: Repository<User>) {}
 
   async getUserByEmail(payload: { email: string }): Promise<User | null> {
@@ -23,7 +23,7 @@ export class UserService {
     }
   }
 
-  findById(id: string): Promise<User | null> {
+  getUserById({id}: { id: string }): Promise<User | null> {
     try {
       return this.userRepo.findOne({ where: { id } });
     } catch (error) {

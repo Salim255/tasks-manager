@@ -18,9 +18,9 @@ import { ApiErrorResponseDto } from 'src/common/interfaces/shared.interface';
 
 import { MemberService } from '../service/member.service';
 import { CreateMemberDto, CreateMemberResponse } from '../dto/member.dto';
-import { UserService } from 'src/modules/user/service/user.service';
 import { User } from 'src/modules/user/entity/user.entity';
 import { Member } from '../entity/member.entity';
+import { GetUserService } from 'src/modules/user/get-user/get-user.service';
 
 @ApiTags('Members')
 @Controller('members')
@@ -28,7 +28,7 @@ export class MemberController {
   private logger = new Logger(MemberController.name);
 
   constructor(
-    private userService: UserService,
+    private userService: GetUserService,
     private readonly memberService: MemberService,
   ) {}
 

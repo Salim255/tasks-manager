@@ -8,15 +8,14 @@ import {
 import { ApiOperation } from '@nestjs/swagger/dist/decorators/api-operation.decorator';
 import { ApiResponse } from '@nestjs/swagger/dist/decorators/api-response.decorator';
 import { JwtAuthGuard } from 'src/modules/auth/guard/jwt-auth.guard';
-import { MeResponseDto } from '../dto/user.dto';
 import { Request } from 'express';
-import { UserService } from '../service/user.service';
 import { ApiTags } from '@nestjs/swagger';
 import { GetMeService } from './get-me.service';
+import { MeResponseDto } from './get-me.dto';
 
 @ApiTags('Users')
 @Controller('users')
-export class GetMeUserController {
+export class GetMeController {
   constructor(private getMeService: GetMeService) {}
 
   @UseGuards(JwtAuthGuard)

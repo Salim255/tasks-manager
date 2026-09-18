@@ -8,12 +8,17 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { UserRole } from '../dto/user.dto';
+
 import { Profile } from 'src/modules/profile/entity/profile.entity';
 import { Task } from 'src/modules/task/entity/task.entity';
 import { Sprint } from 'src/modules/sprint/entity/sprint.entity';
 import { Project } from 'src/modules/project/entity/project.entity';
 import { Member } from 'src/modules/member/entity/member.entity';
+
+export enum UserRole {
+  USER = 'user',
+  ADMIN = 'admin',
+}
 
 @Entity('users')
 export class User {

@@ -1,16 +1,15 @@
-import { Inject, Injectable, Logger } from '@nestjs/common';
-import { USER_REPOSITORY } from 'src/common/constants/constants';
-import { Repository } from 'typeorm';
+import { Injectable, Logger } from '@nestjs/common';
 import { User } from '../entity/user.entity';
+import { GetUserService } from '../get-user/get-user.service';
 
 @Injectable()
 export class GetMeService {
   private logger = new Logger(GetMeService.name);
-  constructor(@Inject(USER_REPOSITORY) private userRepo: Repository<User>) {}
+  constructor(private getUserService: GetUserService) {}
 
-  getMe({userId}: { userId: string }): Promise<User | null> {
+  getMe({ userId }: { userId: string }): Promise<User | null> {
     try {
-      return this.userRepo.findOne({ where: { id: userId } });
+      return this.getUserService.getUserById({ id: userId });
     } catch (error) {
       this.logger.error('Error fetching user by ID', error);
       throw error;
